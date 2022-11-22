@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{1893
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechnoMarket.Services.Catalog", "Services\Catalog\TechnoMarket.Services.Catalog\TechnoMarket.Services.Catalog.csproj", "{38CB7E8E-1DE9-41A7-A9DB-E41C7E45ABB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechnoMarket.Shared", "Shared\TechnoMarket.Shared\TechnoMarket.Shared.csproj", "{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{38CB7E8E-1DE9-41A7-A9DB-E41C7E45ABB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38CB7E8E-1DE9-41A7-A9DB-E41C7E45ABB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38CB7E8E-1DE9-41A7-A9DB-E41C7E45ABB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -28,6 +34,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{18931B16-FF6F-4423-B5B1-63F5D986584B} = {EE5E7F20-72FB-4C1D-8FA7-A53DC2A68AAF}
 		{38CB7E8E-1DE9-41A7-A9DB-E41C7E45ABB1} = {18931B16-FF6F-4423-B5B1-63F5D986584B}
+		{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207} = {4FCA2686-FBE5-45DB-BAC7-5D35AD54255F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87D1FE37-EC68-4193-B007-C2AC167B9C62}
