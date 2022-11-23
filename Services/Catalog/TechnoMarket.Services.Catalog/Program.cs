@@ -8,7 +8,6 @@ builder.Services.Configure<CatalogDatabaseSettings>(builder.Configuration.GetSec
 builder.Services.AddSingleton<ICatalogDatabaseSettings>(sp =>
     sp.GetRequiredService<IOptions<CatalogDatabaseSettings>>().Value);
 
-
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
