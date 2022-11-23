@@ -13,6 +13,9 @@ builder.Services.AddSingleton<ICatalogDatabaseSettings>(sp =>
 //Database
 builder.Services.AddScoped<ICatalogContext, CatalogContext>();
 
+builder.Services.AddAutoMapper(typeof(Program));
+
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
