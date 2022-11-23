@@ -1,4 +1,6 @@
 using Microsoft.Extensions.Options;
+using TechnoMarket.Services.Catalog.Data;
+using TechnoMarket.Services.Catalog.Data.Interfaces;
 using TechnoMarket.Services.Catalog.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<CatalogDatabaseSettings>(builder.Configuration.GetSection(nameof(CatalogDatabaseSettings)));
 builder.Services.AddSingleton<ICatalogDatabaseSettings>(sp =>
     sp.GetRequiredService<IOptions<CatalogDatabaseSettings>>().Value);
+
+//Database
+builder.Services.AddScoped<ICatalogContext, CatalogContext>();
 
 builder.Services.AddControllers();
 
