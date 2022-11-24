@@ -10,7 +10,7 @@ namespace TechnoMarket.Services.Catalog.Mapping
         {
             CreateMap<Category,CategoryDto>().ReverseMap();
 
-            CreateMap<Feature, FeatureDto>().ReverseMap();
+            CreateMap<ProductFeature, FeatureDto>().ReverseMap();
 
             CreateMap<Product, ProductDto>()
                 .ForMember(p => p.ProductFeature,

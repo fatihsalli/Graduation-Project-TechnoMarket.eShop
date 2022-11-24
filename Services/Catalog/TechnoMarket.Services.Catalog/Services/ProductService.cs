@@ -22,18 +22,6 @@ namespace TechnoMarket.Services.Catalog.Services
         {
             var products=await _context.Products.Find(p=> true).ToListAsync();
 
-            if (products.Any())
-            {
-                foreach (var product in products)
-                {
-                    product.Category = await _context.Categories.Find(x => x.Id == product.CategoryId).SingleOrDefaultAsync();
-                }
-            }
-            else
-            {
-                products = new List<Product>();
-            }
-
             return CustomResponseDto<List<ProductDto>>.Success(200,_mapper.Map<List<ProductDto>>(products));
         }
 

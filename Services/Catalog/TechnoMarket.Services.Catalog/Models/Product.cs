@@ -10,10 +10,12 @@ namespace TechnoMarket.Services.Catalog.Models
         public string Id { get; set; }
         public string Name { get; set; }
 
+        [BsonRepresentation(BsonType.Int32)]
+        public int Stock { get; set; }
+
         [BsonRepresentation(BsonType.Decimal128)]
         public decimal Price { get; set; }
         public string Description { get; set; }
-        public string CustomerId { get; set; }
         public string ImageFile { get; set; }
 
         [BsonRepresentation(BsonType.DateTime)]
@@ -23,7 +25,7 @@ namespace TechnoMarket.Services.Catalog.Models
         public DateTime? UpdatedAt { get; set; }
 
         //Embedded Document Pattern
-        public Feature Feature { get; set; }
+        public ProductFeature Feature { get; set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string CategoryId { get; set; }

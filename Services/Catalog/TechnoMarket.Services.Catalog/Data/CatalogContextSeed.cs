@@ -27,7 +27,7 @@ namespace TechnoMarket.Services.Catalog.Data
                     CustomerId="bbb3a5ba-1288-4537-a868-e95a0d162139",
                     CreatedAt=DateTime.Now,
                     Description="16 gb ram i7 processor 17.3'inch",
-                    Feature=new Feature() {Color="black",Summary="last technology of notebook"},
+                    Feature=new ProductFeature() {Color="black",Summary="last technology of notebook"},
                     Category=new Category(){Name="Notebook"}                  
                 }
             };
