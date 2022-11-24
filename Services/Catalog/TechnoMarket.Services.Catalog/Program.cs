@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Options;
 using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
+using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Services;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Services.Catalog.Settings;
@@ -20,16 +21,24 @@ builder.Services.AddAutoMapper(typeof(Program));
 //DI Container Scope
 builder.Services.AddScoped<IProductService, ProductService>();
 
-//CategorySeed Data
-
-
-
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+//CategorySeed Data
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var productService = serviceProvider.GetRequiredService<IProductService>();
+
+    if (!productService.GetAllAsync().Result.Data.Any())
+    {
+        productService.CreateAsync(new ProductCreateDto { CustomerId = "test1234", Description = "Test", Feature = new FeatureDto { Color = "black", Summary = "summary" }, Name = "Asus Notebook", Price = 100 });
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {
