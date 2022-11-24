@@ -34,7 +34,5 @@ namespace TechnoMarket.Services.Catalog.Models
         [BsonIgnore]
         public Category Category { get; set; }
 
-
-
     }
 }

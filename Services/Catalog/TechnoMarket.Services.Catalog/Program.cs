@@ -20,6 +20,7 @@ builder.Services.AddScoped<ICatalogContext, CatalogContext>();
 builder.Services.AddAutoMapper(typeof(Program));
 //DI Container Scope
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddControllers();
 
