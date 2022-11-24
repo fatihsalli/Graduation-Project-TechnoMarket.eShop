@@ -28,7 +28,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-//CategorySeed Data
+//CategorySeed Data => Kontrol edilecek.
 using (var scope = app.Services.CreateScope())
 {
     var serviceProvider = scope.ServiceProvider;
