@@ -20,6 +20,10 @@ builder.Services.AddAutoMapper(typeof(Program));
 //DI Container Scope
 builder.Services.AddScoped<IProductService, ProductService>();
 
+//CategorySeed Data
+
+
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

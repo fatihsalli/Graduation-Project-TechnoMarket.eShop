@@ -5,7 +5,7 @@ namespace TechnoMarket.Services.Catalog.Data
 {
     public class CatalogContextSeed
     {
-        public static void SeedData(IMongoCollection<Product> productCollection,IMongoCollection<Category> categoryCollection)
+        public static void SeedData(IMongoCollection<Product> productCollection)
         {
             bool existProduct = productCollection.Find(p => true).Any();
 
@@ -21,7 +21,6 @@ namespace TechnoMarket.Services.Catalog.Data
             {
                 new Product()
                 {
-                    Id="398ca86b-de80-4687-81c0-c97a4302bf51",
                     Name="Asus Notebook i7",
                     Price=20000.00M,
                     ImageFile="product-1.jpeg",
@@ -29,8 +28,7 @@ namespace TechnoMarket.Services.Catalog.Data
                     CreatedAt=DateTime.Now,
                     Description="16 gb ram i7 processor 17.3'inch",
                     Feature=new Feature() {Color="black",Summary="last technology of notebook"},
-                    CategoryId="8da751b2-c299-4914-a9a4-03968614e157",
-                    Category=new Category(){Id="8da751b2-c299-4914-a9a4-03968614e157",Name="Notebook"}                  
+                    Category=new Category(){Name="Notebook"}                  
                 }
             };
         }
