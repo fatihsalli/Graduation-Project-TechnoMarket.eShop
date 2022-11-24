@@ -12,10 +12,11 @@ namespace TechnoMarket.Services.Catalog.Dtos
         public string Description { get; set; }
         public string CustomerId { get; set; }
         public string ImageFile { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
         public string ProductFeature { get; set; }
         public string CategoryId { get; set; }
         public CategoryDto Category { get; set; }
-
 
     }
 }

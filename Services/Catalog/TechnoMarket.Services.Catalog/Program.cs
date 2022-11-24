@@ -1,7 +1,10 @@
 using Microsoft.Extensions.Options;
 using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
+using TechnoMarket.Services.Catalog.Services;
+using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Services.Catalog.Settings;
+using TechnoMarket.Services.Catalog.Settings.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +15,10 @@ builder.Services.AddSingleton<ICatalogDatabaseSettings>(sp =>
 
 //Database
 builder.Services.AddScoped<ICatalogContext, CatalogContext>();
-
+//AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
-
+//DI Container Scope
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddControllers();
 

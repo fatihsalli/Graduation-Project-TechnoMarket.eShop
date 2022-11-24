@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
 using TechnoMarket.Services.Catalog.Models;
-using TechnoMarket.Services.Catalog.Settings;
+using TechnoMarket.Services.Catalog.Settings.Interfaces;
 
 namespace TechnoMarket.Services.Catalog.Data
 {

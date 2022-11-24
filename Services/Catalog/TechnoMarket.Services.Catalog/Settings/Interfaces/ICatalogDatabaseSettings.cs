@@ -1,4 +1,4 @@
-﻿namespace TechnoMarket.Services.Catalog.Settings
+﻿namespace TechnoMarket.Services.Catalog.Settings.Interfaces
 {
     //Options pattern için
     public interface ICatalogDatabaseSettings
