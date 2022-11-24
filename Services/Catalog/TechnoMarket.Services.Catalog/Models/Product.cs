@@ -20,7 +20,7 @@ namespace TechnoMarket.Services.Catalog.Models
         public DateTime CreatedAt { get; set; }
 
         [BsonRepresentation(BsonType.DateTime)]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         //Embedded Document Pattern
         public Feature Feature { get; set; }
