@@ -21,17 +21,22 @@ namespace TechnoMarket.Services.Catalog.Services
         public async Task<CustomResponseDto<List<ProductDto>>> GetAllAsync()
         {
             var products=await _context.Products.Find(p=> true).ToListAsync();
-
-            if (products.Any())
-            {
-                foreach (var product in products)
-                {
-                    product.Category = await _context.Categories.Find(x => x.Id == product.CategoryId).SingleOrDefaultAsync();
-                }
-            }
-
             return CustomResponseDto<List<ProductDto>>.Success(200,_mapper.Map<List<ProductDto>>(products));
         }
+
+        public async Task<CustomResponseDto<ProductDto>> GetByIdAsync(string id)
+        {
+            var product=await _context.Products.Find(x=> x.Id==id).SingleOrDefaultAsync();
+
+            if (product==null)
+            {
+                return CustomResponseDto<ProductDto>.Fail(404, $"Product ({id}) not found!");
+            }
+
+            return CustomResponseDto<ProductDto>.Success(200,_mapper.Map<ProductDto>(product));
+        }
+
+
 
         public async Task<CustomResponseDto<ProductCreateDto>> CreateAsync(ProductCreateDto productCreateDto)
         {

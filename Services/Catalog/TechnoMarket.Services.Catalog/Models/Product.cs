@@ -29,9 +29,6 @@ namespace TechnoMarket.Services.Catalog.Models
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string CategoryId { get; set; }
-
-        //Mongo.Db tarafında collectionlara yansıtırken göz ardı edip program içerisinde kendimiz kullanmak için tanımladık.
-        [BsonIgnore]
         public Category Category { get; set; }
 
     }
