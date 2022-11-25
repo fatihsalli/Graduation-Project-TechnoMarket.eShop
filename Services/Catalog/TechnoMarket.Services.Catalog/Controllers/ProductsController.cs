@@ -22,7 +22,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
             return CreateActionResult(response);
         }
 
-        [HttpGet("{id:length(24)}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
             var response=await _productService.GetByIdAsync(id);

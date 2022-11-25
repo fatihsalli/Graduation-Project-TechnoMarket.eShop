@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Options;
 using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
+using TechnoMarket.Services.Catalog.Middlewares;
 using TechnoMarket.Services.Catalog.Services;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Services.Catalog.Settings;
@@ -45,6 +46,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+//Custom middleware
+app.UseCustomException();
 
 app.UseAuthorization();
 

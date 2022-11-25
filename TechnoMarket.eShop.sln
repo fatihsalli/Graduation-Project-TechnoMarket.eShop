@@ -9,9 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{4FCA26
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{18931B16-FF6F-4423-B5B1-63F5D986584B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechnoMarket.Services.Catalog", "Services\Catalog\TechnoMarket.Services.Catalog\TechnoMarket.Services.Catalog.csproj", "{38CB7E8E-1DE9-41A7-A9DB-E41C7E45ABB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechnoMarket.Services.Catalog", "Services\Catalog\TechnoMarket.Services.Catalog\TechnoMarket.Services.Catalog.csproj", "{38CB7E8E-1DE9-41A7-A9DB-E41C7E45ABB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechnoMarket.Shared", "Shared\TechnoMarket.Shared\TechnoMarket.Shared.csproj", "{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechnoMarket.Shared", "Shared\TechnoMarket.Shared\TechnoMarket.Shared.csproj", "{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
