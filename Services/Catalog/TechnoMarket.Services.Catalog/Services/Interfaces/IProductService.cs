@@ -9,6 +9,6 @@ namespace TechnoMarket.Services.Catalog.Services.Interfaces
         public Task<CustomResponseDto<ProductDto>> GetByIdAsync(string id);
         public Task<CustomResponseDto<ProductCreateDto>> CreateAsync(ProductCreateDto productCreateDto);
         public Task<CustomResponseDto<NoContentDto>> UpdateAsync(ProductUpdateDto productUpdateDto);
-        public Task<CustomResponseDto<NoContentDto>> DeleteAsyn(string id);
+        public Task<CustomResponseDto<NoContentDto>> DeleteAsync(string id);
     }
 }

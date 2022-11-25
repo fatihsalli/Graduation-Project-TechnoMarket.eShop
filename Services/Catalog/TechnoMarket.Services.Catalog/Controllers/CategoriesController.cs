@@ -15,6 +15,13 @@ namespace TechnoMarket.Services.Catalog.Controllers
             _categoryService = categoryService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var response = await _categoryService.GetAllAsync();
+            return CreateActionResult(response);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(CategoryCreateDto categoryCreateDto)
         {

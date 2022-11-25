@@ -59,7 +59,7 @@ namespace TechnoMarket.Services.Catalog.Services
             return CustomResponseDto<NoContentDto>.Success(200);
         }
 
-        public async Task<CustomResponseDto<NoContentDto>> DeleteAsyn(string id)
+        public async Task<CustomResponseDto<NoContentDto>> DeleteAsync(string id)
         {
             var result = await _context.Products.DeleteOneAsync(x => x.Id == id);
 
