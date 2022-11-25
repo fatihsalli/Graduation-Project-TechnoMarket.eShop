@@ -36,8 +36,6 @@ namespace TechnoMarket.Services.Catalog.Services
             return CustomResponseDto<ProductDto>.Success(200,_mapper.Map<ProductDto>(product));
         }
 
-
-
         public async Task<CustomResponseDto<ProductCreateDto>> CreateAsync(ProductCreateDto productCreateDto)
         {
             var product = _mapper.Map<Product>(productCreateDto);
@@ -46,7 +44,20 @@ namespace TechnoMarket.Services.Catalog.Services
             return CustomResponseDto<ProductCreateDto>.Success(200,_mapper.Map<ProductCreateDto>(product));
         }
 
+        public async Task<CustomResponseDto<NoContentDto>> UpdateAsync(ProductUpdateDto productUpdateDto)
+        {
+            var product=_mapper.Map<Product>(productUpdateDto);
+            var result = await _context.Products.FindOneAndReplaceAsync(x => x.Id == productUpdateDto.Id, product);
 
+            if (result==null)
+            {
+                return CustomResponseDto<NoContentDto>.Fail(404, $"Course ({productUpdateDto.Id}) not found!");
+            }
+
+            //İşlem başarılı olma durumunda burada event göndereceğiz ileride!!! Eventual Consistency
+
+            return CustomResponseDto<NoContentDto>.Success(200);
+        }
 
 
 
