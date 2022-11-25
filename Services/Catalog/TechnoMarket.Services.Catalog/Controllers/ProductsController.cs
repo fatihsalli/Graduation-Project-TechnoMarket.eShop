@@ -22,6 +22,13 @@ namespace TechnoMarket.Services.Catalog.Controllers
             return CreateActionResult(response);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var response=await _productService.GetByIdAsync(id);
+            return CreateActionResult(response);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(ProductCreateDto productCreateDto)
         {
@@ -29,8 +36,19 @@ namespace TechnoMarket.Services.Catalog.Controllers
             return CreateActionResult(response);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Update(ProductUpdateDto productUpdateDto)
+        {
+            var response=await _productService.UpdateAsync(productUpdateDto);
+            return CreateActionResult(response);
+        }
 
-
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var response=await _productService.DeleteAsync(id);
+            return CreateActionResult(response);
+        }
 
     }
 }

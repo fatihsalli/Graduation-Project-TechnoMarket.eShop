@@ -36,27 +36,30 @@ namespace TechnoMarket.Services.Catalog.Services
             return CustomResponseDto<ProductDto>.Success(200, _mapper.Map<ProductDto>(product));
         }
 
-        public async Task<CustomResponseDto<ProductCreateDto>> CreateAsync(ProductCreateDto productCreateDto)
+        public async Task<CustomResponseDto<ProductDto>> CreateAsync(ProductCreateDto productCreateDto)
         {
-            var product = _mapper.Map<Product>(productCreateDto);
-            product.CreatedAt = DateTime.Now;
-            await _context.Products.InsertOneAsync(product);
-            return CustomResponseDto<ProductCreateDto>.Success(200, _mapper.Map<ProductCreateDto>(product));
+            var productEntity = _mapper.Map<Product>(productCreateDto);
+            productEntity.CreatedAt = DateTime.Now;
+            await _context.Products.InsertOneAsync(productEntity);
+            var productToReturn=_mapper.Map<ProductDto>(productEntity);
+            return CustomResponseDto<ProductDto>.Success(200, productToReturn);
         }
 
-        public async Task<CustomResponseDto<NoContentDto>> UpdateAsync(ProductUpdateDto productUpdateDto)
+        public async Task<CustomResponseDto<ProductDto>> UpdateAsync(ProductUpdateDto productUpdateDto)
         {
-            var product = _mapper.Map<Product>(productUpdateDto);
-            var result = await _context.Products.FindOneAndReplaceAsync(x => x.Id == productUpdateDto.Id, product);
+            var productEntity = _mapper.Map<Product>(productUpdateDto);
+            productEntity.UpdatedAt = DateTime.Now;
+            var result = await _context.Products.FindOneAndReplaceAsync(x => x.Id == productUpdateDto.Id, productEntity);
 
             if (result == null)
             {
-                return CustomResponseDto<NoContentDto>.Fail(404, $"Course ({productUpdateDto.Id}) not found!");
+                return CustomResponseDto<ProductDto>.Fail(404, $"Course ({productUpdateDto.Id}) not found!");
             }
 
             //İşlem başarılı olma durumunda burada event göndereceğiz ileride!!! Eventual Consistency
 
-            return CustomResponseDto<NoContentDto>.Success(200);
+            var productToReturn = _mapper.Map<ProductDto>(productEntity);
+            return CustomResponseDto<ProductDto>.Success(200,productToReturn);
         }
 
         public async Task<CustomResponseDto<NoContentDto>> DeleteAsync(string id)

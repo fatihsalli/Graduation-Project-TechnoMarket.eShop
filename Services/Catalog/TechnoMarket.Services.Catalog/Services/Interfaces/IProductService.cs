@@ -7,8 +7,11 @@ namespace TechnoMarket.Services.Catalog.Services.Interfaces
     {
         public Task<CustomResponseDto<List<ProductDto>>> GetAllAsync();
         public Task<CustomResponseDto<ProductDto>> GetByIdAsync(string id);
-        public Task<CustomResponseDto<ProductCreateDto>> CreateAsync(ProductCreateDto productCreateDto);
-        public Task<CustomResponseDto<NoContentDto>> UpdateAsync(ProductUpdateDto productUpdateDto);
+        public Task<CustomResponseDto<ProductDto>> CreateAsync(ProductCreateDto productCreateDto);
+        public Task<CustomResponseDto<ProductDto>> UpdateAsync(ProductUpdateDto productUpdateDto);
         public Task<CustomResponseDto<NoContentDto>> DeleteAsync(string id);
+
+
+
     }
 }

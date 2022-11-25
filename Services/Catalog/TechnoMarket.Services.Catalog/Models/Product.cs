@@ -29,7 +29,6 @@ namespace TechnoMarket.Services.Catalog.Models
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string CategoryId { get; set; }
-        public Category Category { get; set; }
 
     }
 }
