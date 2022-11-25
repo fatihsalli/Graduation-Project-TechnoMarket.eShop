@@ -26,9 +26,7 @@ namespace TechnoMarket.Services.Catalog.Models
 
         //Embedded Document Pattern
         public ProductFeature Feature { get; set; }
-
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string CategoryId { get; set; }
+        public Category Category { get; set; }
 
     }
 }

@@ -22,7 +22,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
             return CreateActionResult(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:length(24)}")]
         public async Task<IActionResult> GetById(string id)
         {
             var response=await _productService.GetByIdAsync(id);
@@ -43,7 +43,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
             return CreateActionResult(response);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
             var response=await _productService.DeleteAsync(id);

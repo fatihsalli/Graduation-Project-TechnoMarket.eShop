@@ -8,7 +8,7 @@
         public string Description { get; set; }
         public string ImageFile { get; set; }
         public ProductFeatureDto Feature { get; set; }
-        public string CategoryId { get; set; }
+        public CategoryDto Category { get; set; }
 
     }
 }
