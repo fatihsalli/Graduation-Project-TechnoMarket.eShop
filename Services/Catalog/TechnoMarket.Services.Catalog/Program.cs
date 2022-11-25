@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Options;
 using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
-using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Services;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Services.Catalog.Settings;

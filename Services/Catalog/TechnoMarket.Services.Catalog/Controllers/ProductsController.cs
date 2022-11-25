@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
@@ -19,14 +18,14 @@ namespace TechnoMarket.Services.Catalog.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var response=await _productService.GetAllAsync();
+            var response = await _productService.GetAllAsync();
             return CreateActionResult(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(ProductCreateDto productCreateDto)
         {
-            var response=await _productService.CreateAsync(productCreateDto);
+            var response = await _productService.CreateAsync(productCreateDto);
             return CreateActionResult(response);
         }
 

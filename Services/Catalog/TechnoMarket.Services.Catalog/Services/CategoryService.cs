@@ -7,12 +7,12 @@ using TechnoMarket.Shared.Dtos;
 
 namespace TechnoMarket.Services.Catalog.Services
 {
-    public class CategoryService:ICategoryService
+    public class CategoryService : ICategoryService
     {
         private readonly ICatalogContext _context;
         private readonly IMapper _mapper;
 
-        public CategoryService(ICatalogContext context,IMapper mapper)
+        public CategoryService(ICatalogContext context, IMapper mapper)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _mapper = mapper;
@@ -20,7 +20,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
         public async Task<CustomResponseDto<NoContentDto>> CreateAsync(CategoryCreateDto categoryCreateDto)
         {
-            var category=_mapper.Map<Category>(categoryCreateDto);
+            var category = _mapper.Map<Category>(categoryCreateDto);
             await _context.Categories.InsertOneAsync(category);
             return CustomResponseDto<NoContentDto>.Success(201);
         }

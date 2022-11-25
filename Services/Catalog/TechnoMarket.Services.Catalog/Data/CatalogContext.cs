@@ -9,12 +9,12 @@ namespace TechnoMarket.Services.Catalog.Data
     {
         public CatalogContext(ICatalogDatabaseSettings catalogDatabaseSettings)
         {
-            var client=new MongoClient(catalogDatabaseSettings.ConnectionString);
+            var client = new MongoClient(catalogDatabaseSettings.ConnectionString);
 
             var database = client.GetDatabase(catalogDatabaseSettings.DatabaseName);
 
             Products = database.GetCollection<Product>(catalogDatabaseSettings.ProductCollectionName);
-            Categories=database.GetCollection<Category>(catalogDatabaseSettings.CategoryCollectionName);
+            Categories = database.GetCollection<Category>(catalogDatabaseSettings.CategoryCollectionName);
 
             //CatalogContextSeed.SeedData(Products);
         }
