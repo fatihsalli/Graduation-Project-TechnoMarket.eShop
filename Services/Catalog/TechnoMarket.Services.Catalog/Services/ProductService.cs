@@ -53,7 +53,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (result == null)
             {
-                return CustomResponseDto<ProductDto>.Fail(404, $"Course ({productUpdateDto.Id}) not found!");
+                return CustomResponseDto<ProductDto>.Fail(404, $"Product ({productUpdateDto.Id}) not found!");
             }
 
             //İşlem başarılı olma durumunda burada event göndereceğiz ileride!!! Eventual Consistency

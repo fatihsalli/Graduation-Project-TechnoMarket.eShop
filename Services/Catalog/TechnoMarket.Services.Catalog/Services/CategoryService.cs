@@ -32,7 +32,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (categoryEntity == null)
             {
-                return CustomResponseDto<CategoryDto>.Fail(404, $"Product ({id}) not found!");
+                return CustomResponseDto<CategoryDto>.Fail(404, $"Category ({id}) not found!");
             }
 
             return CustomResponseDto<CategoryDto>.Success(200, _mapper.Map<CategoryDto>(categoryEntity));
@@ -47,7 +47,19 @@ namespace TechnoMarket.Services.Catalog.Services
             return CustomResponseDto<CategoryDto>.Success(201,categoryDto);
         }
 
-        
+        public async Task<CustomResponseDto<CategoryDto>> UpdateAsync(CategoryUpdateDto categoryUpdateDto)
+        {
+            var categoryEntity = _mapper.Map<Category>(categoryUpdateDto);
+            var result=await _context.Categories.FindOneAndReplaceAsync(x => x.Id == categoryUpdateDto.Id, categoryEntity);
+
+            if (result==null)
+            {
+                return CustomResponseDto<CategoryDto>.Fail(404, $"Category ({categoryUpdateDto.Id}) not found!");
+            }
+
+            var categoryToReturn = _mapper.Map<CategoryDto>(categoryEntity);
+            return CustomResponseDto<CategoryDto>.Success(200, categoryToReturn);
+        }
 
 
 
