@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using System.Text.Json;
+using TechnoMarket.Services.Catalog.Exceptions;
 using TechnoMarket.Shared.Dtos;
 
 namespace TechnoMarket.Services.Catalog.Middlewares
@@ -16,8 +17,9 @@ namespace TechnoMarket.Services.Catalog.Middlewares
                     var exceptionFeature = context.Features.Get<IExceptionHandlerFeature>();
                     var statusCode = exceptionFeature.Error switch
                     {
+                        ClientSideException=>400,
+                        NotFoundException=>404,
                         _ => 500
-
                     };
                     context.Response.StatusCode = statusCode;
                     var response = CustomResponseDto<NoContentDto>.Fail(statusCode, exceptionFeature.Error.Message);
