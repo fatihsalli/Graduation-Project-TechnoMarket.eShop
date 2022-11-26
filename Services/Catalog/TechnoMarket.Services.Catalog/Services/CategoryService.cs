@@ -21,19 +21,33 @@ namespace TechnoMarket.Services.Catalog.Services
 
         public async Task<CustomResponseDto<List<CategoryDto>>> GetAllAsync()
         {
-            var categories=await _context.Categories.Find(category=> true).ToListAsync();
-            var categoryDtos=_mapper.Map<List<CategoryDto>>(categories);
+            var categoryEntities=await _context.Categories.Find(category=> true).ToListAsync();
+            var categoryDtos=_mapper.Map<List<CategoryDto>>(categoryEntities);
             return CustomResponseDto<List<CategoryDto>>.Success(200, categoryDtos);
+        }
+
+        public async Task<CustomResponseDto<CategoryDto>> GetById(string id)
+        {
+            var categoryEntity = await _context.Categories.Find(x => x.Id == id).SingleOrDefaultAsync();
+
+            if (categoryEntity == null)
+            {
+                return CustomResponseDto<CategoryDto>.Fail(404, $"Product ({id}) not found!");
+            }
+
+            return CustomResponseDto<CategoryDto>.Success(200, _mapper.Map<CategoryDto>(categoryEntity));
         }
 
         public async Task<CustomResponseDto<CategoryDto>> CreateAsync(CategoryCreateDto categoryCreateDto)
         {
-            var category = _mapper.Map<Category>(categoryCreateDto);
-            await _context.Categories.InsertOneAsync(category);
-            var categoryDto=_mapper.Map<CategoryDto>(category);
+            var categoryEntity = _mapper.Map<Category>(categoryCreateDto);
+            await _context.Categories.InsertOneAsync(categoryEntity);
+            var categoryDto=_mapper.Map<CategoryDto>(categoryEntity);
             //Geriye Id dönmemi Client bekleyebilir.
             return CustomResponseDto<CategoryDto>.Success(201,categoryDto);
         }
+
+        
 
 
 
