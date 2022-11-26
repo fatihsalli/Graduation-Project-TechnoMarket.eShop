@@ -21,9 +21,11 @@ namespace TechnoMarket.Services.Catalog.Services
 
         public async Task<CustomResponseDto<List<CategoryDto>>> GetAllAsync()
         {
-            var categoryEntities=await _context.Categories.Find(category=> true).ToListAsync();
-            var categoryDtos=_mapper.Map<List<CategoryDto>>(categoryEntities);
-            return CustomResponseDto<List<CategoryDto>>.Success(200, categoryDtos);
+            var categoriesEntity = await _context.Categories.Find(category => true).ToListAsync();
+
+            var categoriesToReturn = _mapper.Map<List<CategoryDto>>(categoriesEntity);
+
+            return CustomResponseDto<List<CategoryDto>>.Success(200, categoriesToReturn);
         }
 
         public async Task<CustomResponseDto<CategoryDto>> GetById(string id)
@@ -35,29 +37,34 @@ namespace TechnoMarket.Services.Catalog.Services
                 return CustomResponseDto<CategoryDto>.Fail(404, $"Category ({id}) not found!");
             }
 
-            return CustomResponseDto<CategoryDto>.Success(200, _mapper.Map<CategoryDto>(categoryEntity));
+            var categoryToReturn = _mapper.Map<CategoryDto>(categoryEntity);
+
+            return CustomResponseDto<CategoryDto>.Success(200, categoryToReturn);
         }
 
         public async Task<CustomResponseDto<CategoryDto>> CreateAsync(CategoryCreateDto categoryCreateDto)
         {
             var categoryEntity = _mapper.Map<Category>(categoryCreateDto);
+
             await _context.Categories.InsertOneAsync(categoryEntity);
-            var categoryDto=_mapper.Map<CategoryDto>(categoryEntity);
+
+            var categoryToReturn = _mapper.Map<CategoryDto>(categoryEntity);
             //Geriye Id dönmemi Client bekleyebilir.
-            return CustomResponseDto<CategoryDto>.Success(201,categoryDto);
+            return CustomResponseDto<CategoryDto>.Success(201, categoryToReturn);
         }
 
         public async Task<CustomResponseDto<CategoryDto>> UpdateAsync(CategoryUpdateDto categoryUpdateDto)
         {
             var categoryEntity = _mapper.Map<Category>(categoryUpdateDto);
-            var result=await _context.Categories.FindOneAndReplaceAsync(x => x.Id == categoryUpdateDto.Id, categoryEntity);
+            var result = await _context.Categories.FindOneAndReplaceAsync(x => x.Id == categoryUpdateDto.Id, categoryEntity);
 
-            if (result==null)
+            if (result == null)
             {
                 return CustomResponseDto<CategoryDto>.Fail(404, $"Category ({categoryUpdateDto.Id}) not found!");
             }
 
             var categoryToReturn = _mapper.Map<CategoryDto>(categoryEntity);
+
             return CustomResponseDto<CategoryDto>.Success(200, categoryToReturn);
         }
 
