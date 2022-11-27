@@ -28,7 +28,7 @@ namespace TechnoMarket.Services.Catalog.Services
             return CustomResponseDto<List<CategoryDto>>.Success(200, categoriesToReturn);
         }
 
-        public async Task<CustomResponseDto<CategoryDto>> GetById(string id)
+        public async Task<CustomResponseDto<CategoryDto>> GetByIdAsync(string id)
         {
             var categoryEntity = await _context.Categories.Find(x => x.Id == id).SingleOrDefaultAsync();
 
