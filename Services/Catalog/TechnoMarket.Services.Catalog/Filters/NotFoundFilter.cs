@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc;
-using TechnoMarket.Shared.Dtos;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
+using TechnoMarket.Shared.Dtos;
 
 namespace TechnoMarket.Services.Catalog.Filters
 {
@@ -31,7 +31,7 @@ namespace TechnoMarket.Services.Catalog.Filters
             //(x=> x.Id==id) => x.Id'ye ulaşabilmek için yukarıda where T:class yerine BaseEntity yaptık.
             var anyEntity = await _productService.GetByIdAsync(id);
             //Yani data var ise yine yoluna devam edecek
-            if (anyEntity!=null)
+            if (anyEntity != null)
             {
                 await next.Invoke();
                 return;

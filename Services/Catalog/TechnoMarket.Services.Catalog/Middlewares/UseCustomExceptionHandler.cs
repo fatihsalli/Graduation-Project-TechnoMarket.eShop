@@ -17,8 +17,8 @@ namespace TechnoMarket.Services.Catalog.Middlewares
                     var exceptionFeature = context.Features.Get<IExceptionHandlerFeature>();
                     var statusCode = exceptionFeature.Error switch
                     {
-                        ClientSideException=>400,
-                        NotFoundException=>404,
+                        ClientSideException => 400,
+                        NotFoundException => 404,
                         _ => 500
                     };
                     context.Response.StatusCode = statusCode;

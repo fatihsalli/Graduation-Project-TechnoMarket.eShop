@@ -25,7 +25,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
         [HttpGet("{id:length(24)}")]
         public async Task<IActionResult> GetById(string id)
         {
-            var response=await _productService.GetByIdAsync(id);
+            var response = await _productService.GetByIdAsync(id);
             return CreateActionResult(response);
         }
 
@@ -39,14 +39,14 @@ namespace TechnoMarket.Services.Catalog.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(ProductUpdateDto productUpdateDto)
         {
-            var response=await _productService.UpdateAsync(productUpdateDto);
+            var response = await _productService.UpdateAsync(productUpdateDto);
             return CreateActionResult(response);
         }
 
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var response=await _productService.DeleteAsync(id);
+            var response = await _productService.DeleteAsync(id);
             return CreateActionResult(response);
         }
 

@@ -45,7 +45,7 @@ namespace TechnoMarket.Services.Catalog.Services
         {
             var productEntity = _mapper.Map<Product>(productCreateDto);
 
-            productEntity.CreatedAt= DateTime.Now;
+            productEntity.CreatedAt = DateTime.Now;
 
             await _context.Products.InsertOneAsync(productEntity);
 
