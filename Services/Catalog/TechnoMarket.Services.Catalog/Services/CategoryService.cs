@@ -68,6 +68,17 @@ namespace TechnoMarket.Services.Catalog.Services
             return CustomResponseDto<CategoryDto>.Success(200, categoryToReturn);
         }
 
+        public async Task<CustomResponseDto<NoContentDto>> DeleteAsync(string id)
+        {
+            var result = await _context.Categories.DeleteOneAsync(x => x.Id == id);
+
+            if (result.DeletedCount < 1)
+            {
+                return CustomResponseDto<NoContentDto>.Fail(404, $"Category ({id}) not found!");
+            }
+
+            return CustomResponseDto<NoContentDto>.Success(200);
+        }
 
 
     }
