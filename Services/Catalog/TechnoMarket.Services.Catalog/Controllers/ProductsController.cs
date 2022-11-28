@@ -10,19 +10,15 @@ namespace TechnoMarket.Services.Catalog.Controllers
     public class ProductsController : CustomBaseController
     {
         private readonly IProductService _productService;
-        private readonly ILogger<ProductsController> _logger;
 
         public ProductsController(IProductService productService,ILogger<ProductsController> logger)
         {
             _productService = productService;
-            _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            _logger.LogInformation("All products are listed on this page!");
-
             var response = await _productService.GetAllAsync();
             return CreateActionResult(response);
         }

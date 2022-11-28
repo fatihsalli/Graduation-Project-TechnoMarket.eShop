@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MongoDB.Driver;
+using TechnoMarket.Services.Catalog.Controllers;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
 using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Models;
@@ -12,10 +13,13 @@ namespace TechnoMarket.Services.Catalog.Services
     {
         private readonly ICatalogContext _context;
         private readonly IMapper _mapper;
-        public ProductService(ICatalogContext context, IMapper mapper)
+        private readonly ILogger<ProductService> _logger;
+
+        public ProductService(ICatalogContext context, IMapper mapper, ILogger<ProductService> logger)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _mapper = mapper;
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<CustomResponseDto<List<ProductDto>>> GetAllAsync()
@@ -33,6 +37,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (productEntity == null)
             {
+                _logger.LogError($"Product ({id}) not found!");
                 return CustomResponseDto<ProductDto>.Fail(404, $"Product ({id}) not found!");
             }
 
@@ -65,6 +70,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (result == null)
             {
+                _logger.LogError($"Product ({productUpdateDto.Id}) not found!");
                 return CustomResponseDto<ProductDto>.Fail(404, $"Product ({productUpdateDto.Id}) not found!");
             }
 
@@ -81,6 +87,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (result.DeletedCount < 1)
             {
+                _logger.LogError($"Product ({id}) not found!");
                 return CustomResponseDto<NoContentDto>.Fail(404, $"Product ({id}) not found!");
             }
 
