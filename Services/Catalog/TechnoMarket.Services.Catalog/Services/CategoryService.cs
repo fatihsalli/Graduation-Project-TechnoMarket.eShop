@@ -12,11 +12,13 @@ namespace TechnoMarket.Services.Catalog.Services
     {
         private readonly ICatalogContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogger<CategoryService> _logger;
 
-        public CategoryService(ICatalogContext context, IMapper mapper)
+        public CategoryService(ICatalogContext context, IMapper mapper, ILogger<CategoryService> logger)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _mapper = mapper;
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<CustomResponseDto<List<CategoryDto>>> GetAllAsync()
@@ -34,6 +36,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (categoryEntity == null)
             {
+                _logger.LogError($"Category ({id}) not found!");
                 return CustomResponseDto<CategoryDto>.Fail(404, $"Category ({id}) not found!");
             }
 
@@ -60,6 +63,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (result == null)
             {
+                _logger.LogError($"Category ({categoryUpdateDto.Id}) not found!");
                 return CustomResponseDto<CategoryDto>.Fail(404, $"Category ({categoryUpdateDto.Id}) not found!");
             }
 
@@ -74,6 +78,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (result.DeletedCount < 1)
             {
+                _logger.LogError($"Category ({id}) not found!");
                 return CustomResponseDto<NoContentDto>.Fail(404, $"Category ({id}) not found!");
             }
 
