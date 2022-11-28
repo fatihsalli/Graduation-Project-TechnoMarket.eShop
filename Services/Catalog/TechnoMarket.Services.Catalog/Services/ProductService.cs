@@ -54,6 +54,7 @@ namespace TechnoMarket.Services.Catalog.Services
             return CustomResponseDto<ProductDto>.Success(200, productToReturn);
         }
 
+        //TODO: Update ettikten sonra datayı kaydettiğimizde CreatedAt tarihimiz null olarak içeriye basılıyor ve değiştiriliyor.
         public async Task<CustomResponseDto<ProductDto>> UpdateAsync(ProductUpdateDto productUpdateDto)
         {
             var productEntity = _mapper.Map<Product>(productUpdateDto);
@@ -67,7 +68,7 @@ namespace TechnoMarket.Services.Catalog.Services
                 return CustomResponseDto<ProductDto>.Fail(404, $"Product ({productUpdateDto.Id}) not found!");
             }
 
-            //İşlem başarılı olma durumunda burada event göndereceğiz ileride!!! Eventual Consistency
+            //TODO: İşlem başarılı olma durumunda burada event göndereceğiz ileride!!! Eventual Consistency
 
             var productToReturn = _mapper.Map<ProductDto>(productEntity);
 
