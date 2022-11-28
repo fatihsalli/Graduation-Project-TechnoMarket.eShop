@@ -39,7 +39,7 @@ using (var scope = app.Services.CreateScope())
     if (!categoryService.GetAllAsync().Result.Data.Any())
     {
         categoryService.CreateAsync(new CategoryCreateDto { Name = "Notebook" });
-        categoryService.CreateAsync(new CategoryCreateDto { Name = "Phone" });
+        categoryService.CreateAsync(new CategoryCreateDto { Name = "Smart Phone" });
     }
 }
 
