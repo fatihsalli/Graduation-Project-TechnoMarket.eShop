@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Options;
 using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
+using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Middlewares;
 using TechnoMarket.Services.Catalog.Services;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
@@ -30,16 +31,17 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 //CategorySeed Data => Kontrol edilecek.
-//using (var scope = app.Services.CreateScope())
-//{
-//    var serviceProvider = scope.ServiceProvider;
-//    var productService = serviceProvider.GetRequiredService<IProductService>();
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var categoryService = serviceProvider.GetRequiredService<ICategoryService>();
 
-//    if (!productService.GetAllAsync().Result.Data.Any())
-//    {
-//        productService.CreateAsync(new ProductCreateDto { CustomerId = "test1234", Description = "Test", Feature = new FeatureDto { Color = "black", Summary = "summary" }, Name = "Asus Notebook", Price = 100 });
-//    }
-//}
+    if (!categoryService.GetAllAsync().Result.Data.Any())
+    {
+        categoryService.CreateAsync(new CategoryCreateDto { Name = "Notebook" });
+        categoryService.CreateAsync(new CategoryCreateDto { Name = "Phone" });
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {
@@ -47,8 +49,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//
-app.UseHttpsRedirection();
 
 //Custom middleware
 app.UseCustomException();
