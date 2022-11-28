@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using TechnoMarket.Services.Catalog.Dtos;
+using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
+using TechnoMarket.Shared.Dtos;
 
 namespace TechnoMarket.Services.Catalog.Controllers
 {
@@ -24,6 +27,8 @@ namespace TechnoMarket.Services.Catalog.Controllers
         }
 
         [HttpGet("{id:length(24)}")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetById(string id)
         {
             var response = await _productService.GetByIdAsync(id);
