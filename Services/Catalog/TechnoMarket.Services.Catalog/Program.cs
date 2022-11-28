@@ -30,18 +30,18 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-//CategorySeed Data => Kontrol edilecek.
-using (var scope = app.Services.CreateScope())
-{
-    var serviceProvider = scope.ServiceProvider;
-    var categoryService = serviceProvider.GetRequiredService<ICategoryService>();
+//CategorySeed Data => CatalogContextSeed içerisinde hallettik bu da alternatif.
+//using (var scope = app.Services.CreateScope())
+//{
+//    var serviceProvider = scope.ServiceProvider;
+//    var categoryService = serviceProvider.GetRequiredService<ICategoryService>();
 
-    if (!categoryService.GetAllAsync().Result.Data.Any())
-    {
-        categoryService.CreateAsync(new CategoryCreateDto { Name = "Notebook" });
-        categoryService.CreateAsync(new CategoryCreateDto { Name = "Smart Phone" });
-    }
-}
+//    if (!categoryService.GetAllAsync().Result.Data.Any())
+//    {
+//        categoryService.CreateAsync(new CategoryCreateDto { Name = "Notebook" });
+//        categoryService.CreateAsync(new CategoryCreateDto { Name = "Smart Phone" });
+//    }
+//}
 
 if (app.Environment.IsDevelopment())
 {

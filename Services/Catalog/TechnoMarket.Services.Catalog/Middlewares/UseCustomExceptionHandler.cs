@@ -5,6 +5,7 @@ using TechnoMarket.Shared.Dtos;
 
 namespace TechnoMarket.Services.Catalog.Middlewares
 {
+    //TODO: Kontrol edilecek araya girip bizim Response'u dönmek istiyoruz.
     public static class UseCustomExceptionHandler
     {
         public static void UseCustomException(this IApplicationBuilder app)

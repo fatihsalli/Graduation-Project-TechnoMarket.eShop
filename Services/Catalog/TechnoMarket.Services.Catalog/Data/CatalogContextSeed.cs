@@ -7,15 +7,36 @@ namespace TechnoMarket.Services.Catalog.Data
 {
     public class CatalogContextSeed
     {
-        //TODO: Category program cs tarafında kaydedip sonra product oluşturmak istiyorum. CategoryId lazım çünkü. İlk açıldığında bulamıyor caregory'i.
         public static void SeedData(IMongoCollection<Product> productCollection, IMongoCollection<Category> categoryCollection)
         {
-            bool existProduct = productCollection.Find(p => true).Any();
+            bool existCategories = categoryCollection.Find(p => true).Any();
 
-            if (!existProduct)
+            if (!existCategories)
             {
-                productCollection.InsertManyAsync(GetPreconfiguredProducts(categoryCollection));
+                categoryCollection.InsertMany(GetPreConfiguredCategories());
             }
+
+            bool existProducts= productCollection.Find(p => true).Any();
+
+            if (!existProducts)
+            {
+                productCollection.InsertMany(GetPreconfiguredProducts(categoryCollection));
+            }
+        }
+
+        private static IEnumerable<Category> GetPreConfiguredCategories()
+        {
+            return new List<Category>()
+            {
+                new Category()
+                {
+                    Name = "Notebook"
+                },
+                new Category()
+                {
+                    Name = "Smart Phone"
+                }
+            };
         }
 
         private static IEnumerable<Product> GetPreconfiguredProducts(IMongoCollection<Category> categoryCollection)
@@ -29,8 +50,18 @@ namespace TechnoMarket.Services.Catalog.Data
                     Price=950.00M,
                     Description="Super Retina HD display and A11 Bionic chip with 64-bit architecture",
                     CreatedAt=DateTime.Now,
-                    Feature=new ProductFeature{Color="black",Height="5.65 inches",Width="2.79 inches",Weight=" 6.14 ounces"},
+                    Feature=new ProductFeature{Color="black",Height="5.65 inches",Width="2.79 inches",Weight="0.6 kg"},
                     Category=categoryCollection.Find(x=> x.Name=="Smart Phone").SingleOrDefault()
+                },
+                new Product()
+                {
+                    Name="Asus Zenbook Pro Duo 15",
+                    Stock=6,
+                    Price=3500.00M,
+                    Description="ZenBook Pro Duo 15 OLED lets you get things done in style: calmly, efficiently, and with zero fuss. It’s your powerful and elegant next-level companion for on-the-go productivity and creativity, featuring an amazing 4K OLED HDR touchscreen.",
+                    CreatedAt=DateTime.Now,
+                    Feature=new ProductFeature{Color="black",Height="9.81 inches",Width="14.17 inches",Weight="2.34 kg"},
+                    Category=categoryCollection.Find(x=> x.Name=="Notebook").SingleOrDefault()
                 }
             };
         }
