@@ -1,13 +1,17 @@
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NLog;
 using NLog.Web;
 using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
+using TechnoMarket.Services.Catalog.Filters;
 using TechnoMarket.Services.Catalog.Middlewares;
 using TechnoMarket.Services.Catalog.Services;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Services.Catalog.Settings;
 using TechnoMarket.Services.Catalog.Settings.Interfaces;
+using TechnoMarket.Services.Catalog.Validations;
 
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Debug("init main");
@@ -37,7 +41,14 @@ try
     builder.Services.AddScoped<ICategoryService, CategoryService>();
 
     //FluentValidation => Filter ile ekledik.
-    builder.Services.AddControllers();
+    builder.Services.AddControllers(options=> options.Filters.Add(new ValidateFilterAttribute())).AddFluentValidation(x=> x.RegisterValidatorsFromAssemblyContaining<ProductUpdateDtoValidator>());
+
+    //FluentValidation ile dönen response'u pasif hale getirip kendi response modelimizi döndük.
+    builder.Services.Configure<ApiBehaviorOptions>(opt =>
+    {
+        opt.SuppressModelStateInvalidFilter= true;
+    });
+
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
