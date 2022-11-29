@@ -25,6 +25,9 @@ try
     builder.Services.AddSingleton<ICatalogDatabaseSettings>(sp =>
         sp.GetRequiredService<IOptions<CatalogDatabaseSettings>>().Value);
 
+    
+
+
     //Database
     builder.Services.AddScoped<ICatalogContext, CatalogContext>();
     //AutoMapper
@@ -33,6 +36,7 @@ try
     builder.Services.AddScoped<IProductService, ProductService>();
     builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+    //FluentValidation => Filter ile ekledik.
     builder.Services.AddControllers();
 
     builder.Services.AddEndpointsApiExplorer();
