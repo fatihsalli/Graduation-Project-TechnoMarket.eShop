@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TechnoMarket.Services.Catalog.Dtos;
+using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
@@ -18,7 +19,9 @@ namespace TechnoMarket.Services.Catalog.Controllers
             _productService = productService;
         }
 
+        //TODO: ResponseType olarak belirtme nedenimiz client istek yapmadan önce hangi kodları ve hangi şemada alacağını önceden göstermek. Burada CustomResponse döndüğümüz için kontrol edilecek.
         [HttpGet]
+        [ProducesResponseType(typeof(CustomResponseDto<List<ProductDto>>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll()
         {
             var response = await _productService.GetAllAsync();
@@ -35,6 +38,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Create(ProductCreateDto productCreateDto)
         {
             var response = await _productService.CreateAsync(productCreateDto);
@@ -42,6 +46,8 @@ namespace TechnoMarket.Services.Catalog.Controllers
         }
 
         [HttpPut]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Update(ProductUpdateDto productUpdateDto)
         {
             var response = await _productService.UpdateAsync(productUpdateDto);
@@ -49,6 +55,8 @@ namespace TechnoMarket.Services.Catalog.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Delete(string id)
         {
             var response = await _productService.DeleteAsync(id);
