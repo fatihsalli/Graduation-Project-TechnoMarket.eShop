@@ -3,7 +3,6 @@ using NLog;
 using NLog.Web;
 using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
-using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Middlewares;
 using TechnoMarket.Services.Catalog.Services;
 using TechnoMarket.Services.Catalog.Services.Interfaces;

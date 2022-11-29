@@ -16,7 +16,7 @@ namespace TechnoMarket.Services.Catalog.Data
             Products = database.GetCollection<Product>(catalogDatabaseSettings.ProductCollectionName);
             Categories = database.GetCollection<Category>(catalogDatabaseSettings.CategoryCollectionName);
 
-            CatalogContextSeed.SeedData(Products,Categories);
+            CatalogContextSeed.SeedData(Products, Categories);
         }
 
         public IMongoCollection<Product> Products { get; }

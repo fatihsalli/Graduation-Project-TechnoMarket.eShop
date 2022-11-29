@@ -1,7 +1,5 @@
 ﻿using MongoDB.Driver;
-using System.Runtime.CompilerServices;
 using TechnoMarket.Services.Catalog.Models;
-using TechnoMarket.Services.Catalog.Services.Interfaces;
 
 namespace TechnoMarket.Services.Catalog.Data
 {
@@ -16,7 +14,7 @@ namespace TechnoMarket.Services.Catalog.Data
                 categoryCollection.InsertMany(GetPreConfiguredCategories());
             }
 
-            bool existProducts= productCollection.Find(p => true).Any();
+            bool existProducts = productCollection.Find(p => true).Any();
 
             if (!existProducts)
             {
