@@ -29,7 +29,7 @@ try
     builder.Services.AddSingleton<ICatalogDatabaseSettings>(sp =>
         sp.GetRequiredService<IOptions<CatalogDatabaseSettings>>().Value);
 
-    
+
 
 
     //Database
@@ -41,12 +41,12 @@ try
     builder.Services.AddScoped<ICategoryService, CategoryService>();
 
     //FluentValidation => Filter ile ekledik.
-    builder.Services.AddControllers(options=> options.Filters.Add(new ValidateFilterAttribute())).AddFluentValidation(x=> x.RegisterValidatorsFromAssemblyContaining<ProductUpdateDtoValidator>());
+    builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute())).AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductUpdateDtoValidator>());
 
     //FluentValidation ile dönen response'u pasif hale getirip kendi response modelimizi döndük.
     builder.Services.Configure<ApiBehaviorOptions>(opt =>
     {
-        opt.SuppressModelStateInvalidFilter= true;
+        opt.SuppressModelStateInvalidFilter = true;
     });
 
 

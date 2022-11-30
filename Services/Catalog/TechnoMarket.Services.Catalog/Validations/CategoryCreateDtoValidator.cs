@@ -3,7 +3,7 @@ using TechnoMarket.Services.Catalog.Dtos;
 
 namespace TechnoMarket.Services.Catalog.Validations
 {
-    public class CategoryCreateDtoValidator:AbstractValidator<CategoryCreateDto>
+    public class CategoryCreateDtoValidator : AbstractValidator<CategoryCreateDto>
     {
         public CategoryCreateDtoValidator()
         {
