@@ -49,7 +49,7 @@ namespace TechnoMarket.Services.Catalog.Services
         {
             var productEntity = _mapper.Map<Product>(productCreateDto);
 
-            productEntity.CreatedAt = DateTime.Now;
+            productEntity.CreatedAt=DateTime.Now;
 
             await _context.Products.InsertOneAsync(productEntity);
 
@@ -58,20 +58,23 @@ namespace TechnoMarket.Services.Catalog.Services
             return CustomResponseDto<ProductDto>.Success(200, productToReturn);
         }
 
-        //TODO: Update ettikten sonra datayı kaydettiğimizde CreatedAt tarihimiz null olarak içeriye basılıyor ve değiştiriliyor.
+        //TODO: Update ettikten sonra datayı kaydettiğimizde CreatedAt tarihimiz null olarak içeriye basılıyor ve değiştiriliyordu. Tekrar CreatedAt tarihini verdik şu an sorunsuz çalışıyor. Ama daha profesyonel bir yol bakılacak.
         public async Task<CustomResponseDto<ProductDto>> UpdateAsync(ProductUpdateDto productUpdateDto)
         {
-            var productEntity = _mapper.Map<Product>(productUpdateDto);
+            var productIdCheck = await _context.Products.Find(x => x.Id == productUpdateDto.Id).SingleOrDefaultAsync();
 
-            productEntity.UpdatedAt = DateTime.Now;
-
-            var result = await _context.Products.FindOneAndReplaceAsync(x => x.Id == productUpdateDto.Id, productEntity);
-
-            if (result == null)
+            if (productIdCheck == null)
             {
                 _logger.LogError($"Product ({productUpdateDto.Id}) not found!");
                 return CustomResponseDto<ProductDto>.Fail(404, $"Product ({productUpdateDto.Id}) not found!");
             }
+
+            var productEntity = _mapper.Map<Product>(productUpdateDto);
+
+            productEntity.UpdatedAt = DateTime.Now;
+            productEntity.CreatedAt=productIdCheck.CreatedAt;
+
+            var result = await _context.Products.FindOneAndReplaceAsync(x => x.Id == productUpdateDto.Id, productEntity);
 
             //TODO: İşlem başarılı olma durumunda burada event göndereceğiz ileride!!! Eventual Consistency
 

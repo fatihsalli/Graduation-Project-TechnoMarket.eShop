@@ -47,8 +47,8 @@ namespace TechnoMarket.Services.Catalog.Data
                     Stock=10,
                     Price=950.00M,
                     Description="Super Retina HD display and A11 Bionic chip with 64-bit architecture",
-                    CreatedAt=DateTime.Now,
                     Feature=new ProductFeature{Color="black",Height="5.65 inches",Width="2.79 inches",Weight="0.6 kg"},
+                    CreatedAt=DateTime.Now,
                     Category=categoryCollection.Find(x=> x.Name=="Smart Phone").SingleOrDefault()
                 },
                 new Product()
@@ -57,8 +57,8 @@ namespace TechnoMarket.Services.Catalog.Data
                     Stock=6,
                     Price=3500.00M,
                     Description="ZenBook Pro Duo 15 OLED lets you get things done in style: calmly, efficiently, and with zero fuss. It’s your powerful and elegant next-level companion for on-the-go productivity and creativity, featuring an amazing 4K OLED HDR touchscreen.",
-                    CreatedAt=DateTime.Now,
                     Feature=new ProductFeature{Color="black",Height="9.81 inches",Width="14.17 inches",Weight="2.34 kg"},
+                    CreatedAt=DateTime.Now,
                     Category=categoryCollection.Find(x=> x.Name=="Notebook").SingleOrDefault()
                 }
             };
