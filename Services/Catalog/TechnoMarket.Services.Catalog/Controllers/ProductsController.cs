@@ -20,7 +20,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
             _productService = productService;
         }
 
-        //TODO: ResponseType olarak belirtme nedenimiz client istek yapmadan önce hangi kodları ve hangi şemada alacağını önceden göstermek. Burada CustomResponse döndüğümüz için kontrol edilecek.
+
         [HttpGet]
         [ProducesResponseType(typeof(CustomResponseDto<List<ProductDto>>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll()
@@ -29,6 +29,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
             return CreateActionResult(response);
         }
 
+        //Service kısmında global exception fırlatıyorum. Burada öğrenme amaçlı yapıldı. Filter sayesinde action içerise girmeden geri dönecektir.
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet("{id:length(24)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
