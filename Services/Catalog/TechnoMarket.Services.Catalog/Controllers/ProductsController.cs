@@ -42,7 +42,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Create(ProductCreateDto productCreateDto)
+        public async Task<IActionResult> Create([FromBody] ProductCreateDto productCreateDto)
         {
             var response = await _productService.CreateAsync(productCreateDto);
             return CreateActionResult(response);
@@ -51,7 +51,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
         [HttpPut]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update(ProductUpdateDto productUpdateDto)
+        public async Task<IActionResult> Update([FromBody] ProductUpdateDto productUpdateDto)
         {
             var response = await _productService.UpdateAsync(productUpdateDto);
             return CreateActionResult(response);
