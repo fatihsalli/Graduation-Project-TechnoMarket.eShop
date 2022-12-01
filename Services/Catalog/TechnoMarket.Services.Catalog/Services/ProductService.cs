@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
 using TechnoMarket.Services.Catalog.Dtos;
+using TechnoMarket.Services.Catalog.Exceptions;
 using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.Dtos;
@@ -37,7 +38,7 @@ namespace TechnoMarket.Services.Catalog.Services
             if (productEntity == null)
             {
                 _logger.LogError($"Product ({id}) not found!");
-                return CustomResponseDto<ProductDto>.Fail(404, $"Product ({id}) not found!");
+                throw new NotFoundException($"Product ({id}) not found!");
             }
 
             var productToReturn = _mapper.Map<ProductDto>(productEntity);

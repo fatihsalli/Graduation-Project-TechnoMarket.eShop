@@ -12,6 +12,7 @@ namespace TechnoMarket.Services.Catalog.Middlewares
         {
             app.UseExceptionHandler(config =>
             {
+                //Sonlandırıcı middleware
                 config.Run(async context =>
                 {
                     context.Response.ContentType = "application/json";
@@ -24,6 +25,7 @@ namespace TechnoMarket.Services.Catalog.Middlewares
                     };
                     context.Response.StatusCode = statusCode;
                     var response = CustomResponseDto<NoContentDto>.Fail(statusCode, exceptionFeature.Error.Message);
+                    //Custom middleware oluşturduğumuz için kendimiz json formatına serialize etmemiz gerekir.
                     await context.Response.WriteAsync(JsonSerializer.Serialize(response));
                 });
             });
