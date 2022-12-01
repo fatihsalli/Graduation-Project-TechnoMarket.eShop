@@ -29,6 +29,9 @@ try
     builder.Services.AddSingleton<ICatalogDatabaseSettings>(sp =>
         sp.GetRequiredService<IOptions<CatalogDatabaseSettings>>().Value);
 
+    //NotFoundFilter => Generic olduðu için bu þekilde belirtik.
+    builder.Services.AddScoped(typeof(NotFoundFilter<>));
+
     //Database
     builder.Services.AddScoped<ICatalogContext, CatalogContext>();
     //AutoMapper
