@@ -29,9 +29,6 @@ try
     builder.Services.AddSingleton<ICatalogDatabaseSettings>(sp =>
         sp.GetRequiredService<IOptions<CatalogDatabaseSettings>>().Value);
 
-
-
-
     //Database
     builder.Services.AddScoped<ICatalogContext, CatalogContext>();
     //AutoMapper
@@ -48,7 +45,6 @@ try
     {
         opt.SuppressModelStateInvalidFilter = true;
     });
-
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
