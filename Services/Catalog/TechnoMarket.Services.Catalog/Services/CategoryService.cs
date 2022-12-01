@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
 using TechnoMarket.Services.Catalog.Dtos;
+using TechnoMarket.Services.Catalog.Exceptions;
 using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.Dtos;
@@ -37,7 +38,7 @@ namespace TechnoMarket.Services.Catalog.Services
             if (categoryEntity == null)
             {
                 _logger.LogError($"Category ({id}) not found!");
-                return CustomResponseDto<CategoryDto>.Fail(404, $"Category ({id}) not found!");
+                throw new NotFoundException($"Category ({id}) not found!");
             }
 
             var categoryToReturn = _mapper.Map<CategoryDto>(categoryEntity);
@@ -64,7 +65,7 @@ namespace TechnoMarket.Services.Catalog.Services
             if (result == null)
             {
                 _logger.LogError($"Category ({categoryUpdateDto.Id}) not found!");
-                return CustomResponseDto<CategoryDto>.Fail(404, $"Category ({categoryUpdateDto.Id}) not found!");
+                throw new NotFoundException($"Category ({categoryUpdateDto.Id}) not found!");
             }
 
             var categoryToReturn = _mapper.Map<CategoryDto>(categoryEntity);
@@ -79,7 +80,7 @@ namespace TechnoMarket.Services.Catalog.Services
             if (result.DeletedCount < 1)
             {
                 _logger.LogError($"Category ({id}) not found!");
-                return CustomResponseDto<NoContentDto>.Fail(404, $"Category ({id}) not found!");
+                throw new NotFoundException($"Category ({id}) not found!");
             }
 
             return CustomResponseDto<NoContentDto>.Success(200);
