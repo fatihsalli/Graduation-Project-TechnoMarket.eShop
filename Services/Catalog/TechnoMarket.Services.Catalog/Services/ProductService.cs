@@ -67,7 +67,7 @@ namespace TechnoMarket.Services.Catalog.Services
             if (productIdCheck == null)
             {
                 _logger.LogError($"Product ({productUpdateDto.Id}) not found!");
-                return CustomResponseDto<ProductDto>.Fail(404, $"Product ({productUpdateDto.Id}) not found!");
+                throw new NotFoundException($"Product ({productUpdateDto.Id}) not found!");
             }
 
             var productEntity = _mapper.Map<Product>(productUpdateDto);
@@ -91,7 +91,7 @@ namespace TechnoMarket.Services.Catalog.Services
             if (result.DeletedCount < 1)
             {
                 _logger.LogError($"Product ({id}) not found!");
-                return CustomResponseDto<NoContentDto>.Fail(404, $"Product ({id}) not found!");
+                throw new NotFoundException($"Product ({id}) not found!");
             }
 
             return CustomResponseDto<NoContentDto>.Success(200);

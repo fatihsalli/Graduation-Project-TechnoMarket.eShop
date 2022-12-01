@@ -28,7 +28,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
         }
 
         [HttpGet("{id:length(24)}")]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetById(string id)
         {
@@ -45,7 +45,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Update(ProductUpdateDto productUpdateDto)
         {
@@ -54,7 +54,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Delete(string id)
         {
