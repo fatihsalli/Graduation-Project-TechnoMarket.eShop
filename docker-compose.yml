@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  technomarket.services.catalog:
+    image: ${DOCKER_REGISTRY-}technomarketservicescatalog
+    build:
+      context: .
+      dockerfile: Services/Catalog/TechnoMarket.Services.Catalog/Dockerfile
