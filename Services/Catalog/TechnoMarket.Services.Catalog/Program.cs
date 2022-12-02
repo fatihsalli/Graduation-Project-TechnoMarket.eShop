@@ -40,6 +40,7 @@ try
     builder.Services.AddScoped<IProductService, ProductService>();
     builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+
     //FluentValidation => Filter ile ekledik.
     builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute())).AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductUpdateDtoValidator>());
 
