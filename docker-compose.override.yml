@@ -1,8 +1,23 @@
 version: '3.4'
 
 services:
+  catalogdb:
+    container_name: catalogdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      #docker hub üzerinden verilen deðeri girdik.
+      - mongo_data:/data/db  
+
   technomarket.services.catalog:
+    container_name: catalog.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      #appsetting.json tarafýndaki connectionstring deðerini override ettik.
+      - "CatalogDatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
+    depends_on:
+      #catalogdb ayakta olmalý o sebeple baðýmlýlýðýný belirttik.
+      - catalogdb
     ports:
-      - "80"
+      - "8000:80"
