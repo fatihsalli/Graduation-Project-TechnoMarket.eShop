@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TechnoMarket.Services.Catalog.Controllers;
 using TechnoMarket.Services.Catalog.Dtos;
+using TechnoMarket.Services.Catalog.Exceptions;
 using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
@@ -66,6 +67,19 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             var returnProducts = Assert.IsAssignableFrom<CustomResponseDto<List<ProductDto>>>(createActionResult.Value);
 
             Assert.Equal<int>(2, returnProducts.Data.Count);
+        }
+
+        [Theory]
+        [InlineData("501f191e810c19729de860ea")]
+        public async void GetById_IdNotFound_ReturnNotFoundException(string id)
+        {
+            _mockProductService.Setup(x => x.GetByIdAsync(id)).Throws(new NotFoundException($"Product ({id}) not found!"));
+
+            Exception exception=await Assert.ThrowsAsync<NotFoundException>(()=> _productsController.GetById(id));
+
+            Assert.IsType<NotFoundException>(exception);
+
+            Assert.Equal($"Product ({id}) not found!", exception.Message);
         }
 
 
