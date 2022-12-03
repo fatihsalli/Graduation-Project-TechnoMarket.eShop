@@ -15,7 +15,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
     {
         private readonly IProductService _productService;
 
-        public ProductsController(IProductService productService, ILogger<ProductsController> logger)
+        public ProductsController(IProductService productService)
         {
             _productService = productService;
         }

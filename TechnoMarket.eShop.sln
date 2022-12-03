@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechnoMarket.Shared", "Shar
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{53BF267F-14E2-4420-9C5C-FA02B3DF8611}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechnoMarket.Services.Catalog.UnitTests", "Services\Catalog\TechnoMarket.Services.Catalog.UnitTests\TechnoMarket.Services.Catalog.UnitTests.csproj", "{00C39F69-50A1-40F1-BE2A-3BC880A5D9FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{53BF267F-14E2-4420-9C5C-FA02B3DF8611}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53BF267F-14E2-4420-9C5C-FA02B3DF8611}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53BF267F-14E2-4420-9C5C-FA02B3DF8611}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00C39F69-50A1-40F1-BE2A-3BC880A5D9FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00C39F69-50A1-40F1-BE2A-3BC880A5D9FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00C39F69-50A1-40F1-BE2A-3BC880A5D9FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00C39F69-50A1-40F1-BE2A-3BC880A5D9FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{18931B16-FF6F-4423-B5B1-63F5D986584B} = {EE5E7F20-72FB-4C1D-8FA7-A53DC2A68AAF}
 		{38CB7E8E-1DE9-41A7-A9DB-E41C7E45ABB1} = {18931B16-FF6F-4423-B5B1-63F5D986584B}
 		{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207} = {4FCA2686-FBE5-45DB-BAC7-5D35AD54255F}
+		{00C39F69-50A1-40F1-BE2A-3BC880A5D9FD} = {18931B16-FF6F-4423-B5B1-63F5D986584B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87D1FE37-EC68-4193-B007-C2AC167B9C62}
