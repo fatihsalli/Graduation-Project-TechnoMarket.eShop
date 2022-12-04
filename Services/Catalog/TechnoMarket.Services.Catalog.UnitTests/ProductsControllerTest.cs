@@ -76,6 +76,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         {
             var productDto = _products.First(x => x.Id == id);
 
+            //ProductService'i taklit ettik.
             _mockProductService.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(CustomResponseDto<ProductDto>.Success(200, productDto));
 
             var result = await _productsController.GetById(id);
@@ -95,12 +96,15 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         }
 
         [Theory]
-        [InlineData("501f191e810c19729de860ab")] //Wrong id
+        [InlineData("501f191e810c19729de860ab")] //Invalid Id
         public async void GetById_IdNotFound_ReturnNotFoundException(string id)
         {
             _mockProductService.Setup(x => x.GetByIdAsync(id)).Throws(new NotFoundException($"Product ({id}) not found!"));
 
             Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productsController.GetById(id));
+
+            //Metotun çalışıp çalışmadığını test etmek için
+            _mockProductService.Verify(x => x.GetByIdAsync(id), Times.Once);
 
             Assert.IsType<NotFoundException>(exception);
 
@@ -231,6 +235,9 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             _mockProductService.Setup(x => x.DeleteAsync(id)).Throws(new NotFoundException($"Product ({id}) not found!"));
 
             Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productsController.Delete(id));
+
+            //Metotun çalışıp çalışmadığını test etmek için
+            _mockProductService.Verify(x => x.DeleteAsync(id), Times.Once);
 
             Assert.IsType<NotFoundException>(exception);
 
