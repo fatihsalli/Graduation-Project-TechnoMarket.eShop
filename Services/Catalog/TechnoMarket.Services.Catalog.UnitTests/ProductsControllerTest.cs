@@ -74,9 +74,9 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         [InlineData("511f191e810c19729de860fr")]
         public async void GetById_ActionExecute_ReturnSuccessResult(string id)
         {
-            var product = _products.First(x => x.Id == id);
+            var productDto = _products.First(x => x.Id == id);
 
-            _mockProductService.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(CustomResponseDto<ProductDto>.Success(200, product));
+            _mockProductService.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(CustomResponseDto<ProductDto>.Success(200, productDto));
 
             var result = await _productsController.GetById(id);
 
@@ -87,11 +87,11 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             var returnProducts = Assert.IsAssignableFrom<CustomResponseDto<ProductDto>>(createActionResult.Value);
 
             Assert.Equal(id, returnProducts.Data.Id);
-            Assert.Equal(product.Name, returnProducts.Data.Name);
-            Assert.Equal(product.Stock, returnProducts.Data.Stock);
-            Assert.Equal(product.Price, returnProducts.Data.Price);
-            Assert.Equal(product.Description, returnProducts.Data.Description);
-            Assert.Equal(product.ProductFeature, returnProducts.Data.ProductFeature);
+            Assert.Equal(productDto.Name, returnProducts.Data.Name);
+            Assert.Equal(productDto.Stock, returnProducts.Data.Stock);
+            Assert.Equal(productDto.Price, returnProducts.Data.Price);
+            Assert.Equal(productDto.Description, returnProducts.Data.Description);
+            Assert.Equal(productDto.ProductFeature, returnProducts.Data.ProductFeature);
         }
 
         [Theory]
@@ -108,19 +108,60 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         }
 
         [Fact]
+        public async void Create_ActionExecute_ReturnSuccessResult()
+        {
+            var productCreateDto=new ProductCreateDto() 
+            { 
+                Name="Iphone 14",
+                Stock=10,
+                Price=750.00M,
+                Description="Last model smart phone"            
+            };
+
+            var productDto = new ProductDto()
+            {
+                Name = productCreateDto.Name,
+                Stock = productCreateDto.Stock,
+                Price = productCreateDto.Price,
+                Description = productCreateDto.Description
+            };
+
+            _mockProductService.Setup(x => x.CreateAsync(productCreateDto)).ReturnsAsync(CustomResponseDto<ProductDto>.Success(200, productDto));
+
+            var result = await _productsController.Create(productCreateDto);
+
+            _mockProductService.Verify(x => x.CreateAsync(productCreateDto), Times.Once);
+
+            var createActionResult = Assert.IsType<ObjectResult>(result);
+
+            Assert.Equal(200, createActionResult.StatusCode);
+
+            var returnProducts = Assert.IsAssignableFrom<CustomResponseDto<ProductDto>>(createActionResult.Value);
+
+            Assert.Equal(productCreateDto.Name, returnProducts.Data.Name);
+            Assert.Equal(productCreateDto.Stock, returnProducts.Data.Stock);
+            Assert.Equal(productCreateDto.Price, returnProducts.Data.Price);
+            Assert.Equal(productCreateDto.Description, returnProducts.Data.Description);
+        }
+
+        [Fact]
         public async void Update_ActionExecute_ReturnSuccessResult()
         {
             var productDto = _products.First();
             var productUpdateDto = new ProductUpdateDto
             {
                 Id = productDto.Id,
-                Name = productDto.Name,
+                //Senaryo=> İsmini güncelledik
+                Name = "Iphone 14",
                 Stock = productDto.Stock,
                 Price = productDto.Price,
                 Description = productDto.Description
             };
+            var productToReturn = productDto;
+            productToReturn.Name = productUpdateDto.Name;
 
-            _mockProductService.Setup(x => x.UpdateAsync(productUpdateDto)).ReturnsAsync(CustomResponseDto<ProductDto>.Success(200, productDto));
+            //ProductService'i taklit ettik.
+            _mockProductService.Setup(x => x.UpdateAsync(productUpdateDto)).ReturnsAsync(CustomResponseDto<ProductDto>.Success(200, productToReturn));
 
             var result = await _productsController.Update(productUpdateDto);
 
