@@ -98,8 +98,5 @@ namespace TechnoMarket.Services.Catalog.Services
         }
 
 
-
-
-
     }
 }

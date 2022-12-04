@@ -95,7 +95,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         }
 
         [Theory]
-        [InlineData("501f191e810c19729de860ea")]
+        [InlineData("501f191e810c19729de860ab")] //Wrong id
         public async void GetById_IdNotFound_ReturnNotFoundException(string id)
         {
             _mockProductService.Setup(x => x.GetByIdAsync(id)).Throws(new NotFoundException($"Product ({id}) not found!"));
@@ -206,7 +206,36 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.Equal($"Product ({productUpdateDto.Id}) not found!", exception.Message);
         }
 
+        [Theory]
+        [InlineData("507f191e810c19729de860ea")]
+        [InlineData("511f191e810c19729de860fr")]
+        public async void Delete_ActionExecute_ReturnSuccessResult(string id)
+        {
+            var productDto = _products.First(x => x.Id == id);
 
+            _mockProductService.Setup(x => x.DeleteAsync(id)).ReturnsAsync(CustomResponseDto<NoContentDto>.Success(204));
+
+            var result = await _productsController.Delete(id);
+
+            _mockProductService.Verify(x => x.DeleteAsync(id), Times.Once);
+
+            var createActionResult = Assert.IsType<ObjectResult>(result);
+
+            Assert.Equal(204, createActionResult.StatusCode);
+        }
+
+        [Theory]
+        [InlineData("501f191e810c19729de860ab")] //Wrong id
+        public async void Delete_IdNotFound_ReturnNotFoundException(string id)
+        {
+            _mockProductService.Setup(x => x.DeleteAsync(id)).Throws(new NotFoundException($"Product ({id}) not found!"));
+
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productsController.Delete(id));
+
+            Assert.IsType<NotFoundException>(exception);
+
+            Assert.Equal($"Product ({id}) not found!", exception.Message);
+        }
 
 
     }
