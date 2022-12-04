@@ -72,7 +72,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         [Theory]
         [InlineData("507f191e810c19729de860ea")]
         [InlineData("511f191e810c19729de860fr")]
-        public async void GetById_IdValid_ReturnSuccessResult(string id)
+        public async void GetById_ActionExecute_ReturnSuccessResult(string id)
         {
             var product = _products.First(x => x.Id == id);
 
@@ -96,7 +96,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
 
         [Theory]
         [InlineData("501f191e810c19729de860ea")]
-        public async void GetById_IdInValid_ReturnNotFoundException(string id)
+        public async void GetById_IdNotFound_ReturnNotFoundException(string id)
         {
             _mockProductService.Setup(x => x.GetByIdAsync(id)).Throws(new NotFoundException($"Product ({id}) not found!"));
 
@@ -105,6 +105,64 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.IsType<NotFoundException>(exception);
 
             Assert.Equal($"Product ({id}) not found!", exception.Message);
+        }
+
+        [Fact]
+        public async void Update_ActionExecute_ReturnSuccessResult()
+        {
+            var productDto = _products.First();
+            var productUpdateDto = new ProductUpdateDto
+            {
+                Id = productDto.Id,
+                Name = productDto.Name,
+                Stock = productDto.Stock,
+                Price = productDto.Price,
+                Description = productDto.Description
+            };
+
+            _mockProductService.Setup(x => x.UpdateAsync(productUpdateDto)).ReturnsAsync(CustomResponseDto<ProductDto>.Success(200, productDto));
+
+            var result = await _productsController.Update(productUpdateDto);
+
+            _mockProductService.Verify(x => x.UpdateAsync(productUpdateDto), Times.Once);
+
+            var createActionResult = Assert.IsType<ObjectResult>(result);
+
+            Assert.Equal(200, createActionResult.StatusCode);
+
+            var returnProducts = Assert.IsAssignableFrom<CustomResponseDto<ProductDto>>(createActionResult.Value);
+
+            Assert.Equal(productUpdateDto.Id, returnProducts.Data.Id);
+            Assert.Equal(productUpdateDto.Name, returnProducts.Data.Name);
+            Assert.Equal(productUpdateDto.Stock, returnProducts.Data.Stock);
+            Assert.Equal(productUpdateDto.Price, returnProducts.Data.Price);
+            Assert.Equal(productUpdateDto.Description, returnProducts.Data.Description);
+        }
+
+        [Fact]
+        public async void Update_IdIsNotEqualProduct_ReturnNotFoundException()
+        {
+            var productDto = _products.First();
+            var productUpdateDto = new ProductUpdateDto
+            {
+                //Invalid Id
+                Id = "501f191e810c19729de860ea",
+                Name = productDto.Name,
+                Stock = productDto.Stock,
+                Price = productDto.Price,
+                Description = productDto.Description
+            };
+
+            _mockProductService.Setup(x => x.UpdateAsync(productUpdateDto)).Throws(new NotFoundException($"Product ({productUpdateDto.Id}) not found!"));
+
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productsController.Update(productUpdateDto));
+
+            //Metotun çalışıp çalışmadığını test etmek için
+            _mockProductService.Verify(x=> x.UpdateAsync(productUpdateDto), Times.Once);
+
+            Assert.IsType<NotFoundException>(exception);
+
+            Assert.Equal($"Product ({productUpdateDto.Id}) not found!", exception.Message);
         }
 
 
