@@ -35,7 +35,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(CustomResponseDto<CategoryDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CustomResponseDto<CategoryDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody] CategoryCreateDto categoryCreateDto)
         {
             var response = await _categoryService.CreateAsync(categoryCreateDto);
@@ -53,7 +53,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
 
         [HttpDelete("{id:length(24)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(string id)
         {
             var response = await _categoryService.DeleteAsync(id);

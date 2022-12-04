@@ -83,7 +83,7 @@ namespace TechnoMarket.Services.Catalog.Services
                 throw new NotFoundException($"Category ({id}) not found!");
             }
 
-            return CustomResponseDto<NoContentDto>.Success(200);
+            return CustomResponseDto<NoContentDto>.Success(204);
         }
 
 

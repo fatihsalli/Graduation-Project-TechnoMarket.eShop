@@ -56,7 +56,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             var productToReturn = _mapper.Map<ProductDto>(productEntity);
 
-            return CustomResponseDto<ProductDto>.Success(200, productToReturn);
+            return CustomResponseDto<ProductDto>.Success(201, productToReturn);
         }
 
         //TODO: Update ettikten sonra datayı kaydettiğimizde CreatedAt tarihimiz null olarak içeriye basılıyor ve değiştiriliyordu. Tekrar CreatedAt tarihini verdik şu an sorunsuz çalışıyor. Ama daha profesyonel bir yol bakılacak.
@@ -94,7 +94,7 @@ namespace TechnoMarket.Services.Catalog.Services
                 throw new NotFoundException($"Product ({id}) not found!");
             }
 
-            return CustomResponseDto<NoContentDto>.Success(200);
+            return CustomResponseDto<NoContentDto>.Success(204);
         }
 
 

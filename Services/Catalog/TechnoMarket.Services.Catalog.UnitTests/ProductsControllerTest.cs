@@ -126,7 +126,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Description = productCreateDto.Description
             };
 
-            _mockProductService.Setup(x => x.CreateAsync(productCreateDto)).ReturnsAsync(CustomResponseDto<ProductDto>.Success(200, productDto));
+            _mockProductService.Setup(x => x.CreateAsync(productCreateDto)).ReturnsAsync(CustomResponseDto<ProductDto>.Success(201, productDto));
 
             var result = await _productsController.Create(productCreateDto);
 
@@ -134,7 +134,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
 
             var createActionResult = Assert.IsType<ObjectResult>(result);
 
-            Assert.Equal(200, createActionResult.StatusCode);
+            Assert.Equal(201, createActionResult.StatusCode);
 
             var returnProducts = Assert.IsAssignableFrom<CustomResponseDto<ProductDto>>(createActionResult.Value);
 
