@@ -38,7 +38,7 @@ namespace TechnoMarket.Services.Order.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<OrderDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetById(string id)
         {
-            var order=_orderService.GetByIdAsync(id);
+            var order=await _orderService.GetByIdAsync(id);
 
             if (order==null)
             {
@@ -73,9 +73,15 @@ namespace TechnoMarket.Services.Order.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<OrderDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody] OrderCreateDto orderCreateDto)
         {
-            var response = await _productService.CreateAsync(productCreateDto);
-            return CreateActionResult(response);
+            var order=_mapper.Map<Models.Order>(orderCreateDto);
+
+            var orderToReturn=await _orderService.CreateAsync(order);
+
+            var orderDto= _mapper.Map<OrderDto>(orderToReturn);
+
+            return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
         }
+
 
 
 

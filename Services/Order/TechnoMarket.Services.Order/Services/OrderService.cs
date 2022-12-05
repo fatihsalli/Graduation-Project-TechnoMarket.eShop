@@ -39,7 +39,7 @@ namespace TechnoMarket.Services.Order.Services
             return order;
         }
 
-        public async Task<Models.Order> Update(Models.Order order)
+        public async Task<Models.Order> UpdateAsync(Models.Order order)
         {
             var result= await _context.Orders.FindOneAndReplaceAsync(x=> x.Id== order.Id, order);
             return result;
