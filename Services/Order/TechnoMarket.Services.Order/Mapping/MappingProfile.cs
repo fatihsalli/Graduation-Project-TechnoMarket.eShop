@@ -18,9 +18,5 @@ namespace TechnoMarket.Services.Order.Mapping
             CreateMap<Product,ProductDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
         }
-
-
-
-
     }
 }

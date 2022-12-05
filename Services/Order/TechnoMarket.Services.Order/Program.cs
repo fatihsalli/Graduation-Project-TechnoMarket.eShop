@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Options;
 using TechnoMarket.Services.Order.Data;
 using TechnoMarket.Services.Order.Data.Interfaces;
+using TechnoMarket.Services.Order.Services;
+using TechnoMarket.Services.Order.Services.Interfaces;
 using TechnoMarket.Services.Order.Settings;
 using TechnoMarket.Services.Order.Settings.Interfaces;
 
@@ -15,6 +17,9 @@ builder.Services.AddScoped<IOrderContext, OrderContext>();
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
+
+//Service
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddControllers();
 
