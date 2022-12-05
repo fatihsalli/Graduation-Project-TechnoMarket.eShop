@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechnoMarket.Services.Catal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechnoMarket.Shared", "Shared\TechnoMarket.Shared\TechnoMarket.Shared.csproj", "{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{53BF267F-14E2-4420-9C5C-FA02B3DF8611}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechnoMarket.Services.Catalog.UnitTests", "Services\Catalog\TechnoMarket.Services.Catalog.UnitTests\TechnoMarket.Services.Catalog.UnitTests.csproj", "{00C39F69-50A1-40F1-BE2A-3BC880A5D9FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{A9A5E335-9480-46DE-852F-E92064C85855}"
@@ -35,10 +33,6 @@ Global
 		{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C576FDAC-5A0C-496C-9CA4-0C3EEB49D207}.Release|Any CPU.Build.0 = Release|Any CPU
-		{53BF267F-14E2-4420-9C5C-FA02B3DF8611}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53BF267F-14E2-4420-9C5C-FA02B3DF8611}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53BF267F-14E2-4420-9C5C-FA02B3DF8611}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53BF267F-14E2-4420-9C5C-FA02B3DF8611}.Release|Any CPU.Build.0 = Release|Any CPU
 		{00C39F69-50A1-40F1-BE2A-3BC880A5D9FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{00C39F69-50A1-40F1-BE2A-3BC880A5D9FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00C39F69-50A1-40F1-BE2A-3BC880A5D9FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
