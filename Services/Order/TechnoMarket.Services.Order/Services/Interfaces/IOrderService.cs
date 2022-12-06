@@ -1,12 +1,15 @@
-﻿namespace TechnoMarket.Services.Order.Services.Interfaces
+﻿using TechnoMarket.Services.Order.Dtos;
+
+namespace TechnoMarket.Services.Order.Services.Interfaces
 {
     public interface IOrderService
     {
-        public Task<List<Models.Order>> GetAllAsync();
-        public Task<Models.Order> GetByIdAsync(string id);
-        public Task<List<Models.Order>> GetByCustomerIdAsync(string customerId);
-        public Task<Models.Order> CreateAsync(Models.Order order);
-        public Task<Models.Order> UpdateAsync(Models.Order order);
+        public Task<List<OrderDto>> GetAllAsync();
+        public Task<OrderDto> GetByIdAsync(string id);
+        public Task<List<OrderDto>> GetByCustomerIdAsync(string customerId);
+        public Task<OrderDto> CreateAsync(OrderCreateDto orderCreateDto);
+
+
 
     }
 }

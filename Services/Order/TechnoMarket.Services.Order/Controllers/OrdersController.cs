@@ -15,22 +15,17 @@ namespace TechnoMarket.Services.Order.Controllers
     public class OrdersController : CustomBaseController
     {
         private readonly IOrderService _orderService;
-        private readonly IMapper _mapper;
         public OrdersController(IOrderService orderService, IMapper mapper)
         {
             _orderService = orderService;
-            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(CustomResponseDto<List<OrderDto>>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll()
         {
-            var orders=await _orderService.GetAllAsync();
-
-            var ordersDto=_mapper.Map<List<OrderDto>>(orders);
-
-            return CreateActionResult(CustomResponseDto<List<OrderDto>>.Success(200,ordersDto));
+            var orderDtos=await _orderService.GetAllAsync();
+            return CreateActionResult(CustomResponseDto<List<OrderDto>>.Success(200, orderDtos));
         }
 
         [HttpGet("{id:length(24)}")]
@@ -38,16 +33,14 @@ namespace TechnoMarket.Services.Order.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<OrderDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetById(string id)
         {
-            var order=await _orderService.GetByIdAsync(id);
+            var orderDto=await _orderService.GetByIdAsync(id);
 
-            if (order==null)
+            if (orderDto == null)
             {
                 //loglama
                 throw new Exception($"Order with id: {id} doesn't found in the database.");
             }
 
-            var orderDto= _mapper.Map<OrderDto>(order);
-            
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
         }
 
@@ -56,29 +49,22 @@ namespace TechnoMarket.Services.Order.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<List<OrderDto>>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetByCustomerId(string customerId)
         {
-            var orders = await _orderService.GetByCustomerIdAsync(customerId);
+            var orderDtos = await _orderService.GetByCustomerIdAsync(customerId);
 
-            if (orders == null)
+            if (orderDtos == null)
             {
                 //loglama
                 throw new Exception($"Order or orders with customerId: {customerId} doesn't found in the database.");
             }
 
-            var orderDto = _mapper.Map<List<OrderDto>>(orders);
-
-            return CreateActionResult(CustomResponseDto<List<OrderDto>>.Success(200, orderDto));
+            return CreateActionResult(CustomResponseDto<List<OrderDto>>.Success(200, orderDtos));
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(CustomResponseDto<OrderDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody] OrderCreateDto orderCreateDto)
         {
-            var order=_mapper.Map<Models.Order>(orderCreateDto);
-
-            var orderToReturn=await _orderService.CreateAsync(order);
-
-            var orderDto= _mapper.Map<OrderDto>(orderToReturn);
-
+            var orderDto=await _orderService.CreateAsync(orderCreateDto);
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
         }
 

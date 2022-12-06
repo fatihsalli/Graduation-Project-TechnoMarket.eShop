@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using System.Runtime.InteropServices;
 using TechnoMarket.Services.Order.Data.Interfaces;
+using TechnoMarket.Services.Order.Dtos;
 using TechnoMarket.Services.Order.Models;
 using TechnoMarket.Services.Order.Services.Interfaces;
 
@@ -9,40 +10,49 @@ namespace TechnoMarket.Services.Order.Services
 {
     public class OrderService:IOrderService
     {
-        //Mapleme ve loglama controller tarafında yapıldı.
+        //Loglama controller tarafında yapıldı.
         private readonly IOrderContext _context;
+        private readonly IMapper _mapper;
 
-        public OrderService(IOrderContext context)
+        public OrderService(IOrderContext context, IMapper mapper)
         {
-            _context= context ??throw new ArgumentNullException(nameof(context));
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<List<Models.Order>> GetAllAsync()
+        public async Task<List<OrderDto>> GetAllAsync()
         {
-            return await _context.Orders.Find(o => true).ToListAsync();
+            var orders = await _context.Orders.Find(o => true).ToListAsync();
+            return _mapper.Map<List<OrderDto>>(orders);
         }
 
-        public async Task<Models.Order> GetByIdAsync(string id)
+        public async Task<OrderDto> GetByIdAsync(string id)
         {
-            return await _context.Orders.Find(x=> x.Id == id).SingleOrDefaultAsync();
+            var order= await _context.Orders.Find(x => x.Id == id).SingleOrDefaultAsync();
+            return _mapper.Map<OrderDto>(order);
         }
 
-        public async Task<List<Models.Order>> GetByCustomerIdAsync(string customerId)
+        public async Task<List<OrderDto>> GetByCustomerIdAsync(string customerId)
         {
-            return await _context.Orders.Find(x=> x.CustomerId== customerId).ToListAsync();
+            var orders = await _context.Orders.Find(x => x.CustomerId == customerId).ToListAsync();
+            return _mapper.Map<List<OrderDto>>(orders);
         }
 
-        public async Task<Models.Order> CreateAsync(Models.Order order)
+        public async Task<OrderDto> CreateAsync(OrderCreateDto orderCreateDto)
         {
-            order.CreatedAt=DateTime.Now;
+            var order=_mapper.Map<Models.Order>(orderCreateDto);
+            order.CreatedAt = DateTime.Now;
             await _context.Orders.InsertOneAsync(order);
-            return order;
+            return _mapper.Map<OrderDto>(order);
         }
 
-        public async Task<Models.Order> UpdateAsync(Models.Order order)
+        public async Task<OrderDto> UpdateAsync(OrderUpdateDto orderUpdateDto)
         {
-            var result= await _context.Orders.FindOneAndReplaceAsync(x=> x.Id== order.Id, order);
-            return result;
+            var order = _mapper.Map<Models.Order>(orderUpdateDto);
+            order.UpdatedAt= DateTime.Now;
+            //CreatedAt sorunu
+            var orderUpdated= await _context.Orders.FindOneAndReplaceAsync(x=> x.Id== order.Id, order);
+            return _mapper.Map<OrderDto>(orderUpdated);
         }
 
         public async Task<bool> Delete(string id)
