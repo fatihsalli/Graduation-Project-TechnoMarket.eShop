@@ -7,8 +7,15 @@ namespace TechnoMarket.Services.Catalog.Validations
     {
         public CategoryUpdateDtoValidator()
         {
-            RuleFor(x => x.Id).NotNull().WithMessage("{PropertyName} is required").NotEmpty().WithMessage("{PropertyName} is required").Length(24).WithMessage("{PropertyName} must be 24 character");
-            RuleFor(x => x.Name).NotNull().WithMessage("{PropertyName} is required").NotEmpty().WithMessage("{PropertyName} is required");
+            RuleFor(x => x.Id)
+                .NotNull().WithMessage("{PropertyName} is required")
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .Length(24).WithMessage("{PropertyName} must be 24 character");
+
+            RuleFor(x => x.Name)
+                .NotNull().WithMessage("{PropertyName} is required")
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .MaximumLength(255).WithMessage("{PropertyName} must be less than 256 character");
         }
     }
 }
