@@ -39,7 +39,7 @@ namespace TechnoMarket.Services.Order.Controllers
             if (orderDto == null)
             {
                 //loglama
-                throw new ClientSideException($"Order with id: {id} didn't find in the database.");
+                throw new NotFoundException($"Order with id ({id}) didn't find in the database.");
             }
 
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
@@ -56,7 +56,7 @@ namespace TechnoMarket.Services.Order.Controllers
             if (orderDtos == null)
             {
                 //loglama
-                throw new ClientSideException($"Order or orders with customerId: {customerId} didn't find in the database.");
+                throw new NotFoundException($"Order or orders with customerId ({customerId}) didn't find in the database.");
             }
 
             return CreateActionResult(CustomResponseDto<List<OrderDto>>.Success(200, orderDtos));
@@ -80,7 +80,7 @@ namespace TechnoMarket.Services.Order.Controllers
             if (orderCheck == null)
             {
                 //loglama
-                throw new ClientSideException($"Order with id: {id} didn't find in the database.");
+                throw new NotFoundException($"Order with id ({id}) didn't find in the database.");
             }
 
             var orderDto = await _orderService.UpdateAsync(orderUpdateDto, id);            
@@ -97,7 +97,7 @@ namespace TechnoMarket.Services.Order.Controllers
             if (orderCheck == null)
             {
                 //loglama
-                throw new ClientSideException($"Order with id: {id} didn't find in the database.");
+                throw new NotFoundException($"Order with id ({id}) didn't find in the database.");
             }
             await _orderService.DeleteAsync(id);
 
