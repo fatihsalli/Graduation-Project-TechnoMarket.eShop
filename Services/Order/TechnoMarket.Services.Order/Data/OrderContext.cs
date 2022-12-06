@@ -15,7 +15,7 @@ namespace TechnoMarket.Services.Order.Data
 
             Orders = database.GetCollection<Models.Order>(orderDatabaseSettings.OrderCollectionName);
 
-            //Seed Data yazılacak
+            OrderContextSeed.SeedData(Orders);
         }
 
         public IMongoCollection<Models.Order> Orders { get; }
