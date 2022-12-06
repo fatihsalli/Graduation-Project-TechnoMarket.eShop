@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Options;
 using TechnoMarket.Services.Order.Data;
 using TechnoMarket.Services.Order.Data.Interfaces;
+using TechnoMarket.Services.Order.Middlewares;
 using TechnoMarket.Services.Order.Services;
 using TechnoMarket.Services.Order.Services.Interfaces;
 using TechnoMarket.Services.Order.Settings;
@@ -28,12 +29,15 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+//Custom middleware
+app.UseCustomException();
 
 app.UseAuthorization();
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TechnoMarket.Services.Order.Dtos;
+using TechnoMarket.Services.Order.Exceptions;
 using TechnoMarket.Services.Order.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
@@ -38,13 +39,14 @@ namespace TechnoMarket.Services.Order.Controllers
             if (orderDto == null)
             {
                 //loglama
-                throw new Exception($"Order with id: {id} didn't find in the database.");
+                throw new ClientSideException($"Order with id: {id} didn't find in the database.");
             }
 
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
         }
 
-        [HttpGet("{id:length(24)}")]
+        [HttpGet]
+        [Route("/api/[controller]/[action]/{customerId}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<List<OrderDto>>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetByCustomerId(string customerId)
@@ -54,7 +56,7 @@ namespace TechnoMarket.Services.Order.Controllers
             if (orderDtos == null)
             {
                 //loglama
-                throw new Exception($"Order or orders with customerId: {customerId} didn't find in the database.");
+                throw new ClientSideException($"Order or orders with customerId: {customerId} didn't find in the database.");
             }
 
             return CreateActionResult(CustomResponseDto<List<OrderDto>>.Success(200, orderDtos));
@@ -78,7 +80,7 @@ namespace TechnoMarket.Services.Order.Controllers
             if (orderCheck == null)
             {
                 //loglama
-                throw new Exception($"Order with id: {id} didn't find in the database.");
+                throw new ClientSideException($"Order with id: {id} didn't find in the database.");
             }
 
             var orderDto = await _orderService.UpdateAsync(orderUpdateDto, id);            
@@ -95,7 +97,7 @@ namespace TechnoMarket.Services.Order.Controllers
             if (orderCheck == null)
             {
                 //loglama
-                throw new Exception($"Order with id: {id} didn't find in the database.");
+                throw new ClientSideException($"Order with id: {id} didn't find in the database.");
             }
             await _orderService.DeleteAsync(id);
 

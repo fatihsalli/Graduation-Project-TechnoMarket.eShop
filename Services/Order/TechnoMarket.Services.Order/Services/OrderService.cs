@@ -57,7 +57,7 @@ namespace TechnoMarket.Services.Order.Services
             return _mapper.Map<OrderDto>(orderUpdated);
         }
 
-        public async Task Delete(string id)
+        public async Task DeleteAsync(string id)
         {
             await _context.Orders.DeleteOneAsync(x=> x.Id== id);
         }
