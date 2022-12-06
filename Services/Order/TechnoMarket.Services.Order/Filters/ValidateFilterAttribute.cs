@@ -4,7 +4,7 @@ using TechnoMarket.Shared.Dtos;
 
 namespace TechnoMarket.Services.Order.Filters
 {
-    public class ValidateFilterAttribute:ActionFilterAttribute
+    public class ValidateFilterAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {

@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TechnoMarket.Services.Order.Dtos;
-using TechnoMarket.Services.Order.Exceptions;
 using TechnoMarket.Services.Order.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
-using ZstdSharp;
+using TechnoMarket.Shared.Exceptions;
 
 namespace TechnoMarket.Services.Order.Controllers
 {
@@ -25,7 +23,7 @@ namespace TechnoMarket.Services.Order.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<List<OrderDto>>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll()
         {
-            var orderDtos=await _orderService.GetAllAsync();
+            var orderDtos = await _orderService.GetAllAsync();
             return CreateActionResult(CustomResponseDto<List<OrderDto>>.Success(200, orderDtos));
         }
 
@@ -34,7 +32,7 @@ namespace TechnoMarket.Services.Order.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<OrderDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetById(string id)
         {
-            var orderDto=await _orderService.GetByIdAsync(id);
+            var orderDto = await _orderService.GetByIdAsync(id);
 
             if (orderDto == null)
             {
@@ -53,7 +51,7 @@ namespace TechnoMarket.Services.Order.Controllers
         {
             var orderDtos = await _orderService.GetByCustomerIdAsync(customerId);
 
-            if (orderDtos.Count<1)
+            if (orderDtos.Count < 1)
             {
                 //loglama
                 throw new NotFoundException($"Order with customerId ({customerId}) didn't find in the database.");
@@ -66,16 +64,16 @@ namespace TechnoMarket.Services.Order.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<OrderDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody] OrderCreateDto orderCreateDto)
         {
-            var orderDto=await _orderService.CreateAsync(orderCreateDto);
+            var orderDto = await _orderService.CreateAsync(orderCreateDto);
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(201, orderDto));
         }
 
         [HttpPut("{id:length(24)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<OrderDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update(string id,[FromBody] OrderUpdateDto orderUpdateDto)
+        public async Task<IActionResult> Update(string id, [FromBody] OrderUpdateDto orderUpdateDto)
         {
-            var orderCheck=await _orderService.GetByIdAsync(id);
+            var orderCheck = await _orderService.GetByIdAsync(id);
 
             if (orderCheck == null)
             {
@@ -83,7 +81,7 @@ namespace TechnoMarket.Services.Order.Controllers
                 throw new NotFoundException($"Order with id ({id}) didn't find in the database.");
             }
 
-            var orderDto = await _orderService.UpdateAsync(orderUpdateDto, id);            
+            var orderDto = await _orderService.UpdateAsync(orderUpdateDto, id);
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
         }
 
@@ -110,7 +108,7 @@ namespace TechnoMarket.Services.Order.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(string id)
         {
-            var orderCheck =await _orderService.GetByIdAsync(id);
+            var orderCheck = await _orderService.GetByIdAsync(id);
 
             if (orderCheck == null)
             {

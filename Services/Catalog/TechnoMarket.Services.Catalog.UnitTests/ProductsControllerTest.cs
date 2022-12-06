@@ -1,18 +1,10 @@
-﻿using Castle.Core.Logging;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechnoMarket.Services.Catalog.Controllers;
 using TechnoMarket.Services.Catalog.Dtos;
-using TechnoMarket.Services.Catalog.Exceptions;
-using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
-using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Shared.Exceptions;
 using Xunit;
 
 namespace TechnoMarket.Services.Catalog.UnitTests
@@ -114,12 +106,12 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         [Fact]
         public async void Create_ActionExecute_ReturnSuccessResult()
         {
-            var productCreateDto=new ProductCreateDto() 
-            { 
-                Name="Iphone 14",
-                Stock=10,
-                Price=750.00M,
-                Description="Last model smart phone"            
+            var productCreateDto = new ProductCreateDto()
+            {
+                Name = "Iphone 14",
+                Stock = 10,
+                Price = 750.00M,
+                Description = "Last model smart phone"
             };
 
             var productDto = new ProductDto()
@@ -203,7 +195,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productsController.Update(productUpdateDto));
 
             //Metotun çalışıp çalışmadığını test etmek için
-            _mockProductService.Verify(x=> x.UpdateAsync(productUpdateDto), Times.Once);
+            _mockProductService.Verify(x => x.UpdateAsync(productUpdateDto), Times.Once);
 
             Assert.IsType<NotFoundException>(exception);
 

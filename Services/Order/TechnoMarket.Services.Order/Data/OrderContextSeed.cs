@@ -7,7 +7,7 @@ namespace TechnoMarket.Services.Order.Data
     {
         public static void SeedData(IMongoCollection<Models.Order> ordercollection)
         {
-            bool existOrders=ordercollection.Find(order=> true).Any();
+            bool existOrders = ordercollection.Find(order => true).Any();
 
             if (!existOrders)
             {

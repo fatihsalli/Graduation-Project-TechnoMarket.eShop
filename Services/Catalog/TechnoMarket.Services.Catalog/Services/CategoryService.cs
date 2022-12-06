@@ -2,10 +2,10 @@
 using MongoDB.Driver;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
 using TechnoMarket.Services.Catalog.Dtos;
-using TechnoMarket.Services.Catalog.Exceptions;
 using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Shared.Exceptions;
 
 namespace TechnoMarket.Services.Catalog.Services
 {

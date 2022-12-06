@@ -4,12 +4,12 @@ using Microsoft.Extensions.Options;
 using TechnoMarket.Services.Order.Data;
 using TechnoMarket.Services.Order.Data.Interfaces;
 using TechnoMarket.Services.Order.Filters;
-using TechnoMarket.Services.Order.Middlewares;
 using TechnoMarket.Services.Order.Services;
 using TechnoMarket.Services.Order.Services.Interfaces;
 using TechnoMarket.Services.Order.Settings;
 using TechnoMarket.Services.Order.Settings.Interfaces;
 using TechnoMarket.Services.Order.Validations;
+using TechnoMarket.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

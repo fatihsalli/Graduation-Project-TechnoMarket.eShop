@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechnoMarket.Services.Catalog.Controllers;
 using TechnoMarket.Services.Catalog.Dtos;
-using TechnoMarket.Services.Catalog.Exceptions;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Shared.Exceptions;
 using Xunit;
 
 namespace TechnoMarket.Services.Catalog.UnitTests
@@ -45,7 +40,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         [Fact]
         public async void GetAll_ActionExecute_ReturnSuccessResult()
         {
-            _mockCategoryService.Setup(x=> x.GetAllAsync()).ReturnsAsync(CustomResponseDto<List<CategoryDto>>.Success(200,_categories));
+            _mockCategoryService.Setup(x => x.GetAllAsync()).ReturnsAsync(CustomResponseDto<List<CategoryDto>>.Success(200, _categories));
 
             var result = await _categoriesController.GetAll();
 
@@ -65,7 +60,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         {
             var categoryDto = _categories.First(x => x.Id == id);
 
-            _mockCategoryService.Setup(x=> x.GetByIdAsync(id)).ReturnsAsync(CustomResponseDto<CategoryDto>.Success(200,categoryDto));
+            _mockCategoryService.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(CustomResponseDto<CategoryDto>.Success(200, categoryDto));
 
             var result = await _categoriesController.GetById(id);
 
@@ -106,7 +101,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
 
             var categoryDto = new CategoryDto()
             {
-                Id= "457f191e810c19729de860ea",
+                Id = "457f191e810c19729de860ea",
                 Name = categoryCreateDto.Name
             };
 

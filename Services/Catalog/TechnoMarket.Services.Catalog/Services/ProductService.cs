@@ -2,10 +2,10 @@
 using MongoDB.Driver;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
 using TechnoMarket.Services.Catalog.Dtos;
-using TechnoMarket.Services.Catalog.Exceptions;
 using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Shared.Exceptions;
 
 namespace TechnoMarket.Services.Catalog.Services
 {
@@ -50,7 +50,7 @@ namespace TechnoMarket.Services.Catalog.Services
         {
             var productEntity = _mapper.Map<Product>(productCreateDto);
 
-            productEntity.CreatedAt=DateTime.Now;
+            productEntity.CreatedAt = DateTime.Now;
 
             await _context.Products.InsertOneAsync(productEntity);
 
@@ -73,7 +73,7 @@ namespace TechnoMarket.Services.Catalog.Services
             var productEntity = _mapper.Map<Product>(productUpdateDto);
 
             productEntity.UpdatedAt = DateTime.Now;
-            productEntity.CreatedAt=productIdCheck.CreatedAt;
+            productEntity.CreatedAt = productIdCheck.CreatedAt;
 
             var result = await _context.Products.FindOneAndReplaceAsync(x => x.Id == productUpdateDto.Id, productEntity);
 

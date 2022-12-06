@@ -16,7 +16,7 @@ namespace TechnoMarket.Services.Catalog.Mapping
             CreateMap<Product, ProductUpdateDto>().ReverseMap();
             CreateMap<Product, ProductDto>()
                 .ForMember(p => p.ProductFeature,
-                    opt => opt.MapFrom(x => string.Join(' ', x.Feature.Color, x.Feature.Width, x.Feature.Height, x.Feature.Weight)));
+                    opt => opt.MapFrom(x => string.Join(' ', x.Feature.Color, x.Feature.Width, x.Feature.Height, x.Feature.Weight))).ReverseMap();
         }
 
 

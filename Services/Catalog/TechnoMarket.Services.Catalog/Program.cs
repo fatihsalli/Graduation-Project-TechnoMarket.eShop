@@ -6,12 +6,12 @@ using NLog.Web;
 using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.Data.Interfaces;
 using TechnoMarket.Services.Catalog.Filters;
-using TechnoMarket.Services.Catalog.Middlewares;
 using TechnoMarket.Services.Catalog.Services;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Services.Catalog.Settings;
 using TechnoMarket.Services.Catalog.Settings.Interfaces;
 using TechnoMarket.Services.Catalog.Validations;
+using TechnoMarket.Shared.Extensions;
 
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Debug("init main");

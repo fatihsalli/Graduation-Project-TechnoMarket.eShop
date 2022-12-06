@@ -19,7 +19,7 @@ namespace TechnoMarket.Services.Catalog.Models
         public string ImageFile { get; set; }
 
         [BsonRepresentation(BsonType.DateTime)]
-        public DateTime CreatedAt { get;set; }
+        public DateTime CreatedAt { get; set; }
 
         [BsonRepresentation(BsonType.DateTime)]
         public DateTime? UpdatedAt { get; set; }

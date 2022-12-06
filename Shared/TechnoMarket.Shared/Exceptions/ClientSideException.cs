@@ -1,4 +1,4 @@
-﻿namespace TechnoMarket.Services.Catalog.Exceptions
+﻿namespace TechnoMarket.Shared.Exceptions
 {
     public class ClientSideException : Exception
     {

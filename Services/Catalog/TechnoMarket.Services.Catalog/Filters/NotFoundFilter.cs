@@ -6,7 +6,7 @@ using TechnoMarket.Shared.Dtos;
 
 namespace TechnoMarket.Services.Catalog.Filters
 {
-    public class NotFoundFilter<T> : IAsyncActionFilter where T: class
+    public class NotFoundFilter<T> : IAsyncActionFilter where T : class
     {
         //Exceptionlarımız global olarak yazıldı. Filter neden yazıyoruz? Herhangi bir entity için data=null olduğunda ek business yapılması gerekebilir. Örneğin mesaj kuyruğa gidip mesaj atsın gibi veya kullanıcıya email atmak gibi.
 
@@ -33,11 +33,11 @@ namespace TechnoMarket.Services.Catalog.Filters
             var id = (string)idValue;
             object anyEntity = null;
 
-            if (typeof(T).Name==nameof(Category))
+            if (typeof(T).Name == nameof(Category))
             {
                 anyEntity = await _categoryService.GetByIdAsync(id);
             }
-            else if(typeof(T).Name==nameof(Product))
+            else if (typeof(T).Name == nameof(Product))
             {
                 anyEntity = await _productService.GetByIdAsync(id);
             }

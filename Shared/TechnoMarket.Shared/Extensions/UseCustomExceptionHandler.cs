@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using System.Text.Json;
-using TechnoMarket.Services.Order.Exceptions;
 using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Shared.Exceptions;
 
-namespace TechnoMarket.Services.Order.Middlewares
+namespace TechnoMarket.Shared.Extensions
 {
     public static class UseCustomExceptionHandler
     {
