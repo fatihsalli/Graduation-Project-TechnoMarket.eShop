@@ -53,8 +53,8 @@ namespace TechnoMarket.Services.Order.Services
             //TODO: Yöntemi beğenmedim.
             order.CreatedAt = _context.Orders.Find(x => x.Id == id).SingleOrDefault().CreatedAt;
             order.Id = id;
-            var orderUpdated= await _context.Orders.FindOneAndReplaceAsync(x=> x.Id== order.Id, order);
-            return _mapper.Map<OrderDto>(orderUpdated);
+            await _context.Orders.FindOneAndReplaceAsync(x=> x.Id== order.Id, order);
+            return _mapper.Map<OrderDto>(order);
         }
 
         public async Task DeleteAsync(string id)

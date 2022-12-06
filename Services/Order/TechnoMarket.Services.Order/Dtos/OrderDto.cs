@@ -12,6 +12,6 @@ namespace TechnoMarket.Services.Order.Dtos
         public double Price { get; set; }
         public string Status { get; set; }
         public string FullAddress { get; set; }
-        public string ProductInfo { get; set; }
+        public ProductDto Product { get; set; }
     }
 }

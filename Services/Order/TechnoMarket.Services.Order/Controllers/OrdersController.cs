@@ -53,10 +53,10 @@ namespace TechnoMarket.Services.Order.Controllers
         {
             var orderDtos = await _orderService.GetByCustomerIdAsync(customerId);
 
-            if (orderDtos == null)
+            if (orderDtos.Count<1)
             {
                 //loglama
-                throw new NotFoundException($"Order or orders with customerId ({customerId}) didn't find in the database.");
+                throw new NotFoundException($"Order with customerId ({customerId}) didn't find in the database.");
             }
 
             return CreateActionResult(CustomResponseDto<List<OrderDto>>.Success(200, orderDtos));
@@ -75,7 +75,7 @@ namespace TechnoMarket.Services.Order.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<OrderDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Update(string id,[FromBody] OrderUpdateDto orderUpdateDto)
         {
-            var orderCheck=_orderService.GetByIdAsync(id);
+            var orderCheck=await _orderService.GetByIdAsync(id);
 
             if (orderCheck == null)
             {
@@ -92,7 +92,7 @@ namespace TechnoMarket.Services.Order.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(string id)
         {
-            var orderCheck = _orderService.GetByIdAsync(id);
+            var orderCheck =await _orderService.GetByIdAsync(id);
 
             if (orderCheck == null)
             {
