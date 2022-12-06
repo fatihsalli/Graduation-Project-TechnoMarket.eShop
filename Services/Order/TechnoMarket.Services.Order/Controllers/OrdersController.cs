@@ -87,6 +87,24 @@ namespace TechnoMarket.Services.Order.Controllers
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
         }
 
+        [HttpPut]
+        [Route("/api/[controller]/[action]")]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
+        public async Task<IActionResult> ChangeStatus([FromBody] OrderStatusUpdateDto orderStatusUpdateDto)
+        {
+            var orderCheck = await _orderService.GetByIdAsync(orderStatusUpdateDto.Id);
+
+            if (orderCheck == null)
+            {
+                //loglama
+                throw new NotFoundException($"Order with id ({orderStatusUpdateDto.Id}) didn't find in the database.");
+            }
+
+            await _orderService.ChangeStatusAsync(orderStatusUpdateDto);
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+        }
+
         [HttpDelete("{id:length(24)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
@@ -103,6 +121,5 @@ namespace TechnoMarket.Services.Order.Controllers
 
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
-
     }
 }

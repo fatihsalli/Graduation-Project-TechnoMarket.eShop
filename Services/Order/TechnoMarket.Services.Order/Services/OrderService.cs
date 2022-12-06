@@ -62,6 +62,13 @@ namespace TechnoMarket.Services.Order.Services
             await _context.Orders.DeleteOneAsync(x=> x.Id== id);
         }
 
+        public async Task ChangeStatusAsync(OrderStatusUpdateDto orderStatusUpdateDto)
+        {
+            var order = await _context.Orders.Find(x => x.Id == orderStatusUpdateDto.Id).SingleOrDefaultAsync();
+            order.Status = orderStatusUpdateDto.Status;
+            await _context.Orders.FindOneAndReplaceAsync(x => x.Id == order.Id, order);
+        }
+
 
     }
 }

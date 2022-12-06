@@ -10,6 +10,7 @@ namespace TechnoMarket.Services.Order.Services.Interfaces
         public Task<OrderDto> CreateAsync(OrderCreateDto orderCreateDto);
         public Task<OrderDto> UpdateAsync(OrderUpdateDto orderUpdateDto, string id);
         public Task DeleteAsync(string id);
+        public Task ChangeStatusAsync(OrderStatusUpdateDto orderStatusUpdateDto);
 
     }
 }
