@@ -38,7 +38,7 @@ namespace TechnoMarket.Services.Order.Controllers
             if (orderDto == null)
             {
                 //loglama
-                throw new Exception($"Order with id: {id} doesn't found in the database.");
+                throw new Exception($"Order with id: {id} didn't find in the database.");
             }
 
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
@@ -54,7 +54,7 @@ namespace TechnoMarket.Services.Order.Controllers
             if (orderDtos == null)
             {
                 //loglama
-                throw new Exception($"Order or orders with customerId: {customerId} doesn't found in the database.");
+                throw new Exception($"Order or orders with customerId: {customerId} didn't find in the database.");
             }
 
             return CreateActionResult(CustomResponseDto<List<OrderDto>>.Success(200, orderDtos));
@@ -65,16 +65,42 @@ namespace TechnoMarket.Services.Order.Controllers
         public async Task<IActionResult> Create([FromBody] OrderCreateDto orderCreateDto)
         {
             var orderDto=await _orderService.CreateAsync(orderCreateDto);
+            return CreateActionResult(CustomResponseDto<OrderDto>.Success(201, orderDto));
+        }
+
+        [HttpPut("{id:length(24)}")]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<OrderDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Update(string id,[FromBody] OrderUpdateDto orderUpdateDto)
+        {
+            var orderCheck=_orderService.GetByIdAsync(id);
+
+            if (orderCheck == null)
+            {
+                //loglama
+                throw new Exception($"Order with id: {id} didn't find in the database.");
+            }
+
+            var orderDto = await _orderService.UpdateAsync(orderUpdateDto, id);            
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
         }
 
+        [HttpDelete("{id:length(24)}")]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var orderCheck = _orderService.GetByIdAsync(id);
 
+            if (orderCheck == null)
+            {
+                //loglama
+                throw new Exception($"Order with id: {id} didn't find in the database.");
+            }
+            await _orderService.DeleteAsync(id);
 
-
-
-
-
-
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+        }
 
     }
 }

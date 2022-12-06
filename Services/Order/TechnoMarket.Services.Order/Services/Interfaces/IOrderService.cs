@@ -8,8 +8,8 @@ namespace TechnoMarket.Services.Order.Services.Interfaces
         public Task<OrderDto> GetByIdAsync(string id);
         public Task<List<OrderDto>> GetByCustomerIdAsync(string customerId);
         public Task<OrderDto> CreateAsync(OrderCreateDto orderCreateDto);
-
-
+        public Task<OrderDto> UpdateAsync(OrderUpdateDto orderUpdateDto, string id);
+        public Task DeleteAsync(string id);
 
     }
 }

@@ -46,25 +46,20 @@ namespace TechnoMarket.Services.Order.Services
             return _mapper.Map<OrderDto>(order);
         }
 
-        public async Task<OrderDto> UpdateAsync(OrderUpdateDto orderUpdateDto)
+        public async Task<OrderDto> UpdateAsync(OrderUpdateDto orderUpdateDto,string id)
         {
             var order = _mapper.Map<Models.Order>(orderUpdateDto);
             order.UpdatedAt= DateTime.Now;
-            //CreatedAt sorunu
+            //TODO: Yöntemi beğenmedim.
+            order.CreatedAt = _context.Orders.Find(x => x.Id == id).SingleOrDefault().CreatedAt;
+            order.Id = id;
             var orderUpdated= await _context.Orders.FindOneAndReplaceAsync(x=> x.Id== order.Id, order);
             return _mapper.Map<OrderDto>(orderUpdated);
         }
 
-        public async Task<bool> Delete(string id)
+        public async Task Delete(string id)
         {
-            var result=await _context.Orders.DeleteOneAsync(x=> x.Id== id);
-
-            if (result.DeletedCount<1)
-            {
-                return false;
-            }
-
-            return true;
+            await _context.Orders.DeleteOneAsync(x=> x.Id== id);
         }
 
 
