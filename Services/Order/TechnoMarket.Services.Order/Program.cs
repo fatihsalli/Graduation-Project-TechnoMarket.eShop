@@ -13,6 +13,9 @@ using TechnoMarket.Services.Order.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+//Autofac kullanabiliriz ya da bir extension yazarak burayý boþaltabiliriz.
+
 //Options Pattern
 builder.Services.Configure<OrderDatabaseSettings>(builder.Configuration.GetSection(nameof(OrderDatabaseSettings)));
 builder.Services.AddSingleton<IOrderDatabaseSettings>(sp => sp.GetRequiredService<IOptions<OrderDatabaseSettings>>().Value);

@@ -45,8 +45,8 @@ namespace TechnoMarket.Services.Order.Controllers
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
         }
 
-        [HttpGet]
-        [Route("/api/[controller]/[action]/{customerId}")]
+        [HttpGet("[action]/{customerId}")]
+        //[Route("/api/[controller]/[action]/{customerId}")] => Alternatif
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<List<OrderDto>>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetByCustomerId(string customerId)
@@ -87,8 +87,8 @@ namespace TechnoMarket.Services.Order.Controllers
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
         }
 
-        [HttpPut]
-        [Route("/api/[controller]/[action]")]
+        [HttpPut("[action]")]
+        //[Route("/api/[controller]/[action]")] => Alternatif
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> ChangeStatus([FromBody] OrderStatusUpdateDto orderStatusUpdateDto)
