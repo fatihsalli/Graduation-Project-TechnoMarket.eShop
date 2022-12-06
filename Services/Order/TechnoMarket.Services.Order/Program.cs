@@ -1,11 +1,15 @@
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using TechnoMarket.Services.Order.Data;
 using TechnoMarket.Services.Order.Data.Interfaces;
+using TechnoMarket.Services.Order.Filters;
 using TechnoMarket.Services.Order.Middlewares;
 using TechnoMarket.Services.Order.Services;
 using TechnoMarket.Services.Order.Services.Interfaces;
 using TechnoMarket.Services.Order.Settings;
 using TechnoMarket.Services.Order.Settings.Interfaces;
+using TechnoMarket.Services.Order.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +26,14 @@ builder.Services.AddAutoMapper(typeof(Program));
 //Service
 builder.Services.AddScoped<IOrderService, OrderService>();
 
-builder.Services.AddControllers();
+//FluentValidation => Filter ile ekledik.
+builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute())).AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<OrderCreateDtoValidator>());
+
+//FluentValidation ile dönen response'u pasif hale getirip kendi response modelimizi döndük.
+builder.Services.Configure<ApiBehaviorOptions>(opt =>
+{
+    opt.SuppressModelStateInvalidFilter = true;
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
