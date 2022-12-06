@@ -3,9 +3,9 @@ using TechnoMarket.Services.Order.Dtos;
 
 namespace TechnoMarket.Services.Order.Validations
 {
-    public class OrderCreateDtoValidator : AbstractValidator<OrderCreateDto>
+    public class OrderUpdateDtoValidator : AbstractValidator<OrderUpdateDto>
     {
-        public OrderCreateDtoValidator()
+        public OrderUpdateDtoValidator()
         {
             RuleFor(x => x.CustomerId)
                 .NotNull().WithMessage("{PropertyName} is required")
