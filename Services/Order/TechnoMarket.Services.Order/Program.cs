@@ -1,9 +1,7 @@
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NLog;
 using NLog.Web;
-using System;
 using TechnoMarket.Services.Order.Data;
 using TechnoMarket.Services.Order.Data.Interfaces;
 using TechnoMarket.Services.Order.Services;
