@@ -14,9 +14,11 @@ namespace TechnoMarket.Services.Order.Controllers
     public class OrdersController : CustomBaseController
     {
         private readonly IOrderService _orderService;
-        public OrdersController(IOrderService orderService, IMapper mapper)
+        private readonly ILogger<OrdersController> _logger;
+        public OrdersController(IOrderService orderService, ILogger<OrdersController> logger)
         {
-            _orderService = orderService;
+            _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]
@@ -36,7 +38,7 @@ namespace TechnoMarket.Services.Order.Controllers
 
             if (orderDto == null)
             {
-                //loglama
+                _logger.LogError($"Order with id ({id}) didn't find in the database.");
                 throw new NotFoundException($"Order with id ({id}) didn't find in the database.");
             }
 
@@ -53,7 +55,7 @@ namespace TechnoMarket.Services.Order.Controllers
 
             if (orderDtos.Count < 1)
             {
-                //loglama
+                _logger.LogError($"Order with customerId ({customerId}) didn't find in the database.");
                 throw new NotFoundException($"Order with customerId ({customerId}) didn't find in the database.");
             }
 
@@ -77,7 +79,7 @@ namespace TechnoMarket.Services.Order.Controllers
 
             if (orderCheck == null)
             {
-                //loglama
+                _logger.LogError($"Order with id ({id}) didn't find in the database.");
                 throw new NotFoundException($"Order with id ({id}) didn't find in the database.");
             }
 
@@ -95,7 +97,7 @@ namespace TechnoMarket.Services.Order.Controllers
 
             if (orderCheck == null)
             {
-                //loglama
+                _logger.LogError($"Order with id ({orderStatusUpdateDto.Id}) didn't find in the database.");
                 throw new NotFoundException($"Order with id ({orderStatusUpdateDto.Id}) didn't find in the database.");
             }
 
@@ -112,7 +114,7 @@ namespace TechnoMarket.Services.Order.Controllers
 
             if (orderCheck == null)
             {
-                //loglama
+                _logger.LogError($"Order with id ({id}) didn't find in the database.");
                 throw new NotFoundException($"Order with id ({id}) didn't find in the database.");
             }
             await _orderService.DeleteAsync(id);

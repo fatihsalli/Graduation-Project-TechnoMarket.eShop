@@ -32,17 +32,17 @@ try
 
     //Database
     builder.Services.AddScoped<IOrderContext, OrderContext>();
-
     //AutoMapper
     builder.Services.AddAutoMapper(typeof(Program));
-
     //Service
     builder.Services.AddScoped<IOrderService, OrderService>();
 
     builder.Services.AddControllers();
 
+    //Fluent Validation ekledik.
     builder.Services.AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<OrderCreateDtoValidator>());
 
+    //Shared Library üzerinden dönen response model yerine kendi modelimizi döndük.
     builder.Services.UseCustomValidationResponseModel();
 
     builder.Services.AddEndpointsApiExplorer();
