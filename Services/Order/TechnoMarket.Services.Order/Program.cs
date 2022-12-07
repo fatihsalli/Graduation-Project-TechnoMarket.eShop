@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using TechnoMarket.Services.Order.Data;
 using TechnoMarket.Services.Order.Data.Interfaces;
-using TechnoMarket.Services.Order.Filters;
 using TechnoMarket.Services.Order.Services;
 using TechnoMarket.Services.Order.Services.Interfaces;
 using TechnoMarket.Services.Order.Settings;
@@ -29,14 +28,18 @@ builder.Services.AddAutoMapper(typeof(Program));
 //Service
 builder.Services.AddScoped<IOrderService, OrderService>();
 
-//FluentValidation => Filter ile ekledik.
-builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute())).AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<OrderCreateDtoValidator>());
+builder.Services.AddControllers();
 
+builder.Services.AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<OrderCreateDtoValidator>());
+
+builder.Services.UseCustomValidationResponseModel();
+
+//Shared Library içerisine aldýk.
 //FluentValidation ile dönen response'u pasif hale getirip kendi response modelimizi döndük.
-builder.Services.Configure<ApiBehaviorOptions>(opt =>
-{
-    opt.SuppressModelStateInvalidFilter = true;
-});
+//builder.Services.Configure<ApiBehaviorOptions>(opt =>
+//{
+//    opt.SuppressModelStateInvalidFilter = true;
+//});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

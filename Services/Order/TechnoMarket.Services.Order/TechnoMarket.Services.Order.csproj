@@ -17,4 +17,8 @@
     <ProjectReference Include="..\..\..\Shared\TechnoMarket.Shared\TechnoMarket.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Filters\" />
+  </ItemGroup>
+
 </Project>

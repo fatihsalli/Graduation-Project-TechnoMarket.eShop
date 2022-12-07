@@ -39,16 +39,23 @@ try
     //Service
     builder.Services.AddScoped<IProductService, ProductService>();
     builder.Services.AddScoped<ICategoryService, CategoryService>();
+    
+    builder.Services.AddControllers();
 
+    //Fluent Validation ekledik.
+    builder.Services.AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductCreateDtoValidator>());
 
-    //FluentValidation => Filter ile ekledik.
-    builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute())).AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductUpdateDtoValidator>());
+    //Shared Library üzerinden dönen response model yerine kendi modelimizi döndük.
+    builder.Services.UseCustomValidationResponseModel();
 
+    #region Fluent Validation Response Model
+    //Shared Library üzerinden yaptýk
     //FluentValidation ile dönen response'u pasif hale getirip kendi response modelimizi döndük.
-    builder.Services.Configure<ApiBehaviorOptions>(opt =>
-    {
-        opt.SuppressModelStateInvalidFilter = true;
-    });
+    //builder.Services.Configure<ApiBehaviorOptions>(opt =>
+    //{
+    //    opt.SuppressModelStateInvalidFilter = true;
+    //}); 
+    #endregion
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
