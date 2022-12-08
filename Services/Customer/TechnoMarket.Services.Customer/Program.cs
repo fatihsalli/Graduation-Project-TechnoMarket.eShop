@@ -1,10 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TechnoMarket.Services.Customer.Data;
+using TechnoMarket.Services.Customer.Repositories;
+using TechnoMarket.Services.Customer.Repositories.Interfaces;
+using TechnoMarket.Services.Customer.Services;
+using TechnoMarket.Services.Customer.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+//Repository => Generic
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+//Service => Generic
+builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 
 //Database
 builder.Services.AddDbContext<CustomerDbContext>(x =>

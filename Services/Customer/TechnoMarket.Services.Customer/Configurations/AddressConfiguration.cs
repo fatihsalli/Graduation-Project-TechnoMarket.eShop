@@ -8,7 +8,7 @@ namespace TechnoMarket.Services.Customer.Configurations
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.Property(c => c.Id).HasColumnType("uuid").ValueGeneratedOnAdd();
+            builder.Property(c => c.Id).IsRequired().UseSerialColumn();
 
             builder.Property(c => c.AddressLine).IsRequired().HasMaxLength(255);
             builder.Property(c => c.City).IsRequired().HasMaxLength(50);
