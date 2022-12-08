@@ -8,7 +8,13 @@ namespace TechnoMarket.Services.Customer.Configurations
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.Property(c => c.Id).HasColumnType("uuid");
+            builder.Property(c => c.Id).HasColumnType("uuid").ValueGeneratedOnAdd();
+
+            builder.Property(c => c.AddressLine).IsRequired().HasMaxLength(255);
+            builder.Property(c => c.City).IsRequired().HasMaxLength(50);
+            builder.Property(c => c.Country).IsRequired().HasMaxLength(50);
+            builder.Property(c => c.CityCode).IsRequired().HasColumnType("smallint").HasMaxLength(81);
+
             //One to one ilişki
             builder.HasOne(x=> x.Customer).WithOne(x => x.Address).HasForeignKey<Address>(x=> x.CustomerId);
         }

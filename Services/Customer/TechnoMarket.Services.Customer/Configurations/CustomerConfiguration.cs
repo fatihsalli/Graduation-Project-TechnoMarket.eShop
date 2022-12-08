@@ -7,10 +7,13 @@ namespace TechnoMarket.Services.Customer.Configurations
     {
         public void Configure(EntityTypeBuilder<Models.Customer> builder)
         {
-            builder.Property(c=>c.Id).HasColumnType("uuid");
+            //Id
+            builder.Property(c => c.Id).HasColumnType("uuid").ValueGeneratedOnAdd();
 
-            builder.Property(c=> c.Name).IsRequired();
-            builder.Property(c => c.Name).HasMaxLength(255);
+            builder.Property(c => c.Name).IsRequired().HasMaxLength(100);
+            builder.Property(c => c.Email).IsRequired().HasMaxLength(255);
+            builder.Property(c => c.CreatedAt).IsRequired().HasColumnType("timestamp");
+            builder.Property(c => c.UpdatedAt).IsRequired(false).HasColumnType("timestamp");
 
         }
     }

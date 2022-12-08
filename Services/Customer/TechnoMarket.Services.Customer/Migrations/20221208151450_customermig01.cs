@@ -16,10 +16,10 @@ namespace TechnoMarket.Services.Customer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,10 +31,10 @@ namespace TechnoMarket.Services.Customer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    AddressLine = table.Column<string>(type: "text", nullable: true),
-                    City = table.Column<string>(type: "text", nullable: true),
-                    Country = table.Column<string>(type: "text", nullable: true),
-                    CityCode = table.Column<int>(type: "integer", nullable: false),
+                    AddressLine = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    City = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Country = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    CityCode = table.Column<short>(type: "smallint", maxLength: 81, nullable: false),
                     CustomerId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>

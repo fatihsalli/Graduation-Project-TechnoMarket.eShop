@@ -12,7 +12,7 @@ using TechnoMarket.Services.Customer.Data;
 namespace TechnoMarket.Services.Customer.Migrations
 {
     [DbContext(typeof(CustomerDbContext))]
-    [Migration("20221208145941_customermig01")]
+    [Migration("20221208151450_customermig01")]
     partial class customermig01
     {
         /// <inheritdoc />
@@ -32,16 +32,23 @@ namespace TechnoMarket.Services.Customer.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("AddressLine")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("City")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
-                    b.Property<int>("CityCode")
-                        .HasColumnType("integer");
+                    b.Property<short>("CityCode")
+                        .HasMaxLength(81)
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Country")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uuid");
@@ -61,18 +68,20 @@ namespace TechnoMarket.Services.Customer.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("Email")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.HasKey("Id");
 
