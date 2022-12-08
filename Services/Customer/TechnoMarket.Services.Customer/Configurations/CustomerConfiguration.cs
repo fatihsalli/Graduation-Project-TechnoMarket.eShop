@@ -7,6 +7,8 @@ namespace TechnoMarket.Services.Customer.Configurations
     {
         public void Configure(EntityTypeBuilder<Models.Customer> builder)
         {
+            builder.Property(c=>c.Id).HasColumnType("uuid");
+
             builder.Property(c=> c.Name).IsRequired();
             builder.Property(c => c.Name).HasMaxLength(255);
 

@@ -12,8 +12,8 @@ using TechnoMarket.Services.Customer.Data;
 namespace TechnoMarket.Services.Customer.Migrations
 {
     [DbContext(typeof(CustomerDbContext))]
-    [Migration("20221208141705_customerV01")]
-    partial class customerV01
+    [Migration("20221208145941_customermig01")]
+    partial class customermig01
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,9 @@ namespace TechnoMarket.Services.Customer.Migrations
 
             modelBuilder.Entity("TechnoMarket.Services.Customer.Models.Address", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<string>("AddressLine")
                         .HasColumnType("text");
@@ -42,8 +43,8 @@ namespace TechnoMarket.Services.Customer.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("text");
 
-                    b.Property<string>("CustomerId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -55,8 +56,9 @@ namespace TechnoMarket.Services.Customer.Migrations
 
             modelBuilder.Entity("TechnoMarket.Services.Customer.Models.Customer", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -81,7 +83,9 @@ namespace TechnoMarket.Services.Customer.Migrations
                 {
                     b.HasOne("TechnoMarket.Services.Customer.Models.Customer", "Customer")
                         .WithOne("Address")
-                        .HasForeignKey("TechnoMarket.Services.Customer.Models.Address", "CustomerId");
+                        .HasForeignKey("TechnoMarket.Services.Customer.Models.Address", "CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
                 });
