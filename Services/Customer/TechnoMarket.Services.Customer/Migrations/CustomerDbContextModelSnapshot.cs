@@ -24,6 +24,9 @@ namespace TechnoMarket.Services.Customer.Migrations
 
             modelBuilder.Entity("TechnoMarket.Services.Customer.Models.Address", b =>
                 {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
                     b.Property<string>("AddressLine")
                         .HasColumnType("text");
 
@@ -35,6 +38,14 @@ namespace TechnoMarket.Services.Customer.Migrations
 
                     b.Property<string>("Country")
                         .HasColumnType("text");
+
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
 
                     b.ToTable("Address");
                 });
@@ -61,6 +72,20 @@ namespace TechnoMarket.Services.Customer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("TechnoMarket.Services.Customer.Models.Address", b =>
+                {
+                    b.HasOne("TechnoMarket.Services.Customer.Models.Customer", "Customer")
+                        .WithOne("Address")
+                        .HasForeignKey("TechnoMarket.Services.Customer.Models.Address", "CustomerId");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("TechnoMarket.Services.Customer.Models.Customer", b =>
+                {
+                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

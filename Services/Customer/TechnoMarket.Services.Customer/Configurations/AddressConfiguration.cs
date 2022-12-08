@@ -8,7 +8,8 @@ namespace TechnoMarket.Services.Customer.Configurations
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.HasNoKey();
+            //One to one ilişki
+            builder.HasOne(x=> x.Customer).WithOne(x => x.Address).HasForeignKey<Address>(x=> x.CustomerId);
         }
     }
 }
