@@ -1,18 +1,17 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using System.Reflection;
 using TechnoMarket.Services.Customer.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 
 //Database
-builder.Services.AddDbContext<CustomerContext>(x =>
+builder.Services.AddDbContext<CustomerDbContext>(x =>
 {
     x.UseNpgsql(builder.Configuration.GetConnectionString("PostreSql"), option =>
     {
-        option.MigrationsAssembly(Assembly.GetAssembly(typeof(CustomerContext)).GetName().Name);
+        option.MigrationsAssembly(Assembly.GetAssembly(typeof(CustomerDbContext)).GetName().Name);
     });
 });
 
