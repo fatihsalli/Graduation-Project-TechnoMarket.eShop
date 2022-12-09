@@ -5,6 +5,9 @@ namespace TechnoMarket.Services.Customer.Services
 {
     public class GenericService<T> : IGenericService<T> where T : class
     {
+
+
+
         public Task<T> AddAsync(T entity)
         {
             throw new NotImplementedException();
