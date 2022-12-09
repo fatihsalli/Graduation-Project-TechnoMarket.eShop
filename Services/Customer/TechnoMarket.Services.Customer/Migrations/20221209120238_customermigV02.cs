@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TechnoMarket.Services.Customer.Migrations
 {
     /// <inheritdoc />
-    public partial class customermigV01 : Migration
+    public partial class customermigV02 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,9 +15,9 @@ namespace TechnoMarket.Services.Customer.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "character varying(36)", maxLength: 36, nullable: false),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "varchar", maxLength: 55, nullable: false),
+                    Email = table.Column<string>(type: "varchar", maxLength: 255, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
@@ -30,12 +30,12 @@ namespace TechnoMarket.Services.Customer.Migrations
                 name: "Address",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "character varying(36)", maxLength: 36, nullable: false),
-                    AddressLine = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    City = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Country = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    AddressLine = table.Column<string>(type: "varchar", maxLength: 256, nullable: false),
+                    City = table.Column<string>(type: "varchar", maxLength: 55, nullable: false),
+                    Country = table.Column<string>(type: "varchar", maxLength: 55, nullable: false),
                     CityCode = table.Column<short>(type: "smallint", maxLength: 81, nullable: false),
-                    CustomerId = table.Column<string>(type: "character varying(36)", maxLength: 36, nullable: false)
+                    CustomerId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {

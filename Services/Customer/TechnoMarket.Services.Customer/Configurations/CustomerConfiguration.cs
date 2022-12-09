@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Threenine.Configurations.PostgreSql;
 
 namespace TechnoMarket.Services.Customer.Configurations
 {
@@ -7,13 +8,27 @@ namespace TechnoMarket.Services.Customer.Configurations
     {
         public void Configure(EntityTypeBuilder<Models.Customer> builder)
         {
-            //Id-Uuid
-            builder.Property(c => c.Id).IsRequired().HasMaxLength(36);
+            //Id-uuidv4
+            builder.Property(c => c.Id)
+                .HasColumnType(ColumnTypes.UniqueIdentifier)
+                .IsRequired();
 
-            builder.Property(c => c.Name).IsRequired().HasMaxLength(100);
-            builder.Property(c => c.Email).IsRequired().HasMaxLength(255);
-            builder.Property(c => c.CreatedAt).IsRequired().HasColumnType("timestamp");
-            builder.Property(c => c.UpdatedAt).IsRequired(false).HasColumnType("timestamp");
+            builder.Property(c => c.Name)
+                .HasColumnType(ColumnTypes.Varchar)
+                .IsRequired()
+                .HasMaxLength(55);
+
+            builder.Property(c => c.Email)
+                .HasColumnType(ColumnTypes.Varchar)
+                .IsRequired()
+                .HasMaxLength(255);
+
+            builder.Property(c => c.CreatedAt)
+                .HasColumnType("timestamp")
+                .IsRequired();
+
+            builder.Property(c => c.UpdatedAt)
+                .HasColumnType("timestamp");
 
         }
     }

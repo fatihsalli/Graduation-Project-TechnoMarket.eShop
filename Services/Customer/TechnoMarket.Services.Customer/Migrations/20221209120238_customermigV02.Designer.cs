@@ -12,8 +12,8 @@ using TechnoMarket.Services.Customer.Data;
 namespace TechnoMarket.Services.Customer.Migrations
 {
     [DbContext(typeof(CustomerDbContext))]
-    [Migration("20221209102035_customermigV01")]
-    partial class customermigV01
+    [Migration("20221209120238_customermigV02")]
+    partial class customermigV02
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,19 +27,19 @@ namespace TechnoMarket.Services.Customer.Migrations
 
             modelBuilder.Entity("TechnoMarket.Services.Customer.Models.Address", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(36)
-                        .HasColumnType("character varying(36)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<string>("AddressLine")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(55)
+                        .HasColumnType("varchar");
 
                     b.Property<short>("CityCode")
                         .HasMaxLength(81)
@@ -47,13 +47,11 @@ namespace TechnoMarket.Services.Customer.Migrations
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(55)
+                        .HasColumnType("varchar");
 
-                    b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("character varying(36)");
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -65,9 +63,9 @@ namespace TechnoMarket.Services.Customer.Migrations
 
             modelBuilder.Entity("TechnoMarket.Services.Customer.Models.Customer", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(36)
-                        .HasColumnType("character varying(36)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp");
@@ -75,12 +73,12 @@ namespace TechnoMarket.Services.Customer.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(55)
+                        .HasColumnType("varchar");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp");

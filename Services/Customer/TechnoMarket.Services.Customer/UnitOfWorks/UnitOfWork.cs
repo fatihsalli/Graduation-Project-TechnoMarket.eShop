@@ -13,7 +13,7 @@ namespace TechnoMarket.Services.Customer.UnitOfWorks
 
         public void Commit()
         {
-            await _context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public async Task CommitAsync()

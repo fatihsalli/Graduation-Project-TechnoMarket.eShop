@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TechnoMarket.Services.Customer.Models;
+using Threenine.Configurations.PostgreSql;
 
 namespace TechnoMarket.Services.Customer.Configurations
 {
@@ -9,13 +10,33 @@ namespace TechnoMarket.Services.Customer.Configurations
         public void Configure(EntityTypeBuilder<Address> builder)
         {
             //Id-Uuid
-            builder.Property(c => c.Id).IsRequired().HasMaxLength(36);
-            builder.Property(c => c.CustomerId).IsRequired().HasMaxLength(36);
+            builder.Property(c => c.Id)
+                .HasColumnType(ColumnTypes.UniqueIdentifier)
+                .IsRequired();
 
-            builder.Property(c => c.AddressLine).IsRequired().HasMaxLength(255);
-            builder.Property(c => c.City).IsRequired().HasMaxLength(50);
-            builder.Property(c => c.Country).IsRequired().HasMaxLength(50);
-            builder.Property(c => c.CityCode).IsRequired().HasColumnType("smallint").HasMaxLength(81);
+            builder.Property(c => c.CustomerId)
+                .HasColumnType(ColumnTypes.UniqueIdentifier)
+                .IsRequired();
+
+            builder.Property(c => c.AddressLine)
+                .HasColumnType(ColumnTypes.Varchar)
+                .IsRequired()
+                .HasMaxLength(256);
+
+            builder.Property(c => c.City)
+                .HasColumnType(ColumnTypes.Varchar)
+                .IsRequired()
+                .HasMaxLength(55);
+
+            builder.Property(c => c.Country)
+                .HasColumnType(ColumnTypes.Varchar)
+                .IsRequired()
+                .HasMaxLength(55);
+
+            builder.Property(c => c.CityCode)
+                .HasColumnType(ColumnTypes.SmallInt)
+                .IsRequired()
+                .HasMaxLength(81);
 
             //One to one ilişki
             builder.HasOne(x=> x.Customer).WithOne(x => x.Address).HasForeignKey<Address>(x=> x.CustomerId);
