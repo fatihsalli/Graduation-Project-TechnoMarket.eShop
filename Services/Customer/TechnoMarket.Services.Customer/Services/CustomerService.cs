@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using TechnoMarket.Services.Customer.Dtos;
 using TechnoMarket.Services.Customer.Repositories.Interfaces;
 using TechnoMarket.Services.Customer.Services.Interfaces;
 using TechnoMarket.Services.Customer.UnitOfWorks.Interfaces;
+using TechnoMarket.Shared.Exceptions;
 
 namespace TechnoMarket.Services.Customer.Services
 {
@@ -20,16 +22,40 @@ namespace TechnoMarket.Services.Customer.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<IEnumerable<CustomerDto>> GetAllAsync()
+        {
+            var customers=await _repository.GetAll().ToListAsync();
+            return _mapper.Map<List<CustomerDto>>(customers);
+        }
+
+        public async Task<CustomerDto> GetByIdAsync(string id)
+        {
+            var customer = await _repository.GetByIdAsync(id);
+
+            if (customer == null)
+            {
+                //Loglama
+                throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
+            }
+
+            return _mapper.Map<CustomerDto>(customer);
+        }
+
         public async Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto)
         {
             var customer = _mapper.Map<Models.Customer>(customerCreateDto);
 
-            //TODO: Id oluşturma işini Database tarafına aktarmak. Ancak serial olarak değil Uuid olarak.
+            //Id'yi AddAsycn metotu esnasında EF Core otomatik oluşturuyor.
             customer.CreatedAt = DateTime.Now;
+
             await _repository.AddAsync(customer);
             await _unitOfWork.CommitAsync();
             return _mapper.Map<CustomerDto>(customer);
         }
+
+
+
+
 
 
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Threenine.Configurations.PostgreSql;
+using Threenine.Configurations.PostgreSql; //ColumnTypesları kullanmak için
 
 namespace TechnoMarket.Services.Customer.Configurations
 {

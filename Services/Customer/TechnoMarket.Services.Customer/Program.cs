@@ -7,6 +7,7 @@ using TechnoMarket.Services.Customer.Services;
 using TechnoMarket.Services.Customer.Services.Interfaces;
 using TechnoMarket.Services.Customer.UnitOfWorks;
 using TechnoMarket.Services.Customer.UnitOfWorks.Interfaces;
+using TechnoMarket.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//Custom middleware
+app.UseCustomException();
 
 app.UseAuthorization();
 
