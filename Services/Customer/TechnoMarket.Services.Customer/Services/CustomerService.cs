@@ -41,22 +41,33 @@ namespace TechnoMarket.Services.Customer.Services
             return _mapper.Map<CustomerDto>(customer);
         }
 
+        public async Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto)
+        {
+            var customer = _mapper.Map<Models.Customer>(customerCreateDto);
+
+            customer.Id=Guid.NewGuid().ToString();
+            customer.CreatedAt = DateTime.Now;
+
+            await _repository.AddAsync(customer);
+            await _unitOfWork.CommitAsync();
+
+            return _mapper.Map<CustomerDto>(customer);
+        }
 
         public async Task UpdateAsync(string id, CustomerUpdateDto customerUpdateDto)
         {
-            var customerCheck = await _repository.GetByIdAsync(id);
+            var customerCheck = await _repository.AnyAsync(x=> x.Id==id);
 
-            if (customerCheck == null)
+            if (!customerCheck)
             {
                 //Loglama
                 throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
             }
 
-            //TODO:
-            customerCheck = _mapper.Map<Models.Customer>(customerUpdateDto);
-            customerCheck.UpdatedAt = DateTime.Now;
-            customerCheck.CreatedAt = customerCheck.CreatedAt;
-            _repository.Update(customerCheck);
+            var customerUpdate = _mapper.Map<Models.Customer>(customerUpdateDto);
+            customerUpdate.UpdatedAt = DateTime.Now;
+
+            _repository.Update(customerUpdate);
             await _unitOfWork.CommitAsync();
         }
 
@@ -74,17 +85,7 @@ namespace TechnoMarket.Services.Customer.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto)
-        {
-            var customer = _mapper.Map<Models.Customer>(customerCreateDto);
-
-            //Id'yi AddAsycn metotu esnasında EF Core otomatik oluşturuyor.
-            customer.CreatedAt = DateTime.Now;
-
-            await _repository.AddAsync(customer);
-            await _unitOfWork.CommitAsync();
-            return _mapper.Map<CustomerDto>(customer);
-        }
+     
 
         public IQueryable<Models.Customer> Where(Expression<Func<Models.Customer, bool>> expression)
         {

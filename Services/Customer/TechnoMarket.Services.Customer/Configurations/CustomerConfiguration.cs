@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Threenine.Configurations.PostgreSql; //ColumnTypesları kullanmak için
+using Threenine.Configurations.PostgreSql; //ColumnTypesları kullanmak için => timestamp de hata veriyor.
 
 namespace TechnoMarket.Services.Customer.Configurations
 {
@@ -8,9 +8,9 @@ namespace TechnoMarket.Services.Customer.Configurations
     {
         public void Configure(EntityTypeBuilder<Models.Customer> builder)
         {
-            //Id-uuidv4
             builder.Property(c => c.Id)
-                .HasColumnType(ColumnTypes.UniqueIdentifier)
+                .HasColumnType(ColumnTypes.Varchar)
+                .HasMaxLength(36)
                 .IsRequired();
 
             builder.Property(c => c.Name)
@@ -29,7 +29,6 @@ namespace TechnoMarket.Services.Customer.Configurations
 
             builder.Property(c => c.UpdatedAt)
                 .HasColumnType("timestamp");
-
         }
     }
 }

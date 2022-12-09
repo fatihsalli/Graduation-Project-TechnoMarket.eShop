@@ -9,13 +9,13 @@ namespace TechnoMarket.Services.Customer.Configurations
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            //Id-Uuid
-            builder.Property(c => c.Id)
-                .HasColumnType(ColumnTypes.UniqueIdentifier)
+            builder.Property(a=> a.Id)
+                .HasColumnType(ColumnTypes.Serial)
                 .IsRequired();
 
             builder.Property(c => c.CustomerId)
-                .HasColumnType(ColumnTypes.UniqueIdentifier)
+                .HasColumnType(ColumnTypes.Varchar)
+                .HasMaxLength(36)
                 .IsRequired();
 
             builder.Property(c => c.AddressLine)

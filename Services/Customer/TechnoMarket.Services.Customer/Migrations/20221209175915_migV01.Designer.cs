@@ -12,8 +12,8 @@ using TechnoMarket.Services.Customer.Data;
 namespace TechnoMarket.Services.Customer.Migrations
 {
     [DbContext(typeof(CustomerDbContext))]
-    [Migration("20221209120238_customermigV02")]
-    partial class customermigV02
+    [Migration("20221209175915_migV01")]
+    partial class migV01
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,9 +27,11 @@ namespace TechnoMarket.Services.Customer.Migrations
 
             modelBuilder.Entity("TechnoMarket.Services.Customer.Models.Address", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("serial");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AddressLine")
                         .IsRequired()
@@ -50,8 +52,10 @@ namespace TechnoMarket.Services.Customer.Migrations
                         .HasMaxLength(55)
                         .HasColumnType("varchar");
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar");
 
                     b.HasKey("Id");
 
@@ -63,9 +67,9 @@ namespace TechnoMarket.Services.Customer.Migrations
 
             modelBuilder.Entity("TechnoMarket.Services.Customer.Models.Customer", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<string>("Id")
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp");

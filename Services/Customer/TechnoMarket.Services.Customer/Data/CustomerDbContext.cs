@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using TechnoMarket.Services.Customer.Models;
 
 namespace TechnoMarket.Services.Customer.Data
 {
@@ -11,6 +12,12 @@ namespace TechnoMarket.Services.Customer.Data
         }
 
         public DbSet<Models.Customer> Customers { get; set; }
+        public DbSet<Address> Address { get; set; }
+
+
+
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

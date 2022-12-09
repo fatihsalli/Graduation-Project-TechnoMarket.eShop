@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace TechnoMarket.Services.Customer.Migrations
 {
     /// <inheritdoc />
-    public partial class customermigV02 : Migration
+    public partial class migV01 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,7 +16,7 @@ namespace TechnoMarket.Services.Customer.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<string>(type: "varchar", maxLength: 36, nullable: false),
                     Name = table.Column<string>(type: "varchar", maxLength: 55, nullable: false),
                     Email = table.Column<string>(type: "varchar", maxLength: 255, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
@@ -29,12 +31,13 @@ namespace TechnoMarket.Services.Customer.Migrations
                 name: "Address",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "serial", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     AddressLine = table.Column<string>(type: "varchar", maxLength: 256, nullable: false),
                     City = table.Column<string>(type: "varchar", maxLength: 55, nullable: false),
                     Country = table.Column<string>(type: "varchar", maxLength: 55, nullable: false),
                     CityCode = table.Column<short>(type: "smallint", maxLength: 81, nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uuid", nullable: false)
+                    CustomerId = table.Column<string>(type: "varchar", maxLength: 36, nullable: false)
                 },
                 constraints: table =>
                 {
