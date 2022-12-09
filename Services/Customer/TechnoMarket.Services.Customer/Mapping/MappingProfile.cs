@@ -12,9 +12,9 @@ namespace TechnoMarket.Services.Customer.Mapping
 
             CreateMap<Models.Customer,CustomerCreateDto>().ReverseMap();
 
+            CreateMap<Models.Customer, CustomerUpdateDto>().ReverseMap();
+
             CreateMap<Address, AddressDto>().ReverseMap();
-
-
         }
 
     }

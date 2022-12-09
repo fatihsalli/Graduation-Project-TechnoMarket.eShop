@@ -22,7 +22,13 @@ namespace TechnoMarket.Services.Customer.Controllers
             _customerService = customerService;
         }
 
-
+        [HttpGet]
+        [ProducesResponseType(typeof(CustomResponseDto<List<CustomerDto>>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAll()
+        {
+            var customerDtos = await _customerService.GetAllAsync();
+            return CreateActionResult(CustomResponseDto<List<CustomerDto>>.Success(200, customerDtos));
+        }
 
         [HttpGet("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
@@ -33,16 +39,31 @@ namespace TechnoMarket.Services.Customer.Controllers
             return CreateActionResult(CustomResponseDto<CustomerDto>.Success(200, customerDto));
         }
 
-
-
         [HttpPost]
+        [ProducesResponseType(typeof(CustomResponseDto<CustomerDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody] CustomerCreateDto customerCreateDto)
         {
             var customerDto=await _customerService.AddAsync(customerCreateDto);
-            return CreateActionResult(CustomResponseDto<CustomerDto>.Success(200,customerDto));
+            return CreateActionResult(CustomResponseDto<CustomerDto>.Success(201,customerDto));
         }
 
+        [HttpPut]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Update([FromBody] CustomerUpdateDto customerUpdateDto)
+        {
+            await _customerService.UpdateAsync(customerUpdateDto);
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+        }
 
+        [HttpDelete("{id:length(24)}")]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await _customerService.RemoveAsync(id);
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+        }
 
     }
 }

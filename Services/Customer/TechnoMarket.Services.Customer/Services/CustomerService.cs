@@ -22,7 +22,7 @@ namespace TechnoMarket.Services.Customer.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<CustomerDto>> GetAllAsync()
+        public async Task<List<CustomerDto>> GetAllAsync()
         {
             var customers=await _repository.GetAll().ToListAsync();
             return _mapper.Map<List<CustomerDto>>(customers);
@@ -35,22 +35,41 @@ namespace TechnoMarket.Services.Customer.Services
             if (customer == null)
             {
                 //Loglama
-                throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
+                throw new NotFoundException($"Customer with id ({id.ToString()}) didn't find in the database.");
             }
 
             return _mapper.Map<CustomerDto>(customer);
         }
 
 
-        public async Task UpdateAsync(T entity)
+        public async Task UpdateAsync(CustomerUpdateDto customerUpdateDto)
         {
-            _repository.Update(entity);
+            var customerCheck = await _repository.GetByIdAsync(customerUpdateDto.Id.ToString());
+
+            if (customerCheck == null)
+            {
+                //Loglama
+                throw new NotFoundException($"Customer with id ({customerUpdateDto.Id.ToString()}) didn't find in the database.");
+            }
+
+            var customerUpdated=_mapper.Map<Models.Customer>(customerUpdateDto);
+            customerUpdated.UpdatedAt = DateTime.Now;
+            customerUpdated.CreatedAt=customerCheck.CreatedAt;
+            _repository.Update(customerUpdated);
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RemoveAsync(T entity)
+        public async Task RemoveAsync(string id)
         {
-            _repository.Remove(entity);
+            var customer = await _repository.GetByIdAsync(id);
+
+            if (customer == null)
+            {
+                //Loglama
+                throw new NotFoundException($"Customer with id ({id.ToString()}) didn't find in the database.");
+            }
+
+            _repository.Remove(customer);
             await _unitOfWork.CommitAsync();
         }
 
