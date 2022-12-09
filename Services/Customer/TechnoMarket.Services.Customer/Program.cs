@@ -5,6 +5,8 @@ using TechnoMarket.Services.Customer.Repositories;
 using TechnoMarket.Services.Customer.Repositories.Interfaces;
 using TechnoMarket.Services.Customer.Services;
 using TechnoMarket.Services.Customer.Services.Interfaces;
+using TechnoMarket.Services.Customer.UnitOfWorks;
+using TechnoMarket.Services.Customer.UnitOfWorks.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 //Service => Customer
 builder.Services.AddScoped<ICustomerService,CustomerService>();
+//Service => Customer
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //Database
 builder.Services.AddDbContext<CustomerDbContext>(x =>

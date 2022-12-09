@@ -25,6 +25,8 @@ namespace TechnoMarket.Services.Customer.Repositories
         public async Task AddRangeAsync(IEnumerable<T> entities)
         {
             await _dbSet.AddRangeAsync(entities);
+            //UnitOfWork design pattern da kullanabilirdik.
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
