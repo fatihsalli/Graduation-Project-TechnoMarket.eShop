@@ -19,6 +19,7 @@ namespace TechnoMarket.Services.Customer.Repositories
         public async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task AddRangeAsync(IEnumerable<T> entities)
@@ -37,8 +38,8 @@ namespace TechnoMarket.Services.Customer.Repositories
             return _dbSet.AsNoTracking().AsQueryable();
         }
 
-        public async Task<T> GetByIdAsync(int id)
-        {
+        public async Task<T> GetByIdAsync(string id)
+        {           
             return await _dbSet.FindAsync(id);
         }
 

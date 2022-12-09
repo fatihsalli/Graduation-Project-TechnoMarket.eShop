@@ -8,7 +8,8 @@ namespace TechnoMarket.Services.Customer.Configurations
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.Property(c => c.Id).IsRequired().UseSerialColumn();
+            //Id
+            builder.Property(c => c.Id).HasColumnType("varchar").HasMaxLength(36);
 
             builder.Property(c => c.AddressLine).IsRequired().HasMaxLength(255);
             builder.Property(c => c.City).IsRequired().HasMaxLength(50);
