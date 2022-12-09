@@ -8,9 +8,9 @@ namespace TechnoMarket.Services.Customer.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Models.Customer,CustomerDto>().ReverseMap();
+            CreateMap<Models.Customer, CustomerDto>().ReverseMap();
 
-            CreateMap<Models.Customer,CustomerCreateDto>().ReverseMap();
+            CreateMap<Models.Customer, CustomerCreateDto>().ReverseMap();
 
             CreateMap<Models.Customer, CustomerUpdateDto>().ReverseMap();
 

@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TechnoMarket.Services.Customer.Dtos;
-using TechnoMarket.Services.Customer.Models;
-using TechnoMarket.Services.Customer.Repositories.Interfaces;
 using TechnoMarket.Services.Customer.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
@@ -43,16 +40,16 @@ namespace TechnoMarket.Services.Customer.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<CustomerDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody] CustomerCreateDto customerCreateDto)
         {
-            var customerDto=await _customerService.AddAsync(customerCreateDto);
-            return CreateActionResult(CustomResponseDto<CustomerDto>.Success(201,customerDto));
+            var customerDto = await _customerService.AddAsync(customerCreateDto);
+            return CreateActionResult(CustomResponseDto<CustomerDto>.Success(201, customerDto));
         }
 
         [HttpPut("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update(string id,[FromBody] CustomerUpdateDto customerUpdateDto)
+        public async Task<IActionResult> Update(string id, [FromBody] CustomerUpdateDto customerUpdateDto)
         {
-            await _customerService.UpdateAsync(id,customerUpdateDto);
+            await _customerService.UpdateAsync(id, customerUpdateDto);
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 

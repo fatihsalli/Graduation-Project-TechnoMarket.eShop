@@ -9,13 +9,13 @@ using TechnoMarket.Shared.Exceptions;
 
 namespace TechnoMarket.Services.Customer.Services
 {
-    public class CustomerService: ICustomerService
+    public class CustomerService : ICustomerService
     {
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Models.Customer> _repository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CustomerService(IMapper mapper,IGenericRepository<Models.Customer> repository,IUnitOfWork unitOfWork)
+        public CustomerService(IMapper mapper, IGenericRepository<Models.Customer> repository, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _repository = repository;
@@ -24,7 +24,7 @@ namespace TechnoMarket.Services.Customer.Services
 
         public async Task<List<CustomerDto>> GetAllAsync()
         {
-            var customers=await _repository.GetAll().ToListAsync();
+            var customers = await _repository.GetAll().ToListAsync();
             return _mapper.Map<List<CustomerDto>>(customers);
         }
 
@@ -42,7 +42,7 @@ namespace TechnoMarket.Services.Customer.Services
         }
 
 
-        public async Task UpdateAsync(string id,CustomerUpdateDto customerUpdateDto)
+        public async Task UpdateAsync(string id, CustomerUpdateDto customerUpdateDto)
         {
             var customerCheck = await _repository.GetByIdAsync(id);
 
@@ -55,7 +55,7 @@ namespace TechnoMarket.Services.Customer.Services
             //TODO:
             customerCheck = _mapper.Map<Models.Customer>(customerUpdateDto);
             customerCheck.UpdatedAt = DateTime.Now;
-            customerCheck.CreatedAt=customerCheck.CreatedAt;
+            customerCheck.CreatedAt = customerCheck.CreatedAt;
             _repository.Update(customerCheck);
             await _unitOfWork.CommitAsync();
         }

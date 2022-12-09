@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Repository => Generic
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 //Service => Customer
-builder.Services.AddScoped<ICustomerService,CustomerService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 //Service => Customer
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

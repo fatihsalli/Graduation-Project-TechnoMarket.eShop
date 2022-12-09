@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using TechnoMarket.Services.Customer.Models;
 
 namespace TechnoMarket.Services.Customer.Data
 {
