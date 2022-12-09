@@ -42,20 +42,21 @@ namespace TechnoMarket.Services.Customer.Services
         }
 
 
-        public async Task UpdateAsync(CustomerUpdateDto customerUpdateDto)
+        public async Task UpdateAsync(string id,CustomerUpdateDto customerUpdateDto)
         {
-            var customerCheck = await _repository.GetByIdAsync(customerUpdateDto.Id.ToString());
+            var customerCheck = await _repository.GetByIdAsync(id);
 
             if (customerCheck == null)
             {
                 //Loglama
-                throw new NotFoundException($"Customer with id ({customerUpdateDto.Id.ToString()}) didn't find in the database.");
+                throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
             }
 
-            var customerUpdated=_mapper.Map<Models.Customer>(customerUpdateDto);
-            customerUpdated.UpdatedAt = DateTime.Now;
-            customerUpdated.CreatedAt=customerCheck.CreatedAt;
-            _repository.Update(customerUpdated);
+            //TODO:
+            customerCheck = _mapper.Map<Models.Customer>(customerUpdateDto);
+            customerCheck.UpdatedAt = DateTime.Now;
+            customerCheck.CreatedAt=customerCheck.CreatedAt;
+            _repository.Update(customerCheck);
             await _unitOfWork.CommitAsync();
         }
 

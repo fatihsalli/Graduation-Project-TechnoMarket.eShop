@@ -47,16 +47,16 @@ namespace TechnoMarket.Services.Customer.Controllers
             return CreateActionResult(CustomResponseDto<CustomerDto>.Success(201,customerDto));
         }
 
-        [HttpPut]
+        [HttpPut("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromBody] CustomerUpdateDto customerUpdateDto)
+        public async Task<IActionResult> Update(string id,[FromBody] CustomerUpdateDto customerUpdateDto)
         {
-            await _customerService.UpdateAsync(customerUpdateDto);
+            await _customerService.UpdateAsync(id,customerUpdateDto);
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 
-        [HttpDelete("{id:length(24)}")]
+        [HttpDelete("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(string id)
