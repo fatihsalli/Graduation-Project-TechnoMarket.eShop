@@ -7,8 +7,8 @@ namespace TechnoMarket.Services.Customer.Configurations
     {
         public void Configure(EntityTypeBuilder<Models.Customer> builder)
         {
-            //Id
-            builder.Property(c => c.Id).HasColumnType("varchar").HasMaxLength(36);
+            //Id-Uuid
+            builder.Property(c => c.Id).IsRequired().HasMaxLength(36);
 
             builder.Property(c => c.Name).IsRequired().HasMaxLength(100);
             builder.Property(c => c.Email).IsRequired().HasMaxLength(255);

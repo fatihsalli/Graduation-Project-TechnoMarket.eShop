@@ -10,8 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Repository => Generic
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-//Service => Generic
-builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+//Service => Customer
+builder.Services.AddScoped<ICustomerService,CustomerService>();
 
 //Database
 builder.Services.AddDbContext<CustomerDbContext>(x =>
@@ -21,6 +21,10 @@ builder.Services.AddDbContext<CustomerDbContext>(x =>
         option.MigrationsAssembly(Assembly.GetAssembly(typeof(CustomerDbContext)).GetName().Name);
     });
 });
+
+//AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

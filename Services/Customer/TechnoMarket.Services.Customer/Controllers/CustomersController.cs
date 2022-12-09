@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TechnoMarket.Services.Customer.Dtos;
 using TechnoMarket.Services.Customer.Models;
 using TechnoMarket.Services.Customer.Repositories.Interfaces;
+using TechnoMarket.Services.Customer.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
 
@@ -12,26 +13,19 @@ namespace TechnoMarket.Services.Customer.Controllers
     [ApiController]
     public class CustomersController : CustomBaseController
     {
-        private readonly IGenericRepository<Models.Customer> _customerRepository;
+        private readonly ICustomerService _customerService;
 
 
-        public CustomersController(IGenericRepository<Models.Customer> customerRepository)
+        public CustomersController(ICustomerService customerService)
         {
-            _customerRepository = customerRepository;
+            _customerService = customerService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CustomerDto customerDto)
+        public async Task<IActionResult> Create([FromBody] CustomerCreateDto customerCreateDto)
         {
-            var customer = new Models.Customer();
-            customer.Name = customerDto.Name;
-            customer.Email = customerDto.Email;
-
-
-
-            await _customerRepository.AddAsync(customer);
-
-            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(200));
+            var customerDto=await _customerService.AddAsync(customerCreateDto);
+            return CreateActionResult(CustomResponseDto<CustomerDto>.Success(200,customerDto));
         }
 
 
