@@ -42,11 +42,6 @@ namespace TechnoMarket.Services.Customer.Repositories
             _dbSet.Remove(entity);
         }
 
-        public void RemoveRange(IEnumerable<T> entities)
-        {
-            _dbSet.RemoveRange(entities);
-        }
-
         public void Update(T entity)
         {
             //_context.Entry(entity).State= EntityState.Modified; //=>Alternatif 

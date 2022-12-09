@@ -41,9 +41,18 @@ namespace TechnoMarket.Services.Customer.Services
             return _mapper.Map<CustomerDto>(customer);
         }
 
-        
 
+        public async Task UpdateAsync(T entity)
+        {
+            _repository.Update(entity);
+            await _unitOfWork.CommitAsync();
+        }
 
+        public async Task RemoveAsync(T entity)
+        {
+            _repository.Remove(entity);
+            await _unitOfWork.CommitAsync();
+        }
 
         public async Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto)
         {
@@ -57,15 +66,15 @@ namespace TechnoMarket.Services.Customer.Services
             return _mapper.Map<CustomerDto>(customer);
         }
 
+        public IQueryable<Models.Customer> Where(Expression<Func<Models.Customer, bool>> expression)
+        {
+            return _repository.Where(expression);
+        }
 
-
-
-
-
-
-
-
-
-
+        //Kendi içimizde kullanmak için
+        public async Task<bool> AnyAsync(Expression<Func<Models.Customer, bool>> expression)
+        {
+            return await _repository.AnyAsync(expression);
+        }
     }
 }
