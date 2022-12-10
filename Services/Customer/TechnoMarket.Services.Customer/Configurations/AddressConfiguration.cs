@@ -10,7 +10,6 @@ namespace TechnoMarket.Services.Customer.Configurations
         public void Configure(EntityTypeBuilder<Address> builder)
         {
             builder.Property(a=> a.Id)
-                .HasColumnType(ColumnTypes.Serial)
                 .IsRequired();
 
             builder.Property(c => c.CustomerId)

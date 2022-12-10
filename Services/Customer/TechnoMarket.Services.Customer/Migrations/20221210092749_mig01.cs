@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TechnoMarket.Services.Customer.Migrations
 {
     /// <inheritdoc />
-    public partial class migV01 : Migration
+    public partial class mig01 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,7 +31,7 @@ namespace TechnoMarket.Services.Customer.Migrations
                 name: "Address",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "serial", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     AddressLine = table.Column<string>(type: "varchar", maxLength: 256, nullable: false),
                     City = table.Column<string>(type: "varchar", maxLength: 55, nullable: false),

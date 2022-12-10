@@ -11,11 +11,14 @@ using TechnoMarket.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Repository => Generic
+//Repository Pattern => Generic
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+
 //Service => Customer
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-//Service => Customer
+
+//UnitOfWork Design Pattern
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //Database

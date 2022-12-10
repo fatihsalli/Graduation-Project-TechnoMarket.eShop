@@ -12,10 +12,10 @@ namespace TechnoMarket.Services.Customer.Services
     public class CustomerService : ICustomerService
     {
         private readonly IMapper _mapper;
-        private readonly IGenericRepository<Models.Customer> _repository;
+        private readonly ICustomerRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CustomerService(IMapper mapper, IGenericRepository<Models.Customer> repository, IUnitOfWork unitOfWork)
+        public CustomerService(IMapper mapper, ICustomerRepository repository, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _repository = repository;
@@ -25,6 +25,12 @@ namespace TechnoMarket.Services.Customer.Services
         public async Task<List<CustomerDto>> GetAllAsync()
         {
             var customers = await _repository.GetAll().ToListAsync();
+            return _mapper.Map<List<CustomerDto>>(customers);
+        }
+
+        public async Task<List<CustomerDto>> GetCustomersWithAddressAsync()
+        {
+            var customers= await _repository.GetCustomersWithAddressAsync();
             return _mapper.Map<List<CustomerDto>>(customers);
         }
 

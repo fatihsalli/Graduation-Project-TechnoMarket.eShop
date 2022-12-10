@@ -23,7 +23,7 @@ namespace TechnoMarket.Services.Customer.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<List<CustomerDto>>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll()
         {
-            var customerDtos = await _customerService.GetAllAsync();
+            var customerDtos = await _customerService.GetCustomersWithAddressAsync();
             return CreateActionResult(CustomResponseDto<List<CustomerDto>>.Success(200, customerDtos));
         }
 
