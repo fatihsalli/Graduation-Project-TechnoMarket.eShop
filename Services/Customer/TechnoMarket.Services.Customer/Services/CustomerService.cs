@@ -65,9 +65,8 @@ namespace TechnoMarket.Services.Customer.Services
             var customer = _mapper.Map<Models.Customer>(customerCreateDto);
 
             //Database içinde SaveChange metodunu override ettik. =>
-            //customer.Id=Guid.NewGuid().ToString();
             //customer.CreatedAt = DateTime.Now;
-
+            customer.Id=Guid.NewGuid().ToString();
             await _repository.AddAsync(customer);
             await _unitOfWork.CommitAsync();
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.IO.Pipes;
 using System.Reflection;
 using TechnoMarket.Services.Customer.Models;
 
@@ -14,24 +15,6 @@ namespace TechnoMarket.Services.Customer.Data
 
         public DbSet<Models.Customer> Customers { get; set; }
         public DbSet<Address> Address { get; set; }
-
-
-
-        public override ValueTask<EntityEntry> AddAsync(object entity, CancellationToken cancellationToken = default)
-        {
-            foreach (var item in ChangeTracker.Entries())
-            {
-                if (item.Entity is Models.Customer entityReference)
-                {
-                    entityReference.CreatedAt = DateTime.Now;
-                    entityReference.Id = Guid.NewGuid().ToString();
-                }
-            }
-
-            return base.AddAsync(entity, cancellationToken);
-        }
-
-
 
 
 
@@ -56,7 +39,7 @@ namespace TechnoMarket.Services.Customer.Data
                             entityReference.UpdatedAt = DateTime.Now;
                             break;
                         case EntityState.Added:
-
+                            entityReference.CreatedAt = DateTime.Now;
                             break;
                         default:
                             break;
