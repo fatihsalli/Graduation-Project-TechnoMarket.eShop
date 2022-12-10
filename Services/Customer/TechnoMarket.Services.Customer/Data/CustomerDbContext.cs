@@ -23,7 +23,7 @@ namespace TechnoMarket.Services.Customer.Data
         {
             foreach (var item in ChangeTracker.Entries())
             {
-                if (item.Entity is Models.Customer entityCustomer)
+                if (item.Entity is Models.Customer entityReference)
                 {
                     switch (item.State)
                     {
@@ -34,12 +34,11 @@ namespace TechnoMarket.Services.Customer.Data
                         case EntityState.Deleted:
                             break;
                         case EntityState.Modified:
-                            //Mapper kullanmadığımız için gerek kalmadı.
-                            //Entry(entityReference).Property(x => x.CreatedDate).IsModified = false;
-                            entityCustomer.UpdatedAt = DateTime.Now;
+                            Entry(entityReference).Property(x => x.CreatedAt).IsModified = false;
+                            entityReference.UpdatedAt = DateTime.Now;
                             break;
                         case EntityState.Added:
-                            entityCustomer.CreatedAt = DateTime.Now;
+                            entityReference.CreatedAt = DateTime.Now;
                             break;
                     }
                 }
@@ -54,7 +53,7 @@ namespace TechnoMarket.Services.Customer.Data
             //modelBuilder.HasDefaultSchema("Fatih");
 
             //Configuration
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(CustomerDbContext)));
 
             base.OnModelCreating(modelBuilder);
         }

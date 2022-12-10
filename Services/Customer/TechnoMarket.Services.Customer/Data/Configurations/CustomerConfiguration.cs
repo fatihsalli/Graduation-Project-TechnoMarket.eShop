@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Threenine.Configurations.PostgreSql; //ColumnTypesları kullanmak için => timestamp de hata veriyor.
 
-namespace TechnoMarket.Services.Customer.Configurations
+namespace TechnoMarket.Services.Customer.Data.Configurations
 {
     public class CustomerConfiguration : IEntityTypeConfiguration<Models.Customer>
     {

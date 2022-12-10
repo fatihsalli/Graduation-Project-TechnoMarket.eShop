@@ -83,6 +83,10 @@ namespace TechnoMarket.Services.Customer.Services
                 throw new NotFoundException($"Customer with id ({customerUpdateDto.Id}) didn't find in the database.");
             }
 
+            var customerUpdate = _mapper.Map<Models.Customer>(customerUpdateDto);
+            customerUpdate.Address.Id=customerCurrent.Address.Id;
+
+            /*
             //TODO: Mapper ile hata alıyoruz.
             customerCurrent.Name = customerUpdateDto.Name;
             customerCurrent.Email = customerUpdateDto.Email;
@@ -90,9 +94,9 @@ namespace TechnoMarket.Services.Customer.Services
             customerCurrent.Address.City = customerUpdateDto.Address.City;
             customerCurrent.Address.CityCode = customerUpdateDto.Address.CityCode;
             customerCurrent.Address.Country = customerUpdateDto.Address.Country;
-            //var customerUpdate = _mapper.Map<Models.Customer>(customerUpdateDto);
+            */
 
-            _repository.Update(customerCurrent);
+            _repository.Update(customerUpdate);
             await _unitOfWork.CommitAsync();
         }
 

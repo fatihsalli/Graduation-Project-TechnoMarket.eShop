@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TechnoMarket.Services.Customer.Models;
 using Threenine.Configurations.PostgreSql;
 
-namespace TechnoMarket.Services.Customer.Configurations
+namespace TechnoMarket.Services.Customer.Data.Configurations
 {
     public class AddressConfiguration : IEntityTypeConfiguration<Address>
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.Property(a=> a.Id)
+            builder.Property(a => a.Id)
                 .IsRequired();
 
             builder.Property(c => c.CustomerId)
