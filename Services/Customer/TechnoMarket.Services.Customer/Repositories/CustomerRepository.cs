@@ -18,5 +18,12 @@ namespace TechnoMarket.Services.Customer.Repositories
             var customers=await _context.Customers.AsNoTracking().Include(x => x.Address).ToListAsync();
             return customers;
         }
+
+        public async Task<Models.Customer> GetSingleCustomerByIdWithAddressAsync(string customerId)
+        {
+            var customer = await _context.Customers.Include(x=> x.Address).Where(x=> x.Id==customerId).SingleOrDefaultAsync();
+            return customer;
+        }
+
     }
 }

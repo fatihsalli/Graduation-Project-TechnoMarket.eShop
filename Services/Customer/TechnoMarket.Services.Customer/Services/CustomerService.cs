@@ -41,7 +41,20 @@ namespace TechnoMarket.Services.Customer.Services
             if (customer == null)
             {
                 //Loglama
-                throw new NotFoundException($"Customer with id ({id.ToString()}) didn't find in the database.");
+                throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
+            }
+
+            return _mapper.Map<CustomerDto>(customer);
+        }
+
+        public async Task<CustomerDto> GetByIdWithAddressAsync(string id)
+        {
+            var customer = await _repository.GetSingleCustomerByIdWithAddressAsync(id);
+
+            if (customer == null)
+            {
+                //Loglama
+                throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
             }
 
             return _mapper.Map<CustomerDto>(customer);
@@ -51,8 +64,9 @@ namespace TechnoMarket.Services.Customer.Services
         {
             var customer = _mapper.Map<Models.Customer>(customerCreateDto);
 
-            customer.Id=Guid.NewGuid().ToString();
-            customer.CreatedAt = DateTime.Now;
+            //Database içinde SaveChange metodunu override ettik. =>
+            //customer.Id=Guid.NewGuid().ToString();
+            //customer.CreatedAt = DateTime.Now;
 
             await _repository.AddAsync(customer);
             await _unitOfWork.CommitAsync();
@@ -71,7 +85,6 @@ namespace TechnoMarket.Services.Customer.Services
             }
 
             var customerUpdate = _mapper.Map<Models.Customer>(customerUpdateDto);
-            customerUpdate.UpdatedAt = DateTime.Now;
 
             _repository.Update(customerUpdate);
             await _unitOfWork.CommitAsync();
@@ -84,7 +97,7 @@ namespace TechnoMarket.Services.Customer.Services
             if (customer == null)
             {
                 //Loglama
-                throw new NotFoundException($"Customer with id ({id.ToString()}) didn't find in the database.");
+                throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
             }
 
             _repository.Remove(customer);

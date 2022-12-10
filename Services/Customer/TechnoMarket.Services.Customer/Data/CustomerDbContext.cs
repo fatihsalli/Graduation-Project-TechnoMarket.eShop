@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Reflection;
 using TechnoMarket.Services.Customer.Models;
 
@@ -15,6 +16,59 @@ namespace TechnoMarket.Services.Customer.Data
         public DbSet<Address> Address { get; set; }
 
 
+
+        public override ValueTask<EntityEntry> AddAsync(object entity, CancellationToken cancellationToken = default)
+        {
+            foreach (var item in ChangeTracker.Entries())
+            {
+                if (item.Entity is Models.Customer entityReference)
+                {
+                    entityReference.CreatedAt = DateTime.Now;
+                    entityReference.Id = Guid.NewGuid().ToString();
+                }
+            }
+
+            return base.AddAsync(entity, cancellationToken);
+        }
+
+
+
+
+
+        //SaveChange metodunu eziyoruz.
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            foreach (var item in ChangeTracker.Entries())
+            {
+                if (item.Entity is Models.Customer entityReference)
+                {
+                    switch (item.State)
+                    {
+                        case EntityState.Detached:
+                            break;
+                        case EntityState.Unchanged:
+                            break;
+                        case EntityState.Deleted:
+                            break;
+                        case EntityState.Modified:
+                            Entry(entityReference).Property(x => x.CreatedAt).IsModified = false;
+                            Entry(entityReference).Property(x => x.Id).IsModified = false;
+                            entityReference.UpdatedAt = DateTime.Now;
+                            break;
+                        case EntityState.Added:
+
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+
+
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
 
 
 

@@ -32,7 +32,7 @@ namespace TechnoMarket.Services.Customer.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<CustomerDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetById(string id)
         {
-            var customerDto = await _customerService.GetByIdAsync(id);
+            var customerDto = await _customerService.GetByIdWithAddressAsync(id);
             return CreateActionResult(CustomResponseDto<CustomerDto>.Success(200, customerDto));
         }
 
