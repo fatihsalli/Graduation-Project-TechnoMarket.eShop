@@ -33,12 +33,18 @@ builder.Services.AddDbContext<CustomerDbContext>(x =>
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+//Migrationlarý database'e yansýtmak için
+using (var scope = app.Services.CreateScope())
+{
+    var context= scope.ServiceProvider.GetRequiredService<CustomerDbContext>();
+    context.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

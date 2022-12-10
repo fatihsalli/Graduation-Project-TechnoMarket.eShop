@@ -12,7 +12,7 @@ using TechnoMarket.Services.Customer.Data;
 namespace TechnoMarket.Services.Customer.Migrations
 {
     [DbContext(typeof(CustomerDbContext))]
-    [Migration("20221210150133_mig01")]
+    [Migration("20221210150805_mig01")]
     partial class mig01
     {
         /// <inheritdoc />
