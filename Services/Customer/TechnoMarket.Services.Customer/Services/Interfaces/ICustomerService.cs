@@ -5,9 +5,9 @@ namespace TechnoMarket.Services.Customer.Services.Interfaces
 {
     public interface ICustomerService
     {
-        Task<List<CustomerDtoWithAddress>> GetAllAsync();
+        Task<List<CustomerDto>> GetAllAsync();
         Task<List<CustomerDtoWithAddress>> GetCustomersWithAddressAsync();
-        Task<CustomerDtoWithAddress> GetByIdAsync(string id);
+        Task<CustomerDto> GetByIdAsync(string id);
         Task<CustomerDtoWithAddress> GetByIdWithAddressAsync(string id);
         Task<CustomerDtoWithAddress> AddAsync(CustomerCreateDto customerCreateDto);
         Task UpdateAsync(CustomerUpdateDto customerUpdateDto);

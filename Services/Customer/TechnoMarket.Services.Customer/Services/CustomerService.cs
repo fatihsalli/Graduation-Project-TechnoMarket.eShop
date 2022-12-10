@@ -22,10 +22,10 @@ namespace TechnoMarket.Services.Customer.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<CustomerDtoWithAddress>> GetAllAsync()
+        public async Task<List<CustomerDto>> GetAllAsync()
         {
             var customers = await _repository.GetAll().ToListAsync();
-            return _mapper.Map<List<CustomerDtoWithAddress>>(customers);
+            return _mapper.Map<List<CustomerDto>>(customers);
         }
 
         public async Task<List<CustomerDtoWithAddress>> GetCustomersWithAddressAsync()
@@ -34,7 +34,7 @@ namespace TechnoMarket.Services.Customer.Services
             return _mapper.Map<List<CustomerDtoWithAddress>>(customers);
         }
 
-        public async Task<CustomerDtoWithAddress> GetByIdAsync(string id)
+        public async Task<CustomerDto> GetByIdAsync(string id)
         {
             var customer = await _repository.GetByIdAsync(id);
 
@@ -44,7 +44,7 @@ namespace TechnoMarket.Services.Customer.Services
                 throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
             }
 
-            return _mapper.Map<CustomerDtoWithAddress>(customer);
+            return _mapper.Map<CustomerDto>(customer);
         }
 
         public async Task<CustomerDtoWithAddress> GetByIdWithAddressAsync(string id)
