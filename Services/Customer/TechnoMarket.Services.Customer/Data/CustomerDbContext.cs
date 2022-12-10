@@ -49,6 +49,7 @@ namespace TechnoMarket.Services.Customer.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             //Add the Postgres Extension for UUID generation
             //modelBuilder.HasDefaultSchema("Fatih");
 

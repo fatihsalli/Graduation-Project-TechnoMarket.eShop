@@ -22,19 +22,19 @@ namespace TechnoMarket.Services.Customer.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<CustomerDto>> GetAllAsync()
+        public async Task<List<CustomerDtoWithAddress>> GetAllAsync()
         {
             var customers = await _repository.GetAll().ToListAsync();
-            return _mapper.Map<List<CustomerDto>>(customers);
+            return _mapper.Map<List<CustomerDtoWithAddress>>(customers);
         }
 
-        public async Task<List<CustomerDto>> GetCustomersWithAddressAsync()
+        public async Task<List<CustomerDtoWithAddress>> GetCustomersWithAddressAsync()
         {
             var customers= await _repository.GetCustomersWithAddressAsync();
-            return _mapper.Map<List<CustomerDto>>(customers);
+            return _mapper.Map<List<CustomerDtoWithAddress>>(customers);
         }
 
-        public async Task<CustomerDto> GetByIdAsync(string id)
+        public async Task<CustomerDtoWithAddress> GetByIdAsync(string id)
         {
             var customer = await _repository.GetByIdAsync(id);
 
@@ -44,10 +44,10 @@ namespace TechnoMarket.Services.Customer.Services
                 throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
             }
 
-            return _mapper.Map<CustomerDto>(customer);
+            return _mapper.Map<CustomerDtoWithAddress>(customer);
         }
 
-        public async Task<CustomerDto> GetByIdWithAddressAsync(string id)
+        public async Task<CustomerDtoWithAddress> GetByIdWithAddressAsync(string id)
         {
             var customer = await _repository.GetSingleCustomerByIdWithAddressAsync(id);
 
@@ -57,20 +57,16 @@ namespace TechnoMarket.Services.Customer.Services
                 throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
             }
 
-            return _mapper.Map<CustomerDto>(customer);
+            return _mapper.Map<CustomerDtoWithAddress>(customer);
         }
 
-        public async Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto)
+        public async Task<CustomerDtoWithAddress> AddAsync(CustomerCreateDto customerCreateDto)
         {
             var customer = _mapper.Map<Models.Customer>(customerCreateDto);
-
-            //Database içinde SaveChange metodunu override ettik. =>
-            //customer.CreatedAt = DateTime.Now;
             customer.Id=Guid.NewGuid().ToString();
             await _repository.AddAsync(customer);
             await _unitOfWork.CommitAsync();
-
-            return _mapper.Map<CustomerDto>(customer);
+            return _mapper.Map<CustomerDtoWithAddress>(customer);
         }
 
         public async Task UpdateAsync(CustomerUpdateDto customerUpdateDto)
@@ -85,16 +81,6 @@ namespace TechnoMarket.Services.Customer.Services
 
             var customerUpdate = _mapper.Map<Models.Customer>(customerUpdateDto);
             customerUpdate.Address.Id=customerCurrent.Address.Id;
-
-            /*
-            //TODO: Mapper ile hata alıyoruz.
-            customerCurrent.Name = customerUpdateDto.Name;
-            customerCurrent.Email = customerUpdateDto.Email;
-            customerCurrent.Address.AddressLine= customerUpdateDto.Address.AddressLine;
-            customerCurrent.Address.City = customerUpdateDto.Address.City;
-            customerCurrent.Address.CityCode = customerUpdateDto.Address.CityCode;
-            customerCurrent.Address.Country = customerUpdateDto.Address.Country;
-            */
 
             _repository.Update(customerUpdate);
             await _unitOfWork.CommitAsync();

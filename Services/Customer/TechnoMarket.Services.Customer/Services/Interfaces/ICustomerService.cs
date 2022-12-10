@@ -5,11 +5,11 @@ namespace TechnoMarket.Services.Customer.Services.Interfaces
 {
     public interface ICustomerService
     {
-        Task<List<CustomerDto>> GetAllAsync();
-        Task<List<CustomerDto>> GetCustomersWithAddressAsync();
-        Task<CustomerDto> GetByIdAsync(string id);
-        Task<CustomerDto> GetByIdWithAddressAsync(string id);
-        Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto);
+        Task<List<CustomerDtoWithAddress>> GetAllAsync();
+        Task<List<CustomerDtoWithAddress>> GetCustomersWithAddressAsync();
+        Task<CustomerDtoWithAddress> GetByIdAsync(string id);
+        Task<CustomerDtoWithAddress> GetByIdWithAddressAsync(string id);
+        Task<CustomerDtoWithAddress> AddAsync(CustomerCreateDto customerCreateDto);
         Task UpdateAsync(CustomerUpdateDto customerUpdateDto);
         Task RemoveAsync(string id);
         IQueryable<Models.Customer> Where(Expression<Func<Models.Customer, bool>> expression);
