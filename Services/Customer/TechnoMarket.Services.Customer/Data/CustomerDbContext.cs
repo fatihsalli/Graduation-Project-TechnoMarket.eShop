@@ -23,7 +23,7 @@ namespace TechnoMarket.Services.Customer.Data
         {
             foreach (var item in ChangeTracker.Entries())
             {
-                if (item.Entity is Models.Customer entityReference)
+                if (item.Entity is Models.Customer entityCustomer)
                 {
                     switch (item.State)
                     {
@@ -34,27 +34,19 @@ namespace TechnoMarket.Services.Customer.Data
                         case EntityState.Deleted:
                             break;
                         case EntityState.Modified:
-                            Entry(entityReference).Property(x => x.CreatedAt).IsModified = false;
-                            Entry(entityReference).Property(x => x.Id).IsModified = false;
-                            entityReference.UpdatedAt = DateTime.Now;
+                            //Mapper kullanmadığımız için gerek kalmadı.
+                            //Entry(entityReference).Property(x => x.CreatedDate).IsModified = false;
+                            entityCustomer.UpdatedAt = DateTime.Now;
                             break;
                         case EntityState.Added:
-                            entityReference.CreatedAt = DateTime.Now;
-                            break;
-                        default:
+                            entityCustomer.CreatedAt = DateTime.Now;
                             break;
                     }
                 }
             }
 
-
-
-
             return base.SaveChangesAsync(cancellationToken);
         }
-
-
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

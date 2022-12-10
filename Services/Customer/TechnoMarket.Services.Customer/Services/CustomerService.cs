@@ -73,19 +73,26 @@ namespace TechnoMarket.Services.Customer.Services
             return _mapper.Map<CustomerDto>(customer);
         }
 
-        public async Task UpdateAsync(string id, CustomerUpdateDto customerUpdateDto)
+        public async Task UpdateAsync(CustomerUpdateDto customerUpdateDto)
         {
-            var customerCheck = await _repository.AnyAsync(x=> x.Id==id);
+            var customerCurrent = await _repository.GetSingleCustomerByIdWithAddressAsync(customerUpdateDto.Id);
 
-            if (!customerCheck)
+            if (customerCurrent==null)
             {
                 //Loglama
-                throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
+                throw new NotFoundException($"Customer with id ({customerUpdateDto.Id}) didn't find in the database.");
             }
 
-            var customerUpdate = _mapper.Map<Models.Customer>(customerUpdateDto);
+            //TODO: Mapper ile hata alıyoruz.
+            customerCurrent.Name = customerUpdateDto.Name;
+            customerCurrent.Email = customerUpdateDto.Email;
+            customerCurrent.Address.AddressLine= customerUpdateDto.Address.AddressLine;
+            customerCurrent.Address.City = customerUpdateDto.Address.City;
+            customerCurrent.Address.CityCode = customerUpdateDto.Address.CityCode;
+            customerCurrent.Address.Country = customerUpdateDto.Address.Country;
+            //var customerUpdate = _mapper.Map<Models.Customer>(customerUpdateDto);
 
-            _repository.Update(customerUpdate);
+            _repository.Update(customerCurrent);
             await _unitOfWork.CommitAsync();
         }
 

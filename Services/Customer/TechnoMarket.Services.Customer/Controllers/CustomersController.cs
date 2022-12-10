@@ -44,12 +44,12 @@ namespace TechnoMarket.Services.Customer.Controllers
             return CreateActionResult(CustomResponseDto<CustomerDto>.Success(201, customerDto));
         }
 
-        [HttpPut("{id:length(36)}")]
+        [HttpPut]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update(string id, [FromBody] CustomerUpdateDto customerUpdateDto)
+        public async Task<IActionResult> Update([FromBody] CustomerUpdateDto customerUpdateDto)
         {
-            await _customerService.UpdateAsync(id, customerUpdateDto);
+            await _customerService.UpdateAsync(customerUpdateDto);
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 
