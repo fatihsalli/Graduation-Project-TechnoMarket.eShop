@@ -60,13 +60,13 @@ namespace TechnoMarket.Services.Customer.Services
             return _mapper.Map<CustomerDtoWithAddress>(customer);
         }
 
-        public async Task<CustomerDtoWithAddress> AddAsync(CustomerCreateDto customerCreateDto)
+        public async Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto)
         {
             var customer = _mapper.Map<Models.Customer>(customerCreateDto);
             customer.Id=Guid.NewGuid().ToString();
             await _repository.AddAsync(customer);
             await _unitOfWork.CommitAsync();
-            return _mapper.Map<CustomerDtoWithAddress>(customer);
+            return _mapper.Map<CustomerDto>(customer);
         }
 
         public async Task UpdateAsync(CustomerUpdateDto customerUpdateDto)

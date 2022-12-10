@@ -52,11 +52,11 @@ namespace TechnoMarket.Services.Customer.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(CustomResponseDto<CustomerDtoWithAddress>), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(CustomResponseDto<CustomerDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody] CustomerCreateDto customerCreateDto)
         {
             var customerDto = await _customerService.AddAsync(customerCreateDto);
-            return CreateActionResult(CustomResponseDto<CustomerDtoWithAddress>.Success(201, customerDto));
+            return CreateActionResult(CustomResponseDto<CustomerDto>.Success(201, customerDto));
         }
 
         [HttpPut]

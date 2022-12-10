@@ -9,7 +9,7 @@ namespace TechnoMarket.Services.Customer.Services.Interfaces
         Task<List<CustomerDtoWithAddress>> GetCustomersWithAddressAsync();
         Task<CustomerDto> GetByIdAsync(string id);
         Task<CustomerDtoWithAddress> GetByIdWithAddressAsync(string id);
-        Task<CustomerDtoWithAddress> AddAsync(CustomerCreateDto customerCreateDto);
+        Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto);
         Task UpdateAsync(CustomerUpdateDto customerUpdateDto);
         Task RemoveAsync(string id);
         IQueryable<Models.Customer> Where(Expression<Func<Models.Customer, bool>> expression);
