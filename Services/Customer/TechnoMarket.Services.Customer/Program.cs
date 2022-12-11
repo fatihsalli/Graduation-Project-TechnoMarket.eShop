@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TechnoMarket.Services.Customer.Data;
@@ -7,6 +8,7 @@ using TechnoMarket.Services.Customer.Services;
 using TechnoMarket.Services.Customer.Services.Interfaces;
 using TechnoMarket.Services.Customer.UnitOfWorks;
 using TechnoMarket.Services.Customer.UnitOfWorks.Interfaces;
+using TechnoMarket.Services.Customer.Validations;
 using TechnoMarket.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +23,9 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 //UnitOfWork Design Pattern
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+//AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
+
 //Database
 builder.Services.AddDbContext<CustomerDbContext>(x =>
 {
@@ -30,10 +35,15 @@ builder.Services.AddDbContext<CustomerDbContext>(x =>
     });
 });
 
-//AutoMapper
-builder.Services.AddAutoMapper(typeof(Program));
-
 builder.Services.AddControllers();
+
+
+//Fluent Validation ekledik.
+builder.Services.AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<CustomerCreateDtoValidator>());
+
+//Shared Library üzerinden dönen response model yerine kendi modelimizi döndük.
+builder.Services.UseCustomValidationResponseModel();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
