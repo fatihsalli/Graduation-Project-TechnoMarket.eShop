@@ -80,7 +80,6 @@ namespace TechnoMarket.Services.Customer.Services
             }
 
             var customerUpdate = _mapper.Map<Models.Customer>(customerUpdateDto);
-            customerUpdate.Address.Id = customerCurrent.Address.Id;
 
             _repository.Update(customerUpdate);
             await _unitOfWork.CommitAsync();

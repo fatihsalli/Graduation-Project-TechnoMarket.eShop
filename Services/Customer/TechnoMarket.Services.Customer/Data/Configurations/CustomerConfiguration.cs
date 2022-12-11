@@ -8,6 +8,35 @@ namespace TechnoMarket.Services.Customer.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Models.Customer> builder)
         {
+            //Owned Types => Address içindeki sütunları aynı table'a ekler.
+            //CustomerId'yi ortak ForeignKey kullanarak 2 farklı table da yapabilirdik.
+            //Ya da Address'e id vererek one to one bir ilişki de yapabilirdik. Bu durumda gereksiz olarak bir address id tutmuş olacağız.
+            builder.OwnsOne(customer => customer.Address,a=>
+            {
+                a.Property(address => address.AddressLine)
+                    .HasColumnType(ColumnTypes.Varchar)
+                    .HasMaxLength(255)
+                    .IsRequired();
+                    
+                a.Property(address=> address.City)
+                    .HasColumnType(ColumnTypes.Varchar)
+                    .HasMaxLength(100)
+                    .IsRequired();
+
+                a.Property(address => address.Country)
+                    .HasColumnType(ColumnTypes.Varchar)
+                    .HasMaxLength(100)
+                    .IsRequired();
+
+                a.Property(address => address.CityCode)
+                    .HasColumnType(ColumnTypes.SmallInt)
+                    .HasMaxLength(81)
+                    .IsRequired();
+            });
+
+            builder.Navigation(c => c.Address).IsRequired();
+
+            //uuid için
             builder.Property(c => c.Id)
                 .HasColumnType(ColumnTypes.Varchar)
                 .HasMaxLength(36)
@@ -16,7 +45,7 @@ namespace TechnoMarket.Services.Customer.Data.Configurations
             builder.Property(c => c.Name)
                 .HasColumnType(ColumnTypes.Varchar)
                 .IsRequired()
-                .HasMaxLength(55);
+                .HasMaxLength(100);
 
             builder.Property(c => c.Email)
                 .HasColumnType(ColumnTypes.Varchar)
@@ -24,11 +53,11 @@ namespace TechnoMarket.Services.Customer.Data.Configurations
                 .HasMaxLength(255);
 
             builder.Property(c => c.CreatedAt)
-                .HasColumnType("timestamp")
+                .HasColumnType(ColumnTypes.Date)
                 .IsRequired();
 
             builder.Property(c => c.UpdatedAt)
-                .HasColumnType("timestamp");
+                .HasColumnType(ColumnTypes.Date);
         }
     }
 }

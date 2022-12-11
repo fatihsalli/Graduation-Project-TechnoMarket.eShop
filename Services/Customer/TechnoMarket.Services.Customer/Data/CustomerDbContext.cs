@@ -13,7 +13,9 @@ namespace TechnoMarket.Services.Customer.Data
         }
 
         public DbSet<Models.Customer> Customers { get; set; }
-        public DbSet<Address> Address { get; set; }
+
+        //Owned Type tipinde yaptık.
+        //public DbSet<Address> Address { get; set; }
 
 
 
