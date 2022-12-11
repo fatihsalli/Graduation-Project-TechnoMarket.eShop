@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace TechnoMarket.Services.Customer.Models
+﻿namespace TechnoMarket.Services.Customer.Models
 {
     public class Address
     {

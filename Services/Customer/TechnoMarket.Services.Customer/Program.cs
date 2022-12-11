@@ -39,14 +39,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-//Migrationlarý database'e yansýtmak için
+//Migrationlarý database'e otomatik yansýtmak için
 using (var scope = app.Services.CreateScope())
 {
-    var context= scope.ServiceProvider.GetRequiredService<CustomerDbContext>();
+    var context = scope.ServiceProvider.GetRequiredService<CustomerDbContext>();
     context.Database.Migrate();
 }
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

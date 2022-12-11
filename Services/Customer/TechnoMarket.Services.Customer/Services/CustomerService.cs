@@ -30,7 +30,7 @@ namespace TechnoMarket.Services.Customer.Services
 
         public async Task<List<CustomerDtoWithAddress>> GetCustomersWithAddressAsync()
         {
-            var customers= await _repository.GetCustomersWithAddressAsync();
+            var customers = await _repository.GetCustomersWithAddressAsync();
             return _mapper.Map<List<CustomerDtoWithAddress>>(customers);
         }
 
@@ -63,7 +63,7 @@ namespace TechnoMarket.Services.Customer.Services
         public async Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto)
         {
             var customer = _mapper.Map<Models.Customer>(customerCreateDto);
-            customer.Id=Guid.NewGuid().ToString();
+            customer.Id = Guid.NewGuid().ToString();
             await _repository.AddAsync(customer);
             await _unitOfWork.CommitAsync();
             return _mapper.Map<CustomerDto>(customer);
@@ -73,14 +73,14 @@ namespace TechnoMarket.Services.Customer.Services
         {
             var customerCurrent = await _repository.GetSingleCustomerByIdWithAddressAsync(customerUpdateDto.Id);
 
-            if (customerCurrent==null)
+            if (customerCurrent == null)
             {
                 //Loglama
                 throw new NotFoundException($"Customer with id ({customerUpdateDto.Id}) didn't find in the database.");
             }
 
             var customerUpdate = _mapper.Map<Models.Customer>(customerUpdateDto);
-            customerUpdate.Address.Id=customerCurrent.Address.Id;
+            customerUpdate.Address.Id = customerCurrent.Address.Id;
 
             _repository.Update(customerUpdate);
             await _unitOfWork.CommitAsync();
@@ -100,7 +100,7 @@ namespace TechnoMarket.Services.Customer.Services
             await _unitOfWork.CommitAsync();
         }
 
-     
+
 
         public IQueryable<Models.Customer> Where(Expression<Func<Models.Customer, bool>> expression)
         {

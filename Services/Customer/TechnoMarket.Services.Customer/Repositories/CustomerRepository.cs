@@ -15,7 +15,7 @@ namespace TechnoMarket.Services.Customer.Repositories
         {
             //Eager Loading
             //AsNoTracking update edilirken hata almamak için track özelliğini kapatıyoruz.
-            var customers=await _context.Customers
+            var customers = await _context.Customers
                 .AsNoTracking()
                 .Include(x => x.Address)
                 .ToListAsync();

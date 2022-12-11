@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System.IO.Pipes;
 using System.Reflection;
 using TechnoMarket.Services.Customer.Models;
 
@@ -49,7 +48,7 @@ namespace TechnoMarket.Services.Customer.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
             //Add the Postgres Extension for UUID generation
             //modelBuilder.HasDefaultSchema("Fatih");
 
