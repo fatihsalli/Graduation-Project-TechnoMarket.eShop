@@ -37,8 +37,10 @@ namespace TechnoMarket.Services.Customer.Data.Configurations
                 .IsRequired()
                 .HasMaxLength(81);
 
-            //One to one ilişki
-            builder.HasOne(x => x.Customer).WithOne(x => x.Address).HasForeignKey<Address>(x => x.CustomerId);
+            //Parent-child (One to one)
+            builder.HasOne(x => x.Customer)
+                .WithOne(x => x.Address)
+                .HasForeignKey<Address>(x => x.CustomerId);
         }
     }
 }
