@@ -28,12 +28,6 @@ namespace TechnoMarket.Services.Customer.Services
             return _mapper.Map<List<CustomerDto>>(customers);
         }
 
-        public async Task<List<CustomerDtoWithAddress>> GetCustomersWithAddressAsync()
-        {
-            var customers = await _repository.GetCustomersWithAddressAsync();
-            return _mapper.Map<List<CustomerDtoWithAddress>>(customers);
-        }
-
         public async Task<CustomerDto> GetByIdAsync(string id)
         {
             var customer = await _repository.GetByIdAsync(id);
@@ -47,23 +41,9 @@ namespace TechnoMarket.Services.Customer.Services
             return _mapper.Map<CustomerDto>(customer);
         }
 
-        public async Task<CustomerDtoWithAddress> GetByIdWithAddressAsync(string id)
-        {
-            var customer = await _repository.GetSingleCustomerByIdWithAddressAsync(id);
-
-            if (customer == null)
-            {
-                //Loglama
-                throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
-            }
-
-            return _mapper.Map<CustomerDtoWithAddress>(customer);
-        }
-
         public async Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto)
         {
             var customer = _mapper.Map<Models.Customer>(customerCreateDto);
-            customer.Id = Guid.NewGuid().ToString();
             await _repository.AddAsync(customer);
             await _unitOfWork.CommitAsync();
             return _mapper.Map<CustomerDto>(customer);
@@ -98,8 +78,6 @@ namespace TechnoMarket.Services.Customer.Services
             _repository.Remove(customer);
             await _unitOfWork.CommitAsync();
         }
-
-
 
         public IQueryable<Models.Customer> Where(Expression<Func<Models.Customer, bool>> expression)
         {

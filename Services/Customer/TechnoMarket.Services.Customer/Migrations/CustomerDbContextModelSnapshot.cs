@@ -20,13 +20,16 @@ namespace TechnoMarket.Services.Customer.Migrations
                 .HasAnnotation("ProductVersion", "7.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("TechnoMarket.Services.Customer.Models.Customer", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
-                        .HasColumnType("varchar");
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("date");
@@ -53,8 +56,8 @@ namespace TechnoMarket.Services.Customer.Migrations
                 {
                     b.OwnsOne("TechnoMarket.Services.Customer.Models.Address", "Address", b1 =>
                         {
-                            b1.Property<string>("CustomerId")
-                                .HasColumnType("varchar");
+                            b1.Property<Guid>("CustomerId")
+                                .HasColumnType("uuid");
 
                             b1.Property<string>("AddressLine")
                                 .IsRequired()

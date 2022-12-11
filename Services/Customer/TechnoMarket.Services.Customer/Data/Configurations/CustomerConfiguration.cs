@@ -38,8 +38,9 @@ namespace TechnoMarket.Services.Customer.Data.Configurations
 
             //uuid için
             builder.Property(c => c.Id)
-                .HasColumnType(ColumnTypes.Varchar)
+                .HasColumnType("uuid")
                 .HasMaxLength(36)
+                .HasDefaultValueSql("uuid_generate_v4()")
                 .IsRequired();
 
             builder.Property(c => c.Name)

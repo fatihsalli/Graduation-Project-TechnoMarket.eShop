@@ -11,11 +11,14 @@ namespace TechnoMarket.Services.Customer.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
+
             migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar", maxLength: 36, nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", maxLength: 36, nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     Name = table.Column<string>(type: "varchar", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "varchar", maxLength: 255, nullable: false),
                     AddressAddressLine = table.Column<string>(name: "Address_AddressLine", type: "varchar", maxLength: 255, nullable: false),

@@ -25,14 +25,6 @@ namespace TechnoMarket.Services.Customer.Controllers
             return CreateActionResult(CustomResponseDto<List<CustomerDto>>.Success(200, customerDtos));
         }
 
-        [HttpGet("[action]")]
-        [ProducesResponseType(typeof(CustomResponseDto<List<CustomerDtoWithAddress>>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllWithAddress()
-        {
-            var customerDtos = await _customerService.GetCustomersWithAddressAsync();
-            return CreateActionResult(CustomResponseDto<List<CustomerDtoWithAddress>>.Success(200, customerDtos));
-        }
-
         [HttpGet("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<CustomerDto>), (int)HttpStatusCode.OK)]
@@ -40,15 +32,6 @@ namespace TechnoMarket.Services.Customer.Controllers
         {
             var customerDto = await _customerService.GetByIdAsync(id);
             return CreateActionResult(CustomResponseDto<CustomerDto>.Success(200, customerDto));
-        }
-
-        [HttpGet("[action]/{id:length(36)}")]
-        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(CustomResponseDto<CustomerDtoWithAddress>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetByIdWithAddress(string id)
-        {
-            var customerDto = await _customerService.GetByIdWithAddressAsync(id);
-            return CreateActionResult(CustomResponseDto<CustomerDtoWithAddress>.Success(200, customerDto));
         }
 
         [HttpPost]
