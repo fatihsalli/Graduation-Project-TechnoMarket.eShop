@@ -62,7 +62,8 @@ using (var scope = app.Services.CreateScope())
     {
         service.AddAsync(new CustomerCreateDto
         {
-            Name = "Fatih Þallý",
+            FirstName = "Fatih",
+            LastName ="Þallý",
             Email = "mimsallifatih@gmail.com",
             Address = new AddressDto()
             {

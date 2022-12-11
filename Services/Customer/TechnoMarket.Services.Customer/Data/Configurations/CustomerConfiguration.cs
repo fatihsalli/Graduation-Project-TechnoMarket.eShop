@@ -19,12 +19,12 @@ namespace TechnoMarket.Services.Customer.Data.Configurations
 
                 a.Property(address => address.City)
                     .HasColumnType("varchar")
-                    .HasMaxLength(100)
+                    .HasMaxLength(50)
                     .IsRequired();
 
                 a.Property(address => address.Country)
                     .HasColumnType("varchar")
-                    .HasMaxLength(100)
+                    .HasMaxLength(50)
                     .IsRequired();
 
                 a.Property(address => address.CityCode)
@@ -35,17 +35,22 @@ namespace TechnoMarket.Services.Customer.Data.Configurations
 
             builder.Navigation(c => c.Address).IsRequired();
 
-            //uuid için
+            //Postgre tarafında uuid id üretilmesi için
             builder.Property(c => c.Id)
                 .HasColumnType("uuid")
                 .HasMaxLength(36)
                 .HasDefaultValueSql("uuid_generate_v4()")
                 .IsRequired();
 
-            builder.Property(c => c.Name)
+            builder.Property(c => c.FirstName)
                 .HasColumnType("varchar")
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(50);
+
+            builder.Property(c => c.LastName)
+                .HasColumnType("varchar")
+                .IsRequired()
+                .HasMaxLength(50);
 
             builder.Property(c => c.Email)
                 .HasColumnType("varchar")

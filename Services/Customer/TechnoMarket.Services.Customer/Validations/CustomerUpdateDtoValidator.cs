@@ -12,10 +12,15 @@ namespace TechnoMarket.Services.Customer.Validations
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .Length(36).WithMessage("{PropertyName} must be 36 character");
 
-            RuleFor(x => x.Name)
+            RuleFor(x => x.FirstName)
                 .NotNull().WithMessage("{PropertyName} is required")
                 .NotEmpty().WithMessage("{PropertyName} is required")
-                .MaximumLength(55).WithMessage("{PropertyName} must be less than 56 character");
+                .MaximumLength(50).WithMessage("{PropertyName} must be less than 51 character");
+
+            RuleFor(x => x.LastName)
+                .NotNull().WithMessage("{PropertyName} is required")
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .MaximumLength(50).WithMessage("{PropertyName} must be less than 51 character");
 
             RuleFor(x => x.Email)
                .NotNull().WithMessage("{PropertyName} is required")
@@ -30,12 +35,12 @@ namespace TechnoMarket.Services.Customer.Validations
             RuleFor(x => x.Address.City)
               .NotNull().WithMessage("{PropertyName} is required")
               .NotEmpty().WithMessage("{PropertyName} is required")
-              .MaximumLength(55).WithMessage("{PropertyName} must be less than 56 character");
+              .MaximumLength(50).WithMessage("{PropertyName} must be less than 51 character");
 
             RuleFor(x => x.Address.Country)
               .NotNull().WithMessage("{PropertyName} is required")
               .NotEmpty().WithMessage("{PropertyName} is required")
-              .MaximumLength(55).WithMessage("{PropertyName} must be less than 56 character");
+              .MaximumLength(50).WithMessage("{PropertyName} must be less than 51 character");
 
             RuleFor(x => x.Address.CityCode)
                 .InclusiveBetween(1, 81).WithMessage("{PropertyName} must be between 1-81");

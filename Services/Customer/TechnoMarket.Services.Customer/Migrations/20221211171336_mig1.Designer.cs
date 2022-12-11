@@ -12,7 +12,7 @@ using TechnoMarket.Services.Customer.Data;
 namespace TechnoMarket.Services.Customer.Migrations
 {
     [DbContext(typeof(CustomerDbContext))]
-    [Migration("20221211163258_mig1")]
+    [Migration("20221211171336_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -42,9 +42,14 @@ namespace TechnoMarket.Services.Customer.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("varchar");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -69,7 +74,7 @@ namespace TechnoMarket.Services.Customer.Migrations
 
                             b1.Property<string>("City")
                                 .IsRequired()
-                                .HasMaxLength(100)
+                                .HasMaxLength(50)
                                 .HasColumnType("varchar");
 
                             b1.Property<short>("CityCode")
@@ -78,7 +83,7 @@ namespace TechnoMarket.Services.Customer.Migrations
 
                             b1.Property<string>("Country")
                                 .IsRequired()
-                                .HasMaxLength(100)
+                                .HasMaxLength(50)
                                 .HasColumnType("varchar");
 
                             b1.HasKey("CustomerId");

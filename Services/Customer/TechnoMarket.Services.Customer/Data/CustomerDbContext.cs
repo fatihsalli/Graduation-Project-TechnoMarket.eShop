@@ -13,12 +13,7 @@ namespace TechnoMarket.Services.Customer.Data
 
         public DbSet<Models.Customer> Customers { get; set; }
 
-        //Owned Type tipinde yaptık.
-        //public DbSet<Address> Address { get; set; }
-
-
-
-        //SaveChange metodunu eziyoruz.
+        //SaveChangeAsync metodunu eziyoruz.
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             foreach (var item in ChangeTracker.Entries())
@@ -49,9 +44,7 @@ namespace TechnoMarket.Services.Customer.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Add the Postgres Extension for UUID generation
-            //modelBuilder.HasDefaultSchema("Fatih");
-
+            //Postgre tarafında uuid id üretilmesi için
             modelBuilder.HasPostgresExtension("uuid-ossp");
 
             //Configuration
