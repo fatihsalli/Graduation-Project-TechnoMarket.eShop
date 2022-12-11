@@ -51,6 +51,7 @@ namespace TechnoMarket.Services.Customer.Data
             //Add the Postgres Extension for UUID generation
             //modelBuilder.HasDefaultSchema("Fatih");
 
+        
             //Configuration
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(CustomerDbContext)));
 

@@ -2,6 +2,8 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TechnoMarket.Services.Customer.Data;
+using TechnoMarket.Services.Customer.Dtos;
+using TechnoMarket.Services.Customer.Models;
 using TechnoMarket.Services.Customer.Repositories;
 using TechnoMarket.Services.Customer.Repositories.Interfaces;
 using TechnoMarket.Services.Customer.Services;
@@ -54,6 +56,24 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<CustomerDbContext>();
     context.Database.Migrate();
+
+    var service=scope.ServiceProvider.GetRequiredService<ICustomerService>();
+
+    if (!service.GetAllAsync().Result.Any())
+    {
+        service.AddAsync(new CustomerCreateDto
+        {
+            Name = "Fatih Þallý",
+            Email = "mimsallifatih@gmail.com",
+            Address = new AddressDto()
+            {
+                AddressLine = "Kadýköy",
+                City = "Ýstanbul",
+                Country = "Türkiye",
+                CityCode = 34
+            }
+        }).Wait();
+    }
 }
 
 if (app.Environment.IsDevelopment())
