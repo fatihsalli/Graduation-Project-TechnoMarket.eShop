@@ -20,7 +20,6 @@
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-    <PackageReference Include="Threenine.Database.Configuration" Version="0.2.3" />
   </ItemGroup>
 
   <ItemGroup>

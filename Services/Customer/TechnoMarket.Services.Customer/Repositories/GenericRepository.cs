@@ -34,7 +34,7 @@ namespace TechnoMarket.Services.Customer.Repositories
 
         public async Task<T> GetByIdAsync(string id)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet.FindAsync(new Guid(id));
         }
 
         public void Remove(T entity)

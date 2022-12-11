@@ -12,7 +12,7 @@ using TechnoMarket.Services.Customer.Data;
 namespace TechnoMarket.Services.Customer.Migrations
 {
     [DbContext(typeof(CustomerDbContext))]
-    [Migration("20221211161729_mig1")]
+    [Migration("20221211163258_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -35,7 +35,7 @@ namespace TechnoMarket.Services.Customer.Migrations
                         .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("date");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -48,7 +48,7 @@ namespace TechnoMarket.Services.Customer.Migrations
                         .HasColumnType("varchar");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("date");
+                        .HasColumnType("timestamp");
 
                     b.HasKey("Id");
 
@@ -74,7 +74,7 @@ namespace TechnoMarket.Services.Customer.Migrations
 
                             b1.Property<short>("CityCode")
                                 .HasMaxLength(81)
-                                .HasColumnType("smallint");
+                                .HasColumnType("int2");
 
                             b1.Property<string>("Country")
                                 .IsRequired()

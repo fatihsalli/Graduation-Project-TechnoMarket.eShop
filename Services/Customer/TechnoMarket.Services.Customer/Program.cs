@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TechnoMarket.Services.Customer.Data;
 using TechnoMarket.Services.Customer.Dtos;
-using TechnoMarket.Services.Customer.Models;
 using TechnoMarket.Services.Customer.Repositories;
 using TechnoMarket.Services.Customer.Repositories.Interfaces;
 using TechnoMarket.Services.Customer.Services;
@@ -57,7 +56,7 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<CustomerDbContext>();
     context.Database.Migrate();
 
-    var service=scope.ServiceProvider.GetRequiredService<ICustomerService>();
+    var service = scope.ServiceProvider.GetRequiredService<ICustomerService>();
 
     if (!service.GetAllAsync().Result.Any())
     {

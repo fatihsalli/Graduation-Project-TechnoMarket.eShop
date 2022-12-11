@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -24,9 +23,9 @@ namespace TechnoMarket.Services.Customer.Migrations
                     AddressAddressLine = table.Column<string>(name: "Address_AddressLine", type: "varchar", maxLength: 255, nullable: false),
                     AddressCity = table.Column<string>(name: "Address_City", type: "varchar", maxLength: 100, nullable: false),
                     AddressCountry = table.Column<string>(name: "Address_Country", type: "varchar", maxLength: 100, nullable: false),
-                    AddressCityCode = table.Column<short>(name: "Address_CityCode", type: "smallint", maxLength: 81, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "date", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "date", nullable: true)
+                    AddressCityCode = table.Column<short>(name: "Address_CityCode", type: "int2", maxLength: 81, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {

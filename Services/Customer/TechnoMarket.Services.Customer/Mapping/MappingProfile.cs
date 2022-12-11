@@ -15,7 +15,7 @@ namespace TechnoMarket.Services.Customer.Mapping
                 .ReverseMap();
 
             CreateMap<Models.Customer, CustomerDto>()
-                .ForMember(customerDto=> customerDto.Id,opt=> opt.MapFrom(x=>x.Id.ToString()))
+                .ForMember(customerDto => customerDto.Id, opt => opt.MapFrom(x => x.Id.ToString()))
                 .ReverseMap();
 
             CreateMap<Address, AddressDto>().ReverseMap();

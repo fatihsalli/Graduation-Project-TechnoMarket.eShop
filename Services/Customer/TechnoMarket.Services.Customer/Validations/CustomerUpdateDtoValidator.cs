@@ -3,7 +3,7 @@ using TechnoMarket.Services.Customer.Dtos;
 
 namespace TechnoMarket.Services.Customer.Validations
 {
-    public class CustomerUpdateDtoValidator:AbstractValidator<CustomerUpdateDto>
+    public class CustomerUpdateDtoValidator : AbstractValidator<CustomerUpdateDto>
     {
         public CustomerUpdateDtoValidator()
         {

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Reflection;
-using TechnoMarket.Services.Customer.Models;
 
 namespace TechnoMarket.Services.Customer.Data
 {
@@ -54,7 +53,7 @@ namespace TechnoMarket.Services.Customer.Data
             //modelBuilder.HasDefaultSchema("Fatih");
 
             modelBuilder.HasPostgresExtension("uuid-ossp");
-        
+
             //Configuration
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(CustomerDbContext)));
 
