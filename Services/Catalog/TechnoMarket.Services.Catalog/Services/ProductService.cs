@@ -12,10 +12,10 @@ namespace TechnoMarket.Services.Catalog.Services
     public class ProductService:IProductService
     {
         private readonly IMapper _mapper;
-        private readonly IGenericRepository<Product> _repository;
+        private readonly IProductRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(IMapper mapper, IGenericRepository<Product> repository, IUnitOfWork unitOfWork)
+        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _repository = repository;
@@ -24,13 +24,13 @@ namespace TechnoMarket.Services.Catalog.Services
 
         public List<ProductDto> GetAll()
         {
-            var products = _repository.GetAll().ToList();
+            var products = _repository.GetProductsWithCategoryAndFeaturesAsync();
             return _mapper.Map<List<ProductDto>>(products);
         }
 
         public async Task<ProductDto> GetByIdAsync(string id)
         {
-            var product = await _repository.GetByIdAsync(id);
+            var product = await _repository.GetSingleCustomerByIdWithCategoryAndFeaturesAsync(id);
 
             if (product == null)
             {
