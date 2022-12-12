@@ -18,13 +18,13 @@ namespace TechnoMarket.Services.Catalog.Repositories
         {
             //Eager Loading
             //AsNoTracking update edilirken hata almamak için track özelliğini kapatıyoruz.
-            var customers = await _context.Products
+            var products = await _context.Products
                 .AsNoTracking()
                 .Include(x=> x.Category)
                 .Include(x=>x.Feature)
                 .ToListAsync();
 
-            return customers;
+            return products;
         }
 
         //Not: Bu metot örnek olması için tutuldu. Owned type yöntemi ile eklendiği için getall yapıldığında address kısmını da dolduruyor.
