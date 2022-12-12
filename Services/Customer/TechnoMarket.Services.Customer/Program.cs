@@ -2,7 +2,6 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
-using System;
 using System.Reflection;
 using TechnoMarket.Services.Customer.Data;
 using TechnoMarket.Services.Customer.Dtos;
@@ -111,6 +110,6 @@ finally
 {
     // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
     NLog.LogManager.Shutdown();
-}     
+}
 
 

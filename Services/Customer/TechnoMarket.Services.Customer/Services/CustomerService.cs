@@ -16,7 +16,7 @@ namespace TechnoMarket.Services.Customer.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<CustomerService> _logger;
 
-        public CustomerService(IMapper mapper, ICustomerRepository repository, IUnitOfWork unitOfWork,ILogger<CustomerService> logger)
+        public CustomerService(IMapper mapper, ICustomerRepository repository, IUnitOfWork unitOfWork, ILogger<CustomerService> logger)
         {
             _mapper = mapper;
             _repository = repository;

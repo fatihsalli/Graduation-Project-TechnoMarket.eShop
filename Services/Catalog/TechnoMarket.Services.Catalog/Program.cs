@@ -1,13 +1,10 @@
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using NLog;
 using NLog.Web;
 using System.Reflection;
 using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.Filters;
-using TechnoMarket.Services.Catalog.Services;
-using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Services.Catalog.Validations;
 using TechnoMarket.Shared.Extensions;
 
