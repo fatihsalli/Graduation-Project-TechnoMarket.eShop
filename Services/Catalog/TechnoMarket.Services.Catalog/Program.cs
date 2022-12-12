@@ -1,14 +1,13 @@
 using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NLog;
 using NLog.Web;
+using System.Reflection;
 using TechnoMarket.Services.Catalog.Data;
-using TechnoMarket.Services.Catalog.Data.Interfaces;
 using TechnoMarket.Services.Catalog.Filters;
 using TechnoMarket.Services.Catalog.Services;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
-using TechnoMarket.Services.Catalog.Settings;
-using TechnoMarket.Services.Catalog.Settings.Interfaces;
 using TechnoMarket.Services.Catalog.Validations;
 using TechnoMarket.Shared.Extensions;
 
@@ -23,21 +22,24 @@ try
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
 
-    //Options Pattern
-    builder.Services.Configure<CatalogDatabaseSettings>(builder.Configuration.GetSection(nameof(CatalogDatabaseSettings)));
-    builder.Services.AddSingleton<ICatalogDatabaseSettings>(sp =>
-        sp.GetRequiredService<IOptions<CatalogDatabaseSettings>>().Value);
 
     //NotFoundFilter => Generic olduðu için bu þekilde belirtik.
     builder.Services.AddScoped(typeof(NotFoundFilter<>));
 
     //Database
-    builder.Services.AddScoped<ICatalogContext, CatalogContext>();
+    builder.Services.AddDbContext<CatalogDbContext>(x =>
+    {
+        x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), option =>
+        {
+            option.MigrationsAssembly(Assembly.GetAssembly(typeof(CatalogDbContext)).GetName().Name);
+        });
+    });
+
     //AutoMapper
     builder.Services.AddAutoMapper(typeof(Program));
     //Service
-    builder.Services.AddScoped<IProductService, ProductService>();
-    builder.Services.AddScoped<ICategoryService, CategoryService>();
+    //builder.Services.AddScoped<IProductService, ProductService>();
+    //builder.Services.AddScoped<ICategoryService, CategoryService>();
 
     builder.Services.AddControllers();
 
