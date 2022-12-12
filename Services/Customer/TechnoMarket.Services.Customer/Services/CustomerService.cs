@@ -14,12 +14,14 @@ namespace TechnoMarket.Services.Customer.Services
         private readonly IMapper _mapper;
         private readonly ICustomerRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<CustomerService> _logger;
 
-        public CustomerService(IMapper mapper, ICustomerRepository repository, IUnitOfWork unitOfWork)
+        public CustomerService(IMapper mapper, ICustomerRepository repository, IUnitOfWork unitOfWork,ILogger<CustomerService> logger)
         {
             _mapper = mapper;
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<List<CustomerDto>> GetAllAsync()
@@ -34,7 +36,7 @@ namespace TechnoMarket.Services.Customer.Services
 
             if (customer == null)
             {
-                //Loglama
+                _logger.LogError($"Customer with id ({id}) didn't find in the database.");
                 throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
             }
 
@@ -55,7 +57,7 @@ namespace TechnoMarket.Services.Customer.Services
 
             if (!customerCheck)
             {
-                //Loglama
+                _logger.LogError($"Customer with id ({customerUpdateDto.Id}) didn't find in the database.");
                 throw new NotFoundException($"Customer with id ({customerUpdateDto.Id}) didn't find in the database.");
             }
 
@@ -70,7 +72,7 @@ namespace TechnoMarket.Services.Customer.Services
 
             if (customer == null)
             {
-                //Loglama
+                _logger.LogError($"Customer with id ({id}) didn't find in the database.");
                 throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
             }
 
