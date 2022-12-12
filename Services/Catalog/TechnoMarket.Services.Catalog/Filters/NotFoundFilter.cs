@@ -11,12 +11,10 @@ namespace TechnoMarket.Services.Catalog.Filters
         //Exceptionlarımız global olarak yazıldı. Filter neden yazıyoruz? Herhangi bir entity için data=null olduğunda ek business yapılması gerekebilir. Örneğin mesaj kuyruğa gidip mesaj atsın gibi veya kullanıcıya email atmak gibi.
 
         private readonly IProductService _productService;
-        private readonly ICategoryService _categoryService;
 
-        public NotFoundFilter(IProductService productService, ICategoryService categoryService)
+        public NotFoundFilter(IProductService productService)
         {
             _productService = productService;
-            _categoryService = categoryService;
         }
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -35,7 +33,7 @@ namespace TechnoMarket.Services.Catalog.Filters
 
             if (typeof(T).Name == nameof(Category))
             {
-                anyEntity = await _categoryService.GetByIdAsync(id);
+                //
             }
             else if (typeof(T).Name == nameof(Product))
             {

@@ -22,69 +22,70 @@ namespace TechnoMarket.Services.Catalog.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<ProductDto>> GetAllAsync()
+        public List<ProductDto> GetAll()
         {
-            var customers = await _repository.GetAll().ToListAsync();
-            return _mapper.Map<List<CustomerDto>>(customers);
+            var products = _repository.GetAll().ToList();
+            return _mapper.Map<List<ProductDto>>(products);
         }
 
-        public async Task<CustomerDto> GetByIdAsync(string id)
+        public async Task<ProductDto> GetByIdAsync(string id)
         {
-            var customer = await _repository.GetByIdAsync(id);
+            var product = await _repository.GetByIdAsync(id);
 
-            if (customer == null)
+            if (product == null)
             {
-                _logger.LogError($"Customer with id ({id}) didn't find in the database.");
-                throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
+                //Loglama
+                throw new NotFoundException($"Product with id ({id}) didn't find in the database.");
             }
 
-            return _mapper.Map<CustomerDto>(customer);
+            return _mapper.Map<ProductDto>(product);
         }
 
-        public async Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto)
+        public async Task<ProductDto> AddAsync(ProductCreateDto productCreateDto)
         {
-            var customer = _mapper.Map<Models.Customer>(customerCreateDto);
-            await _repository.AddAsync(customer);
+            var product = _mapper.Map<Product>(productCreateDto);
+            await _repository.AddAsync(product);
             await _unitOfWork.CommitAsync();
-            return _mapper.Map<CustomerDto>(customer);
+            return _mapper.Map<ProductDto>(product);
         }
 
-        public async Task UpdateAsync(CustomerUpdateDto customerUpdateDto)
+        public async Task UpdateAsync(ProductUpdateDto productUpdateDto)
         {
-            var customerCheck = await _repository.AnyAsync(x => x.Id == new Guid(customerUpdateDto.Id));
+            var productCheck = await _repository.AnyAsync(x => x.Id == new Guid(productUpdateDto.Id));
 
-            if (!customerCheck)
+            if (!productCheck)
             {
-                _logger.LogError($"Customer with id ({customerUpdateDto.Id}) didn't find in the database.");
-                throw new NotFoundException($"Customer with id ({customerUpdateDto.Id}) didn't find in the database.");
+                //
+                throw new NotFoundException($"Product with id ({productUpdateDto.Id}) didn't find in the database.");
             }
 
-            var customerUpdate = _mapper.Map<Models.Customer>(customerUpdateDto);
-            _repository.Update(customerUpdate);
+            var productUpdate = _mapper.Map<Product>(productUpdateDto);
+            _repository.Update(productUpdate);
             await _unitOfWork.CommitAsync();
         }
 
         public async Task RemoveAsync(string id)
         {
-            var customer = await _repository.GetByIdAsync(id);
+            var product = await _repository.GetByIdAsync(id);
 
-            if (customer == null)
+            if (product == null)
             {
-                _logger.LogError($"Customer with id ({id}) didn't find in the database.");
-                throw new NotFoundException($"Customer with id ({id}) didn't find in the database.");
+                //
+                throw new NotFoundException($"Product with id ({id}) didn't find in the database.");
             }
 
-            _repository.Remove(customer);
+            _repository.Remove(product);
             await _unitOfWork.CommitAsync();
         }
 
-        public IQueryable<Models.Customer> Where(Expression<Func<Models.Customer, bool>> expression)
+        //Kendi içimizde kullanmak için
+        public IQueryable<Product> Where(Expression<Func<Product, bool>> expression)
         {
             return _repository.Where(expression);
         }
 
         //Kendi içimizde kullanmak için
-        public async Task<bool> AnyAsync(Expression<Func<Models.Customer, bool>> expression)
+        public async Task<bool> AnyAsync(Expression<Func<Product, bool>> expression)
         {
             return await _repository.AnyAsync(expression);
         }

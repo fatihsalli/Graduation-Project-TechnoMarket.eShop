@@ -23,47 +23,47 @@ namespace TechnoMarket.Services.Catalog.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(CustomResponseDto<List<ProductDto>>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var response = await _productService.GetAllAsync();
-            return CreateActionResult(response);
+            var productDtos = _productService.GetAll();
+            return CreateActionResult(CustomResponseDto<List<ProductDto>>.Success(200, productDtos));
         }
 
         //Service kısmında global exception fırlatıyorum. Burada öğrenme amaçlı yapıldı. Filter sayesinde action içerise girmeden geri dönecektir.
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
-        [HttpGet("{id:length(24)}")]
+        [HttpGet("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetById(string id)
         {
-            var response = await _productService.GetByIdAsync(id);
-            return CreateActionResult(response);
+            var productDto = await _productService.GetByIdAsync(id);
+            return CreateActionResult(CustomResponseDto<ProductDto>.Success(200, productDto));
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody] ProductCreateDto productCreateDto)
         {
-            var response = await _productService.CreateAsync(productCreateDto);
-            return CreateActionResult(response);
+            var productDto = await _productService.AddAsync(productCreateDto);
+            return CreateActionResult(CustomResponseDto<ProductDto>.Success(201, productDto));
         }
 
         [HttpPut]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Update([FromBody] ProductUpdateDto productUpdateDto)
         {
-            var response = await _productService.UpdateAsync(productUpdateDto);
-            return CreateActionResult(response);
+            await _productService.UpdateAsync(productUpdateDto);
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 
-        [HttpDelete("{id:length(24)}")]
+        [HttpDelete("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(string id)
         {
-            var response = await _productService.DeleteAsync(id);
-            return CreateActionResult(response);
+            await _productService.RemoveAsync(id);
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 
     }

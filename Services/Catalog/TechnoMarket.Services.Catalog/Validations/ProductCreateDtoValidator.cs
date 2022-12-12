@@ -27,7 +27,7 @@ namespace TechnoMarket.Services.Catalog.Validations
             RuleFor(x => x.Category.Id)
                 .NotNull().WithMessage("{PropertyName} is required")
                 .NotEmpty().WithMessage("{PropertyName} is required")
-                .Length(24).WithMessage("{PropertyName} must be 24 character");
+                .Length(36).WithMessage("{PropertyName} must be 36 character");
 
             RuleFor(x => x.Category.Name)
                 .NotNull().WithMessage("{PropertyName} is required")

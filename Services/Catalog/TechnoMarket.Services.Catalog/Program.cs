@@ -5,6 +5,7 @@ using NLog.Web;
 using System.Reflection;
 using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.Filters;
+using TechnoMarket.Services.Catalog.Repositories;
 using TechnoMarket.Services.Catalog.Repositories.Interfaces;
 using TechnoMarket.Services.Catalog.Services;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
@@ -39,7 +40,7 @@ try
     //AutoMapper
     builder.Services.AddAutoMapper(typeof(Program));
     //Services
-    builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(IGenericRepository<>));
+    builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
     builder.Services.AddScoped<IProductService, ProductService>();
     builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
