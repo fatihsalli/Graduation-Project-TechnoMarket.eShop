@@ -8,8 +8,8 @@ namespace TechnoMarket.Services.Customer.Data.Configurations
         public void Configure(EntityTypeBuilder<Models.Customer> builder)
         {
             //Owned Types => Address içindeki sütunları aynı table'a ekler.
-            //CustomerId'yi ortak ForeignKey kullanarak 2 farklı table da yapabilirdik.
-            //Ya da Address'e id vererek one to one bir ilişki de yapabilirdik. Bu durumda gereksiz olarak bir address id tutmuş olacağız.
+            //CustomerId değerini ortak ForeignKey kullanarak 2 farklı tabloda da yapabilirdik.
+            //Ya da Address classına id vererek one to one bir ilişki de yapabilirdik. Bu durumda gereksiz olarak bir address id tutmuş olacağız.
             builder.OwnsOne(customer => customer.Address, a =>
             {
                 a.Property(address => address.AddressLine)
