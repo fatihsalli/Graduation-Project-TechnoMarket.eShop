@@ -19,8 +19,32 @@ namespace TechnoMarket.Services.Catalog.Data.Configurations
             //builder.HasOne(x => x.Feature).WithOne(x => x.Product).HasForeignKey<ProductFeature>(x => x.ProductId); 
             #endregion
 
+            builder.Property(x => x.Id)
+                .HasMaxLength(36)
+                .IsRequired()
+                .HasDefaultValueSql("NEWID()");
 
+            builder.Property(c => c.Name)
+                .IsRequired()
+                .HasMaxLength(50);
 
+            builder.Property(c => c.Stock)
+                .IsRequired();
+
+            builder.Property(c => c.Price)
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
+
+            builder.Property(c => c.Description)
+                .IsRequired()
+                .HasMaxLength(255);
+
+            builder.Property(c => c.ImageFile)
+                .HasMaxLength(255);
+
+            builder.Property(x => x.CategoryId)
+                .HasMaxLength(36)
+                .IsRequired();
         }
     }
 }

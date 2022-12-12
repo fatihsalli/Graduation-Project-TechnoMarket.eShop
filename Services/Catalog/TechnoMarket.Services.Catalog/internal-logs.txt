@@ -172,3 +172,33 @@
 2022-12-12 15:31:31.3645 Info Shutdown() called. Logger closing...
 2022-12-12 15:31:31.3645 Info Closing old configuration.
 2022-12-12 15:31:31.3798 Info Logger has been closed down.
+2022-12-12 16:20:09.6479 Info Message Template Auto Format enabled
+2022-12-12 16:20:09.6568 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-12 16:20:09.7122 Info Registered target FileTarget(Name=allFile)
+2022-12-12 16:20:09.7122 Info Registered target FileTarget(Name=ownFile)
+2022-12-12 16:20:09.7122 Info Registered target ConsoleTarget(Name=lifetimeConsole)
+2022-12-12 16:20:09.7439 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-12 16:20:09.9206 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-12 16:20:09.9578 Info Shutdown() called. Logger closing...
+2022-12-12 16:20:09.9578 Info Closing old configuration.
+2022-12-12 16:20:09.9724 Info Logger has been closed down.
+2022-12-12 16:20:18.3086 Info Message Template Auto Format enabled
+2022-12-12 16:20:18.3170 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-12 16:20:18.3624 Info Registered target FileTarget(Name=allFile)
+2022-12-12 16:20:18.3624 Info Registered target FileTarget(Name=ownFile)
+2022-12-12 16:20:18.3624 Info Registered target ConsoleTarget(Name=lifetimeConsole)
+2022-12-12 16:20:18.3853 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-12 16:20:18.5768 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-12 16:20:18.6221 Info Shutdown() called. Logger closing...
+2022-12-12 16:20:18.6221 Info Closing old configuration.
+2022-12-12 16:20:18.6384 Info Logger has been closed down.
+2022-12-12 16:20:47.6623 Info Message Template Auto Format enabled
+2022-12-12 16:20:47.6706 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-12 16:20:47.7306 Info Registered target FileTarget(Name=allFile)
+2022-12-12 16:20:47.7322 Info Registered target FileTarget(Name=ownFile)
+2022-12-12 16:20:47.7322 Info Registered target ConsoleTarget(Name=lifetimeConsole)
+2022-12-12 16:20:47.7552 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-12 16:20:47.9172 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-12 16:20:47.9562 Info Shutdown() called. Logger closing...
+2022-12-12 16:20:47.9562 Info Closing old configuration.
+2022-12-12 16:20:47.9719 Info Logger has been closed down.
