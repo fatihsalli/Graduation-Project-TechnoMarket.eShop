@@ -5,6 +5,11 @@ using NLog.Web;
 using System.Reflection;
 using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.Filters;
+using TechnoMarket.Services.Catalog.Repositories.Interfaces;
+using TechnoMarket.Services.Catalog.Services;
+using TechnoMarket.Services.Catalog.Services.Interfaces;
+using TechnoMarket.Services.Catalog.UnitOfWorks;
+using TechnoMarket.Services.Catalog.UnitOfWorks.Interfaces;
 using TechnoMarket.Services.Catalog.Validations;
 using TechnoMarket.Shared.Extensions;
 
@@ -18,7 +23,6 @@ try
     // NLog: Setup NLog for Dependency injection
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
-
 
     //NotFoundFilter => Generic olduðu için bu þekilde belirtik.
     builder.Services.AddScoped(typeof(NotFoundFilter<>));
@@ -34,9 +38,10 @@ try
 
     //AutoMapper
     builder.Services.AddAutoMapper(typeof(Program));
-    //Service
-    //builder.Services.AddScoped<IProductService, ProductService>();
-    //builder.Services.AddScoped<ICategoryService, CategoryService>();
+    //Services
+    builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(IGenericRepository<>));
+    builder.Services.AddScoped<IProductService, ProductService>();
+    builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
     builder.Services.AddControllers();
 
