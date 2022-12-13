@@ -81,7 +81,7 @@ namespace TechnoMarket.Services.Catalog.Services
                 throw new NotFoundException($"Category with id ({productUpdateDto.CategoryId}) didn't find in the database.");
             }
             var productUpdate = _mapper.Map<Product>(productUpdateDto);
-            //Önemli!!! ProductFeature için id değerini clienttan almayıp null olarak bırakırsak EF Core state değerini Added olarak ayarlıyor o sebeple de ProductFeature update edilemiyor.
+            //Önemli!!! ProductFeature için id değerini clienttan almayıp null olarak bırakırsak EF Core state değerini Added olarak ayarlıyor o sebeple de ProductFeature update edilemiyor. (Parent üzerinden update etmek için)
             productUpdate.Feature.Id = productUpdate.Id;            
             _repository.Update(productUpdate);
             await _unitOfWork.CommitAsync();
