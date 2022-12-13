@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Linq.Expressions;
+using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Repositories.Interfaces;
@@ -15,13 +16,15 @@ namespace TechnoMarket.Services.Catalog.Services
         private readonly IProductRepository _repository;
         private readonly IGenericRepository<Category> _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly CatalogDbContext _dbContext;
 
-        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, IGenericRepository<Category> categoryRepository)
+        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, IGenericRepository<Category> categoryRepository,CatalogDbContext dbContext)
         {
             _mapper = mapper;
             _repository = repository;
             _unitOfWork = unitOfWork;
             _categoryRepository = categoryRepository;
+            _dbContext = dbContext;
         }
 
         public async Task<List<ProductDto>> GetAllAsync()
@@ -33,7 +36,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
         public async Task<ProductDto> GetByIdAsync(string id)
         {
-            var product = await _repository.GetSingleCustomerByIdWithCategoryAndFeaturesAsync(id);
+            var product = await _repository.GetSingleProductByIdWithCategoryAndFeaturesAsync(id);
 
             if (product == null)
             {
@@ -62,7 +65,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
         public async Task UpdateAsync(ProductUpdateDto productUpdateDto)
         {
-            var productCheck = await _repository.AnyAsync(x => x.Id == new Guid(productUpdateDto.Id));
+            var productCheck = await _repository.AnyAsync(x=>x.Id==new Guid(productUpdateDto.Id));
 
             if (!productCheck)
             {
@@ -77,8 +80,9 @@ namespace TechnoMarket.Services.Catalog.Services
                 //Loglama
                 throw new NotFoundException($"Category with id ({productUpdateDto.CategoryId}) didn't find in the database.");
             }
-
-            var productUpdate = _mapper.Map<Product>(productUpdateDto);         
+            var productUpdate = _mapper.Map<Product>(productUpdateDto);
+            //Önemli!!! ProductFeature için id değerini clienttan almayıp null olarak bırakırsak EF Core state değerini Added olarak ayarlıyor o sebeple de ProductFeature update edilemiyor.
+            productUpdate.Feature.Id = productUpdate.Id;            
             _repository.Update(productUpdate);
             await _unitOfWork.CommitAsync();
         }

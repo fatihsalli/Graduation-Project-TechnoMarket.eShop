@@ -19,24 +19,30 @@ namespace TechnoMarket.Services.Catalog.Data
         {
             foreach (var item in ChangeTracker.Entries())
             {
-                if (item.Entity is ProductFeature productFeature)
+                if (item.Entity is ProductFeature entityReference2)
                 {
                     switch (item.State)
                     {
+                        case EntityState.Detached:
+                            break;
+                        case EntityState.Unchanged:
+                            break;
+                        case EntityState.Deleted:
+                            break;
                         case EntityState.Modified:
-                            Entry(productFeature).Property(x => x.Id).IsModified = false;
-                            Entry(productFeature).Property(x => x.Product).IsModified = false;
+                            var test1 = 200;
+                            var test2 = 200;
 
                             break;
                         case EntityState.Added:
-                            Entry(productFeature).Property(x => x.Id).IsModified = false;
-                            Entry(productFeature).Property(x => x.Product).IsModified = false;
+                            var test3 = 200;
+                            var test4 = 200;
 
                             break;
                     }
-
-
                 }
+
+
 
 
 
@@ -52,17 +58,18 @@ namespace TechnoMarket.Services.Catalog.Data
                         case EntityState.Deleted:
                             break;
                         case EntityState.Modified:
+                            var test1 = 200;
+                            var test2 = 200;
 
                             break;
-                        case EntityState.Added:
-       
+                        case EntityState.Added:  
+                            var test3 = 200;
+                            var test4 = 200;
+
                             break;
                     }
                 }
             }
-
-
-
 
             return base.SaveChangesAsync(cancellationToken);
         }
