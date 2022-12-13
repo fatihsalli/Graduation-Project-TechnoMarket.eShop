@@ -19,53 +19,16 @@ namespace TechnoMarket.Services.Catalog.Data
         {
             foreach (var item in ChangeTracker.Entries())
             {
-                if (item.Entity is ProductFeature entityReference2)
-                {
-                    switch (item.State)
-                    {
-                        case EntityState.Detached:
-                            break;
-                        case EntityState.Unchanged:
-                            break;
-                        case EntityState.Deleted:
-                            break;
-                        case EntityState.Modified:
-                            var test1 = 200;
-                            var test2 = 200;
-
-                            break;
-                        case EntityState.Added:
-                            var test3 = 200;
-                            var test4 = 200;
-
-                            break;
-                    }
-                }
-
-
-
-
-
-
                 if (item.Entity is Product entityReference)
                 {
                     switch (item.State)
                     {
-                        case EntityState.Detached:
-                            break;
-                        case EntityState.Unchanged:
-                            break;
-                        case EntityState.Deleted:
-                            break;
                         case EntityState.Modified:
-                            var test1 = 200;
-                            var test2 = 200;
-
+                            Entry(entityReference).Property(x => x.CreatedAt).IsModified = false;
+                            entityReference.UpdatedAt = DateTime.Now;
                             break;
-                        case EntityState.Added:  
-                            var test3 = 200;
-                            var test4 = 200;
-
+                        case EntityState.Added:
+                            entityReference.CreatedAt = DateTime.Now;
                             break;
                     }
                 }
