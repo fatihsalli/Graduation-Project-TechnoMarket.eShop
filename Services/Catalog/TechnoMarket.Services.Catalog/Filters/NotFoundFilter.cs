@@ -31,9 +31,8 @@ namespace TechnoMarket.Services.Catalog.Filters
             }
             //Cast işlemi yaptık
             var id = (string)idValue;
-            object anyEntity = null;
 
-            await _repository.GetByIdAsync(id);
+            var anyEntity = await _repository.GetByIdAsync(id);
 
             //Yani data var ise yine yoluna devam edecek
             if (anyEntity != null)
@@ -43,7 +42,7 @@ namespace TechnoMarket.Services.Catalog.Filters
             }
             //Burada data yok olarak yani Not found olarak response döndük.
             context.Result = new NotFoundObjectResult(CustomResponseDto<NoContentDto>
-                .Fail(404, $"{nameof(T)} with id ({id}) didn't find in the database."));
+                .Fail(404, $"{typeof(T).Name} with id ({id}) didn't find in the database."));
         }
 
 

@@ -40,8 +40,9 @@ namespace TechnoMarket.Services.Catalog.Controllers
         }
 
         //TODO: Create edildikten sonra GetById actionına yönlendirmek istiyoruz.
-        //Filter yazılacak categoryId yok ise direkt içine girmeden hata versin
+        //TODO: Filter yazılacak categoryId yok ise direkt içine girmeden hata versin
         [HttpPost]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody] ProductCreateDto productCreateDto)
         {
