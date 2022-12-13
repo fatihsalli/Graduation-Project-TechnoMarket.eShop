@@ -70,6 +70,14 @@ namespace TechnoMarket.Services.Catalog.Services
                 throw new NotFoundException($"Product with id ({productUpdateDto.Id}) didn't find in the database.");
             }
 
+            var categoryCheck = await _categoryRepository.AnyAsync(x => x.Id == new Guid(productUpdateDto.CategoryId));
+
+            if (!categoryCheck)
+            {
+                //Loglama
+                throw new NotFoundException($"Category with id ({productUpdateDto.CategoryId}) didn't find in the database.");
+            }
+
             var productUpdate = _mapper.Map<Product>(productUpdateDto);
             _repository.Update(productUpdate);
             await _unitOfWork.CommitAsync();
