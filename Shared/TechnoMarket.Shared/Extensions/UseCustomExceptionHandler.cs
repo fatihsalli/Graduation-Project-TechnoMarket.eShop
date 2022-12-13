@@ -25,8 +25,7 @@ namespace TechnoMarket.Shared.Extensions
                         _ => 500
                     };
                     context.Response.StatusCode = statusCode;
-                    var message = $"Error Message:{exceptionFeature.Error.Message} | Inner Exception: {exceptionFeature.Error.InnerException.Message}";
-                    var response = CustomResponseDto<NoContentDto>.Fail(statusCode, message);
+                    var response = CustomResponseDto<NoContentDto>.Fail(statusCode, exceptionFeature.Error.Message);
                     //Custom middleware oluşturduğumuz için kendimiz json formatına serialize etmemiz gerekir.
                     await context.Response.WriteAsync(JsonSerializer.Serialize(response));
                 });

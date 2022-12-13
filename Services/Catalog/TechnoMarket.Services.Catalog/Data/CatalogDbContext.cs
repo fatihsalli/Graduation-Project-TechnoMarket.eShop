@@ -19,6 +19,28 @@ namespace TechnoMarket.Services.Catalog.Data
         {
             foreach (var item in ChangeTracker.Entries())
             {
+                if (item.Entity is ProductFeature productFeature)
+                {
+                    switch (item.State)
+                    {
+                        case EntityState.Modified:
+                            Entry(productFeature).Property(x => x.Id).IsModified = false;
+                            Entry(productFeature).Property(x => x.Product).IsModified = false;
+
+                            break;
+                        case EntityState.Added:
+                            Entry(productFeature).Property(x => x.Id).IsModified = false;
+                            Entry(productFeature).Property(x => x.Product).IsModified = false;
+
+                            break;
+                    }
+
+
+                }
+
+
+
+
                 if (item.Entity is Product entityReference)
                 {
                     switch (item.State)
@@ -30,7 +52,7 @@ namespace TechnoMarket.Services.Catalog.Data
                         case EntityState.Deleted:
                             break;
                         case EntityState.Modified:
-                            Entry(entityReference).Property(x=>x.Feature).IsModified = false;
+
                             break;
                         case EntityState.Added:
        
