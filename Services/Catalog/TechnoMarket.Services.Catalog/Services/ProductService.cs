@@ -10,7 +10,7 @@ using TechnoMarket.Shared.Exceptions;
 
 namespace TechnoMarket.Services.Catalog.Services
 {
-    public class ProductService:IProductService
+    public class ProductService : IProductService
     {
         private readonly IMapper _mapper;
         private readonly IProductRepository _repository;
@@ -18,7 +18,7 @@ namespace TechnoMarket.Services.Catalog.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly CatalogDbContext _dbContext;
 
-        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, IGenericRepository<Category> categoryRepository,CatalogDbContext dbContext)
+        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, IGenericRepository<Category> categoryRepository, CatalogDbContext dbContext)
         {
             _mapper = mapper;
             _repository = repository;
@@ -29,7 +29,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
         public async Task<List<ProductDto>> GetAllAsync()
         {
-            var products =await _repository.GetProductsWithCategoryAndFeaturesAsync();
+            var products = await _repository.GetProductsWithCategoryAndFeaturesAsync();
 
             return _mapper.Map<List<ProductDto>>(products);
         }
@@ -65,7 +65,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
         public async Task UpdateAsync(ProductUpdateDto productUpdateDto)
         {
-            var productCheck = await _repository.AnyAsync(x=>x.Id==new Guid(productUpdateDto.Id));
+            var productCheck = await _repository.AnyAsync(x => x.Id == new Guid(productUpdateDto.Id));
 
             if (!productCheck)
             {
@@ -82,7 +82,7 @@ namespace TechnoMarket.Services.Catalog.Services
             }
             var productUpdate = _mapper.Map<Product>(productUpdateDto);
             //Önemli!!! ProductFeature için id değerini clienttan almayıp null olarak bırakırsak EF Core state değerini Added olarak ayarlıyor o sebeple de ProductFeature update edilemiyor. (Parent üzerinden update etmek için)
-            productUpdate.Feature.Id = productUpdate.Id;            
+            productUpdate.Feature.Id = productUpdate.Id;
             _repository.Update(productUpdate);
             await _unitOfWork.CommitAsync();
         }

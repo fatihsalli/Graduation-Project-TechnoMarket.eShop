@@ -5,7 +5,7 @@ using TechnoMarket.Services.Catalog.Repositories.Interfaces;
 
 namespace TechnoMarket.Services.Catalog.Repositories
 {
-    public class GenericRepository<T>:IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         //Başka repositorylerden de ulaşabilmek için protected yaptık
         protected readonly CatalogDbContext _context;

@@ -3,7 +3,7 @@ using TechnoMarket.Services.Catalog.UnitOfWorks.Interfaces;
 
 namespace TechnoMarket.Services.Catalog.UnitOfWorks
 {
-    public class UnitOfWork: IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly CatalogDbContext _context;
         public UnitOfWork(CatalogDbContext context)

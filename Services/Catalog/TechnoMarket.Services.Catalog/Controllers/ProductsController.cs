@@ -24,13 +24,14 @@ namespace TechnoMarket.Services.Catalog.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<List<ProductDto>>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll()
         {
-            var productDtos =await _productService.GetAllAsync();
+            var productDtos = await _productService.GetAllAsync();
             return CreateActionResult(CustomResponseDto<List<ProductDto>>.Success(200, productDtos));
         }
 
         //Service kısmında global exception fırlatıyorum. Burada öğrenme amaçlı yapıldı. Filter sayesinde action içerise girmeden geri dönecektir.
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
-        [HttpGet("{id:length(36)}")]
+        //
+        [HttpGet("{id:length(36)}", Name = "GetProduct")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetById(string id)
@@ -39,7 +40,6 @@ namespace TechnoMarket.Services.Catalog.Controllers
             return CreateActionResult(CustomResponseDto<ProductDto>.Success(200, productDto));
         }
 
-        //TODO: Create edildikten sonra GetById actionına yönlendirmek istiyoruz.
         //TODO: Filter yazılacak categoryId yok ise direkt içine girmeden hata versin
         [HttpPost]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
@@ -47,6 +47,8 @@ namespace TechnoMarket.Services.Catalog.Controllers
         public async Task<IActionResult> Create([FromBody] ProductCreateDto productCreateDto)
         {
             var productDto = await _productService.AddAsync(productCreateDto);
+            //=> Aşağıdaki gibi URI dönmek için de yazabilirdik. O zaman yukarıdaki ilgili action metota name ile yazmalıyız. İsim aynı olsa bile yazmak zorundayız.
+            //return CreatedAtRoute("GetProduct", new { id = productDto.Id }, productDto);
             return CreateActionResult(CustomResponseDto<ProductDto>.Success(201, productDto));
         }
 

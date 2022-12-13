@@ -20,8 +20,8 @@ namespace TechnoMarket.Services.Catalog.Repositories
             //AsNoTracking update edilirken hata almamak için track özelliğini kapatıyoruz.
             var products = await _context.Products
                 .AsNoTracking()
-                .Include(x=> x.Category)
-                .Include(x=>x.Feature)
+                .Include(x => x.Category)
+                .Include(x => x.Feature)
                 .ToListAsync();
 
             return products;

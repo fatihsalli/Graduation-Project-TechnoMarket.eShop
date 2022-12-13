@@ -1,13 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Moq;
-using TechnoMarket.Services.Catalog.Controllers;
-using TechnoMarket.Services.Catalog.Dtos;
-using TechnoMarket.Services.Catalog.Services.Interfaces;
-using TechnoMarket.Shared.Dtos;
-using TechnoMarket.Shared.Exceptions;
-using Xunit;
-
-namespace TechnoMarket.Services.Catalog.UnitTests
+﻿namespace TechnoMarket.Services.Catalog.UnitTests
 {
     public class ProductsControllerTest
     {
