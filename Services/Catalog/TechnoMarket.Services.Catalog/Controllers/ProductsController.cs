@@ -30,7 +30,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
 
         //Service kısmında global exception fırlatıyorum. Burada öğrenme amaçlı yapıldı. Filter sayesinde action içerise girmeden geri dönecektir.
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
-        //
+        //Name olarak neden belirtmemiz gerekir CreatedAtRoute action metotunu kullandığımızda Name ile belirtmemiz gerekir. Action ismini doğru şekilde yazsak bile Name ile göstermek gerekmektedir.
         [HttpGet("{id:length(36)}", Name = "GetProduct")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.OK)]
