@@ -13,18 +13,21 @@ namespace TechnoMarket.Services.Catalog.Services
     {
         private readonly IMapper _mapper;
         private readonly IProductRepository _repository;
+        private readonly IGenericRepository<Category> _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork)
+        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, IGenericRepository<Category> categoryRepository)
         {
             _mapper = mapper;
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _categoryRepository = categoryRepository;
         }
 
-        public List<ProductDto> GetAll()
+        public async Task<List<ProductDto>> GetAllAsync()
         {
-            var products = _repository.GetProductsWithCategoryAndFeaturesAsync();
+            var products =await _repository.GetProductsWithCategoryAndFeaturesAsync();
+
             return _mapper.Map<List<ProductDto>>(products);
         }
 
@@ -43,6 +46,14 @@ namespace TechnoMarket.Services.Catalog.Services
 
         public async Task<ProductDto> AddAsync(ProductCreateDto productCreateDto)
         {
+            var categoryCheck = await _categoryRepository.AnyAsync(x => x.Id == new Guid(productCreateDto.CategoryId));
+
+            if (!categoryCheck)
+            {
+                //Loglama
+                throw new NotFoundException($"Category with id ({productCreateDto.CategoryId}) didn't find in the database.");
+            }
+
             var product = _mapper.Map<Product>(productCreateDto);
             await _repository.AddAsync(product);
             await _unitOfWork.CommitAsync();
@@ -55,7 +66,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (!productCheck)
             {
-                //
+                //Loglama
                 throw new NotFoundException($"Product with id ({productUpdateDto.Id}) didn't find in the database.");
             }
 
@@ -70,7 +81,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (product == null)
             {
-                //
+                //Loglama
                 throw new NotFoundException($"Product with id ({id}) didn't find in the database.");
             }
 

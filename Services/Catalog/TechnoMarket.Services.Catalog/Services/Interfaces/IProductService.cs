@@ -6,7 +6,7 @@ namespace TechnoMarket.Services.Catalog.Services.Interfaces
 {
     public interface IProductService
     {
-        List<ProductDto> GetAll();
+        Task<List<ProductDto>> GetAllAsync();
         Task<ProductDto> GetByIdAsync(string id);
         Task<ProductDto> AddAsync(ProductCreateDto productCreateDto);
         Task UpdateAsync(ProductUpdateDto productUpdateDto);

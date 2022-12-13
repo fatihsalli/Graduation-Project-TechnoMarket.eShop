@@ -10,7 +10,7 @@ namespace TechnoMarket.Services.Catalog.Validations
             RuleFor(x => x.Name)
                 .NotNull().WithMessage("{PropertyName} is required")
                 .NotEmpty().WithMessage("{PropertyName} is required")
-                .MaximumLength(255).WithMessage("{PropertyName} must be less than 256 character");
+                .MaximumLength(50).WithMessage("{PropertyName} must be less than 51 character");
 
             RuleFor(x => x.Stock)
                 .InclusiveBetween(1, int.MaxValue).WithMessage("{PropertyName} must be greater 0");
@@ -24,15 +24,10 @@ namespace TechnoMarket.Services.Catalog.Validations
             RuleFor(x => x.ImageFile)
                 .MaximumLength(255).WithMessage("{PropertyName} must be less than 256 character");
 
-            RuleFor(x => x.Category.Id)
+            RuleFor(x => x.CategoryId)
                 .NotNull().WithMessage("{PropertyName} is required")
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .Length(36).WithMessage("{PropertyName} must be 36 character");
-
-            RuleFor(x => x.Category.Name)
-                .NotNull().WithMessage("{PropertyName} is required")
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .MaximumLength(255).WithMessage("{PropertyName} must be less than 256 character");
 
             RuleFor(x => x.Feature.Color)
                 .NotNull().WithMessage("{PropertyName} is required")

@@ -20,12 +20,11 @@ namespace TechnoMarket.Services.Catalog.Controllers
             _productService = productService;
         }
 
-
         [HttpGet]
         [ProducesResponseType(typeof(CustomResponseDto<List<ProductDto>>), (int)HttpStatusCode.OK)]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var productDtos = _productService.GetAll();
+            var productDtos =await _productService.GetAllAsync();
             return CreateActionResult(CustomResponseDto<List<ProductDto>>.Success(200, productDtos));
         }
 
@@ -40,6 +39,8 @@ namespace TechnoMarket.Services.Catalog.Controllers
             return CreateActionResult(CustomResponseDto<ProductDto>.Success(200, productDto));
         }
 
+        //TODO: Create edildikten sonra GetById actionına yönlendirmek istiyoruz.
+        //Filter yazılacak categoryId yok ise direkt içine girmeden hata versin
         [HttpPost]
         [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody] ProductCreateDto productCreateDto)
@@ -50,7 +51,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
 
         [HttpPut]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Update([FromBody] ProductUpdateDto productUpdateDto)
         {
             await _productService.UpdateAsync(productUpdateDto);
@@ -59,7 +60,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
 
         [HttpDelete("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(string id)
         {
             await _productService.RemoveAsync(id);

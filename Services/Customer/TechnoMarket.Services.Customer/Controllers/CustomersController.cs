@@ -44,7 +44,7 @@ namespace TechnoMarket.Services.Customer.Controllers
 
         [HttpPut]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Update([FromBody] CustomerUpdateDto customerUpdateDto)
         {
             await _customerService.UpdateAsync(customerUpdateDto);
@@ -53,7 +53,7 @@ namespace TechnoMarket.Services.Customer.Controllers
 
         [HttpDelete("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(string id)
         {
             await _customerService.RemoveAsync(id);

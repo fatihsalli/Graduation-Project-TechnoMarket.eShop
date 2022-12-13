@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Models;
+using TechnoMarket.Services.Catalog.Repositories.Interfaces;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.Dtos;
 
@@ -10,11 +12,11 @@ namespace TechnoMarket.Services.Catalog.Filters
     {
         //Exceptionlarımız global olarak yazıldı. Filter neden yazıyoruz? Herhangi bir entity için data=null olduğunda ek business yapılması gerekebilir. Örneğin mesaj kuyruğa gidip mesaj atsın gibi veya kullanıcıya email atmak gibi.
 
-        private readonly IProductService _productService;
+        private readonly IGenericRepository<T> _repository;
 
-        public NotFoundFilter(IProductService productService)
+        public NotFoundFilter(IGenericRepository<T> repository)
         {
-            _productService = productService;
+            _repository = repository;
         }
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -31,14 +33,7 @@ namespace TechnoMarket.Services.Catalog.Filters
             var id = (string)idValue;
             object anyEntity = null;
 
-            if (typeof(T).Name == nameof(Category))
-            {
-                //
-            }
-            else if (typeof(T).Name == nameof(Product))
-            {
-                anyEntity = await _productService.GetByIdAsync(id);
-            }
+            await _repository.GetByIdAsync(id);
 
             //Yani data var ise yine yoluna devam edecek
             if (anyEntity != null)
@@ -47,7 +42,8 @@ namespace TechnoMarket.Services.Catalog.Filters
                 return;
             }
             //Burada data yok olarak yani Not found olarak response döndük.
-            context.Result = new NotFoundObjectResult(CustomResponseDto<NoContentDto>.Fail(404, $"Product ({id}) not found"));
+            context.Result = new NotFoundObjectResult(CustomResponseDto<NoContentDto>
+                .Fail(404, $"{nameof(T)} with id ({id}) didn't find in the database."));
         }
 
 

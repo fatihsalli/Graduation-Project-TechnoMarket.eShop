@@ -10,7 +10,7 @@ namespace TechnoMarket.Services.Catalog.Validations
             RuleFor(x => x.Name)
                 .NotNull().WithMessage("{PropertyName} is required")
                 .NotEmpty().WithMessage("{PropertyName} is required")
-                .MaximumLength(255).WithMessage("{PropertyName} must be less than 256 character");
+                .MaximumLength(50).WithMessage("{PropertyName} must be less than 51 character");
         }
     }
 }
