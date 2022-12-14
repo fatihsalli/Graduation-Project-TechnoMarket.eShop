@@ -16,15 +16,16 @@ namespace TechnoMarket.Services.Catalog.Services
         private readonly IProductRepository _repository;
         private readonly IGenericRepository<Category> _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly CatalogDbContext _dbContext;
+        private readonly ILogger<ProductService> _logger;
 
-        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, IGenericRepository<Category> categoryRepository, CatalogDbContext dbContext)
+
+        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, IGenericRepository<Category> categoryRepository, ILogger<ProductService> logger)
         {
-            _mapper = mapper;
-            _repository = repository;
-            _unitOfWork = unitOfWork;
-            _categoryRepository = categoryRepository;
-            _dbContext = dbContext;
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<List<ProductWithCategoryDto>> GetAllAsync()
@@ -40,7 +41,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (product == null)
             {
-                //Loglama
+                _logger.LogError($"Product with id ({id}) didn't find in the database.");
                 throw new NotFoundException($"Product with id ({id}) didn't find in the database.");
             }
 
@@ -53,7 +54,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (!categoryCheck)
             {
-                //Loglama
+                _logger.LogError($"Category with id ({productCreateDto.CategoryId}) didn't find in the database.");
                 throw new NotFoundException($"Category with id ({productCreateDto.CategoryId}) didn't find in the database.");
             }
 
@@ -69,7 +70,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (!productCheck)
             {
-                //Loglama
+                _logger.LogError($"Product with id ({productUpdateDto.Id}) didn't find in the database.");
                 throw new NotFoundException($"Product with id ({productUpdateDto.Id}) didn't find in the database.");
             }
 
@@ -77,7 +78,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (!categoryCheck)
             {
-                //Loglama
+                _logger.LogError($"Category with id ({productUpdateDto.CategoryId}) didn't find in the database.");
                 throw new NotFoundException($"Category with id ({productUpdateDto.CategoryId}) didn't find in the database.");
             }
             var productUpdate = _mapper.Map<Product>(productUpdateDto);
@@ -93,7 +94,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (product == null)
             {
-                //Loglama
+                _logger.LogError($"Product with id ({id}) didn't find in the database.");
                 throw new NotFoundException($"Product with id ({id}) didn't find in the database.");
             }
 
