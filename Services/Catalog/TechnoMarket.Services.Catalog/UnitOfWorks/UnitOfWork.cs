@@ -1,4 +1,5 @@
-﻿using TechnoMarket.Services.Catalog.Data;
+﻿using AutoMapper;
+using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.UnitOfWorks.Interfaces;
 
 namespace TechnoMarket.Services.Catalog.UnitOfWorks
@@ -8,7 +9,7 @@ namespace TechnoMarket.Services.Catalog.UnitOfWorks
         private readonly CatalogDbContext _context;
         public UnitOfWork(CatalogDbContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public void Commit()

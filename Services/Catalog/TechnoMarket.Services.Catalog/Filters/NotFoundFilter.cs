@@ -9,14 +9,13 @@ namespace TechnoMarket.Services.Catalog.Filters
     public class NotFoundFilter<T> : IAsyncActionFilter where T : class
     {
         //Exceptionlarımız global olarak yazıldı. Filter neden yazıyoruz? Herhangi bir entity için data=null olduğunda ek business yapılması gerekebilir. Örneğin mesaj kuyruğa gidip mesaj atsın gibi veya kullanıcıya email atmak gibi.
-
         private readonly IGenericRepository<T> _repository;
         private readonly ILogger<NotFoundFilter<T>> _logger;
 
         public NotFoundFilter(IGenericRepository<T> repository, ILogger<NotFoundFilter<T>> logger)
         {
-            _repository = repository;
-            _logger = logger;
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 using TechnoMarket.Services.Catalog.Dtos;
@@ -16,8 +17,8 @@ namespace TechnoMarket.Services.Catalog.Filters
 
         public NotFoundCategoryForProductFilter(IGenericRepository<Category> categoryRepository, ILogger<NotFoundCategoryForProductFilter> logger)
         {
-            _categoryRepository = categoryRepository;
-            _logger = logger;
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)

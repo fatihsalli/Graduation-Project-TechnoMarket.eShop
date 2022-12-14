@@ -14,17 +14,15 @@ namespace TechnoMarket.Services.Catalog.Services
     {
         private readonly IMapper _mapper;
         private readonly IProductRepository _repository;
-        private readonly IGenericRepository<Category> _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<ProductService> _logger;
 
 
-        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, IGenericRepository<Category> categoryRepository, ILogger<ProductService> logger)
+        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, ILogger<ProductService> logger)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -50,13 +48,15 @@ namespace TechnoMarket.Services.Catalog.Services
 
         public async Task<ProductDto> AddAsync(ProductCreateDto productCreateDto)
         {
-            var categoryCheck = await _categoryRepository.AnyAsync(x => x.Id == new Guid(productCreateDto.CategoryId));
+            #region CategoryCheck=>Filter Yazıldı!
+            //var categoryCheck = await _categoryRepository.AnyAsync(x => x.Id == new Guid(productCreateDto.CategoryId));
 
-            if (!categoryCheck)
-            {
-                _logger.LogError($"Category with id ({productCreateDto.CategoryId}) didn't find in the database.");
-                throw new NotFoundException($"Category with id ({productCreateDto.CategoryId}) didn't find in the database.");
-            }
+            //if (!categoryCheck)
+            //{
+            //    _logger.LogError($"Category with id ({productCreateDto.CategoryId}) didn't find in the database.");
+            //    throw new NotFoundException($"Category with id ({productCreateDto.CategoryId}) didn't find in the database.");
+            //} 
+            #endregion
 
             var product = _mapper.Map<Product>(productCreateDto);
             await _repository.AddAsync(product);
@@ -74,15 +74,20 @@ namespace TechnoMarket.Services.Catalog.Services
                 throw new NotFoundException($"Product with id ({productUpdateDto.Id}) didn't find in the database.");
             }
 
-            var categoryCheck = await _categoryRepository.AnyAsync(x => x.Id == new Guid(productUpdateDto.CategoryId));
+            #region CategoryCheck=>Filter Yazıldı!
+            //var categoryCheck = await _categoryRepository.AnyAsync(x => x.Id == new Guid(productUpdateDto.CategoryId));
 
-            if (!categoryCheck)
-            {
-                _logger.LogError($"Category with id ({productUpdateDto.CategoryId}) didn't find in the database.");
-                throw new NotFoundException($"Category with id ({productUpdateDto.CategoryId}) didn't find in the database.");
-            }
+            //if (!categoryCheck)
+            //{
+            //    _logger.LogError($"Category with id ({productUpdateDto.CategoryId}) didn't find in the database.");
+            //    throw new NotFoundException($"Category with id ({productUpdateDto.CategoryId}) didn't find in the database.");
+            //} 
+            #endregion
+
             var productUpdate = _mapper.Map<Product>(productUpdateDto);
-            //Önemli!!! ProductFeature için id değerini clienttan almayıp null olarak bırakırsak EF Core state değerini Added olarak ayarlıyor o sebeple de ProductFeature update edilemiyor. (Parent üzerinden update etmek için)
+            #region Neden Feature.Id Değeri Verildi?
+            //Önemli!!! ProductFeature için id değerini clienttan almayıp null olarak bırakırsak EF Core state değerini Added olarak ayarlıyor o sebeple de ProductFeature update edilemiyor. (Parent üzerinden update etmek için) 
+            #endregion
             productUpdate.Feature.Id = productUpdate.Id;
             _repository.Update(productUpdate);
             await _unitOfWork.CommitAsync();
