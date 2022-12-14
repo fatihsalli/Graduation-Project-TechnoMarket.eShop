@@ -13,12 +13,14 @@ namespace TechnoMarket.Services.Catalog.Services
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Category> _repository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<CategoryService> _logger;
 
-        public CategoryService(IMapper mapper, IGenericRepository<Category> repository, IUnitOfWork unitOfWork)
+        public CategoryService(IMapper mapper, IGenericRepository<Category> repository, IUnitOfWork unitOfWork, ILogger<CategoryService> logger)
         {
-            _mapper = mapper;
-            _repository = repository;
-            _unitOfWork = unitOfWork;
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public List<CategoryDto> GetAll()
@@ -41,7 +43,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (!categoryCheck)
             {
-                //Loglama
+                _logger.LogError($"Category with id ({categoryUpdateDto.Id}) didn't find in the database.");
                 throw new NotFoundException($"Category with id ({categoryUpdateDto.Id}) didn't find in the database.");
             }
 
@@ -56,7 +58,7 @@ namespace TechnoMarket.Services.Catalog.Services
 
             if (category == null)
             {
-                //Loglama
+                _logger.LogError($"Category with id ({id}) didn't find in the database.");
                 throw new NotFoundException($"Category with id ({id}) didn't find in the database.");
             }
 
