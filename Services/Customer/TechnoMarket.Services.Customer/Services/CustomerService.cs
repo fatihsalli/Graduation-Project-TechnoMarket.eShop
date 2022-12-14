@@ -18,9 +18,9 @@ namespace TechnoMarket.Services.Customer.Services
 
         public CustomerService(IMapper mapper, ICustomerRepository repository, IUnitOfWork unitOfWork, ILogger<CustomerService> logger)
         {
-            _mapper = mapper;
-            _repository = repository;
-            _unitOfWork = unitOfWork;
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
