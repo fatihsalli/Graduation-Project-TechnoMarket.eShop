@@ -27,14 +27,14 @@ namespace TechnoMarket.Services.Catalog.Services
             _dbContext = dbContext;
         }
 
-        public async Task<List<ProductDto>> GetAllAsync()
+        public async Task<List<ProductWithCategoryDto>> GetAllAsync()
         {
             var products = await _repository.GetProductsWithCategoryAndFeaturesAsync();
 
-            return _mapper.Map<List<ProductDto>>(products);
+            return _mapper.Map<List<ProductWithCategoryDto>>(products);
         }
 
-        public async Task<ProductDto> GetByIdAsync(string id)
+        public async Task<ProductWithCategoryDto> GetByIdAsync(string id)
         {
             var product = await _repository.GetSingleProductByIdWithCategoryAndFeaturesAsync(id);
 
@@ -44,7 +44,7 @@ namespace TechnoMarket.Services.Catalog.Services
                 throw new NotFoundException($"Product with id ({id}) didn't find in the database.");
             }
 
-            return _mapper.Map<ProductDto>(product);
+            return _mapper.Map<ProductWithCategoryDto>(product);
         }
 
         public async Task<ProductDto> AddAsync(ProductCreateDto productCreateDto)

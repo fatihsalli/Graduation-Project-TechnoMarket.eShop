@@ -21,11 +21,11 @@ namespace TechnoMarket.Services.Catalog.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(CustomResponseDto<List<ProductDto>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CustomResponseDto<List<ProductWithCategoryDto>>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll()
         {
             var productDtos = await _productService.GetAllAsync();
-            return CreateActionResult(CustomResponseDto<List<ProductDto>>.Success(200, productDtos));
+            return CreateActionResult(CustomResponseDto<List<ProductWithCategoryDto>>.Success(200, productDtos));
         }
 
         //Service kısmında global exception fırlatıyoruz. Filter sayesinde action içerise girmeden geri dönecektir.
@@ -33,11 +33,11 @@ namespace TechnoMarket.Services.Catalog.Controllers
         //Name olarak neden belirtmemiz gerekir CreatedAtRoute action metotunu kullandığımızda Name ile belirtmemiz gerekir. Action ismini doğru şekilde yazsak bile Name ile göstermek gerekmektedir.
         [HttpGet("{id:length(36)}", Name = "GetProduct")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CustomResponseDto<ProductWithCategoryDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetById(string id)
         {
             var productDto = await _productService.GetByIdAsync(id);
-            return CreateActionResult(CustomResponseDto<ProductDto>.Success(200, productDto));
+            return CreateActionResult(CustomResponseDto<ProductWithCategoryDto>.Success(200, productDto));
         }
 
         //TODO: Filter yazılacak categoryId yok ise direkt içine girmeden hata versin

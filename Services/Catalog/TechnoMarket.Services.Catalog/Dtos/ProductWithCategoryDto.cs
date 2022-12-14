@@ -1,6 +1,6 @@
 ﻿namespace TechnoMarket.Services.Catalog.Dtos
 {
-    public class ProductDto
+    public class ProductWithCategoryDto
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -9,6 +9,7 @@
         public string Description { get; set; }
         public string ImageFile { get; set; }
         public string ProductFeature { get; set; }
-        public string CategoryId { get; set; }
+        public CategoryDto Category { get; set; }
+
     }
 }

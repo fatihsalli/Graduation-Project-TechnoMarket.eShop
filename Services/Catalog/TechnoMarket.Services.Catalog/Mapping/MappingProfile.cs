@@ -8,6 +8,10 @@ namespace TechnoMarket.Services.Catalog.Mapping
     {
         public MappingProfile()
         {
+            CreateMap<Product, ProductWithCategoryDto>()
+                .ForMember(p => p.ProductFeature,
+                    opt => opt.MapFrom(x => string.Join(' ', x.Feature.Color, x.Feature.Width, x.Feature.Height, x.Feature.Weight))).ReverseMap();
+
             CreateMap<Product, ProductDto>()
                 .ForMember(p => p.ProductFeature,
                     opt => opt.MapFrom(x => string.Join(' ', x.Feature.Color, x.Feature.Width, x.Feature.Height, x.Feature.Weight))).ReverseMap();
