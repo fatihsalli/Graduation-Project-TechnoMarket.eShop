@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
+using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Repositories.Interfaces;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
@@ -19,19 +20,25 @@ namespace TechnoMarket.Services.Catalog.Filters
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var objectDictionary = context.ActionArguments.Values;
+            var productDtoCheck = context.ActionArguments.Values.SingleOrDefault(x=> x.GetType()==typeof(ProductCreateDto) || x.GetType()==typeof(ProductUpdateDto));
 
-            foreach (var item in objectDictionary)
+            if (productDtoCheck == null)
             {
-                
+                await next.Invoke();
+                return;
             }
 
             var categoryId = "";
 
-            if (categoryId.IsNullOrEmpty())
+            if (productDtoCheck.GetType()==typeof(ProductCreateDto))
             {
-                await next.Invoke();
-                return;
+                var productDto = (ProductCreateDto)productDtoCheck;
+                categoryId= productDto.CategoryId;
+            }
+            else
+            {
+                var productDto = (ProductUpdateDto)productDtoCheck;
+                categoryId = productDto.CategoryId;
             }
 
             var anyEntity = await _categoryRepository.AnyAsync(x => x.Id == new Guid(categoryId));

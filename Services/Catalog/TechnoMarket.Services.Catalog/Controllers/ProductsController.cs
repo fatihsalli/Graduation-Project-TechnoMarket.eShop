@@ -40,7 +40,6 @@ namespace TechnoMarket.Services.Catalog.Controllers
             return CreateActionResult(CustomResponseDto<ProductWithCategoryDto>.Success(200, productDto));
         }
 
-        //TODO: Filter yazılacak categoryId yok ise direkt içine girmeden hata versin
         [ServiceFilter(typeof(NotFoundCategoryForProductFilter))]
         [HttpPost]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
@@ -53,6 +52,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
             return CreateActionResult(CustomResponseDto<ProductDto>.Success(201, productDto));
         }
 
+        [ServiceFilter(typeof(NotFoundCategoryForProductFilter))]
         [HttpPut]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
