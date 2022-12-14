@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Repositories.Interfaces;
 using TechnoMarket.Shared.Dtos;
 
@@ -10,10 +11,12 @@ namespace TechnoMarket.Services.Catalog.Filters
         //Exceptionlarımız global olarak yazıldı. Filter neden yazıyoruz? Herhangi bir entity için data=null olduğunda ek business yapılması gerekebilir. Örneğin mesaj kuyruğa gidip mesaj atsın gibi veya kullanıcıya email atmak gibi.
 
         private readonly IGenericRepository<T> _repository;
+        private readonly ILogger<NotFoundFilter<T>> _logger;
 
-        public NotFoundFilter(IGenericRepository<T> repository)
+        public NotFoundFilter(IGenericRepository<T> repository, ILogger<NotFoundFilter<T>> logger)
         {
             _repository = repository;
+            _logger = logger;
         }
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -38,6 +41,7 @@ namespace TechnoMarket.Services.Catalog.Filters
                 return;
             }
             //Burada data yok olarak yani Not found olarak response döndük.
+            _logger.LogError($"{typeof(T).Name} with id ({id}) didn't find in the database.");
             context.Result = new NotFoundObjectResult(CustomResponseDto<NoContentDto>
                 .Fail(404, $"{typeof(T).Name} with id ({id}) didn't find in the database."));
         }

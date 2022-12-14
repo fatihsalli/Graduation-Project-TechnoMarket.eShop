@@ -12,10 +12,12 @@ namespace TechnoMarket.Services.Catalog.Filters
     public class NotFoundCategoryForProductFilter : IAsyncActionFilter
     {
         private readonly IGenericRepository<Category> _categoryRepository;
+        private readonly ILogger<NotFoundCategoryForProductFilter> _logger;
 
-        public NotFoundCategoryForProductFilter(IGenericRepository<Category> categoryRepository)
+        public NotFoundCategoryForProductFilter(IGenericRepository<Category> categoryRepository, ILogger<NotFoundCategoryForProductFilter> logger)
         {
             _categoryRepository = categoryRepository;
+            _logger = logger;
         }
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -34,7 +36,7 @@ namespace TechnoMarket.Services.Catalog.Filters
             {
                 var productDto = (ProductCreateDto)productDtoCheck;
                 categoryId= productDto.CategoryId;
-            }
+            }            
             else
             {
                 var productDto = (ProductUpdateDto)productDtoCheck;
@@ -49,10 +51,10 @@ namespace TechnoMarket.Services.Catalog.Filters
                 return;
             }
 
-            //Burada data yok olarak yani Category Not found olarak response döndük.
+            //Bu aşamaya gelmesi halinde data yok demektir. Bu durumda CustomResponse modelimizi NotFoundObjectResult ile döndük ve loglama yaptık.
+            _logger.LogError($"Category with id ({categoryId}) didn't find in the database.");
             context.Result = new NotFoundObjectResult(CustomResponseDto<NoContentDto>
                 .Fail(404, $"{nameof(Category)} with id ({categoryId}) didn't find in the database."));
-
         }
     }
 }
