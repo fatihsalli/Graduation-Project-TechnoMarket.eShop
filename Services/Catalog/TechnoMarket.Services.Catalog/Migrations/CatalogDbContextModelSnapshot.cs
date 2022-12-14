@@ -38,6 +38,18 @@ namespace TechnoMarket.Services.Catalog.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a53c1fd9-2b60-405f-a73b-847c641214a1"),
+                            Name = "Notebook"
+                        },
+                        new
+                        {
+                            Id = new Guid("c81bd97b-85ab-4cba-920a-73b5daab921f"),
+                            Name = "Smart Phone"
+                        });
                 });
 
             modelBuilder.Entity("TechnoMarket.Services.Catalog.Models.Product", b =>
@@ -83,6 +95,30 @@ namespace TechnoMarket.Services.Catalog.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("46a02782-f572-4c86-860e-8f908fc105ce"),
+                            CategoryId = new Guid("a53c1fd9-2b60-405f-a73b-847c641214a1"),
+                            CreatedAt = new DateTime(2022, 12, 14, 17, 42, 28, 322, DateTimeKind.Local).AddTicks(3918),
+                            Description = "12th gen Intel® Core™ i9 processor,32 GB memory,1 TB SSD storage",
+                            ImageFile = "asuszenbook.jpeg",
+                            Name = "Asus Zenbook",
+                            Price = 40000m,
+                            Stock = 10
+                        },
+                        new
+                        {
+                            Id = new Guid("7723714d-be34-438a-9f9e-57463d94dd5b"),
+                            CategoryId = new Guid("c81bd97b-85ab-4cba-920a-73b5daab921f"),
+                            CreatedAt = new DateTime(2022, 12, 14, 17, 42, 28, 322, DateTimeKind.Local).AddTicks(3935),
+                            Description = "512 GB Capacity,6,7' display,A15 Bionic chip,Ceramic shield front, glass back and aluminium design",
+                            ImageFile = "appleiphone14.jpeg",
+                            Name = "Iphone 14 Plus",
+                            Price = 30000m,
+                            Stock = 50
+                        });
                 });
 
             modelBuilder.Entity("TechnoMarket.Services.Catalog.Models.ProductFeature", b =>
@@ -113,6 +149,24 @@ namespace TechnoMarket.Services.Catalog.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductFeatures");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("46a02782-f572-4c86-860e-8f908fc105ce"),
+                            Color = "Black",
+                            Height = "12'",
+                            Weight = "2.5 kg",
+                            Width = "15.3'"
+                        },
+                        new
+                        {
+                            Id = new Guid("7723714d-be34-438a-9f9e-57463d94dd5b"),
+                            Color = "Purple",
+                            Height = "6.33'",
+                            Weight = "0.25 kg",
+                            Width = "3.07'"
+                        });
                 });
 
             modelBuilder.Entity("TechnoMarket.Services.Catalog.Models.Product", b =>
