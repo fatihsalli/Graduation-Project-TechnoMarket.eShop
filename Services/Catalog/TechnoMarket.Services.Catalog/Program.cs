@@ -27,6 +27,8 @@ try
 
     //NotFoundFilter => Generic olduðu için bu þekilde belirtik.
     builder.Services.AddScoped(typeof(NotFoundFilter<>));
+    builder.Services.AddScoped<NotFoundCategoryForProductFilter>();
+
 
     //Database
     builder.Services.AddDbContext<CatalogDbContext>(x =>

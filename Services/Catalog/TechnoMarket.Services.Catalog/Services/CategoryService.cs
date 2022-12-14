@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Linq.Expressions;
 using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Repositories.Interfaces;
@@ -65,7 +66,6 @@ namespace TechnoMarket.Services.Catalog.Services
             _repository.Remove(category);
             await _unitOfWork.CommitAsync();
         }
-
 
 
     }

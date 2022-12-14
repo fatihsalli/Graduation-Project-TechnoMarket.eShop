@@ -41,11 +41,5 @@ namespace TechnoMarket.Services.Catalog.Filters
             context.Result = new NotFoundObjectResult(CustomResponseDto<NoContentDto>
                 .Fail(404, $"{typeof(T).Name} with id ({id}) didn't find in the database."));
         }
-
-
-
-
-
-
     }
 }

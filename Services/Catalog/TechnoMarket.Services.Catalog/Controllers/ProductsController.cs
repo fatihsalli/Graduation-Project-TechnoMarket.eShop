@@ -41,6 +41,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
         }
 
         //TODO: Filter yazılacak categoryId yok ise direkt içine girmeden hata versin
+        [ServiceFilter(typeof(NotFoundCategoryForProductFilter))]
         [HttpPost]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<ProductDto>), (int)HttpStatusCode.Created)]
