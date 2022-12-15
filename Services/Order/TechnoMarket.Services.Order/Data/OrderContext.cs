@@ -22,7 +22,7 @@ namespace TechnoMarket.Services.Order.Data
 
             Orders = database.GetCollection<Models.Order>(orderDatabaseSettings.OrderCollectionName,collectionSettings);
 
-            //OrderContextSeed.SeedData(Orders);
+            OrderContextSeed.SeedData(Orders);
         }
 
         public IMongoCollection<Models.Order> Orders { get; }
