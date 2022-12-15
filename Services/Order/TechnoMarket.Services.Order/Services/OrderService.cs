@@ -3,19 +3,21 @@ using MongoDB.Driver;
 using TechnoMarket.Services.Order.Data.Interfaces;
 using TechnoMarket.Services.Order.Dtos;
 using TechnoMarket.Services.Order.Services.Interfaces;
+using TechnoMarket.Shared.Exceptions;
 
 namespace TechnoMarket.Services.Order.Services
 {
     public class OrderService : IOrderService
     {
-        //Loglama controller tarafında yapıldı.
         private readonly IOrderContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogger<OrderService> _logger;
 
-        public OrderService(IOrderContext context, IMapper mapper)
+        public OrderService(IOrderContext context, IMapper mapper, ILogger<OrderService> logger)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<List<OrderDto>> GetAllAsync()
@@ -27,12 +29,26 @@ namespace TechnoMarket.Services.Order.Services
         public async Task<OrderDto> GetByIdAsync(string id)
         {
             var order = await _context.Orders.Find(x => x.Id == new Guid(id)).SingleOrDefaultAsync();
+
+            if (order==null)
+            {
+                _logger.LogError($"Order with id ({id}) didn't find in the database.");
+                throw new NotFoundException($"Order with id ({id}) didn't find in the database.");
+            }
+
             return _mapper.Map<OrderDto>(order);
         }
 
         public async Task<List<OrderDto>> GetByCustomerIdAsync(string customerId)
         {
             var orders = await _context.Orders.Find(x => x.CustomerId == new Guid(customerId)).ToListAsync();
+
+            if (orders.Count < 1)
+            {
+                _logger.LogError($"Order with customerId ({customerId}) didn't find in the database.");
+                throw new NotFoundException($"Order with customerId ({customerId}) didn't find in the database.");
+            }
+
             return _mapper.Map<List<OrderDto>>(orders);
         }
 
@@ -44,13 +60,16 @@ namespace TechnoMarket.Services.Order.Services
             return _mapper.Map<OrderDto>(order);
         }
 
-        public async Task<OrderDto> UpdateAsync(OrderUpdateDto orderUpdateDto, string id)
+        public async Task<OrderDto> UpdateAsync(OrderUpdateDto orderUpdateDto)
         {
+
+
+
+
             var order = _mapper.Map<Models.Order>(orderUpdateDto);
             order.UpdatedAt = DateTime.Now;
             //TODO: Yöntemi beğenmedim.
-            order.CreatedAt = _context.Orders.Find(x => x.Id == new Guid(id)).SingleOrDefault().CreatedAt;
-            order.Id = new Guid(id);
+            order.CreatedAt = _context.Orders.Find(x => x.Id == new Guid(orderUpdateDto.Id)).SingleOrDefault().CreatedAt;
             await _context.Orders.FindOneAndReplaceAsync(x => x.Id == order.Id, order);
             return _mapper.Map<OrderDto>(order);
         }

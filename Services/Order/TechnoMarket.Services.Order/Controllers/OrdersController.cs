@@ -13,11 +13,9 @@ namespace TechnoMarket.Services.Order.Controllers
     public class OrdersController : CustomBaseController
     {
         private readonly IOrderService _orderService;
-        private readonly ILogger<OrdersController> _logger;
-        public OrdersController(IOrderService orderService, ILogger<OrdersController> logger)
+        public OrdersController(IOrderService orderService)
         {
             _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]
@@ -28,19 +26,12 @@ namespace TechnoMarket.Services.Order.Controllers
             return CreateActionResult(CustomResponseDto<List<OrderDto>>.Success(200, orderDtos));
         }
 
-        [HttpGet("{id:length(24)}")]
+        [HttpGet("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<OrderDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetById(string id)
         {
             var orderDto = await _orderService.GetByIdAsync(id);
-
-            if (orderDto == null)
-            {
-                _logger.LogError($"Order with id ({id}) didn't find in the database.");
-                throw new NotFoundException($"Order with id ({id}) didn't find in the database.");
-            }
-
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
         }
 
@@ -51,13 +42,6 @@ namespace TechnoMarket.Services.Order.Controllers
         public async Task<IActionResult> GetByCustomerId(string customerId)
         {
             var orderDtos = await _orderService.GetByCustomerIdAsync(customerId);
-
-            if (orderDtos.Count < 1)
-            {
-                _logger.LogError($"Order with customerId ({customerId}) didn't find in the database.");
-                throw new NotFoundException($"Order with customerId ({customerId}) didn't find in the database.");
-            }
-
             return CreateActionResult(CustomResponseDto<List<OrderDto>>.Success(200, orderDtos));
         }
 
@@ -69,20 +53,12 @@ namespace TechnoMarket.Services.Order.Controllers
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(201, orderDto));
         }
 
-        [HttpPut("{id:length(36)}")]
+        [HttpPut]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<OrderDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update(string id, [FromBody] OrderUpdateDto orderUpdateDto)
+        public async Task<IActionResult> Update([FromBody] OrderUpdateDto orderUpdateDto)
         {
-            var orderCheck = await _orderService.GetByIdAsync(id);
-
-            if (orderCheck == null)
-            {
-                _logger.LogError($"Order with id ({id}) didn't find in the database.");
-                throw new NotFoundException($"Order with id ({id}) didn't find in the database.");
-            }
-
-            var orderDto = await _orderService.UpdateAsync(orderUpdateDto, id);
+            var orderDto = await _orderService.UpdateAsync(orderUpdateDto);
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
         }
 
@@ -96,7 +72,7 @@ namespace TechnoMarket.Services.Order.Controllers
 
             if (orderCheck == null)
             {
-                _logger.LogError($"Order with id ({orderStatusUpdateDto.Id}) didn't find in the database.");
+                //_logger.LogError($"Order with id ({orderStatusUpdateDto.Id}) didn't find in the database.");
                 throw new NotFoundException($"Order with id ({orderStatusUpdateDto.Id}) didn't find in the database.");
             }
 
@@ -113,7 +89,7 @@ namespace TechnoMarket.Services.Order.Controllers
 
             if (orderCheck == null)
             {
-                _logger.LogError($"Order with id ({id}) didn't find in the database.");
+                //_logger.LogError($"Order with id ({id}) didn't find in the database.");
                 throw new NotFoundException($"Order with id ({id}) didn't find in the database.");
             }
             await _orderService.DeleteAsync(id);
