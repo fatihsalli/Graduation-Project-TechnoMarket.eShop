@@ -6,10 +6,10 @@ namespace TechnoMarket.Services.Order.Models
     public class Order
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonGuidRepresentation(GuidRepresentation.CSharpLegacy)]
         public string Id { get; set; }
 
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonGuidRepresentation(GuidRepresentation.CSharpLegacy)]
         public string CustomerId { get; set; }
 
         [BsonRepresentation(BsonType.Int32)]

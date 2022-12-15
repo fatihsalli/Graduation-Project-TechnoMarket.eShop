@@ -5,7 +5,7 @@ namespace TechnoMarket.Services.Order.Models
 {
     public class Product
     {
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonGuidRepresentation(GuidRepresentation.CSharpLegacy)]
         public string Id { get; set; }
         public string ImageUrl { get; set; }
         public string Name { get; set; }
