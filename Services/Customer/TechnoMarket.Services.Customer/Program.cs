@@ -60,7 +60,7 @@ try
 
     var app = builder.Build();
 
-    //Migrationlarý database'e otomatik yansýtmak için
+    //Migrationlarý database'e otomatik yansýtmak ve data basmak için
     using (var scope = app.Services.CreateScope())
     {
         var context = scope.ServiceProvider.GetRequiredService<CustomerDbContext>();

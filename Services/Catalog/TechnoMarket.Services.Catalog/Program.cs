@@ -70,20 +70,12 @@ try
 
     var app = builder.Build();
 
-    #region CategorySeedData
-    //CategorySeed Data => Data.CatalogContextSeed içerisinde yazdýk bu da program.cs içerisinde yazmanýn alternatifi.
-    //using (var scope = app.Services.CreateScope())
-    //{
-    //    var serviceProvider = scope.ServiceProvider;
-    //    var categoryService = serviceProvider.GetRequiredService<ICategoryService>();
-
-    //    if (!categoryService.GetAllAsync().Result.Data.Any())
-    //    {
-    //        categoryService.CreateAsync(new CategoryCreateDto { Name = "Notebook" });
-    //        categoryService.CreateAsync(new CategoryCreateDto { Name = "Smart Phone" });
-    //    }
-    //} 
-    #endregion
+    //Migrationlarý database'e otomatik yansýtmak ve data basmak için
+    using (var scope = app.Services.CreateScope())
+    {
+        var context = scope.ServiceProvider.GetRequiredService<CatalogDbContext>();
+        context.Database.Migrate();
+    }
 
     if (app.Environment.IsDevelopment())
     {
