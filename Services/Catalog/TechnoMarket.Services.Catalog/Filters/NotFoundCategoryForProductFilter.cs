@@ -27,6 +27,7 @@ namespace TechnoMarket.Services.Catalog.Filters
 
             if (productDtoCheck == null)
             {
+                //Create veya Update metotu değildir, yoluna devam edebilir.
                 await next.Invoke();
                 return;
             }
@@ -48,6 +49,7 @@ namespace TechnoMarket.Services.Catalog.Filters
 
             if (anyEntity)
             {
+                //CategoryId geçerli yoluna devam edebilir.
                 await next.Invoke();
                 return;
             }
