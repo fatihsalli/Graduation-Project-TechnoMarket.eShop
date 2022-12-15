@@ -10,12 +10,12 @@ namespace TechnoMarket.Services.Order.Validations
             RuleFor(x => x.Id)
                 .NotNull().WithMessage("{PropertyName} is required")
                 .NotEmpty().WithMessage("{PropertyName} is required")
-                .Length(24).WithMessage("{PropertyName} must be 24 character");
+                .Length(36).WithMessage("{PropertyName} must be 36 character");
 
             RuleFor(x => x.Status)
                 .NotNull().WithMessage("{PropertyName} is required")
                 .NotEmpty().WithMessage("{PropertyName} is required")
-                .MaximumLength(255).WithMessage("{PropertyName} must be less than 256 character");
+                .MaximumLength(50).WithMessage("{PropertyName} must be less than 51 character");
         }
     }
 }

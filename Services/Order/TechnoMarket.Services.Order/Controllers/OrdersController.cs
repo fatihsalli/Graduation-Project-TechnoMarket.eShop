@@ -44,7 +44,7 @@ namespace TechnoMarket.Services.Order.Controllers
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(200, orderDto));
         }
 
-        [HttpGet("[action]/{customerId}")]
+        [HttpGet("[action]/{customerId:length(36)}")]
         //[Route("/api/[controller]/[action]/{customerId}")] => Alternatif
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<List<OrderDto>>), (int)HttpStatusCode.OK)]
@@ -69,7 +69,7 @@ namespace TechnoMarket.Services.Order.Controllers
             return CreateActionResult(CustomResponseDto<OrderDto>.Success(201, orderDto));
         }
 
-        [HttpPut("{id:length(24)}")]
+        [HttpPut("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<OrderDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Update(string id, [FromBody] OrderUpdateDto orderUpdateDto)
@@ -104,7 +104,7 @@ namespace TechnoMarket.Services.Order.Controllers
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 
-        [HttpDelete("{id:length(24)}")]
+        [HttpDelete("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(string id)

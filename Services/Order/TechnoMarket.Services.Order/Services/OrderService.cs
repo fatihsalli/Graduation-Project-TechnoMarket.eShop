@@ -26,13 +26,13 @@ namespace TechnoMarket.Services.Order.Services
 
         public async Task<OrderDto> GetByIdAsync(string id)
         {
-            var order = await _context.Orders.Find(x => x.Id == id).SingleOrDefaultAsync();
+            var order = await _context.Orders.Find(x => x.Id == new Guid(id)).SingleOrDefaultAsync();
             return _mapper.Map<OrderDto>(order);
         }
 
         public async Task<List<OrderDto>> GetByCustomerIdAsync(string customerId)
         {
-            var orders = await _context.Orders.Find(x => x.CustomerId == customerId).ToListAsync();
+            var orders = await _context.Orders.Find(x => x.CustomerId == new Guid(customerId)).ToListAsync();
             return _mapper.Map<List<OrderDto>>(orders);
         }
 
@@ -49,20 +49,20 @@ namespace TechnoMarket.Services.Order.Services
             var order = _mapper.Map<Models.Order>(orderUpdateDto);
             order.UpdatedAt = DateTime.Now;
             //TODO: Yöntemi beğenmedim.
-            order.CreatedAt = _context.Orders.Find(x => x.Id == id).SingleOrDefault().CreatedAt;
-            order.Id = id;
+            order.CreatedAt = _context.Orders.Find(x => x.Id == new Guid(id)).SingleOrDefault().CreatedAt;
+            order.Id = new Guid(id);
             await _context.Orders.FindOneAndReplaceAsync(x => x.Id == order.Id, order);
             return _mapper.Map<OrderDto>(order);
         }
 
         public async Task DeleteAsync(string id)
         {
-            await _context.Orders.DeleteOneAsync(x => x.Id == id);
+            await _context.Orders.DeleteOneAsync(x => x.Id == new Guid(id));
         }
 
         public async Task ChangeStatusAsync(OrderStatusUpdateDto orderStatusUpdateDto)
         {
-            var order = await _context.Orders.Find(x => x.Id == orderStatusUpdateDto.Id).SingleOrDefaultAsync();
+            var order = await _context.Orders.Find(x => x.Id == new Guid(orderStatusUpdateDto.Id)).SingleOrDefaultAsync();
             order.Status = orderStatusUpdateDto.Status;
             await _context.Orders.FindOneAndReplaceAsync(x => x.Id == order.Id, order);
         }

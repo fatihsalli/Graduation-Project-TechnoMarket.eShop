@@ -12,7 +12,7 @@ namespace TechnoMarket.Services.Order.Data
         public OrderContext(IOrderDatabaseSettings orderDatabaseSettings)
         {
             //To create UUID
-            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+            //BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
             var client = new MongoClient(orderDatabaseSettings.ConnectionString);
 
@@ -20,7 +20,7 @@ namespace TechnoMarket.Services.Order.Data
 
             Orders = database.GetCollection<Models.Order>(orderDatabaseSettings.OrderCollectionName);
 
-            OrderContextSeed.SeedData(Orders);
+            //OrderContextSeed.SeedData(Orders);
         }
 
         public IMongoCollection<Models.Order> Orders { get; }
