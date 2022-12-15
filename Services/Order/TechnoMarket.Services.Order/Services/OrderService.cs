@@ -72,7 +72,6 @@ namespace TechnoMarket.Services.Order.Services
 
             var order = _mapper.Map<Models.Order>(orderUpdateDto);
             order.UpdatedAt = DateTime.Now;
-            //TODO: Yöntemi beğenmedim.
             order.CreatedAt = orderCheck.CreatedAt;
             await _context.Orders.FindOneAndReplaceAsync(x => x.Id == order.Id, order);
             return _mapper.Map<OrderDto>(order);
