@@ -65,35 +65,19 @@ namespace TechnoMarket.Services.Order.Controllers
         [HttpPut("[action]")]
         //[Route("/api/[controller]/[action]")] => Alternatif
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> ChangeStatus([FromBody] OrderStatusUpdateDto orderStatusUpdateDto)
         {
-            var orderCheck = await _orderService.GetByIdAsync(orderStatusUpdateDto.Id);
-
-            if (orderCheck == null)
-            {
-                //_logger.LogError($"Order with id ({orderStatusUpdateDto.Id}) didn't find in the database.");
-                throw new NotFoundException($"Order with id ({orderStatusUpdateDto.Id}) didn't find in the database.");
-            }
-
             await _orderService.ChangeStatusAsync(orderStatusUpdateDto);
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 
         [HttpDelete("{id:length(36)}")]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(string id)
         {
-            var orderCheck = await _orderService.GetByIdAsync(id);
-
-            if (orderCheck == null)
-            {
-                //_logger.LogError($"Order with id ({id}) didn't find in the database.");
-                throw new NotFoundException($"Order with id ({id}) didn't find in the database.");
-            }
             await _orderService.DeleteAsync(id);
-
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
     }
