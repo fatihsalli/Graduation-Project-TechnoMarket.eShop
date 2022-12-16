@@ -2,6 +2,7 @@ using Microsoft.Extensions.Options;
 using TechnoMarket.Services.Basket.Services;
 using TechnoMarket.Services.Basket.Services.Interfaces;
 using TechnoMarket.Services.Basket.Settings;
+using TechnoMarket.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//Custom middleware
+app.UseCustomException();
 
 app.UseAuthorization();
 

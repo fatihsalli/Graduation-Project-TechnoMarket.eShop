@@ -21,6 +21,7 @@ namespace TechnoMarket.Services.Basket.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(CustomResponseDto<BasketDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetBasket(string customerId)
         {
             var basketDto=await _basketService.GetBasket(customerId);
@@ -28,17 +29,21 @@ namespace TechnoMarket.Services.Basket.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveOrUpdateBasket(BasketDto basketDto)
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> SaveOrUpdateBasket([FromBody] BasketDto basketDto)
         {
-            var response = await _basketService.SaveOrUpdate(basketDto);
+            await _basketService.SaveOrUpdate(basketDto);
             return CreateActionResult(CustomResponseDto<bool>.Success(204));
         }
 
         [HttpDelete]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> DeleteBasket(string customerId)
         {
-            var response=await _basketService.Delete(customerId);
-            return CreateActionResult(CustomResponseDto<bool>.Success(204));
+            await _basketService.Delete(customerId);
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 
     }

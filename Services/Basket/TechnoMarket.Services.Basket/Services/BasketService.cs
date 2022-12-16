@@ -13,10 +13,15 @@ namespace TechnoMarket.Services.Basket.Services
             _redisService = redisService;
         }
 
-        public async Task<bool> Delete(string customerId)
+        public async Task Delete(string customerId)
         {
             var status=await _redisService.GetDb().KeyDeleteAsync(customerId);
-            return status;
+
+            if (!status)
+            {
+                //Loglama
+                throw new NotFoundException($"Basket with id ({customerId}) didn't find in the database.");
+            }
         }
 
         public async Task<BasketDto> GetBasket(string customerId)
@@ -31,10 +36,16 @@ namespace TechnoMarket.Services.Basket.Services
             return JsonSerializer.Deserialize<BasketDto>(existBasket);
         }
 
-        public async Task<bool> SaveOrUpdate(BasketDto basketDto)
+        public async Task SaveOrUpdate(BasketDto basketDto)
         {
             var status = await _redisService.GetDb().StringSetAsync(basketDto.CustomerId, JsonSerializer.Serialize(basketDto));
-            return status;
+
+            if (!status)
+            {
+                //Loglama
+                throw new Exception($"Basket didn't save or update in the database.");
+            }
+
         }
     }
 }
