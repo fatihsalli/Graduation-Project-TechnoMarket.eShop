@@ -3,7 +3,6 @@
     public class OrderCreateDto
     {
         public string CustomerId { get; set; }
-        public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
         public string Status { get; set; }
         public AddressDto Address { get; set; }

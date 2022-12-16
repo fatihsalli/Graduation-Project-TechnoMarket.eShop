@@ -15,8 +15,8 @@ namespace TechnoMarket.Services.Order.Validations
             RuleFor(x => x.Quantity)
                 .InclusiveBetween(1, int.MaxValue).WithMessage("{PropertyName} must be greater 0");
 
-            RuleFor(x => x.Price)
-                .InclusiveBetween(1, double.MaxValue).WithMessage("{PropertyName} must be greater 0");
+            RuleFor(x => x.TotalPrice)
+                .InclusiveBetween(1, decimal.MaxValue).WithMessage("{PropertyName} must be greater 0");
 
             RuleFor(x => x.Status)
                 .NotNull().WithMessage("{PropertyName} is required")
