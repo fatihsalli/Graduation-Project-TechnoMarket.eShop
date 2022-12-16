@@ -1,12 +1,26 @@
 using Microsoft.Extensions.Options;
+using TechnoMarket.Services.Basket.Services;
+using TechnoMarket.Services.Basket.Services.Interfaces;
 using TechnoMarket.Services.Basket.Settings;
-using TechnoMarket.Services.Basket.Settings.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Options Pattern
 builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection(nameof(RedisSettings)));
-builder.Services.AddSingleton<IRedisSettings>(sp => sp.GetRequiredService<IOptions<RedisSettings>>().Value);
+
+#region RedisService Connection
+//RedisService nesnesini options pattern kullanarak host,port bilgilerini verip connect metodunu tetikleyerek baðlantýyý saðladýk. 
+#endregion
+builder.Services.AddSingleton<RedisService>(sp =>
+{
+    var redisSettings=sp.GetService<IOptions<RedisSettings>>().Value;
+    var redis=new RedisService(redisSettings.Host, redisSettings.Port);
+    redis.Connect();
+    return redis;
+});
+
+//Service
+builder.Services.AddScoped<IBasketService,BasketService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

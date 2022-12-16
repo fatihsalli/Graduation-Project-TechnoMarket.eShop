@@ -6,8 +6,10 @@ namespace TechnoMarket.Services.Basket.Services
     {
         private readonly string _host;
         private readonly int _port;
+        //StackExchange kütüphanesi ile gelen connection için kullanıyoruz.
         private ConnectionMultiplexer _connectionMultiplexer;
 
+        //appsettings içerisindeki değer => program.cs tarafından gönderilecek.
         public RedisService(string host, int port)
         {
             _host = host;
@@ -17,9 +19,9 @@ namespace TechnoMarket.Services.Basket.Services
         //Redis tarafında bağlantıyı belirttik
         public void Connect() => _connectionMultiplexer = ConnectionMultiplexer.Connect($"{_host}:{_port}");
 
-        //Veritabanı için
+        #region Default Olarak Gelen Veritabanı Seçimi
+        //Default gelen veritabanlarından birini seçiyoruz. Neden 1 den fazla default veritabanı geliyor? Bir tanesini test bir tanesini development bir tanesini production kullanmak gibi avantajlar sağlar. 
+        #endregion
         public IDatabase GetDb(int db = 1) => _connectionMultiplexer.GetDatabase(db);
-
-
     }
 }
