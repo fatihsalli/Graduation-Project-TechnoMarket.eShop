@@ -8,9 +8,11 @@ namespace TechnoMarket.Services.Basket.Services
     public class BasketService : IBasketService
     {
         private readonly RedisService _redisService;
-        public BasketService(RedisService redisService)
+        private readonly ILogger<BasketService> _logger;
+        public BasketService(RedisService redisService, ILogger<BasketService> logger)
         {
             _redisService = redisService;
+            _logger = logger;
         }
 
         public async Task Delete(string customerId)
@@ -19,7 +21,7 @@ namespace TechnoMarket.Services.Basket.Services
 
             if (!status)
             {
-                //Loglama
+                _logger.LogError($"Basket with id ({customerId}) didn't find in the database.");
                 throw new NotFoundException($"Basket with id ({customerId}) didn't find in the database.");
             }
         }
@@ -30,7 +32,7 @@ namespace TechnoMarket.Services.Basket.Services
 
             if (existBasket.IsNullOrEmpty)
             {
-                //Loglama
+                _logger.LogError($"Basket with id ({customerId}) didn't find in the database.");
                 throw new NotFoundException($"Basket with id ({customerId}) didn't find in the database.");
             }
             return JsonSerializer.Deserialize<BasketDto>(existBasket);
@@ -42,7 +44,7 @@ namespace TechnoMarket.Services.Basket.Services
 
             if (!status)
             {
-                //Loglama
+                _logger.LogError($"Basket didn't save or update in the database.");
                 throw new Exception($"Basket didn't save or update in the database.");
             }
 

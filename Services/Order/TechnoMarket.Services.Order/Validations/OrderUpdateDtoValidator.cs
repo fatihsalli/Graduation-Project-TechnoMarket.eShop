@@ -12,9 +12,6 @@ namespace TechnoMarket.Services.Order.Validations
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .Length(36).WithMessage("{PropertyName} must be 36 character");
 
-            RuleFor(x => x.Quantity)
-                .InclusiveBetween(1, int.MaxValue).WithMessage("{PropertyName} must be greater 0");
-
             RuleFor(x => x.TotalPrice)
                 .InclusiveBetween(1, decimal.MaxValue).WithMessage("{PropertyName} must be greater 0");
 
