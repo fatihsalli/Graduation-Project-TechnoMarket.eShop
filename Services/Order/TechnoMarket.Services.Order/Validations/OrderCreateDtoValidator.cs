@@ -23,21 +23,6 @@ namespace TechnoMarket.Services.Order.Validations
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .MaximumLength(50).WithMessage("{PropertyName} must be less than 51 character");
 
-            RuleFor(x => x.Product.Id)
-                .NotNull().WithMessage("{PropertyName} is required")
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .Length(36).WithMessage("{PropertyName} must be 36 character");
-
-            RuleFor(x => x.Product.Name)
-                .NotNull().WithMessage("{PropertyName} is required")
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .MaximumLength(50).WithMessage("{PropertyName} must be less than 51 character");
-
-            RuleFor(x => x.Product.ImageUrl)
-                .NotNull().WithMessage("{PropertyName} is required")
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .MaximumLength(255).WithMessage("{PropertyName} must be less than 256 character");
-
             RuleFor(x => x.Address.AddressLine)
                 .NotNull().WithMessage("{PropertyName} is required")
                 .NotEmpty().WithMessage("{PropertyName} is required")
