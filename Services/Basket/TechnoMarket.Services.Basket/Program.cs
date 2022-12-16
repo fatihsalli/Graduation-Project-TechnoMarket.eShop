@@ -5,6 +5,7 @@ using NLog.Web;
 using TechnoMarket.Services.Basket.Services;
 using TechnoMarket.Services.Basket.Services.Interfaces;
 using TechnoMarket.Services.Basket.Settings;
+using TechnoMarket.Services.Basket.Validations;
 using TechnoMarket.Shared.Extensions;
 
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -38,7 +39,7 @@ try
     builder.Services.AddControllers();
 
     //Fluent Validation ekledik.
-    builder.Services.AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductCreateDtoValidator>());
+    builder.Services.AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<BasketDtoValidator>());
 
     //Shared Library üzerinden dönen response model yerine kendi modelimizi döndük.
     builder.Services.UseCustomValidationResponseModel();

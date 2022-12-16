@@ -11,6 +11,9 @@ namespace TechnoMarket.Services.Basket.Validations
                 .NotNull().WithMessage("{PropertyName} is required")
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .Length(36).WithMessage("{PropertyName} must be 36 character");
+
+            RuleForEach(x => x.BasketItems).SetValidator(new BasketItemDtoValidator());
+
         }
     }
 }
