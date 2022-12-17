@@ -42,12 +42,12 @@ namespace TechnoMarket.Services.Order.Data
                             Quantity=1
                         }
                     },
-                    Address = new Address 
-                    { 
-                        AddressLine = "Levent", 
-                        City = "Istanbul", 
-                        CityCode = 34, 
-                        Country = "Turkey" 
+                    Address = new Address
+                    {
+                        AddressLine = "Levent",
+                        City = "Istanbul",
+                        CityCode = 34,
+                        Country = "Turkey"
                     }
                 }
             };

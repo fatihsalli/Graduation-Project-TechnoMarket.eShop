@@ -1,11 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.IdentityModel.Tokens;
 using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Repositories.Interfaces;
-using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.Dtos;
 
 namespace TechnoMarket.Services.Catalog.Filters
@@ -23,7 +20,7 @@ namespace TechnoMarket.Services.Catalog.Filters
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var productDtoCheck = context.ActionArguments.Values.SingleOrDefault(x=> x.GetType()==typeof(ProductCreateDto) || x.GetType()==typeof(ProductUpdateDto));
+            var productDtoCheck = context.ActionArguments.Values.SingleOrDefault(x => x.GetType() == typeof(ProductCreateDto) || x.GetType() == typeof(ProductUpdateDto));
 
             if (productDtoCheck == null)
             {
@@ -34,11 +31,11 @@ namespace TechnoMarket.Services.Catalog.Filters
 
             var categoryId = "";
 
-            if (productDtoCheck.GetType()==typeof(ProductCreateDto))
+            if (productDtoCheck.GetType() == typeof(ProductCreateDto))
             {
                 var productDto = (ProductCreateDto)productDtoCheck;
-                categoryId= productDto.CategoryId;
-            }            
+                categoryId = productDto.CategoryId;
+            }
             else
             {
                 var productDto = (ProductUpdateDto)productDtoCheck;

@@ -41,7 +41,7 @@ namespace TechnoMarket.Services.Catalog.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
 
             //Configuration
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(CatalogDbContext)));

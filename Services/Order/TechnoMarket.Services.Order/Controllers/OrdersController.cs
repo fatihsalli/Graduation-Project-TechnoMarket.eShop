@@ -4,7 +4,6 @@ using TechnoMarket.Services.Order.Dtos;
 using TechnoMarket.Services.Order.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
-using TechnoMarket.Shared.Exceptions;
 
 namespace TechnoMarket.Services.Order.Controllers
 {

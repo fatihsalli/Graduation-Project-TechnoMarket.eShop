@@ -3,7 +3,7 @@ using TechnoMarket.Services.Order.Dtos;
 
 namespace TechnoMarket.Services.Order.Validations
 {
-    public class OrderItemDtoValidator: AbstractValidator<OrderItemDto>
+    public class OrderItemDtoValidator : AbstractValidator<OrderItemDto>
     {
         public OrderItemDtoValidator()
         {

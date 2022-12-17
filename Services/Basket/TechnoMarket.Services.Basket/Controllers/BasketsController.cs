@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TechnoMarket.Services.Basket.Dtos;
-using TechnoMarket.Services.Basket.Services;
 using TechnoMarket.Services.Basket.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
@@ -24,7 +22,7 @@ namespace TechnoMarket.Services.Basket.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetBasket(string customerId)
         {
-            var basketDto=await _basketService.GetBasket(customerId);
+            var basketDto = await _basketService.GetBasket(customerId);
             return CreateActionResult(CustomResponseDto<BasketDto>.Success(200, basketDto));
         }
 

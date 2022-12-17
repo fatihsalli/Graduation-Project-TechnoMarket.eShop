@@ -1,7 +1,4 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-
-namespace TechnoMarket.Services.Order.Dtos
+﻿namespace TechnoMarket.Services.Order.Dtos
 {
     public class OrderItemDto
     {

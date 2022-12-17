@@ -30,7 +30,7 @@ namespace TechnoMarket.Services.Order.Services
         {
             var order = await _context.Orders.Find(x => x.Id == new Guid(id)).SingleOrDefaultAsync();
 
-            if (order==null)
+            if (order == null)
             {
                 _logger.LogError($"Order with id ({id}) didn't find in the database.");
                 throw new NotFoundException($"Order with id ({id}) didn't find in the database.");

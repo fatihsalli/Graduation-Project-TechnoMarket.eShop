@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using TechnoMarket.Services.Catalog.Data;
+﻿using TechnoMarket.Services.Catalog.Data;
 using TechnoMarket.Services.Catalog.UnitOfWorks.Interfaces;
 
 namespace TechnoMarket.Services.Catalog.UnitOfWorks

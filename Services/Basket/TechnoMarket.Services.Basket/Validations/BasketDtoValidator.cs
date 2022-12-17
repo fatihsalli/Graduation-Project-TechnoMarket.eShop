@@ -3,7 +3,7 @@ using TechnoMarket.Services.Basket.Dtos;
 
 namespace TechnoMarket.Services.Basket.Validations
 {
-    public class BasketDtoValidator: AbstractValidator<BasketDto>
+    public class BasketDtoValidator : AbstractValidator<BasketDto>
     {
         public BasketDtoValidator()
         {

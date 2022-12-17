@@ -17,7 +17,7 @@ namespace TechnoMarket.Services.Basket.Services
 
         public async Task Delete(string customerId)
         {
-            var status=await _redisService.GetDb().KeyDeleteAsync(customerId);
+            var status = await _redisService.GetDb().KeyDeleteAsync(customerId);
 
             if (!status)
             {

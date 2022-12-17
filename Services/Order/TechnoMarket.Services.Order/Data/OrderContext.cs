@@ -1,6 +1,4 @@
 ﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using TechnoMarket.Services.Order.Data.Interfaces;
 using TechnoMarket.Services.Order.Settings.Interfaces;
@@ -20,7 +18,7 @@ namespace TechnoMarket.Services.Order.Data
 
             var database = client.GetDatabase(orderDatabaseSettings.DatabaseName);
 
-            Orders = database.GetCollection<Models.Order>(orderDatabaseSettings.OrderCollectionName,collectionSettings);
+            Orders = database.GetCollection<Models.Order>(orderDatabaseSettings.OrderCollectionName, collectionSettings);
 
             OrderContextSeed.SeedData(Orders);
         }
