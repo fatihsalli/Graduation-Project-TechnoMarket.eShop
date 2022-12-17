@@ -37,6 +37,8 @@ namespace TechnoMarket.Services.Order.Validations
 
             RuleFor(x => x.Address.CityCode)
                 .InclusiveBetween(1, 81).WithMessage("{PropertyName} must be between 1-81");
+
+            RuleForEach(x => x.OrderItems).SetValidator(new OrderItemDtoValidator());
         }
     }
 }
