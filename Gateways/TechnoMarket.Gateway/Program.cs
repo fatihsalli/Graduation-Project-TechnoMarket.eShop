@@ -3,6 +3,11 @@ using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Host.CreateDefaultBuilder(args).ConfigureAppConfiguration((hostingcontext, config) =>
+{
+    config.AddJsonFile($"configuration.{hostingcontext.HostingEnvironment.EnvironmentName.ToLower()}.json").AddEnvironmentVariables();
+});
+
 //Ocelot kütüphanesini ekledik.
 builder.Services.AddOcelot();
 
