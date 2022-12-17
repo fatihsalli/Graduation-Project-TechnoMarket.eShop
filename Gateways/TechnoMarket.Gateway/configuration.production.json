@@ -6,8 +6,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5011
+          "Host": "catalog.api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/services/catalog/{everything}",
@@ -15,4 +15,5 @@
       "UpstreamScheme": "http"
     }
   ]
+
 }
