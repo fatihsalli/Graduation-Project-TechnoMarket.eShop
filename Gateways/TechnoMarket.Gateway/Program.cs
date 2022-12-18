@@ -6,13 +6,20 @@ var builder = WebApplication.CreateBuilder(args);
 //Ocelot kütüphanesini ekledik.
 builder.Services.AddOcelot();
 
-// => environment'a göre configuration dosyasýný verdik Ocelot için.
+
+
+var app = builder.Build();
+
+//=> environment'a göre configuration dosyasýný verdik Ocelot için.
 Host.CreateDefaultBuilder(args).ConfigureAppConfiguration((hostingcontext, config) =>
 {
     config.AddJsonFile($"configuration.{hostingcontext.HostingEnvironment.EnvironmentName.ToLower()}.json").AddEnvironmentVariables();
-});
+})
+    .ConfigureWebHostDefaults(webBuilder=>
+    {
+        webBuilder.UseStartup<Program>();
+    });
 
-var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
