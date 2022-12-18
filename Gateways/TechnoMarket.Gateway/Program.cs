@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Hosting.Internal;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -8,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile($"configuration.{builder.Environment.EnvironmentName.ToLower()}.json").AddEnvironmentVariables();
 
 //Ocelot kütüphanesini ekledik.
-builder.Services.AddOcelot(builder.Configuration); 
+builder.Services.AddOcelot(builder.Configuration);
 #endregion
 
 #region .Net5 Kullanýmý-Ocelot
