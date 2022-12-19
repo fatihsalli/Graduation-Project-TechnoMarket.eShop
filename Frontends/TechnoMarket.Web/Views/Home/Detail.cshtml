@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+}
+@model ProductVM
+
+<div class="row">
+    <div class="col-md-9">
+
+        <div class="card">
+            <img src="~/photos/No_Image_Available.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Name</h5>
+                <p class="badge bg-primary">Category: @Model.Category.Name</p>
+                <p class="card-text">Description: @Model.Description</p>
+                <p class="card-text">@Model.ProductFeature</p>
+                <p class="card-text">Stock: @Model.Stock</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Price: @Model.Price TL</h4>
+                <div class="d-grid">
+                    <a asp-controller="Basket" asp-action="AddBasketItem" asp-route-courseId="@Model.Id" class="btn btn-primary">Add to basket</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -27,6 +27,22 @@ namespace TechnoMarket.Web.Services
             return responseSuccess.Data;
         }
 
+        public async Task<ProductVM> GetProductByIdAsync(string id)
+        {
+            var response = await _httpClient.GetAsync($"products/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                //Exception-loglama
+                return null;
+            }
+
+            var responseSuccess = await response.Content.ReadFromJsonAsync<CustomResponseDto<ProductVM>>();
+
+            return responseSuccess.Data;
+        }
+
+
 
 
     }
