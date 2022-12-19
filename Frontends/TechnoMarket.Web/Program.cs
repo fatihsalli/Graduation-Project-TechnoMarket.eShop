@@ -1,7 +1,17 @@
+using TechnoMarket.Web.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+builder.Services.Configure<ServiceApiSettings>(builder.Configuration.GetSection(nameof(ServiceApiSettings)));
+
+
+
 builder.Services.AddControllersWithViews();
+
+
+
+
 
 var app = builder.Build();
 
