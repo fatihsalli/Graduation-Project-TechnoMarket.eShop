@@ -40,8 +40,57 @@ namespace TechnoMarket.Web.Areas.Admin.Controllers
                 return View();
             }
 
-            await _catalogService.CreateCourseAsync(productCreateInput);
+            await _catalogService.CreateProductAsync(productCreateInput);
             return RedirectToAction("Index","Home");
+        }
+
+        public async Task<IActionResult> Update(string id)
+        {
+            var product = await _catalogService.GetProductByIdAsync(id);
+
+            if (product == null)
+            {
+                //to do mesaj gösterilebilir
+                return RedirectToAction(nameof(Index));
+            }
+
+            var categories = await _catalogService.GetAllCategoriesAsync();
+            ViewBag.CategoryList = new SelectList(categories, "Id", "Name", product.Id);
+
+            //Update kısmında formda mevcut veriler ile gitmesi için yapıldı
+            ProductUpdateInput productUpdateInput = new()
+            {
+                Id= product.Id,
+                Name= product.Name,
+                Stock=product.Stock,
+                Price=product.Price,
+                Description= product.Description,
+                ImageFile= product.ImageFile,
+                CategoryId=product.Category.Id                
+            };
+
+            return View(productUpdateInput);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(ProductUpdateInput productUpdateInput)
+        {
+            var categories = await _catalogService.GetAllCategoriesAsync();
+            ViewBag.CategoryList = new SelectList(categories, "Id", "Name", productUpdateInput.Id);
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            await _catalogService.UpdateProductAsync(productUpdateInput);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            await _catalogService.DeleteProductAsync(id);
+            return RedirectToAction("Index", "Home");
         }
 
 

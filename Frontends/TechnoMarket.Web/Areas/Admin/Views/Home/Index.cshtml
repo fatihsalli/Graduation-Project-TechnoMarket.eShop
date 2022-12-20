@@ -19,11 +19,12 @@
                         <thead>
                             <tr>
                                 <th>Picture</th>
-                                <th>Course Name</th>
+                                <th>Product Name</th>
                                 <th>Price</th>
                                 <th>Description</th>
+                                <th>Feature</th>
                                 <th>Category</th>
-                                <th>Actions</th>
+                                <th class="col-md-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,10 +35,11 @@
                                     <td>@item.Name</td>
                                     <td>@item.Price</td>
                                     <td>@item.Description</td>
+                                    <td>@item.ProductFeature</td>
                                     <td>@item.Category.Name</td>
                                     <td>
                                         <a asp-controller="Product" asp-action="Update" asp-route-id="@item.Id" class="btn btn-success btn-sm">Update</a>
-                                        <a asp-controller="Course" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                                        <a asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
                                     </td>
                                 </tr>
                             }
@@ -47,7 +49,7 @@
                 else
                 {
                     <div class="alert alert-info">
-                        Course not found!
+                        Product not found!
                     </div>
                 }
             </div>

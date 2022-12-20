@@ -14,6 +14,7 @@ namespace TechnoMarket.Web.Services
             _httpClient = httpClient;
         }
 
+        //=> For Product
         public async Task<List<ProductVM>> GetAllProductsAsync()
         {
             var response = await _httpClient.GetAsync("products");
@@ -44,34 +45,25 @@ namespace TechnoMarket.Web.Services
             return responseSuccess.Data;
         }
 
-        public async Task<bool> CreateCourseAsync(ProductCreateInput productCreateInput)
+        public async Task<bool> CreateProductAsync(ProductCreateInput productCreateInput)
         {
             var response = await _httpClient.PostAsJsonAsync<ProductCreateInput>("products", productCreateInput);
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateCourseAsync(ProductUpdateInput productUpdateInput)
+        public async Task<bool> UpdateProductAsync(ProductUpdateInput productUpdateInput)
         {
             var response = await _httpClient.PutAsJsonAsync<ProductUpdateInput>("products", productUpdateInput);
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> DeleteProductAsync(string id)
+        {
+            var response = await _httpClient.DeleteAsync($"products/{id}");
+            return response.IsSuccessStatusCode;
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //=> For Category
         public async Task<List<CategoryVM>> GetAllCategoriesAsync()
         {
             var response = await _httpClient.GetAsync("categories");
