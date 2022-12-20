@@ -1,12 +1,11 @@
-﻿using System.Net.Http.Json;
-using TechnoMarket.Shared.Dtos;
+﻿using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Web.Areas.Admin.Models.Products;
 using TechnoMarket.Web.Models.Catalog;
 using TechnoMarket.Web.Services.Interfaces;
 
 namespace TechnoMarket.Web.Services
 {
-    public class CatalogService:ICatalogService
+    public class CatalogService : ICatalogService
     {
         private readonly HttpClient _httpClient;
         public CatalogService(HttpClient httpClient)

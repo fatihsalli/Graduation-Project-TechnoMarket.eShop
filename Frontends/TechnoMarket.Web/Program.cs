@@ -1,8 +1,5 @@
-using Microsoft.Extensions.Configuration;
 using TechnoMarket.Web.Extensions;
 using TechnoMarket.Web.Models;
-using TechnoMarket.Web.Services;
-using TechnoMarket.Web.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -41,7 +41,7 @@ namespace TechnoMarket.Web.Areas.Admin.Controllers
             }
 
             await _catalogService.CreateProductAsync(productCreateInput);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Update(string id)
@@ -60,13 +60,13 @@ namespace TechnoMarket.Web.Areas.Admin.Controllers
             //Update kısmında formda mevcut veriler ile gitmesi için yapıldı
             ProductUpdateInput productUpdateInput = new()
             {
-                Id= product.Id,
-                Name= product.Name,
-                Stock=product.Stock,
-                Price=product.Price,
-                Description= product.Description,
-                ImageFile= product.ImageFile,
-                CategoryId=product.Category.Id                
+                Id = product.Id,
+                Name = product.Name,
+                Stock = product.Stock,
+                Price = product.Price,
+                Description = product.Description,
+                ImageFile = product.ImageFile,
+                CategoryId = product.Category.Id
             };
 
             return View(productUpdateInput);
