@@ -10,22 +10,34 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TechnoMarket.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Admin</a>
-                        </li>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" asp-action="Index" asp-controller="Home">E-Supermarket</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" asp-action="Index" asp-controller="Home">Home</a></li>
                     </ul>
+                    <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" asp-action="Index" asp-controller="Home" asp-area="Admin">Admin</a></li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                    <form class="d-flex">
+                        <a asp-action="MyCart" asp-controller="Home" class="btn btn-outline-dark">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            @*@{
+                                if (TempData["sepet"] != null)
+                                {
+                                    var sepet = TempData["sepet"] as Cart;
+                                    <span class="badge bg-dark text-white ms-1 rounded-pill">
+                                        @sepet.Mycart.Count
+                                    </span>
+                                }
+                            }*@
+                        </a>
+                    </form>
                 </div>
             </div>
         </nav>
