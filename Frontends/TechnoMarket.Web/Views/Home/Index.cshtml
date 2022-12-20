@@ -1,41 +1,55 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    var count = 0;
 }
 @model List<ProductVM>
 
-<h2>Products</h2>
-<hr />
-
-@if (Model.Any())
-{
-    @foreach (var item in Model)
-    {
-        count++;
-        if (count == 1 || (count % 3 == 1))
-        {
-            @Html.Raw("<div class='row row-cols-1 row-cols-md-3 g-4 mb-2' >")
-        }
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <img src="~/photos/No_Image_Available.jpg" class="card-img-top" alt="...">
-                    <h5 class="card-title">@item.Name</h5>
-                    <div class="badge bg-primary">Kategori : @item.Category.Name</div>
-                    <p class="card-text">@item.Description</p>
-                    <h4 class="text-primary">@item.Price TL</h4>
-
-                    <div>
-                        <a asp-controller="Home" asp-action="Detail" class="btn btn-success" asp-route-id="@item.Id">Detail</a>
-                    </div>
-                </div>
-            </div>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h3 class="display-4 fw-bolder">Online Groceries, Clubcard & Recipes</h3>
+            <p class="lead fw-normal text-white-50 mb-0">With Incredible Discounts and Delicious Taste</p>
         </div>
-
-        if (count % 3 == 0)
-        {
-            @Html.Raw("</div>")
-        }
-
-    }
-}
+    </div>
+</header>
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
+            @foreach (var product in Model)
+            {
+                if (product.Stock > 0)
+                {
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            @if (product.ImageFile != null)
+                            {
+                                <img class="card-img-top" src="~/photos/No_Image_Available.jpg" alt="..." />
+                            }
+                            else
+                            {
+                                <img class="card-img-top" src="~/photos/No_Image_Available.jpg" alt="..." />
+                            }
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">@product.Name</h5>
+                                    <!-- Product price-->
+                                    @product.Price $
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a asp-action="AddToCart" asp-controller="Home" asp-route-id=@product.Id class="btn btn-outline-dark mt-auto">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>

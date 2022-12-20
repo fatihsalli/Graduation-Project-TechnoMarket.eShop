@@ -1026,3 +1026,52 @@
 2022-12-19 17:49:23.1683 Info Registered target ConsoleTarget(Name=lifetimeConsole)
 2022-12-19 17:49:23.2120 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
 2022-12-19 17:49:23.7786 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 12:55:40.3401 Info Message Template Auto Format enabled
+2022-12-20 12:55:40.3543 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-20 12:55:40.4398 Info Registered target FileTarget(Name=allFile)
+2022-12-20 12:55:40.4398 Info Registered target FileTarget(Name=ownFile)
+2022-12-20 12:55:40.4398 Info Registered target ConsoleTarget(Name=lifetimeConsole)
+2022-12-20 12:55:40.4765 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 12:55:41.1938 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 12:57:09.8309 Info Message Template Auto Format enabled
+2022-12-20 12:57:09.8676 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-20 12:57:10.0848 Info Registered target FileTarget(Name=allFile)
+2022-12-20 12:57:10.0848 Info Registered target FileTarget(Name=ownFile)
+2022-12-20 12:57:10.0848 Info Registered target ConsoleTarget(Name=lifetimeConsole)
+2022-12-20 12:57:10.1528 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 12:57:11.2780 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 12:58:17.4373 Info Message Template Auto Format enabled
+2022-12-20 12:58:17.4574 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-20 12:58:17.5812 Info Registered target FileTarget(Name=allFile)
+2022-12-20 12:58:17.5812 Info Registered target FileTarget(Name=ownFile)
+2022-12-20 12:58:17.5847 Info Registered target ConsoleTarget(Name=lifetimeConsole)
+2022-12-20 12:58:17.6420 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 12:58:18.3522 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 12:58:55.6226 Info Message Template Auto Format enabled
+2022-12-20 12:58:55.6385 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-20 12:58:55.7423 Info Registered target FileTarget(Name=allFile)
+2022-12-20 12:58:55.7423 Info Registered target FileTarget(Name=ownFile)
+2022-12-20 12:58:55.7423 Info Registered target ConsoleTarget(Name=lifetimeConsole)
+2022-12-20 12:58:55.7926 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 12:58:56.4465 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 13:01:13.0026 Info Message Template Auto Format enabled
+2022-12-20 13:01:13.0183 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-20 13:01:13.1281 Info Registered target FileTarget(Name=allFile)
+2022-12-20 13:01:13.1281 Info Registered target FileTarget(Name=ownFile)
+2022-12-20 13:01:13.1307 Info Registered target ConsoleTarget(Name=lifetimeConsole)
+2022-12-20 13:01:13.1788 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 13:01:13.7992 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 13:06:19.0849 Info Message Template Auto Format enabled
+2022-12-20 13:06:19.1165 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-20 13:06:19.2529 Info Registered target FileTarget(Name=allFile)
+2022-12-20 13:06:19.2557 Info Registered target FileTarget(Name=ownFile)
+2022-12-20 13:06:19.2557 Info Registered target ConsoleTarget(Name=lifetimeConsole)
+2022-12-20 13:06:19.3254 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 13:06:20.1537 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 13:07:29.1554 Info Message Template Auto Format enabled
+2022-12-20 13:07:29.1731 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-20 13:07:29.2745 Info Registered target FileTarget(Name=allFile)
+2022-12-20 13:07:29.2745 Info Registered target FileTarget(Name=ownFile)
+2022-12-20 13:07:29.2745 Info Registered target ConsoleTarget(Name=lifetimeConsole)
+2022-12-20 13:07:29.3464 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
+2022-12-20 13:07:30.0000 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Catalog\TechnoMarket.Services.Catalog\bin\Debug\net6.0\NLog.config
