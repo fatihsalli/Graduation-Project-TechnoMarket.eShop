@@ -52,19 +52,6 @@
       "UpstreamPathTemplate": "/services/basket/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Delete" ],
       "UpstreamScheme": "http"
-    },
-    {
-      "DownstreamPathTemplate": "/api/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5015
-        }
-      ],
-      "UpstreamPathTemplate": "/services/photostock/{everything}",
-      "UpstreamHttpMethod": [ "Post", "Delete" ],
-      "UpstreamScheme": "http"
     }
   ],
   "GlobalConfiguration": {
