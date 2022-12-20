@@ -1,5 +1,6 @@
-﻿using TechnoMarket.Shared.Dtos;
-using TechnoMarket.Web.Areas.Admin.Models;
+﻿using System.Net.Http.Json;
+using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Web.Areas.Admin.Models.Products;
 using TechnoMarket.Web.Models.Catalog;
 using TechnoMarket.Web.Services.Interfaces;
 
@@ -49,6 +50,27 @@ namespace TechnoMarket.Web.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> UpdateCourseAsync(ProductUpdateInput productUpdateInput)
+        {
+            var response = await _httpClient.PutAsJsonAsync<ProductUpdateInput>("products", productUpdateInput);
+            return response.IsSuccessStatusCode;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public async Task<List<CategoryVM>> GetAllCategoriesAsync()
         {
@@ -61,6 +83,21 @@ namespace TechnoMarket.Web.Services
             }
 
             var responseSuccess = await response.Content.ReadFromJsonAsync<CustomResponseDto<List<CategoryVM>>>();
+
+            return responseSuccess.Data;
+        }
+
+        public async Task<CategoryVM> GetCategoryByIdAsync(string id)
+        {
+            var response = await _httpClient.GetAsync($"categories/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                //Exception-loglama
+                return null;
+            }
+
+            var responseSuccess = await response.Content.ReadFromJsonAsync<CustomResponseDto<CategoryVM>>();
 
             return responseSuccess.Data;
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TechnoMarket.Services.Catalog.Dtos;
+using TechnoMarket.Services.Catalog.Services;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
@@ -25,6 +26,16 @@ namespace TechnoMarket.Services.Catalog.Controllers
             var categoryDtos = _categoryService.GetAll();
             return CreateActionResult(CustomResponseDto<List<CategoryDto>>.Success(200, categoryDtos));
         }
+
+        [HttpGet("{id:length(36)}")]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<ProductWithCategoryDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var productDto = await _categoryService.GetByIdAsync(id);
+            return CreateActionResult(CustomResponseDto<CategoryDto>.Success(200, productDto));
+        }
+
 
         [HttpPost]
         [ProducesResponseType(typeof(CustomResponseDto<CategoryDto>), (int)HttpStatusCode.Created)]

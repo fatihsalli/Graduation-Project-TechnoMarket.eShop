@@ -29,6 +29,21 @@ namespace TechnoMarket.Services.Catalog.Services
             return _mapper.Map<List<CategoryDto>>(categories);
         }
 
+        public async Task<CategoryDto> GetByIdAsync(string id)
+        {
+            var category = await _repository.GetByIdAsync(id);
+
+            if (category == null)
+            {
+                _logger.LogError($"Category with id ({id}) didn't find in the database.");
+                throw new NotFoundException($"Category with id ({id}) didn't find in the database.");
+            }
+
+            return _mapper.Map<CategoryDto>(category);
+        }
+
+
+
         public async Task<CategoryDto> AddAsync(CategoryCreateDto categoryCreateDto)
         {
             var category = _mapper.Map<Category>(categoryCreateDto);

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using TechnoMarket.Web.Areas.Admin.Models;
+using TechnoMarket.Web.Areas.Admin.Models.Products;
 using TechnoMarket.Web.Services.Interfaces;
 
 namespace TechnoMarket.Web.Areas.Admin.Controllers
@@ -43,6 +43,8 @@ namespace TechnoMarket.Web.Areas.Admin.Controllers
             await _catalogService.CreateCourseAsync(productCreateInput);
             return RedirectToAction("Index","Home");
         }
+
+
 
 
 
