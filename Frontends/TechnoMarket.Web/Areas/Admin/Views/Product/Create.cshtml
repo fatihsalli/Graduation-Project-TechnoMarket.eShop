@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model ProductCreateInput
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Create Product</h5>
+
+                <form asp-controller="Product" asp-action="Create" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly"></div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="CategoryId"></label>
+                        <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.CategoryList">
+                            <option value="">Choose Category</option>
+                        </select>
+                        <span class="text-danger" asp-validation-for="CategoryId"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Stock"></label>
+                        <input asp-for="Stock" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Stock"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Price"></label>
+                        <input asp-for="Price" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Price"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span class="text-danger" asp-validation-for="Description"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ImageFile"></label>
+                        <textarea asp-for="ImageFile" class="form-control"></textarea>
+                        <span class="text-danger" asp-validation-for="ImageFile"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Feature.Color"></label>
+                        <input asp-for="Feature.Color" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Feature.Color"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Feature.Height"></label>
+                        <input asp-for="Feature.Height" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Feature.Height"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Feature.Width"></label>
+                        <input asp-for="Feature.Width" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Feature.Width"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Feature.Weight"></label>
+                        <input asp-for="Feature.Weight" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Feature.Weight"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

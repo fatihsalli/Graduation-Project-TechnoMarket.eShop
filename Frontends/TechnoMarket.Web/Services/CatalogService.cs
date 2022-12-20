@@ -1,4 +1,5 @@
 ﻿using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Web.Areas.Admin.Models;
 using TechnoMarket.Web.Models.Catalog;
 using TechnoMarket.Web.Services.Interfaces;
 
@@ -42,6 +43,27 @@ namespace TechnoMarket.Web.Services
             return responseSuccess.Data;
         }
 
+        public async Task<bool> CreateCourseAsync(ProductCreateInput productCreateInput)
+        {
+            var response = await _httpClient.PostAsJsonAsync<ProductCreateInput>("products", productCreateInput);
+            return response.IsSuccessStatusCode;
+        }
+
+
+        public async Task<List<CategoryVM>> GetAllCategoriesAsync()
+        {
+            var response = await _httpClient.GetAsync("categories");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                //Exception-loglama
+                return null;
+            }
+
+            var responseSuccess = await response.Content.ReadFromJsonAsync<CustomResponseDto<List<CategoryVM>>>();
+
+            return responseSuccess.Data;
+        }
 
 
 

@@ -11,7 +11,7 @@
             <div class="card-body">
                 <h5 class="card-title">Products</h5>
 
-                <a asp-controller="Course" asp-action="Create" class="btn btn-primary mb-3">Create Product</a>
+                <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="btn btn-primary mb-3">Create Product</a>
 
                 @if (Model.Any())
                 {
