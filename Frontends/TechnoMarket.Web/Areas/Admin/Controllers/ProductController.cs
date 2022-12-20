@@ -14,9 +14,10 @@ namespace TechnoMarket.Web.Areas.Admin.Controllers
             _catalogService = catalogService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await _catalogService.GetAllProductsAsync();
+            return View(products);
         }
 
         public async Task<IActionResult> Create()
@@ -41,7 +42,7 @@ namespace TechnoMarket.Web.Areas.Admin.Controllers
             }
 
             await _catalogService.CreateProductAsync(productCreateInput);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Update(string id)
@@ -84,13 +85,13 @@ namespace TechnoMarket.Web.Areas.Admin.Controllers
             }
 
             await _catalogService.UpdateProductAsync(productUpdateInput);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(string id)
         {
             await _catalogService.DeleteProductAsync(id);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index));
         }
 
 

@@ -1,4 +1,6 @@
-﻿using TechnoMarket.Shared.Dtos;
+﻿using FreeCourse.Web.Helpers;
+using FreeCourse.Web.Services.Interfaces;
+using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Web.Areas.Admin.Models.Products;
 using TechnoMarket.Web.Models.Catalog;
 using TechnoMarket.Web.Services.Interfaces;
@@ -8,9 +10,14 @@ namespace TechnoMarket.Web.Services
     public class CatalogService : ICatalogService
     {
         private readonly HttpClient _httpClient;
-        public CatalogService(HttpClient httpClient)
+        private readonly IPhotoStockService _photoStockService;
+        private readonly PhotoHelper _photoHelper;
+
+        public CatalogService(HttpClient httpClient, IPhotoStockService photoStockService, PhotoHelper photoHelper)
         {
             _httpClient = httpClient;
+            _photoStockService = photoStockService;
+            _photoHelper = photoHelper;
         }
 
         //=> For Product
@@ -25,6 +32,12 @@ namespace TechnoMarket.Web.Services
             }
 
             var responseSuccess = await response.Content.ReadFromJsonAsync<CustomResponseDto<List<ProductVM>>>();
+
+            //Fotoğrafları Url olarak ekliyoruz. PhotoStockdan istek yapacak şekilde.
+            responseSuccess.Data.ForEach(x =>
+            {
+                x.StockPictureUrl = _photoHelper.GetPhotoStockUrl(x.ImageFile);
+            });
 
             return responseSuccess.Data;
         }
@@ -46,12 +59,28 @@ namespace TechnoMarket.Web.Services
 
         public async Task<bool> CreateProductAsync(ProductCreateInput productCreateInput)
         {
+            var resultPhotoService = await _photoStockService.UploadPhoto(productCreateInput.PhotoFormFile);
+
+            if (resultPhotoService!=null)
+            {
+                productCreateInput.ImageFile = resultPhotoService.Url;
+            }
+
             var response = await _httpClient.PostAsJsonAsync<ProductCreateInput>("products", productCreateInput);
             return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> UpdateProductAsync(ProductUpdateInput productUpdateInput)
         {
+            var resultPhotoService = await _photoStockService.UploadPhoto(productUpdateInput.PhotoFormFile);
+
+            if (resultPhotoService != null)
+            {
+                //eskisini silmek için
+                await _photoStockService.DeletePhoto(productUpdateInput.ImageFile);
+                productUpdateInput.ImageFile = resultPhotoService.Url;
+            }
+
             var response = await _httpClient.PutAsJsonAsync<ProductUpdateInput>("products", productUpdateInput);
             return response.IsSuccessStatusCode;
         }

@@ -1,3 +1,4 @@
+using FreeCourse.Web.Helpers;
 using TechnoMarket.Web.Extensions;
 using TechnoMarket.Web.Models;
 
@@ -5,6 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Options pattern ile path'i okuyacaðýz.
 builder.Services.Configure<ServiceApiSettings>(builder.Configuration.GetSection(nameof(ServiceApiSettings)));
+
+//PhotoHelper DI Contanier a ekledik.
+builder.Services.AddSingleton<PhotoHelper>();
 
 //Extension metot => HttpClient ile ilgili servisler için (HttpClient üzerinden iletiþimi saðlayacaðýz.)
 builder.Services.AddHttpClientServices(builder.Configuration);
@@ -30,7 +34,7 @@ app.UseEndpoints(endpoints =>
     {
         endpoints.MapControllerRoute(
           name: "areas",
-          pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+          pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}"
         );
     });
 

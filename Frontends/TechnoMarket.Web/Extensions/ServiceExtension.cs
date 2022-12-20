@@ -1,4 +1,6 @@
-﻿using TechnoMarket.Web.Models;
+﻿using FreeCourse.Web.Services;
+using FreeCourse.Web.Services.Interfaces;
+using TechnoMarket.Web.Models;
 using TechnoMarket.Web.Services;
 using TechnoMarket.Web.Services.Interfaces;
 
@@ -15,6 +17,12 @@ namespace TechnoMarket.Web.Extensions
             services.AddHttpClient<ICatalogService, CatalogService>(opt =>
             {
                 opt.BaseAddress = new Uri($"{serviceApisettings.GatewayBaseUri}/{serviceApisettings.Catalog.Path}");
+            });
+
+            //PhotoStock.Api için => HttpClient ile nesne türeterek yeni ürettiğimiz path üzerinden istek yapacağız.
+            services.AddHttpClient<IPhotoStockService, PhotoStockService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceApisettings.GatewayBaseUri}/{serviceApisettings.PhotoStock.Path}");
             });
 
         }
