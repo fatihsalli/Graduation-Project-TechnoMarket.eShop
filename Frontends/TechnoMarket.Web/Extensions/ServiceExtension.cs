@@ -25,6 +25,12 @@ namespace TechnoMarket.Web.Extensions
                 opt.BaseAddress = new Uri($"{serviceApisettings.GatewayBaseUri}/{serviceApisettings.PhotoStock.Path}");
             });
 
+            //Customer.Api için => HttpClient ile nesne türeterek yeni ürettiğimiz path üzerinden istek yapacağız.
+            services.AddHttpClient<ICustomerService, CustomerService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceApisettings.GatewayBaseUri}/{serviceApisettings.Customer.Path}");
+            });
+
         }
     }
 }

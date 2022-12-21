@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<CustomerVM>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Customers</h5>
+
+                @if (Model.Any())
+                {
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>AddressLine</th>
+                                <th>City</th>
+                                <th>City Code</th>
+                                <th>Country</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.FirstName</td>
+                                    <td>@item.LastName</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Address.AddressLine</td>
+                                    <td>@item.Address.City</td>
+                                    <td>@item.Address.CityCode</td>
+                                    <td>@item.Address.Country</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        Customer not found!
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
