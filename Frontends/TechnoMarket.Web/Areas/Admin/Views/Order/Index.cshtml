@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<OrderVM>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Order Details</h5>
+
+                @if (Model.Any())
+                {
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Customer Id</th>
+                                <th>Total Price ($)</th>
+                                <th>Status</th>
+                                <th>Full Address</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.CustomerId</td>
+                                    <td>@item.TotalPrice $</td>
+                                    <td>@item.Status</td>
+                                    <td>@item.FullAddress</td>
+                                    <td>
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <th>Product Id</th>
+                                                <th>Product Name</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                            </tr>
+                                            @foreach (var orderItem in item.OrderItems)
+                                            {
+                                                <tr>
+                                                    <td>@orderItem.ProductId</td>
+                                                    <td>@orderItem.ProductName</td>
+                                                    <td>@orderItem.Quantity</td>
+                                                    <td>@orderItem.Price $</td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        Order not found!
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

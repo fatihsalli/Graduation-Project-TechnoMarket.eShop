@@ -34,9 +34,9 @@
         <div class="card">
             <h5 class="card-header">Orders</h5>
             <div class="card-body">
-                <h5 class="card-title">Total Order: @ViewBag.TotalProducts</h5>
-                <p class="card-text">Press the button for category detail,create,update and delete.</p>
-                <a asp-controller="Customer" asp-area="Admin" asp-action="Index" class="btn btn-primary">Detail</a>
+                <h5 class="card-title">Total Order: @ViewBag.TotalOrders</h5>
+                <p class="card-text">Press the button for more order information.</p>
+                <a asp-controller="Order" asp-area="Admin" asp-action="Index" class="btn btn-primary">Detail</a>
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
             <h5 class="card-header">Customers</h5>
             <div class="card-body">
                 <h5 class="card-title">Total Customer: @ViewBag.TotalCustomers</h5>
-                <p class="card-text">Press the button for more customer detail.</p>
+                <p class="card-text">Press the button for more customer information.</p>
                 <a asp-controller="Customer" asp-area="Admin" asp-action="Index" class="btn btn-primary">Detail</a>
             </div>
         </div>
