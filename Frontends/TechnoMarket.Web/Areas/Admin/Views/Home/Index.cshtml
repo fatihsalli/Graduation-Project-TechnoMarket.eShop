@@ -7,26 +7,46 @@
 <h2>Admin</h2>
 <hr />
 
-<div class="card">
-    <h4 class="card-header">
-        Products
-    </h4>
-    <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="card">
+            <h5 class="card-header">Products</h5>
+            <div class="card-body">
+                <h5 class="card-title">Total Product: @ViewBag.TotalProduct</h5>
+                <p class="card-text">Press the button for product detail,create,update and delete.</p>
+                <a asp-controller="Product" asp-area="Admin" asp-action="Index" class="btn btn-primary">Detail</a>
+            </div>
+        </div>
     </div>
-</div>
-
-
-
-<div class="row row-cols-1 row-cols-md-4 g-4 mb-2">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Products</h4>
-            <h5 class="badge bg-primary">Total Product=@ViewBag.TotalProduct</h5>
-            <div>
-                <a asp-controller="Product" asp-area="Admin" asp-action="Index" class="btn btn-success">Detail</a>
+    <div class="col-sm-3">
+        <div class="card">
+            <h5 class="card-header">Categories</h5>
+            <div class="card-body">
+                <h5 class="card-title">Total Category: @ViewBag.TotalProduct</h5>
+                <p class="card-text">Press the button for category detail,create,update and delete.</p>
+                <a asp-controller="Product" asp-area="Admin" asp-action="Index" class="btn btn-primary">Detail</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card">
+            <h5 class="card-header">Orders</h5>
+            <div class="card-body">
+                <h5 class="card-title">Total Category: @ViewBag.TotalProduct</h5>
+                <p class="card-text">Press the button for category detail,create,update and delete.</p>
+                <a asp-controller="Product" asp-area="Admin" asp-action="Index" class="btn btn-primary">Detail</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card">
+            <h5 class="card-header">Customers</h5>
+            <div class="card-body">
+                <h5 class="card-title">Total Category: @ViewBag.TotalProduct</h5>
+                <p class="card-text">Press the button for category detail,create,update and delete.</p>
+                <a asp-controller="Product" asp-area="Admin" asp-action="Index" class="btn btn-primary">Detail</a>
             </div>
         </div>
     </div>
