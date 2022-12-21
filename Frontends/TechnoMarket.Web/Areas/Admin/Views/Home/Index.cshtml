@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Admin</h2>
+<hr />
+
+<div class="row row-cols-1 row-cols-md-4 g-4 mb-2">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Products</h4>
+            <h5 class="badge bg-primary">Total Product=@ViewBag.TotalProduct</h5>
+            <div>
+                <a asp-controller="Product" asp-area="Admin" asp-action="Index" class="btn btn-success">Detail</a>
+            </div>
+        </div>
+    </div>
+</div>
+

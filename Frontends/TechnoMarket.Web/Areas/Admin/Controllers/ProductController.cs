@@ -93,10 +93,5 @@ namespace TechnoMarket.Web.Areas.Admin.Controllers
             await _catalogService.DeleteProductAsync(id);
             return RedirectToAction(nameof(Index));
         }
-
-
-
-
-
     }
 }
