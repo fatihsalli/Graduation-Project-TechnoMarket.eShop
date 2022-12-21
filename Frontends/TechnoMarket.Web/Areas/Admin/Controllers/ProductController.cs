@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using TechnoMarket.Web.Areas.Admin.Models.Products;
+using TechnoMarket.Web.Models.Catalog;
 using TechnoMarket.Web.Services.Interfaces;
 
 namespace TechnoMarket.Web.Areas.Admin.Controllers

@@ -1,7 +1,6 @@
 ﻿using FreeCourse.Web.Helpers;
 using FreeCourse.Web.Services.Interfaces;
 using TechnoMarket.Shared.Dtos;
-using TechnoMarket.Web.Areas.Admin.Models.Products;
 using TechnoMarket.Web.Models.Catalog;
 using TechnoMarket.Web.Services.Interfaces;
 
@@ -61,7 +60,7 @@ namespace TechnoMarket.Web.Services
         {
             var resultPhotoService = await _photoStockService.UploadPhoto(productCreateInput.PhotoFormFile);
 
-            if (resultPhotoService!=null)
+            if (resultPhotoService != null)
             {
                 productCreateInput.ImageFile = resultPhotoService.Url;
             }
@@ -122,7 +121,22 @@ namespace TechnoMarket.Web.Services
             return responseSuccess.Data;
         }
 
+        public async Task<bool> CreateCategoryAsync(CategoryCreateInput categoryCreateInput)
+        {
+            var response = await _httpClient.PostAsJsonAsync<CategoryCreateInput>("categories", categoryCreateInput);
+            return response.IsSuccessStatusCode;
+        }
 
+        public async Task<bool> UpdateCategoryAsync(CategoryUpdateInput categoryUpdateInput)
+        {
+            var response = await _httpClient.PutAsJsonAsync<CategoryUpdateInput>("categories", categoryUpdateInput);
+            return response.IsSuccessStatusCode;
+        }
 
+        public async Task<bool> DeleteCategoryAsync(string id)
+        {
+            var response = await _httpClient.DeleteAsync($"categories/{id}");
+            return response.IsSuccessStatusCode;
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using TechnoMarket.Web.Areas.Admin.Models.Products;
-using TechnoMarket.Web.Models.Catalog;
+﻿using TechnoMarket.Web.Models.Catalog;
 
 namespace TechnoMarket.Web.Services.Interfaces
 {
@@ -15,5 +14,8 @@ namespace TechnoMarket.Web.Services.Interfaces
         //=> For categories
         Task<List<CategoryVM>> GetAllCategoriesAsync();
         Task<CategoryVM> GetCategoryByIdAsync(string id);
+        Task<bool> CreateCategoryAsync(CategoryCreateInput categoryCreateInput);
+        Task<bool> UpdateCategoryAsync(CategoryUpdateInput categoryUpdateInput);
+        Task<bool> DeleteCategoryAsync(string id);
     }
 }

@@ -1,8 +1,7 @@
-﻿namespace TechnoMarket.Web.Areas.Admin.Models.Products
+﻿namespace TechnoMarket.Web.Models.Catalog
 {
-    public class ProductUpdateInput
+    public class ProductCreateInput
     {
-        public string Id { get; set; }
         public string Name { get; set; }
         public int Stock { get; set; }
         public decimal Price { get; set; }
@@ -11,6 +10,5 @@
         public IFormFile PhotoFormFile { get; set; }
         public ProductFeatureCreateInput Feature { get; set; }
         public string CategoryId { get; set; }
-
     }
 }

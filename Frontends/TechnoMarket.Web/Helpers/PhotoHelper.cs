@@ -1,5 +1,4 @@
-﻿using FreeCourse.Web.Models;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using TechnoMarket.Web.Models;
 
 namespace FreeCourse.Web.Helpers

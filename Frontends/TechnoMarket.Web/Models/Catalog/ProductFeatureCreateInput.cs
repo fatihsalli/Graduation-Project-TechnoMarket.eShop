@@ -1,4 +1,4 @@
-﻿namespace TechnoMarket.Web.Areas.Admin.Models.Products
+﻿namespace TechnoMarket.Web.Models.Catalog
 {
     public class ProductFeatureCreateInput
     {

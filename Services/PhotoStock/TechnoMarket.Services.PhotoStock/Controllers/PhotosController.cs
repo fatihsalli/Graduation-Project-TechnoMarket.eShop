@@ -31,7 +31,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
                 //var photoDto= new PhotoDto { Url= returnPath };
                 PhotoDto photoDto = new() { Url = returnPath };
 
-                return CreateActionResult(CustomResponseDto<PhotoDto>.Success(200,photoDto));
+                return CreateActionResult(CustomResponseDto<PhotoDto>.Success(200, photoDto));
             }
             return CreateActionResult(CustomResponseDto<NoContentDto>.Fail(400, "Photo is empty!"));
         }
@@ -47,7 +47,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
             //Path var mı yok mu kontrol ediyoruz.
             if (!System.IO.File.Exists(path))
             {
-                return CreateActionResult(CustomResponseDto<NoContentDto>.Fail( 404, "Photo is not found!"));
+                return CreateActionResult(CustomResponseDto<NoContentDto>.Fail(404, "Photo is not found!"));
             }
             //Var ise siliyoruz.
             System.IO.File.Delete(path);
