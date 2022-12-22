@@ -41,13 +41,15 @@ namespace TechnoMarket.Web.Services
                     basketItem.Quantity++;
                 }
                 else
-                {
+                {                    
                     basketVM.BasketItems.Add(basketItemVM);
                 }
             }
             else //Sepet boş ise yeni nesne türeterek ilave ediyorum.
             {
                 basketVM=new BasketVM();
+                basketVM.BasketItems = new List<BasketItemVM>();
+                basketVM.CustomerId=Guid.NewGuid().ToString();
                 basketVM.BasketItems.Add(basketItemVM);
             }
 
