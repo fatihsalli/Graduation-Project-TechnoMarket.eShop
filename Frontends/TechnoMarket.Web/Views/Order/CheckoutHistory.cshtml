@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "CheckoutHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model OrderVM
+
+<div class="alert alert-info">
+    <p>Order completed successfully!</p>
+    <p>Order no: @Model.Id</p>
+    <p>Total Price: @Model.TotalPrice</p>
+</div>
+
+<a class="btn btn-primary" asp-controller="Home" asp-action="Index">Home page</a>
+

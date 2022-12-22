@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model CheckoutInput
+
+<form asp-controller="Order" asp-action="Checkout" method="post">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Address Details</h5>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="AddressLine"></label>
+                        <input asp-for="AddressLine" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="City"></label>
+                        <input asp-for="City" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Country"></label>
+                        <input asp-for="Country" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="CityCode"></label>
+                        <input asp-for="CityCode" class="form-control">
+                    </div>
+
+                    <h5 class="card-title">Payment Details</h5>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="CardName"></label>
+                        <input asp-for="CardName" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="CardNumber"></label>
+                        <input asp-for="CardNumber" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Expiration"></label>
+                        <input asp-for="Expiration" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="CVV"></label>
+                        <input asp-for="CVV" class="form-control">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Payment Summary</h5>
+
+                    <table class="table table-striped">
+                        @foreach (var item in ViewBag.Basket.BasketItems as List<BasketItemVM>)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td>@item.Price</td>
+                                <td>@item.Quantity</td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td>Total Price: @ViewBag.Basket.TotalPrice $</td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="btn btn-success">Complete Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
