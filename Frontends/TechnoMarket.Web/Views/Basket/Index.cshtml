@@ -17,6 +17,7 @@
                             <th>Product Name</th>
                             <th>Unit Price</th>
                             <th>Quantity</th>
+                            <th>Action</th>
                         </tr>
 
                         @foreach (var item in Model.BasketItems)
@@ -24,7 +25,7 @@
                             <tr>
                                 <td>@item.ProductName</td>
                                 <td>@item.Price $</td>
-                                <td>@item.Quantity $</td>
+                                <td>@item.Quantity</td>
                                 <td>
                                     <a asp-controller="Basket" asp-action="RemoveBasketItem" asp-route-courseId="@item.ProductId" class="btn btn-danger">Delete</a>
                                 </td>
@@ -32,7 +33,7 @@
                         }
 
                         <tr>
-                            <th colspan="2">@Model.TotalPrice TL</th>
+                            <th colspan="4">Total Price: @Model.TotalPrice $</th>
                         </tr>
                     </table>
 

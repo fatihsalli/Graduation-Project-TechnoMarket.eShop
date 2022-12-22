@@ -14,6 +14,7 @@ namespace TechnoMarket.Web.Services
 
         public async Task<BasketVM> Get()
         {
+            //Geçici çözüm
             string customerId = "60ca5f4d-71f9-4d9d-b074-393158bda67a";
 
             //Sepet dolu mu değil mi check ediyoruz.

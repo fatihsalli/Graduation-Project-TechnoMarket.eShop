@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TechnoMarket.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap-5.2.3/css/bootstrap.min.css"  />
+    <link rel="stylesheet" href="~/lib/bootstrap-5.2.3/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TechnoMarket.Web.styles.css" asp-append-version="true" />
 </head>
@@ -24,18 +24,17 @@
                     </ul>
                     <partial name="_LoginPartial" />
                     <form class="d-flex">
-                        <a asp-action="MyCart" asp-controller="Home" class="btn btn-outline-dark">
+                        <a asp-action="Index" asp-controller="Basket" class="btn btn-outline-dark">
                             <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            @*@{
-                                if (TempData["sepet"] != null)
+                            Basket
+                            @{
+                                if (TempData["BasketCount"] != null)
                                 {
-                                    var sepet = TempData["sepet"] as Cart;
                                     <span class="badge bg-dark text-white ms-1 rounded-pill">
-                                        @sepet.Mycart.Count
+                                        @TempData["BasketCount"]
                                     </span>
                                 }
-                            }*@
+                            }
                         </a>
                     </form>
                 </div>
