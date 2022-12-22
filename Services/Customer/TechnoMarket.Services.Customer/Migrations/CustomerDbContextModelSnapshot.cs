@@ -130,7 +130,9 @@ namespace TechnoMarket.Services.Customer.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasMaxLength(36)
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
@@ -200,7 +202,9 @@ namespace TechnoMarket.Services.Customer.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasMaxLength(36)
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()

@@ -1,4 +1,4 @@
-﻿namespace TechnoMarket.Web.Models.Customer
+﻿namespace TechnoMarket.Web.Models
 {
     public class AddressVM
     {

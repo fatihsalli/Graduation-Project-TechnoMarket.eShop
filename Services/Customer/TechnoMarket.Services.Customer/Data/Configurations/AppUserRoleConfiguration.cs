@@ -4,9 +4,9 @@ using TechnoMarket.Services.Customer.Models;
 
 namespace TechnoMarket.Services.Customer.Data.Configurations
 {
-    public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
+    public class AppUserRoleConfiguration : IEntityTypeConfiguration<AppUserRole>
     {
-        public void Configure(EntityTypeBuilder<AppUser> builder)
+        public void Configure(EntityTypeBuilder<AppUserRole> builder)
         {
             //Postgre tarafında uuid id üretilmesi için
             builder.Property(c => c.Id)

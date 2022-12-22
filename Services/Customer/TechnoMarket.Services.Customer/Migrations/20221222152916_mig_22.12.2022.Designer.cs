@@ -12,8 +12,8 @@ using TechnoMarket.Services.Customer.Data;
 namespace TechnoMarket.Services.Customer.Migrations
 {
     [DbContext(typeof(CustomerDbContext))]
-    [Migration("20221222151251_migV01")]
-    partial class migV01
+    [Migration("20221222152916_mig_22.12.2022")]
+    partial class mig_22122022
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -132,7 +132,9 @@ namespace TechnoMarket.Services.Customer.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasMaxLength(36)
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
@@ -202,7 +204,9 @@ namespace TechnoMarket.Services.Customer.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasMaxLength(36)
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()

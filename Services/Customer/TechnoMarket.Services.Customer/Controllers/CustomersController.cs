@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TechnoMarket.Services.Customer.Dtos;
+using TechnoMarket.Services.Customer.Models;
 using TechnoMarket.Services.Customer.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;

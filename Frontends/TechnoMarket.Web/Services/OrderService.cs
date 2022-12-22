@@ -2,6 +2,7 @@
 using TechnoMarket.Web.Models.Order;
 using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Web.Services.Interfaces;
+using TechnoMarket.Web.Models;
 
 namespace TechnoMarket.Web.Services
 {
@@ -38,7 +39,7 @@ namespace TechnoMarket.Web.Services
             var orderCreateInput = new OrderCreateInput()
             {
                 CustomerId=basket.CustomerId,
-                Address=new Models.Order.AddressVM() 
+                Address=new AddressVM() 
                 { 
                     City=checkoutInput.City,
                     AddressLine=checkoutInput.AddressLine,
