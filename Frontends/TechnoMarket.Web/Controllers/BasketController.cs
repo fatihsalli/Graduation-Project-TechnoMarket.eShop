@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
-using TechnoMarket.Services.Basket.Dtos;
+using TechnoMarket.Web.Models.Basket;
 using TechnoMarket.Web.Services.Interfaces;
 
 namespace TechnoMarket.Web.Controllers

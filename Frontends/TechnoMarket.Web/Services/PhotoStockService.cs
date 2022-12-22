@@ -1,4 +1,4 @@
-﻿using FreeCourse.Web.Models.PhotoStock;
+﻿using TechnoMarket.Web.Models.PhotoStock;
 using FreeCourse.Web.Services.Interfaces;
 using TechnoMarket.Shared.Dtos;
 

@@ -1,4 +1,4 @@
-﻿using FreeCourse.Web.Models.PhotoStock;
+﻿using TechnoMarket.Web.Models.PhotoStock;
 
 namespace FreeCourse.Web.Services.Interfaces
 {

@@ -1,5 +1,5 @@
-﻿using TechnoMarket.Services.Customer.Dtos;
-using TechnoMarket.Services.Order.Dtos;
+﻿using TechnoMarket.Web.Models.Customer;
+using TechnoMarket.Web.Models.Order;
 using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Web.Services.Interfaces;
 

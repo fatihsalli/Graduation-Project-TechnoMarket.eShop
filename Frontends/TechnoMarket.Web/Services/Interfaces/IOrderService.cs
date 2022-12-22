@@ -1,4 +1,4 @@
-﻿using TechnoMarket.Services.Order.Dtos;
+﻿using TechnoMarket.Web.Models.Order;
 
 namespace TechnoMarket.Web.Services.Interfaces
 {

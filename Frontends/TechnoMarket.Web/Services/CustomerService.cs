@@ -1,4 +1,4 @@
-﻿using TechnoMarket.Services.Customer.Dtos;
+﻿using TechnoMarket.Web.Models.Customer;
 using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Web.Models.Catalog;
 using TechnoMarket.Web.Services.Interfaces;

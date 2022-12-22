@@ -1,4 +1,4 @@
-﻿using TechnoMarket.Services.Basket.Dtos;
+﻿using TechnoMarket.Web.Models.Basket;
 using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Web.Services.Interfaces;
 

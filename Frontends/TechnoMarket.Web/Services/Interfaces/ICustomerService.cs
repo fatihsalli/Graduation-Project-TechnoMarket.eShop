@@ -1,4 +1,4 @@
-﻿using TechnoMarket.Services.Customer.Dtos;
+﻿using TechnoMarket.Web.Models.Customer;
 
 namespace TechnoMarket.Web.Services.Interfaces
 {
