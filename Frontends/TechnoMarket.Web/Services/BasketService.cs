@@ -59,13 +59,48 @@ namespace TechnoMarket.Web.Services
             return;
         }
 
+        public async Task<bool> RemoveBasketItem(string productId)
+        {
+            var basketVM=await Get();
+
+            if (basketVM==null)
+            {
+                return false;
+            }
+
+            var deleteBasketItem=basketVM.BasketItems.FirstOrDefault(x => x.ProductId == productId);
+
+            if (deleteBasketItem == null) return false;
+
+            var deleteResult=basketVM.BasketItems.Remove(deleteBasketItem);
+
+            if (!deleteResult)
+            {
+                return false;
+            }
+
+            if (!basketVM.BasketItems.Any())
+            {
+                return await Delete();
+            }
+
+            return await SaveOrUpdate(basketVM);
+        }
+
         public async Task<bool> SaveOrUpdate(BasketVM basketVM)
         {
             var response = await _httpClient.PostAsJsonAsync<BasketVM>("baskets", basketVM);
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> Delete()
+        {
+            //Geçici çözüm
+            string customerId = "60ca5f4d-71f9-4d9d-b074-393158bda67a";
 
+            var response = await _httpClient.DeleteAsync($"baskets?customerId={customerId}");
+            return response.IsSuccessStatusCode;
+        }
 
 
     }

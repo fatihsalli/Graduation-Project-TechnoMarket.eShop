@@ -33,12 +33,14 @@ namespace TechnoMarket.Web.Controllers
             };
 
             await _basketService.AddBasketItem(basketItemVM);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index),"Home");
         }
 
-
-
-
+        public async Task<IActionResult> RemoveBasketItem(string productId)
+        {
+            await _basketService.RemoveBasketItem(productId);
+            return RedirectToAction(nameof(Index));
+        }
 
     }
 }
