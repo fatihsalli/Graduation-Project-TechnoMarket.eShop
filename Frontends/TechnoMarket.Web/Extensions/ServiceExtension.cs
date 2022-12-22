@@ -37,6 +37,12 @@ namespace TechnoMarket.Web.Extensions
                 opt.BaseAddress = new Uri($"{serviceApisettings.GatewayBaseUri}/{serviceApisettings.Order.Path}");
             });
 
+            //Basket.Api için => HttpClient ile nesne türeterek yeni ürettiğimiz path üzerinden istek yapacağız.
+            services.AddHttpClient<IBasketService, BasketService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceApisettings.GatewayBaseUri}/{serviceApisettings.Basket.Path}");
+            });
+
         }
     }
 }

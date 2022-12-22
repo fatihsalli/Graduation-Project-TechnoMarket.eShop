@@ -14,8 +14,4 @@
     <ProjectReference Include="..\..\Shared\TechnoMarket.Shared\TechnoMarket.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Models\" />
-  </ItemGroup>
-
 </Project>
