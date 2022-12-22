@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Reflection;
+using TechnoMarket.Services.Customer.Models;
 
 namespace TechnoMarket.Services.Customer.Data
 {
-    public class CustomerDbContext : DbContext
+    public class CustomerDbContext : IdentityDbContext<AppUser,AppUserRole,Guid>
     {
         public CustomerDbContext(DbContextOptions<CustomerDbContext> options) : base(options)
         {

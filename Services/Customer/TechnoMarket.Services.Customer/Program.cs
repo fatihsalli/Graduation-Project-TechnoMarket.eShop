@@ -1,10 +1,12 @@
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
 using System.Reflection;
 using TechnoMarket.Services.Customer.Data;
 using TechnoMarket.Services.Customer.Dtos;
+using TechnoMarket.Services.Customer.Models;
 using TechnoMarket.Services.Customer.Repositories;
 using TechnoMarket.Services.Customer.Repositories.Interfaces;
 using TechnoMarket.Services.Customer.Services;
@@ -46,6 +48,12 @@ try
             option.MigrationsAssembly(Assembly.GetAssembly(typeof(CustomerDbContext)).GetName().Name);
         });
     });
+
+    //Identity (Kimlik Yönetimi) Dahil Etme
+    builder.Services.AddIdentity<AppUser, AppUserRole>(opt =>
+    {
+        opt.SignIn.RequireConfirmedEmail = false;
+    }).AddEntityFrameworkStores<CustomerDbContext>().AddDefaultTokenProviders();
 
     builder.Services.AddControllers();
 

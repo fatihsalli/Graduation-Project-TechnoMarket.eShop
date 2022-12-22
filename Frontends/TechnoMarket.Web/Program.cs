@@ -13,6 +13,19 @@ builder.Services.AddSingleton<PhotoHelper>();
 //Extension metot => HttpClient ile ilgili servisler için (HttpClient üzerinden iletiþimi saðlayacaðýz.)
 builder.Services.AddHttpClientServices(builder.Configuration);
 
+//Cookie => User bilgileri için
+builder.Services.ConfigureApplicationCookie(x =>
+{
+    x.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Home/Login");
+    x.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Home/Login");
+    x.Cookie = new Microsoft.AspNetCore.Http.CookieBuilder
+    {
+        Name = "Login_Cookie"
+    };
+    x.SlidingExpiration = true;
+    x.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
