@@ -14,8 +14,10 @@ namespace TechnoMarket.Web.Services
 
         public async Task<BasketVM> Get()
         {
+            string customerId = "60ca5f4d-71f9-4d9d-b074-393158bda67a";
+
             //Sepet dolu mu değil mi check ediyoruz.
-            var response = await _httpClient.GetAsync("baskets");
+            var response = await _httpClient.GetAsync($"baskets?customerId={customerId}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -47,9 +49,8 @@ namespace TechnoMarket.Web.Services
             }
             else //Sepet boş ise yeni nesne türeterek ilave ediyorum.
             {
-                basketVM=new BasketVM();
-                basketVM.BasketItems = new List<BasketItemVM>();
-                basketVM.CustomerId=Guid.NewGuid().ToString();
+                basketVM = new BasketVM();
+                basketVM.CustomerId = "60ca5f4d-71f9-4d9d-b074-393158bda67a";
                 basketVM.BasketItems.Add(basketItemVM);
             }
 
