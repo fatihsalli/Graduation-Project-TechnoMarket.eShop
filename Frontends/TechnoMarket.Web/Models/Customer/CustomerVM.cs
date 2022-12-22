@@ -1,4 +1,4 @@
-﻿namespace TechnoMarket.Services.Customer.Dtos
+﻿namespace TechnoMarket.Web.Models.Customer
 {
     public class CustomerVM
     {

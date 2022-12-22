@@ -1,4 +1,4 @@
-﻿namespace FreeCourse.Web.Models.PhotoStock
+﻿namespace TechnoMarket.Web.Models.PhotoStock
 {
     public class PhotoStockVM
     {

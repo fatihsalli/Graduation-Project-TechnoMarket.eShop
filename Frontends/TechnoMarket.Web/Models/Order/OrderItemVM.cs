@@ -1,4 +1,4 @@
-﻿namespace TechnoMarket.Services.Order.Dtos
+﻿namespace TechnoMarket.Web.Models.Order
 {
     public class OrderItemVM
     {

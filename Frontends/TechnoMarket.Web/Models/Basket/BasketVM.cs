@@ -1,4 +1,4 @@
-﻿namespace TechnoMarket.Services.Basket.Dtos
+﻿namespace TechnoMarket.Web.Models.Basket
 {
     public class BasketVM
     {
