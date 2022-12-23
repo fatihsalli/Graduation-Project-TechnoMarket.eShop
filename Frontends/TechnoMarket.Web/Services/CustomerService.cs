@@ -75,12 +75,6 @@ namespace TechnoMarket.Web.Services
                 return false;
             }
 
-            var cookie = new Cookie();
-
-            cookie.Secure = true;
-            cookie.Name = "login_cookie";
-            cookie.Expires = DateTime.Now.AddDays(1);
-
             return true;
         }
 
