@@ -60,7 +60,18 @@ namespace TechnoMarket.Web.Services
             return true;
         }
 
+        //=> For Login
+        public async Task<bool> LoginUser(LoginInput loginInput)
+        {
+            var responseUser = await _httpClient.PostAsJsonAsync<LoginInput>("users/login", loginInput);
 
+            if (!responseUser.IsSuccessStatusCode)
+            {
+                return false;
+            }
+
+            return true;
+        }
 
 
 

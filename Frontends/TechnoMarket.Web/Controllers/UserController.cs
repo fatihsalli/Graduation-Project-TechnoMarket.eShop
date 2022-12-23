@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using TechnoMarket.Web.Models.Customer;
 using TechnoMarket.Web.Services.Interfaces;
 
@@ -10,11 +11,6 @@ namespace TechnoMarket.Web.Controllers
         public UserController(ICustomerService customerService)
         {
             _customerService = customerService;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
         }
 
         public IActionResult Register()
@@ -30,6 +26,25 @@ namespace TechnoMarket.Web.Controllers
             if (!result)
             {
                 return View();
+            }
+
+            return RedirectToAction(nameof(Index), "Home");
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginInput loginInput)
+        {
+            var result = await _customerService.LoginUser(loginInput);
+
+            if (!result)
+            {
+                return View();
+                
             }
 
             return RedirectToAction(nameof(Index), "Home");

@@ -49,7 +49,7 @@ namespace TechnoMarket.Services.Customer.Controllers
 
             if (user == null)
             {
-                //Hata
+                return CreateActionResult(CustomResponseDto<NoContentDto>.Fail(404, "User not found!"));
             }
 
             var result = await _signInManager.PasswordSignInAsync(user, loginDto.Password, false, false);

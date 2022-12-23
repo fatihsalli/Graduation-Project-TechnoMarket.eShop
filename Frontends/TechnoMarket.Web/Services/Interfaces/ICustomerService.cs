@@ -6,5 +6,6 @@ namespace TechnoMarket.Web.Services.Interfaces
     {
         Task<List<CustomerVM>> GetAllCustomersAsync();
         Task<bool> RegisterCustomer(CustomerCreateInputWithRegister customer);
+        Task<bool> LoginUser(LoginInput loginInput);
     }
 }
