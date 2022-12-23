@@ -15,6 +15,7 @@ namespace TechnoMarket.Web.Services
         public CustomerService(HttpClient httpClient)
         {
             _httpClient = httpClient;
+
         }
 
         //=> For Customer
@@ -74,14 +75,14 @@ namespace TechnoMarket.Web.Services
                 return false;
             }
 
-            
+            var cookie = new Cookie();
 
+            cookie.Secure = true;
+            cookie.Name = "login_cookie";
+            cookie.Expires = DateTime.Now.AddDays(1);
 
             return true;
         }
-
-
-
 
     }
 }
