@@ -362,3 +362,17 @@
 2022-12-22 18:29:23.1222 Info Shutdown() called. Logger closing...
 2022-12-22 18:29:23.1222 Info Closing old configuration.
 2022-12-22 18:29:23.1380 Info Logger has been closed down.
+2022-12-23 12:42:52.2683 Info Message Template Auto Format enabled
+2022-12-23 12:42:52.2903 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-23 12:42:52.3907 Info Registered target FileTarget(Name=allFile)
+2022-12-23 12:42:52.3907 Info Registered target FileTarget(Name=ownFile)
+2022-12-23 12:42:52.3907 Info Registered target ConsoleTarget(Name=lifetimeConsole)
+2022-12-23 12:42:52.4430 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Customer\TechnoMarket.Services.Customer\bin\Debug\net6.0\NLog.config
+2022-12-23 12:42:53.8872 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Customer\TechnoMarket.Services.Customer\bin\Debug\net6.0\NLog.config
+2022-12-23 12:49:02.0001 Info Message Template Auto Format enabled
+2022-12-23 12:49:02.0184 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-23 12:49:02.1234 Info Registered target FileTarget(Name=allFile)
+2022-12-23 12:49:02.1234 Info Registered target FileTarget(Name=ownFile)
+2022-12-23 12:49:02.1234 Info Registered target ConsoleTarget(Name=lifetimeConsole)
+2022-12-23 12:49:02.1800 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Customer\TechnoMarket.Services.Customer\bin\Debug\net6.0\NLog.config
+2022-12-23 12:49:03.4807 Info Validating config: TargetNames=allFile, lifetimeConsole, ownFile, ConfigItems=42, FilePath=C:\Users\salli\OneDrive\Masaüstü\Projeler\12-GraduationProject\TechnoMarket.eShop\Services\Customer\TechnoMarket.Services.Customer\bin\Debug\net6.0\NLog.config

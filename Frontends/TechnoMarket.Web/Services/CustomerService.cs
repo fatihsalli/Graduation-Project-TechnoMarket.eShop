@@ -1,12 +1,10 @@
-﻿using TechnoMarket.Web.Models.Customer;
-using TechnoMarket.Shared.Dtos;
-using TechnoMarket.Web.Models.Catalog;
-using TechnoMarket.Web.Services.Interfaces;
+﻿using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Web.Models.Customer;
+using TechnoMarket.Web.Services.Interfaces;
 
 namespace TechnoMarket.Web.Services
 {
-    public class CustomerService:ICustomerService
+    public class CustomerService : ICustomerService
     {
         private readonly HttpClient _httpClient;
 
@@ -46,13 +44,13 @@ namespace TechnoMarket.Web.Services
 
             var registerVM = new RegisterVM()
             {
-                Username= customer.Username,
-                Email= customer.Email,
-                Password=customer.Password,
-                CustomerId= responseSuccess.Data.Id
+                Username = customer.Username,
+                Email = customer.Email,
+                Password = customer.Password,
+                CustomerId = responseSuccess.Data.Id
             };
 
-            var responseUser = await _httpClient.PostAsJsonAsync<RegisterVM>("users", registerVM);
+            var responseUser = await _httpClient.PostAsJsonAsync<RegisterVM>("users/register", registerVM);
 
             if (!responseUser.IsSuccessStatusCode)
             {

@@ -1,6 +1,6 @@
-﻿using TechnoMarket.Web.Models.PhotoStock;
-using FreeCourse.Web.Services.Interfaces;
+﻿using FreeCourse.Web.Services.Interfaces;
 using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Web.Models.PhotoStock;
 
 namespace FreeCourse.Web.Services
 {

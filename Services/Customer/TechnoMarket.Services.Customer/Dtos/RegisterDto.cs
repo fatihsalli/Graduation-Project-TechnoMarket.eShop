@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TechnoMarket.Services.Customer.Dtos
+﻿namespace TechnoMarket.Services.Customer.Dtos
 {
     public class RegisterDto
     {

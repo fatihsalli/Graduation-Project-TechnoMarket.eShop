@@ -2,7 +2,7 @@
 
 namespace TechnoMarket.Services.Customer.Models
 {
-    public class AppUserRole:IdentityRole<Guid>
+    public class AppUserRole : IdentityRole<Guid>
     {
 
     }

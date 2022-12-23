@@ -2,7 +2,7 @@
 
 namespace TechnoMarket.Services.Customer.Models
 {
-    public class AppUser:IdentityUser<Guid>
+    public class AppUser : IdentityUser<Guid>
     {
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }

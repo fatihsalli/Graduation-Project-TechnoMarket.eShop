@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TechnoMarket.Web.Models.Customer
+﻿namespace TechnoMarket.Web.Models.Customer
 {
     public class RegisterVM
     {

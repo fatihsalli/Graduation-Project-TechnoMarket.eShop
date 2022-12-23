@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TechnoMarket.Services.Customer.Dtos;
+using TechnoMarket.Web.Models.Customer;
 using TechnoMarket.Web.Services.Interfaces;
 
 namespace TechnoMarket.Web.Controllers
@@ -25,14 +25,14 @@ namespace TechnoMarket.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(CustomerCreateInputWithRegister register)
         {
-            var result=await _customerService.RegisterCustomer(register);
+            var result = await _customerService.RegisterCustomer(register);
 
             if (!result)
             {
                 return View();
             }
 
-            return RedirectToAction(nameof(Index),"Home");
+            return RedirectToAction(nameof(Index), "Home");
         }
 
 

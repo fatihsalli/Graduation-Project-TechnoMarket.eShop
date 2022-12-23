@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TechnoMarket.Services.Customer.Dtos;
 using TechnoMarket.Services.Customer.Models;
@@ -9,7 +8,7 @@ using TechnoMarket.Shared.Dtos;
 
 namespace TechnoMarket.Services.Customer.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UsersController : CustomBaseController
     {
@@ -23,25 +22,27 @@ namespace TechnoMarket.Services.Customer.Controllers
             _signInManager = signInManager;
         }
 
-        public async Task<IActionResult> RegisterUser(RegisterDto registerDto)
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterDto registerDto)
         {
             AppUser newUser = new AppUser()
             {
                 UserName = registerDto.Username,
                 Email = registerDto.Email,
-                CustomerId=new Guid(registerDto.CustomerId)
+                CustomerId = new Guid(registerDto.CustomerId)
             };
 
-            var result=await _userManager.CreateAsync(newUser, registerDto.Password);
+            var result = await _userManager.CreateAsync(newUser, registerDto.Password);
 
             if (!result.Succeeded)
             {
                 //Hata
             }
 
-            return CreateActionResult(CustomResponseDto<bool>.Success(204,result.Succeeded));
+            return CreateActionResult(CustomResponseDto<bool>.Success(204, result.Succeeded));
         }
 
+        [HttpPost]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             var user = await _userManager.FindByNameAsync(loginDto.Username);
@@ -51,7 +52,7 @@ namespace TechnoMarket.Services.Customer.Controllers
                 //Hata
             }
 
-            var result=await _signInManager.PasswordSignInAsync(user, loginDto.Password,false,false);
+            var result = await _signInManager.PasswordSignInAsync(user, loginDto.Password, false, false);
 
             return CreateActionResult(CustomResponseDto<bool>.Success(200, result.Succeeded));
         }

@@ -4,7 +4,7 @@
     {
         public BasketVM()
         {
-            BasketItems=new List<BasketItemVM>();
+            BasketItems = new List<BasketItemVM>();
         }
 
         public string CustomerId { get; set; }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using TechnoMarket.Web.Models.Catalog;
 using TechnoMarket.Web.Services.Interfaces;
 

@@ -14,7 +14,7 @@ namespace TechnoMarket.Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var customers=await _customerService.GetAllCustomersAsync();
+            var customers = await _customerService.GetAllCustomersAsync();
             return View(customers);
         }
     }

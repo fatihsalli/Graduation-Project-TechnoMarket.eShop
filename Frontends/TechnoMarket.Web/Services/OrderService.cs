@@ -1,12 +1,11 @@
-﻿using TechnoMarket.Web.Models.Customer;
-using TechnoMarket.Web.Models.Order;
-using TechnoMarket.Shared.Dtos;
-using TechnoMarket.Web.Services.Interfaces;
+﻿using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Web.Models;
+using TechnoMarket.Web.Models.Order;
+using TechnoMarket.Web.Services.Interfaces;
 
 namespace TechnoMarket.Web.Services
 {
-    public class OrderService:IOrderService
+    public class OrderService : IOrderService
     {
         private readonly HttpClient _httpClient;
         private readonly IBasketService _basketService;
@@ -38,16 +37,16 @@ namespace TechnoMarket.Web.Services
 
             var orderCreateInput = new OrderCreateInput()
             {
-                CustomerId=basket.CustomerId,
-                Address=new AddressVM() 
-                { 
-                    City=checkoutInput.City,
-                    AddressLine=checkoutInput.AddressLine,
-                    CityCode=checkoutInput.CityCode,
-                    Country=checkoutInput.Country,
+                CustomerId = basket.CustomerId,
+                Address = new AddressVM()
+                {
+                    City = checkoutInput.City,
+                    AddressLine = checkoutInput.AddressLine,
+                    CityCode = checkoutInput.CityCode,
+                    Country = checkoutInput.Country,
                 },
-                Status="Active",
-                TotalPrice=basket.TotalPrice                
+                Status = "Active",
+                TotalPrice = basket.TotalPrice
             };
 
             basket.BasketItems.ForEach(x =>

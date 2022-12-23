@@ -1,6 +1,4 @@
-﻿using TechnoMarket.Web.Models;
-
-namespace TechnoMarket.Web.Models.Customer
+﻿namespace TechnoMarket.Web.Models.Customer
 {
     public class CustomerCreateInputWithRegister
     {

@@ -1,5 +1,5 @@
-﻿using TechnoMarket.Web.Models.Basket;
-using TechnoMarket.Shared.Dtos;
+﻿using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Web.Models.Basket;
 using TechnoMarket.Web.Services.Interfaces;
 
 namespace TechnoMarket.Web.Services
@@ -44,7 +44,7 @@ namespace TechnoMarket.Web.Services
                     basketItem.Quantity++;
                 }
                 else
-                {                    
+                {
                     basketVM.BasketItems.Add(basketItemVM);
                 }
             }
@@ -61,18 +61,18 @@ namespace TechnoMarket.Web.Services
 
         public async Task<bool> RemoveBasketItem(string productId)
         {
-            var basketVM=await Get();
+            var basketVM = await Get();
 
-            if (basketVM==null)
+            if (basketVM == null)
             {
                 return false;
             }
 
-            var deleteBasketItem=basketVM.BasketItems.FirstOrDefault(x => x.ProductId == productId);
+            var deleteBasketItem = basketVM.BasketItems.FirstOrDefault(x => x.ProductId == productId);
 
             if (deleteBasketItem == null) return false;
 
-            var deleteResult=basketVM.BasketItems.Remove(deleteBasketItem);
+            var deleteResult = basketVM.BasketItems.Remove(deleteBasketItem);
 
             if (!deleteResult)
             {

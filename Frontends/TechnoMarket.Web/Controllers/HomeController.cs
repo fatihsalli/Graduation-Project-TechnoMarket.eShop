@@ -16,9 +16,9 @@ namespace TechnoMarket.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var basket= await _basketService.Get();
+            var basket = await _basketService.Get();
 
-            if (basket!=null)
+            if (basket != null)
             {
                 TempData["BasketCount"] = basket.BasketItems.Count;
             }

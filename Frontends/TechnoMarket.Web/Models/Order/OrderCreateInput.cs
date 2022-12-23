@@ -1,6 +1,4 @@
-﻿using TechnoMarket.Web.Models.Basket;
-
-namespace TechnoMarket.Web.Models.Order
+﻿namespace TechnoMarket.Web.Models.Order
 {
     public class OrderCreateInput
     {

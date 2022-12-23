@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 using TechnoMarket.Web.Models.Basket;
 using TechnoMarket.Web.Services.Interfaces;
 
@@ -23,7 +22,7 @@ namespace TechnoMarket.Web.Controllers
 
         public async Task<IActionResult> AddBasketItem(string productId)
         {
-            var product=await _catalogService.GetProductByIdAsync(productId);
+            var product = await _catalogService.GetProductByIdAsync(productId);
 
             var basketItemVM = new BasketItemVM
             {
@@ -33,7 +32,7 @@ namespace TechnoMarket.Web.Controllers
             };
 
             await _basketService.AddBasketItem(basketItemVM);
-            return RedirectToAction(nameof(Index),"Home");
+            return RedirectToAction(nameof(Index), "Home");
         }
 
         public async Task<IActionResult> RemoveBasketItem(string productId)
