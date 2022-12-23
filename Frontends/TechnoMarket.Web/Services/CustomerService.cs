@@ -2,7 +2,7 @@
 using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Web.Models.Catalog;
 using TechnoMarket.Web.Services.Interfaces;
-using TechnoMarket.Services.Customer.Dtos;
+using TechnoMarket.Web.Models.Customer;
 
 namespace TechnoMarket.Web.Services
 {
@@ -43,7 +43,6 @@ namespace TechnoMarket.Web.Services
             var responseCustomer = await _httpClient.PostAsJsonAsync<CustomerCreateInput>("customers", customerCreateInput);
 
             var responseSuccess = await responseCustomer.Content.ReadFromJsonAsync<CustomResponseDto<CustomerVM>>();
-
 
             var registerVM = new RegisterVM()
             {

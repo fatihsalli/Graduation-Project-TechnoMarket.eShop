@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model CustomerCreateInputWithRegister
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Register</h5>
+
+                <form asp-controller="User" asp-action="Register" method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span class="text-danger" asp-validation-for="FirstName"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="LastName"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span class="text-danger" asp-validation-for="LastName"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Username"></label>
+                        <textarea asp-for="Username" class="form-control"></textarea>
+                        <span class="text-danger" asp-validation-for="Username"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Password"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ConfirmPassword"></label>
+                        <input asp-for="ConfirmPassword" class="form-control" />
+                        <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Address.AddressLine"></label>
+                        <input asp-for="Address.AddressLine" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Address.AddressLine"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Address.City"></label>
+                        <input asp-for="Address.City" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Address.City"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Address.Country"></label>
+                        <input asp-for="Address.Country" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Address.Country"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Address.CityCode"></label>
+                        <input asp-for="Address.CityCode" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Address.CityCode"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

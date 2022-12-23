@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TechnoMarket.Services.Customer.Dtos
+namespace TechnoMarket.Web.Models.Customer
 {
     public class LoginInput
     {
