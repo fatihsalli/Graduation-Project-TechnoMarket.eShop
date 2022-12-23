@@ -1,4 +1,8 @@
-﻿using TechnoMarket.Shared.Dtos;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using System.Net;
+using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Web.Models.Customer;
 using TechnoMarket.Web.Services.Interfaces;
 
@@ -69,6 +73,9 @@ namespace TechnoMarket.Web.Services
             {
                 return false;
             }
+
+            
+
 
             return true;
         }

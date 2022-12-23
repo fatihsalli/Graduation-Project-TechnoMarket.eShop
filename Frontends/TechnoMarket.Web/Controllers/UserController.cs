@@ -10,11 +10,9 @@ namespace TechnoMarket.Web.Controllers
     public class UserController : Controller
     {
         private readonly ICustomerService _customerService;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        public UserController(ICustomerService customerService, SignInManager<IdentityUser> signInManager)
+        public UserController(ICustomerService customerService)
         {
             _customerService = customerService;
-            _signInManager = signInManager;
         }
 
         public IActionResult Register()
