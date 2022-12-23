@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Security;
 using TechnoMarket.Web.Models.Customer;
 using TechnoMarket.Web.Services.Interfaces;
 
@@ -8,9 +10,11 @@ namespace TechnoMarket.Web.Controllers
     public class UserController : Controller
     {
         private readonly ICustomerService _customerService;
-        public UserController(ICustomerService customerService)
+        private readonly SignInManager<IdentityUser> _signInManager;
+        public UserController(ICustomerService customerService, SignInManager<IdentityUser> signInManager)
         {
             _customerService = customerService;
+            _signInManager = signInManager;
         }
 
         public IActionResult Register()
@@ -37,14 +41,14 @@ namespace TechnoMarket.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInput loginInput)
         {
             var result = await _customerService.LoginUser(loginInput);
 
             if (!result)
             {
-                return View();
-                
+                return View();                
             }
 
             return RedirectToAction(nameof(Index), "Home");
