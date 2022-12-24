@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure;
 using Microsoft.AspNetCore.Identity;
 using TechnoMarket.AuthServer.Dtos;
 using TechnoMarket.AuthServer.Models;
@@ -14,7 +13,7 @@ namespace TechnoMarket.AuthServer.Services
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMapper _mapper;
 
-        public UserService(UserManager<UserApp> userManager, RoleManager<IdentityRole> roleManager,IMapper mapper)
+        public UserService(UserManager<UserApp> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -34,10 +33,10 @@ namespace TechnoMarket.AuthServer.Services
             if (!result.Succeeded)
             {
                 var errors = result.Errors.Select(x => x.Description).ToList();
-                return CustomResponseDto<UserAppDto>.Fail(400,errors);
+                return CustomResponseDto<UserAppDto>.Fail(400, errors);
             }
 
-            return CustomResponseDto<UserAppDto>.Success(200,_mapper.Map<UserAppDto>(user));
+            return CustomResponseDto<UserAppDto>.Success(200, _mapper.Map<UserAppDto>(user));
         }
         //Kullanıcıya rol eklemek için bu methodu tanımladık.
         public async Task<CustomResponseDto<NoContentDto>> CreateUserRolesAsync(string userName)
@@ -61,7 +60,7 @@ namespace TechnoMarket.AuthServer.Services
 
             if (user == null)
             {
-                return CustomResponseDto<UserAppDto>.Fail(404,"UserName not found");
+                return CustomResponseDto<UserAppDto>.Fail(404, "UserName not found");
             }
 
             return CustomResponseDto<UserAppDto>.Success(200, _mapper.Map<UserAppDto>(user));

@@ -1,5 +1,4 @@
-﻿using Azure;
-using TechnoMarket.AuthServer.Dtos;
+﻿using TechnoMarket.AuthServer.Dtos;
 using TechnoMarket.Shared.Dtos;
 
 namespace TechnoMarket.AuthServer.Services.Interfaces
