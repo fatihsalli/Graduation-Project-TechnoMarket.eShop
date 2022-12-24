@@ -14,7 +14,7 @@ namespace TechnoMarket.Web.Services
 
         public async Task<BasketVM> Get()
         {
-            //Geçici çözüm
+            //TODO: JWT ile AuthServer oluşturulacak
             string customerId = "60ca5f4d-71f9-4d9d-b074-393158bda67a";
 
             //Sepet dolu mu değil mi check ediyoruz.
@@ -51,6 +51,7 @@ namespace TechnoMarket.Web.Services
             else //Sepet boş ise yeni nesne türeterek ilave ediyorum.
             {
                 basketVM = new BasketVM();
+                //TODO: JWT ile AuthServer oluşturulacak
                 basketVM.CustomerId = "60ca5f4d-71f9-4d9d-b074-393158bda67a";
                 basketVM.BasketItems.Add(basketItemVM);
             }
