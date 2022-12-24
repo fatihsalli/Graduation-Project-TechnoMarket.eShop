@@ -8,6 +8,10 @@ using TechnoMarket.Web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+//ClientId ve ClientSecret deðerleri için "ClientSettings" classýný oluþturduk. Options pattern üzerinden dolduracaðýz.
+builder.Services.Configure<ClientSettings>(builder.Configuration.GetSection(nameof(ClientSettings)));
+
 //Options pattern ile path'i okuyacaðýz.
 builder.Services.Configure<ServiceApiSettings>(builder.Configuration.GetSection(nameof(ServiceApiSettings)));
 
@@ -36,7 +40,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     opt.ExpireTimeSpan = TimeSpan.FromDays(60);
     //60 gün içinde giriþ yaptýðýnda süre uzasýn mý=> true dedik
     opt.SlidingExpiration = true;
-    opt.Cookie.Name = "udemywebcookie";
+    opt.Cookie.Name = "technomarketcookie";
 });
 
 builder.Services.AddControllersWithViews();
