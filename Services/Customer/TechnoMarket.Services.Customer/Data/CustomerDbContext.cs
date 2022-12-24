@@ -6,7 +6,7 @@ using TechnoMarket.Services.Customer.Models;
 
 namespace TechnoMarket.Services.Customer.Data
 {
-    public class CustomerDbContext : IdentityDbContext<AppUser, AppUserRole, Guid>
+    public class CustomerDbContext : DbContext
     {
         public CustomerDbContext(DbContextOptions<CustomerDbContext> options) : base(options)
         {

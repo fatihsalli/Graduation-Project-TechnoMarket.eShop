@@ -49,12 +49,6 @@ try
         });
     });
 
-    //Identity (Kimlik Yönetimi) Dahil Etme
-    builder.Services.AddIdentity<AppUser, AppUserRole>(opt =>
-    {
-        opt.SignIn.RequireConfirmedEmail = false;
-    }).AddEntityFrameworkStores<CustomerDbContext>().AddDefaultTokenProviders();
-
     builder.Services.AddControllers();
 
     //Fluent Validation ekledik.
