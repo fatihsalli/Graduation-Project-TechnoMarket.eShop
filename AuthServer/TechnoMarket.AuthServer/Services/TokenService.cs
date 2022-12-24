@@ -48,9 +48,7 @@ namespace TechnoMarket.AuthServer.Services
                 //Herhangi bir Api decode ederken Identity kütüphanesinden faylanmak adına aşağıdaki isimlendirmeleri kullandık."name" de diyebilirdik key tarafında.
                 new Claim(ClaimTypes.Name, userApp.UserName),
                 //Her üretilen tokena bir id vermek için
-                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
-                //Claim bazlı authorization tanımlamak için aşağıdaki kodu token payloadında ekliyoruz. Şehir bilgisini seçtik değişebilir.
-                new Claim("city",userApp.City),
+                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
             };
             //Her bir auidences için Claim oluşturmak için Select kullandık foreach gibi aslında.
             userList.AddRange(auidences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));

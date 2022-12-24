@@ -5,7 +5,7 @@ using TechnoMarket.Shared.ControllerBases;
 
 namespace TechnoMarket.AuthServer.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AuthController : CustomBaseController
     {
