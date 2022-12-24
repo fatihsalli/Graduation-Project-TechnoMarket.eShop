@@ -1,12 +1,10 @@
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
 using System.Reflection;
 using TechnoMarket.Services.Customer.Data;
 using TechnoMarket.Services.Customer.Dtos;
-using TechnoMarket.Services.Customer.Models;
 using TechnoMarket.Services.Customer.Repositories;
 using TechnoMarket.Services.Customer.Repositories.Interfaces;
 using TechnoMarket.Services.Customer.Services;

@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Security;
 using TechnoMarket.Web.Models.Customer;
 using TechnoMarket.Web.Services.Interfaces;
 
@@ -53,11 +50,11 @@ namespace TechnoMarket.Web.Controllers
 
             if (!result)
             {
-                return View();                
+                return View();
             }
 
 
-        
+
             return RedirectToAction(nameof(Index), "Home");
         }
 
