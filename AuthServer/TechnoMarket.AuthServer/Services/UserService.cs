@@ -37,7 +37,7 @@ namespace TechnoMarket.AuthServer.Services
                 return CustomResponseDto<UserAppDto>.Fail(400,errors);
             }
 
-            return CustomResponseDto<UserAppDto>.Success(ObjectMapper.Mapper.Map<UserAppDto>(user), 200);
+            return CustomResponseDto<UserAppDto>.Success(200,_mapper.Map<UserAppDto>(user));
         }
         //Kullanıcıya rol eklemek için bu methodu tanımladık.
         public async Task<CustomResponseDto<NoContentDto>> CreateUserRolesAsync(string userName)
@@ -64,7 +64,7 @@ namespace TechnoMarket.AuthServer.Services
                 return CustomResponseDto<UserAppDto>.Fail(404,"UserName not found");
             }
 
-            return CustomResponseDto<UserAppDto>.Success(ObjectMapper.Mapper.Map<UserAppDto>(user), 200);
+            return CustomResponseDto<UserAppDto>.Success(200, _mapper.Map<UserAppDto>(user));
         }
     }
 }
