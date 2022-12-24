@@ -78,5 +78,29 @@ namespace TechnoMarket.Web.Services
             return true;
         }
 
+        public class User
+        {
+            public int UserId { get; set; }
+            public string UserName { get; set; }
+            public string Password { get; set; }
+            public string Role { get; set; }
+        }
+
+        public class UserInit
+        {
+            public static List<User> Users()
+            {
+                return new List<User>()
+                {
+                    new User() {UserId=1,UserName="test_username",Password="test_password",Role="test_role"},
+                };
+            }
+        }
+
+
+
+
+
+
     }
 }

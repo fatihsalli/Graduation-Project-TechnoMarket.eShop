@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Security;
@@ -14,6 +15,13 @@ namespace TechnoMarket.Web.Controllers
         {
             _customerService = customerService;
         }
+
+        [Authorize]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
 
         public IActionResult Register()
         {
@@ -39,7 +47,6 @@ namespace TechnoMarket.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInput loginInput)
         {
             var result = await _customerService.LoginUser(loginInput);
@@ -49,6 +56,8 @@ namespace TechnoMarket.Web.Controllers
                 return View();                
             }
 
+
+        
             return RedirectToAction(nameof(Index), "Home");
         }
 

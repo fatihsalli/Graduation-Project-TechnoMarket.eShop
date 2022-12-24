@@ -22,7 +22,6 @@ builder.Services.ConfigureApplicationCookie(x =>
     x.Cookie = new Microsoft.AspNetCore.Http.CookieBuilder
     {
         Name = "Login_Cookie"
-
     };
     x.SlidingExpiration = true;
     x.ExpireTimeSpan = TimeSpan.FromMinutes(10);
@@ -39,6 +38,8 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
