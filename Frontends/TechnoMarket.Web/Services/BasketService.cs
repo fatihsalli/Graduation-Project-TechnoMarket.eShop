@@ -16,12 +16,10 @@ namespace TechnoMarket.Web.Services
             _userManager = userManager;
         }
 
-        public async Task<BasketVM> Get()
+        public async Task<BasketVM> GetAsync(string userId)
         {
-            var user = _userManager.Users.FirstOrDefault();
-
             //Sepet dolu mu değil mi check ediyoruz.
-            var response = await _httpClient.GetAsync($"baskets?userId={user.Id}");
+            var response = await _httpClient.GetAsync($"baskets?userId={userId}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -32,9 +30,9 @@ namespace TechnoMarket.Web.Services
             return basketVM.Data;
         }
 
-        public async Task AddBasketItem(BasketItemVM basketItemVM)
+        public async Task AddBasketItemAsycn(BasketItemVM basketItemVM,string userId)
         {
-            var basketVM = await Get();
+            var basketVM = await GetAsync(userId);
 
             if (basketVM != null)
             {
@@ -58,13 +56,13 @@ namespace TechnoMarket.Web.Services
                 basketVM.BasketItems.Add(basketItemVM);
             }
 
-            await SaveOrUpdate(basketVM);
+            await SaveOrUpdateAsycn(basketVM);
             return;
         }
 
-        public async Task<bool> RemoveBasketItem(string productId)
+        public async Task<bool> RemoveBasketItemAsycn(string productId, string userId)
         {
-            var basketVM = await Get();
+            var basketVM = await GetAsync(userId);
 
             if (basketVM == null)
             {
@@ -84,25 +82,23 @@ namespace TechnoMarket.Web.Services
 
             if (!basketVM.BasketItems.Any())
             {
-                return await Delete();
+                return await DeleteAsycn(userId);
             }
 
-            return await SaveOrUpdate(basketVM);
+            return await SaveOrUpdateAsycn(basketVM);
         }
 
-        public async Task<bool> SaveOrUpdate(BasketVM basketVM)
+        public async Task<bool> SaveOrUpdateAsycn(BasketVM basketVM)
         {
             var response = await _httpClient.PostAsJsonAsync<BasketVM>("baskets", basketVM);
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> Delete()
+        public async Task<bool> DeleteAsycn(string userId)
         {
-            var user = _userManager.Users.FirstOrDefault();
-            var response = await _httpClient.DeleteAsync($"baskets?userId={user.Id}");
+            var response = await _httpClient.DeleteAsync($"baskets?userId={userId}");
             return response.IsSuccessStatusCode;
         }
-
 
     }
 }

@@ -13,6 +13,7 @@ namespace TechnoMarket.Web.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
+
         public HomeController(ICatalogService catalogService, IBasketService basketService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _catalogService = catalogService;
@@ -23,11 +24,15 @@ namespace TechnoMarket.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var basket = await _basketService.Get();
+            var user=await _userManager.GetUserAsync(User);
 
-            if (basket != null)
+            if (user!=null)
             {
-                TempData["BasketCount"] = basket.BasketItems.Count;
+                var basket = await _basketService.GetAsync(user.Id);
+                if (basket != null)
+                {
+                    TempData["BasketCount"] = basket.BasketItems.Count;
+                }
             }
 
             var products = await _catalogService.GetAllProductsAsync();

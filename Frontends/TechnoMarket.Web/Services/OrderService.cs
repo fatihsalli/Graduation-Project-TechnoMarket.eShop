@@ -31,13 +31,13 @@ namespace TechnoMarket.Web.Services
             return responseSuccess.Data;
         }
 
-        public async Task<OrderVM> CreateOrder(CheckoutInput checkoutInput)
+        public async Task<OrderVM> CreateOrder(CheckoutInput checkoutInput,string customerId,string userId)
         {
-            var basket = await _basketService.Get();
+            var basket = await _basketService.GetAsync(userId);
 
             var orderCreateInput = new OrderCreateInput()
             {
-                //CustomerId = basket.CustomerId,
+                CustomerId = customerId,
                 Address = new AddressVM()
                 {
                     City = checkoutInput.City,

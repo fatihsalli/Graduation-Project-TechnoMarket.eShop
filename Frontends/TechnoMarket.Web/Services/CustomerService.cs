@@ -1,5 +1,8 @@
-﻿using TechnoMarket.Shared.Dtos;
+﻿using Microsoft.AspNetCore.Identity;
+using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Web.Models;
 using TechnoMarket.Web.Models.Customer;
+using TechnoMarket.Web.Models.Order;
 using TechnoMarket.Web.Services.Interfaces;
 
 namespace TechnoMarket.Web.Services
@@ -7,11 +10,12 @@ namespace TechnoMarket.Web.Services
     public class CustomerService : ICustomerService
     {
         private readonly HttpClient _httpClient;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public CustomerService(HttpClient httpClient)
+        public CustomerService(HttpClient httpClient, UserManager<IdentityUser> userManager)
         {
             _httpClient = httpClient;
-
+            _userManager = userManager;
         }
 
         //=> For Customer
@@ -28,5 +32,34 @@ namespace TechnoMarket.Web.Services
             var responseSuccess = await response.Content.ReadFromJsonAsync<CustomResponseDto<List<CustomerVM>>>();
             return responseSuccess.Data;
         }
+
+        public async Task<CustomerVM> CreateOrder(CheckoutInput checkoutInput)
+        {
+            var user = _userManager.Users.FirstOrDefault();
+
+            var customerCreateInput = new CustomerCreateInput()
+            {
+                FirstName = checkoutInput.FirstName,
+                LastName = checkoutInput.LastName,
+                Email = user.Email,
+                Address = new AddressVM
+                {
+                    AddressLine = checkoutInput.AddressLine,
+                    City = checkoutInput.City,
+                    CityCode = checkoutInput.CityCode,
+                    Country = checkoutInput.Country
+                }
+            };
+
+            var response = await _httpClient.PostAsJsonAsync<CustomerCreateInput>("customers", customerCreateInput);
+
+            var responseSuccess = await response.Content.ReadFromJsonAsync<CustomResponseDto<CustomerVM>>();
+
+            return responseSuccess.Data;
+        }
+
+
+
+
     }
 }

@@ -11,16 +11,21 @@ namespace TechnoMarket.Web.Controllers
     {
         private readonly IBasketService _basketService;
         private readonly ICatalogService _catalogService;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public BasketController(IBasketService basketService, ICatalogService catalogService, UserManager<IdentityUser> userManager)
         {
             _basketService = basketService;
             _catalogService = catalogService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
-            var basketVM = await _basketService.Get();
+            var user = await _userManager.GetUserAsync(User);
+
+            var basketVM = await _basketService.GetAsync(user.Id);
+
             return View(basketVM);
         }
         
@@ -35,13 +40,19 @@ namespace TechnoMarket.Web.Controllers
                 ProductName = product.Name
             };
 
-            await _basketService.AddBasketItem(basketItemVM);
+            var user = await _userManager.GetUserAsync(User);
+
+            await _basketService.AddBasketItemAsycn(basketItemVM,user.Id);
+
             return RedirectToAction(nameof(Index), "Home");
         }
 
         public async Task<IActionResult> RemoveBasketItem(string productId)
         {
-            await _basketService.RemoveBasketItem(productId);
+            var user = await _userManager.GetUserAsync(User);
+
+            await _basketService.RemoveBasketItemAsycn(productId,user.Id);
+
             return RedirectToAction(nameof(Index));
         }
 

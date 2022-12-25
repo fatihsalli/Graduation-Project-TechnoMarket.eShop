@@ -4,11 +4,11 @@ namespace TechnoMarket.Web.Services.Interfaces
 {
     public interface IBasketService
     {
-        Task<BasketVM> Get();
-        Task AddBasketItem(BasketItemVM basketItemVM);
-        Task<bool> RemoveBasketItem(string productId);
-        Task<bool> SaveOrUpdate(BasketVM basketVM);
-        Task<bool> Delete();
+        Task<BasketVM> GetAsync(string id);
+        Task AddBasketItemAsycn(BasketItemVM basketItemVM, string userId);
+        Task<bool> RemoveBasketItemAsycn(string productId, string userId);
+        Task<bool> SaveOrUpdateAsycn(BasketVM basketVM);
+        Task<bool> DeleteAsycn(string id);
 
 
     }
