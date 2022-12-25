@@ -47,24 +47,26 @@ namespace TechnoMarket.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterInput registerInput)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var newUser = new IdentityUser()
-                {
-                    UserName = registerInput.Username,
-                    Email = registerInput.Email
-                };
-
-                var result = await _userManager.CreateAsync(newUser, registerInput.Password);
-
-                if (!result.Succeeded)
-                {
-                    //Hata
-                }
-
-                return View();
+                return View(registerInput);
             }
-            return View();
+
+            var newUser = new IdentityUser()
+            {
+                UserName = registerInput.Username,
+                Email = registerInput.Email
+            };
+
+            var result = await _userManager.CreateAsync(newUser, registerInput.Password);
+
+            if (!result.Succeeded)
+            {
+                //Loglama
+                throw new Exception("User can't create");
+            }
+
+            return RedirectToAction(nameof(Login));
         }
 
         public IActionResult Login()
@@ -75,26 +77,31 @@ namespace TechnoMarket.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginInput loginInput)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(loginInput.Email);
-
-                if (user != null)
-                {
-                    var result = await _signInManager.PasswordSignInAsync(user, loginInput.Password, false, false);
-
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index");
-                    }
-                }
-                return View();
+                return View(loginInput);
             }
+
+            var user = await _userManager.FindByEmailAsync(loginInput.Email);
+
+            if (user != null)
+            {
+                var result = await _signInManager.PasswordSignInAsync(user, loginInput.Password, false, false);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
             return View();
         }
 
-
-
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index");
+        }
 
     }
 }

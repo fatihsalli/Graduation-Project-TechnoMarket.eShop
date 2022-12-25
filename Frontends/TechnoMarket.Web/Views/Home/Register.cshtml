@@ -3,6 +3,39 @@
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model RegisterInput
 
-<h1>Register</h1>
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Member Register</h5>
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <form asp-controller="Home" asp-action="Register" method="post">
+                    <div class="mb-3">
+                        <label asp-for="Username" for="exampleInputEmail1" class="form-label"></label>
+                        <input type="text" asp-for="Username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <span class="text-danger" asp-validation-for="Username"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Email" for="exampleInputEmail1" class="form-label"></label>
+                        <input type="email" asp-for="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Password" for="exampleInputPassword1" class="form-label"></label>
+                        <input type="password" asp-for="Password" class="form-control" id="exampleInputPassword1">
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ConfirmPassword" for="exampleInputPassword1" class="form-label"></label>
+                        <input type="password" asp-for="ConfirmPassword" class="form-control" id="exampleInputPassword1">
+                        <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
