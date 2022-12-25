@@ -12,14 +12,16 @@ namespace TechnoMarket.Web.Controllers
         private readonly IBasketService _basketService;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
 
-        public HomeController(ICatalogService catalogService, IBasketService basketService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public HomeController(ICatalogService catalogService, IBasketService basketService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _catalogService = catalogService;
             _basketService = basketService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         public async Task<IActionResult> Index()
@@ -69,6 +71,17 @@ namespace TechnoMarket.Web.Controllers
             {
                 //Loglama
                 throw new Exception("User can't create");
+            }
+
+            if (!await _roleManager.RoleExistsAsync("admin"))
+            {
+                await _roleManager.CreateAsync(new() { Name = "admin" });
+            }
+
+            //Role tanımlama
+            if (newUser.Email=="sallifatih@hotmail.com")
+            {
+                await _userManager.AddToRoleAsync(newUser, "admin");
             }
 
             return RedirectToAction(nameof(Login));
