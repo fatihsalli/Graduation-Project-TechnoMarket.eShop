@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TechnoMarket.Web.Models.Auth;
-using TechnoMarket.Web.Models.Customer;
 using TechnoMarket.Web.Services.Interfaces;
 
 namespace TechnoMarket.Web.Controllers
@@ -26,9 +25,9 @@ namespace TechnoMarket.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var user=await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User);
 
-            if (user!=null)
+            if (user != null)
             {
                 var basket = await _basketService.GetAsync(user.Id);
                 if (basket != null)
@@ -79,9 +78,9 @@ namespace TechnoMarket.Web.Controllers
             }
 
             //Role tanımlama
-            if (newUser.Email=="sallifatih@hotmail.com")
+            if (newUser.Email == "sallifatih@hotmail.com")
             {
-                await _userManager.AddToRoleAsync(newUser, "admin");
+                await _userManager.AddToRoleAsync(newUser, "Admin");
             }
 
             return RedirectToAction(nameof(Login));

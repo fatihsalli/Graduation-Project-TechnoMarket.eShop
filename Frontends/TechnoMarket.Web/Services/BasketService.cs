@@ -30,7 +30,7 @@ namespace TechnoMarket.Web.Services
             return basketVM.Data;
         }
 
-        public async Task AddBasketItemAsycn(BasketItemVM basketItemVM,string userId)
+        public async Task AddBasketItemAsycn(BasketItemVM basketItemVM, string userId)
         {
             var basketVM = await GetAsync(userId);
 
@@ -52,7 +52,7 @@ namespace TechnoMarket.Web.Services
             else //Sepet boş ise yeni nesne türeterek ilave ediyorum.
             {
                 basketVM = new BasketVM();
-                basketVM.UserId = _userManager.Users.FirstOrDefault().Id;
+                basketVM.UserId = userId;
                 basketVM.BasketItems.Add(basketItemVM);
             }
 

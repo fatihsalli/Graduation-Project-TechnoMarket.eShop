@@ -1,6 +1,5 @@
 using FreeCourse.Web.Helpers;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.DotNet.Scaffolding.Shared.ProjectModel;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TechnoMarket.Web.Data;
@@ -26,7 +25,7 @@ builder.Services.AddDbContext<UserContext>(x =>
 });
 
 //Identity (kimlik yönetimi) dahil etme
-builder.Services.AddIdentity<IdentityUser,IdentityRole>(options => options.SignIn.RequireConfirmedEmail = false).AddEntityFrameworkStores<UserContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedEmail = false).AddEntityFrameworkStores<UserContext>().AddDefaultTokenProviders();
 
 //Cookie
 builder.Services.ConfigureApplicationCookie(x =>
@@ -68,7 +67,7 @@ app.UseEndpoints(endpoints =>
     {
         endpoints.MapControllerRoute(
           name: "areas",
-          pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}"
+          pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
         );
     });
 

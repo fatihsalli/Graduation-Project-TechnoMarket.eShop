@@ -38,7 +38,7 @@ namespace TechnoMarket.Web.Controllers
 
             var customerVM = await _customerService.CreateOrder(checkoutInput);
 
-            var orderVM = await _orderService.CreateOrder(checkoutInput,customerVM.Id,user.Id);
+            var orderVM = await _orderService.CreateOrder(checkoutInput, customerVM.Id, user.Id);
 
             await _basketService.DeleteAsycn(user.Id);
 

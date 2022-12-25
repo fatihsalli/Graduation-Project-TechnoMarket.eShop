@@ -28,7 +28,7 @@ namespace TechnoMarket.Web.Controllers
 
             return View(basketVM);
         }
-        
+
         public async Task<IActionResult> AddBasketItem(string productId)
         {
             var product = await _catalogService.GetProductByIdAsync(productId);
@@ -42,7 +42,7 @@ namespace TechnoMarket.Web.Controllers
 
             var user = await _userManager.GetUserAsync(User);
 
-            await _basketService.AddBasketItemAsycn(basketItemVM,user.Id);
+            await _basketService.AddBasketItemAsycn(basketItemVM, user.Id);
 
             return RedirectToAction(nameof(Index), "Home");
         }
@@ -51,7 +51,7 @@ namespace TechnoMarket.Web.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            await _basketService.RemoveBasketItemAsycn(productId,user.Id);
+            await _basketService.RemoveBasketItemAsycn(productId, user.Id);
 
             return RedirectToAction(nameof(Index));
         }
