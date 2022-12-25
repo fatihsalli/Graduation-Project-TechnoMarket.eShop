@@ -1,3 +1,3 @@
 # TechnoMarket.eShop
 
-![alt text](https://imgyukle.com/f/2022/12/25/JvfWnt.jpeg)
+![alt text](https://i.ibb.co/z6RGwdk/project-architecture.jpg)
