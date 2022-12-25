@@ -37,7 +37,7 @@ namespace TechnoMarket.Web.Services
 
             var orderCreateInput = new OrderCreateInput()
             {
-                CustomerId = basket.CustomerId,
+                //CustomerId = basket.CustomerId,
                 Address = new AddressVM()
                 {
                     City = checkoutInput.City,

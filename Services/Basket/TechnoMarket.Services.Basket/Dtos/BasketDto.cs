@@ -2,7 +2,7 @@
 {
     public class BasketDto
     {
-        public string CustomerId { get; set; }
+        public string UserId { get; set; }
         public List<BasketItemDto> BasketItems { get; set; }
         public decimal TotalPrice
         {

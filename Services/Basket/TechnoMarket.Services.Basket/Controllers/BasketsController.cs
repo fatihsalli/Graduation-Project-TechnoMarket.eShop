@@ -20,9 +20,9 @@ namespace TechnoMarket.Services.Basket.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(CustomResponseDto<BasketDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetBasket(string customerId)
+        public async Task<IActionResult> GetBasket(string userId)
         {
-            var basketDto = await _basketService.GetBasket(customerId);
+            var basketDto = await _basketService.GetBasket(userId);
             return CreateActionResult(CustomResponseDto<BasketDto>.Success(200, basketDto));
         }
 
@@ -38,9 +38,9 @@ namespace TechnoMarket.Services.Basket.Controllers
         [HttpDelete]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> DeleteBasket(string customerId)
+        public async Task<IActionResult> DeleteBasket(string userId)
         {
-            await _basketService.Delete(customerId);
+            await _basketService.Delete(userId);
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 

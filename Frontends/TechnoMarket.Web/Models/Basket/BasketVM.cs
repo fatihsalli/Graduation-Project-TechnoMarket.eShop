@@ -7,7 +7,7 @@
             BasketItems = new List<BasketItemVM>();
         }
 
-        public string CustomerId { get; set; }
+        public string UserId { get; set; }
         public List<BasketItemVM> BasketItems { get; set; }
         public decimal TotalPrice
         {

@@ -15,32 +15,32 @@ namespace TechnoMarket.Services.Basket.Services
             _logger = logger;
         }
 
-        public async Task Delete(string customerId)
+        public async Task Delete(string userId)
         {
-            var status = await _redisService.GetDb().KeyDeleteAsync(customerId);
+            var status = await _redisService.GetDb().KeyDeleteAsync(userId);
 
             if (!status)
             {
-                _logger.LogError($"Basket with id ({customerId}) didn't find in the database.");
-                throw new NotFoundException($"Basket with id ({customerId}) didn't find in the database.");
+                _logger.LogError($"Basket with id ({userId}) didn't find in the database.");
+                throw new NotFoundException($"Basket with id ({userId}) didn't find in the database.");
             }
         }
 
-        public async Task<BasketDto> GetBasket(string customerId)
+        public async Task<BasketDto> GetBasket(string userId)
         {
-            var existBasket = await _redisService.GetDb().StringGetAsync(customerId);
+            var existBasket = await _redisService.GetDb().StringGetAsync(userId);
 
             if (existBasket.IsNullOrEmpty)
             {
-                _logger.LogError($"Basket with id ({customerId}) didn't find in the database.");
-                throw new NotFoundException($"Basket with id ({customerId}) didn't find in the database.");
+                _logger.LogError($"Basket with id ({userId}) didn't find in the database.");
+                throw new NotFoundException($"Basket with id ({userId}) didn't find in the database.");
             }
             return JsonSerializer.Deserialize<BasketDto>(existBasket);
         }
 
         public async Task SaveOrUpdate(BasketDto basketDto)
         {
-            var status = await _redisService.GetDb().StringSetAsync(basketDto.CustomerId, JsonSerializer.Serialize(basketDto));
+            var status = await _redisService.GetDb().StringSetAsync(basketDto.UserId, JsonSerializer.Serialize(basketDto));
 
             if (!status)
             {

@@ -1,4 +1,5 @@
-﻿using TechnoMarket.Shared.Dtos;
+﻿using Microsoft.AspNetCore.Identity;
+using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Web.Models.Basket;
 using TechnoMarket.Web.Services.Interfaces;
 
@@ -7,18 +8,20 @@ namespace TechnoMarket.Web.Services
     public class BasketService : IBasketService
     {
         private readonly HttpClient _httpClient;
-        public BasketService(HttpClient httpClient)
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public BasketService(HttpClient httpClient, UserManager<IdentityUser> userManager)
         {
             _httpClient = httpClient;
+            _userManager = userManager;
         }
 
         public async Task<BasketVM> Get()
         {
-            //TODO: JWT ile AuthServer oluşturulacak
-            string customerId = "60ca5f4d-71f9-4d9d-b074-393158bda67a";
+            var user = _userManager.Users.FirstOrDefault();
 
             //Sepet dolu mu değil mi check ediyoruz.
-            var response = await _httpClient.GetAsync($"baskets?customerId={customerId}");
+            var response = await _httpClient.GetAsync($"baskets?userId={user.Id}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -51,8 +54,7 @@ namespace TechnoMarket.Web.Services
             else //Sepet boş ise yeni nesne türeterek ilave ediyorum.
             {
                 basketVM = new BasketVM();
-                //TODO: JWT ile AuthServer oluşturulacak
-                basketVM.CustomerId = "60ca5f4d-71f9-4d9d-b074-393158bda67a";
+                basketVM.UserId = _userManager.Users.FirstOrDefault().Id;
                 basketVM.BasketItems.Add(basketItemVM);
             }
 
@@ -96,10 +98,8 @@ namespace TechnoMarket.Web.Services
 
         public async Task<bool> Delete()
         {
-            //Geçici çözüm
-            string customerId = "60ca5f4d-71f9-4d9d-b074-393158bda67a";
-
-            var response = await _httpClient.DeleteAsync($"baskets?customerId={customerId}");
+            var user = _userManager.Users.FirstOrDefault();
+            var response = await _httpClient.DeleteAsync($"baskets?userId={user.Id}");
             return response.IsSuccessStatusCode;
         }
 

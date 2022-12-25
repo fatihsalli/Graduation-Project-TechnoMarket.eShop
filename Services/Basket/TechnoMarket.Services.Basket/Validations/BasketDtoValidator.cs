@@ -7,7 +7,7 @@ namespace TechnoMarket.Services.Basket.Validations
     {
         public BasketDtoValidator()
         {
-            RuleFor(x => x.CustomerId)
+            RuleFor(x => x.UserId)
                 .NotNull().WithMessage("{PropertyName} is required")
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .Length(36).WithMessage("{PropertyName} must be 36 character");
