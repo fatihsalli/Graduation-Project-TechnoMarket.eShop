@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TechnoMarket.Web.Models.Auth;
 using TechnoMarket.Web.Services.Interfaces;
@@ -13,8 +14,7 @@ namespace TechnoMarket.Web.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-
-        public HomeController(ICatalogService catalogService, IBasketService basketService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public HomeController(ICatalogService catalogService, IBasketService basketService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ICustomerService customerService)
         {
             _catalogService = catalogService;
             _basketService = basketService;
@@ -118,6 +118,12 @@ namespace TechnoMarket.Web.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> UserInfoPage()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            return View(user);
         }
 
     }

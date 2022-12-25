@@ -4,10 +4,10 @@
         if (User.Identity.IsAuthenticated)
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-action="Index" asp-controller="Home">Hello! @User.Identity.Name</a>
+                <a class="nav-link text-dark" href="/Home/UserInfoPage">Hello! @User.Identity.Name</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-action="Logout" asp-controller="Home">Logout</a>
+                <a class="nav-link text-dark" href="/Home/Logout">Logout</a>
             </li>
         }
         else
