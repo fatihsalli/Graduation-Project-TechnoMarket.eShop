@@ -1,4 +1,9 @@
 using FreeCourse.Web.Helpers;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.DotNet.Scaffolding.Shared.ProjectModel;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using TechnoMarket.Web.Data;
 using TechnoMarket.Web.Extensions;
 using TechnoMarket.Web.Models;
 
@@ -10,6 +15,32 @@ builder.Services.Configure<ServiceApiSettings>(builder.Configuration.GetSection(
 
 //PhotoHelper DI Contanier a ekledik.
 builder.Services.AddSingleton<PhotoHelper>();
+
+//Database
+builder.Services.AddDbContext<UserContext>(x =>
+{
+    x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), option =>
+    {
+        option.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
+    });
+});
+
+//Identity (kimlik yönetimi) dahil etme
+builder.Services.AddIdentity<IdentityUser,IdentityRole>(options => options.SignIn.RequireConfirmedEmail = false).AddEntityFrameworkStores<UserContext>().AddDefaultTokenProviders();
+
+//Cookie
+builder.Services.ConfigureApplicationCookie(x =>
+{
+    x.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Home/Login");
+    x.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Home/Login");
+    x.Cookie = new Microsoft.AspNetCore.Http.CookieBuilder
+    {
+        Name = "Login_Cookie"
+    };
+    x.SlidingExpiration = true;
+    x.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+});
+
 
 //Extension metot => HttpClient ile ilgili servisler için (HttpClient üzerinden iletiþimi saðlayacaðýz.)
 builder.Services.AddHttpClientServices(builder.Configuration);

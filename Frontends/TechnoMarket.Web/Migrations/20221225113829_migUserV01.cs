@@ -1,13 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace TechnoMarket.AuthServer.Migrations
+namespace TechnoMarket.Web.Migrations
 {
-    /// <inheritdoc />
-    public partial class migV01 : Migration
+    public partial class migUserV01 : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -29,7 +28,6 @@ namespace TechnoMarket.AuthServer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -48,19 +46,6 @@ namespace TechnoMarket.AuthServer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserRefreshTokens",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserRefreshTokens", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -209,7 +194,6 @@ namespace TechnoMarket.AuthServer.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
@@ -226,9 +210,6 @@ namespace TechnoMarket.AuthServer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "UserRefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using TechnoMarket.Web.Models.Auth;
+using TechnoMarket.Web.Models.Customer;
 using TechnoMarket.Web.Services.Interfaces;
 
 namespace TechnoMarket.Web.Controllers
@@ -7,11 +10,15 @@ namespace TechnoMarket.Web.Controllers
     {
         private readonly ICatalogService _catalogService;
         private readonly IBasketService _basketService;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public HomeController(ICatalogService catalogService, IBasketService basketService)
+        public HomeController(ICatalogService catalogService, IBasketService basketService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _catalogService = catalogService;
             _basketService = basketService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> Index()
@@ -31,6 +38,61 @@ namespace TechnoMarket.Web.Controllers
         {
             return View(await _catalogService.GetProductByIdAsync(id));
         }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterInput registerInput)
+        {
+            if (ModelState.IsValid)
+            {
+                var newUser = new IdentityUser()
+                {
+                    UserName = registerInput.Username,
+                    Email = registerInput.Email
+                };
+
+                var result = await _userManager.CreateAsync(newUser, registerInput.Password);
+
+                if (!result.Succeeded)
+                {
+                    //Hata
+                }
+
+                return View();
+            }
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginInput loginInput)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(loginInput.Email);
+
+                if (user != null)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user, loginInput.Password, false, false);
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                return View();
+            }
+            return View();
+        }
+
 
 
 

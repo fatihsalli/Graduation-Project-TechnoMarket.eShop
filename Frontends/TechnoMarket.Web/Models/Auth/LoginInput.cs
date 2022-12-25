@@ -2,7 +2,7 @@
 
 namespace TechnoMarket.Web.Models.Auth
 {
-    public class SignInInput
+    public class LoginInput
     {
         //Sign in için model oluşturduk
         [Required]
