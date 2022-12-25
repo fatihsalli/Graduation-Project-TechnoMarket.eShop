@@ -43,8 +43,6 @@ namespace TechnoMarket.Web.Extensions
                 opt.BaseAddress = new Uri($"{serviceApisettings.GatewayBaseUri}/{serviceApisettings.Basket.Path}");
             });
 
-            //AuthServer.Api için => IdentityService de uygulama bize uygun bir HttpClient dönsün diye yazdık.
-            services.AddHttpClient<IIdentityService, IdentityService>();
 
 
 

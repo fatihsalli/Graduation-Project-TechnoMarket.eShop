@@ -1,16 +1,9 @@
 using FreeCourse.Web.Helpers;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using SharedLibrary.Extensions;
-using System.Configuration;
-using TechnoMarket.Shared.Configurations;
 using TechnoMarket.Web.Extensions;
 using TechnoMarket.Web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-//ClientId ve ClientSecret deðerleri için "ClientSettings" classýný oluþturduk. Options pattern üzerinden dolduracaðýz.
-builder.Services.Configure<ClientSettings>(builder.Configuration.GetSection(nameof(ClientSettings)));
 
 //Options pattern ile path'i okuyacaðýz.
 builder.Services.Configure<ServiceApiSettings>(builder.Configuration.GetSection(nameof(ServiceApiSettings)));
@@ -20,28 +13,6 @@ builder.Services.AddSingleton<PhotoHelper>();
 
 //Extension metot => HttpClient ile ilgili servisler için (HttpClient üzerinden iletiþimi saðlayacaðýz.)
 builder.Services.AddHttpClientServices(builder.Configuration);
-
-//IdentityService üzerinden kullanabilmek için.
-builder.Services.AddHttpContextAccessor();
-
-//CustomTokenOption ile appsetting arasýndaki iliþkiyi kurduk. TokenOption içerisindeki bilgileri CustomTokenOption nesnesi ile türetebilmek için bu iliþkiyi kurduk. (Options pattern)
-builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection("TokenOption"));
-
-//DI container içerisinde direkt olarak nesne türettik. Token sistemi için.
-var tokenOptions = builder.Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
-//Extension metot - SharedLibraryde oluþturduðumuz. Token doðrulama için. Birden fazla Api olduðu için SharedLibrary'de extension metot oluþturduk.
-builder.Services.AddCustomTokenAuth(tokenOptions);
-
-//Cookie oluþturuyoruz. Þemayý verdik servis tarafýnda yazdýðýmýz.
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
-{
-    opt.LoginPath = "/Auth/SignIn";
-    //Refresh token 60 gün olduðu için burada da 60 gün verdik.
-    opt.ExpireTimeSpan = TimeSpan.FromDays(60);
-    //60 gün içinde giriþ yaptýðýnda süre uzasýn mý=> true dedik
-    opt.SlidingExpiration = true;
-    opt.Cookie.Name = "technomarketcookie";
-});
 
 builder.Services.AddControllersWithViews();
 
