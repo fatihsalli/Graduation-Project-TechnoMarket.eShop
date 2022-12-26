@@ -135,7 +135,9 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         [InlineData("401ca3fc-e45b-4857-9950-2ff2a8e5977d")] //FakeId
         public async Task GetById_IdNotFound_ReturnException(string id)
         {
-            _mockRepo.Setup(x => x.GetSingleProductByIdWithCategoryAndFeaturesAsync(id)).Throws(new NotFoundException($"Product with id ({id}) didn't find in the database."));
+            Product product = null;
+
+            _mockRepo.Setup(x => x.GetSingleProductByIdWithCategoryAndFeaturesAsync(id)).ReturnsAsync(product);
 
             Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productService.GetByIdAsync(id));
 
@@ -281,7 +283,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Feature = new ProductFeatureDto { Color = "Black", Height = "12'", Weight = "15.3'", Width = "2.5 kg" }
             };
 
-            _mockRepo.Setup(x => x.AnyAsync(x => x.Id == new Guid(productUpdateDto.Id))).Throws(new NotFoundException($"Product with id ({productUpdateDto.Id}) didn't find in the database."));
+            _mockRepo.Setup(x => x.AnyAsync(x => x.Id == new Guid(productUpdateDto.Id))).ReturnsAsync(false);
 
             Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productService.UpdateAsync(productUpdateDto));
 
@@ -310,7 +312,9 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         [InlineData("401ca3fc-e45b-4857-9950-2ff2a8e5977d")] //FakeId
         public async Task Remove_IdNotFound_ReturnException(string id)
         {
-            _mockRepo.Setup(x => x.GetByIdAsync(id)).Throws(new NotFoundException($"Product with id ({id}) didn't find in the database."));
+            Product product = null;
+
+            _mockRepo.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(product);
 
             Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productService.RemoveAsync(id));
 
@@ -319,25 +323,6 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.IsType<NotFoundException>(exception);
             Assert.Equal($"Product with id ({id}) didn't find in the database.", exception.Message);
         }
-
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
 }
 
