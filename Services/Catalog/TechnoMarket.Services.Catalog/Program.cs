@@ -56,7 +56,7 @@ try
     //Shared Library üzerinden dönen response model yerine kendi modelimizi döndük.
     builder.Services.UseCustomValidationResponseModel();
 
-    #region Fluent Validation Response Model
+    #region Fluent Validation Response Model - Shared Library'e Taþýndý
     //Shared Library üzerinden yaptýk
     //FluentValidation ile dönen response'u pasif hale getirip kendi response modelimizi döndük.
     //builder.Services.Configure<ApiBehaviorOptions>(opt =>

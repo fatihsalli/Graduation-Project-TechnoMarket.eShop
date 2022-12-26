@@ -6,7 +6,9 @@ namespace TechnoMarket.Shared.Extensions
 {
     public static class UseCustomValidationResponse
     {
-        //Burada yaptığımız işlem FluentValidationda hata fırlattığında hazır gönderilen response modeli göndermeyip biz bir model oluşturarak onu göndermektir.
+        #region Fluent Validation İle Response Dönerken Bizim İstediğimiz Modeli Dönmek İçin
+        //Burada yaptığımız işlem FluentValidationda hata fırlattığında hazır gönderilen response modeli göndermeyip biz bir model oluşturarak onu göndermektir. 
+        #endregion
         public static void UseCustomValidationResponseModel(this IServiceCollection services)
         {
             services.Configure<ApiBehaviorOptions>(options =>
