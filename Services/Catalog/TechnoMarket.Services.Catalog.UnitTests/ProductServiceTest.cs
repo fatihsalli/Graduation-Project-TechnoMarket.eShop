@@ -86,6 +86,9 @@ namespace TechnoMarket.Services.Catalog.UnitTests
 
             var result = await _productService.GetAllAsync();
 
+            _mockRepo.Verify(x => x.GetProductsWithCategoryAndFeaturesAsync(), Times.Once);
+            _mockMapper.Verify(x => x.Map<List<ProductWithCategoryDto>>(_products), Times.Once);
+
             Assert.IsAssignableFrom<List<ProductWithCategoryDto>>(result);
             Assert.Equal(productWithCategoryDtos, result);
             Assert.Single(result);
@@ -167,8 +170,6 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         [Fact]
         public async Task Update_UpdateProduct_Success()
         {
-            var product=_products.First();
-
             var productUpdateDto = new ProductUpdateDto()
             {
                 Id = "3f7ca3fc-e45b-4857-9950-2ff2a8e5977d",
@@ -181,16 +182,32 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Feature = new ProductFeatureDto { Color = "Black", Height = "12'", Weight = "15.3'", Width = "2.5 kg" }
             };
 
-            product.Name= productUpdateDto.Name;
-            product.Price= productUpdateDto.Price;
-            product.Description= productUpdateDto.Description;
+            var product=_products.Where(x=> x.Id==new Guid(productUpdateDto.Id)).SingleOrDefault();
+
+            product.Name = productUpdateDto.Name;
+            product.Stock = productUpdateDto.Stock;
+            product.Price = productUpdateDto.Price;
+            product.Description = productUpdateDto.Description;
+            product.ImageFile = productUpdateDto.ImageFile;
+            product.CategoryId = new Guid(productUpdateDto.CategoryId);
+            product.Feature = new ProductFeature
+            {
+                Id = new Guid(productUpdateDto.Id),
+                Color=productUpdateDto.Feature.Color,
+                Height = productUpdateDto.Feature.Height,
+                Width = productUpdateDto.Feature.Width,
+                Weight = productUpdateDto.Feature.Weight,
+            };
 
             _mockMapper.Setup(x => x.Map<Product>(productUpdateDto)).Returns(product);
+
+            _mockRepo.Setup(x => x.AnyAsync(x=>x.Id== new Guid(productUpdateDto.Id))).ReturnsAsync(true);
             _mockRepo.Setup(x => x.Update(product));
             _mockUnitOfWork.Setup(x => x.CommitAsync());
             await _productService.UpdateAsync(productUpdateDto);
 
             _mockRepo.Verify(x => x.Update(product), Times.Once);
+            _mockRepo.Verify(x => x.AnyAsync(x => x.Id == new Guid(productUpdateDto.Id)), Times.Once);
             _mockUnitOfWork.Verify(x => x.CommitAsync(), Times.Once);
             _mockMapper.Verify(x => x.Map<Product>(productUpdateDto));
 
