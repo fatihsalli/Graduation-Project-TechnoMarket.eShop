@@ -131,8 +131,6 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             };
 
             _mockMapper.Setup(x => x.Map<Product>(productCreateDto)).Returns(product);
-            _mockRepo.Setup(x => x.AddAsync(product));
-            _mockUnitOfWork.Setup(x => x.CommitAsync());
 
             var productDto = new ProductDto()
             {
@@ -146,9 +144,15 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 CategoryId = "43f0db4e-08df-40d0-bb74-c8349f9f2e72",
             };
 
+            _mockRepo.Setup(x => x.AddAsync(product));           
+            _mockUnitOfWork.Setup(x => x.CommitAsync());
             _mockMapper.Setup(x => x.Map<ProductDto>(product)).Returns(productDto);
 
             var result = await _productService.AddAsync(productCreateDto);
+
+            _mockRepo.Verify(x => x.AddAsync(product), Times.Once);
+            _mockUnitOfWork.Verify(x => x.CommitAsync(), Times.Once);
+            _mockMapper.Verify(x => x.Map<ProductDto>(product), Times.Once);
 
             Assert.IsAssignableFrom<ProductDto>(result);
             Assert.Equal(productDto, result);
@@ -182,14 +186,13 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             product.Description= productUpdateDto.Description;
 
             _mockMapper.Setup(x => x.Map<Product>(productUpdateDto)).Returns(product);
-
             _mockRepo.Setup(x => x.Update(product));
-            _mockRepo.Verify(x=>x.Update(product),Times.Once);
-
             _mockUnitOfWork.Setup(x => x.CommitAsync());
-            _mockRepo.Verify(x => x.Update(product), Times.Once);
-
             await _productService.UpdateAsync(productUpdateDto);
+
+            _mockRepo.Verify(x => x.Update(product), Times.Once);
+            _mockUnitOfWork.Verify(x => x.CommitAsync(), Times.Once);
+            _mockMapper.Verify(x => x.Map<Product>(productUpdateDto));
 
             Assert.Equal(_products.First().Name, productUpdateDto.Name);
             Assert.Equal(_products.First().Price, productUpdateDto.Price);
