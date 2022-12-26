@@ -70,7 +70,9 @@ try
 
     var app = builder.Build();
 
-    //Migrationlarý database'e otomatik yansýtmak ve data basmak için
+    #region Otomatik Update-Database
+    //Migrationlarý database'e otomatik yansýtmak ve data basmak için. Dikkat migration oluþturmuyor mevcut migration'ý database tarafýnda güncel deðilse güncelliyor. 
+    #endregion
     using (var scope = app.Services.CreateScope())
     {
         var context = scope.ServiceProvider.GetRequiredService<CatalogDbContext>();
