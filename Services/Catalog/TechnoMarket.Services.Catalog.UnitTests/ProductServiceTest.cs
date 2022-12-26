@@ -1,18 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Models;
-using TechnoMarket.Services.Catalog.Repositories;
 using TechnoMarket.Services.Catalog.Repositories.Interfaces;
 using TechnoMarket.Services.Catalog.Services;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Services.Catalog.UnitOfWorks.Interfaces;
+using TechnoMarket.Shared.Exceptions;
 using Xunit;
 
 namespace TechnoMarket.Services.Catalog.UnitTests
@@ -94,6 +89,51 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.Single(result);
         }
 
+        [Theory]
+        [InlineData("3f7ca3fc-e45b-4857-9950-2ff2a8e5977d")]
+        public async Task GetById_GetProduct_Success(string id)
+        {
+            var product = _products.First(x => x.Id == new Guid(id));
+
+            _mockRepo.Setup(x => x.GetSingleProductByIdWithCategoryAndFeaturesAsync(id)).ReturnsAsync(product);
+
+            var productWithCategoryDtos = new ProductWithCategoryDto
+            {
+                Id = "3f7ca3fc-e45b-4857-9950-2ff2a8e5977d",
+                Name = "Asus Zenbook",
+                Stock = 10,
+                Price = 40000,
+                Description = "12th gen Intel® Core™ i9 processor,32 GB memory,1 TB SSD storage",
+                ImageFile = "asuszenbook.jpeg",
+                ProductFeature = "Black 15.3' 12' 2.5 kg",
+                Category = new CategoryDto { Id = "43f0db4e-08df-40d0-bb74-c8349f9f2e74", Name = "Notebook" }
+            };
+
+            _mockMapper.Setup(x => x.Map<ProductWithCategoryDto>(product)).Returns(productWithCategoryDtos);
+
+            var result = await _productService.GetByIdAsync(id);
+
+            _mockRepo.Verify(x => x.GetSingleProductByIdWithCategoryAndFeaturesAsync(id), Times.Once);
+            _mockMapper.Verify(x => x.Map<ProductWithCategoryDto>(product), Times.Once);
+
+            Assert.IsAssignableFrom<ProductWithCategoryDto>(result);
+            Assert.Equal(productWithCategoryDtos, result);
+        }
+
+        [Theory]
+        [InlineData("401ca3fc-e45b-4857-9950-2ff2a8e5977d")] //FakeId
+        public async Task GetById_IdNotFound_ReturnException(string id)
+        {
+            _mockRepo.Setup(x => x.GetSingleProductByIdWithCategoryAndFeaturesAsync(id)).Throws(new NotFoundException($"Product with id ({id}) didn't find in the database."));
+
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productService.GetByIdAsync(id));
+
+            _mockRepo.Verify(x => x.GetSingleProductByIdWithCategoryAndFeaturesAsync(id), Times.Once);
+
+            Assert.IsType<NotFoundException>(exception);
+            Assert.Equal($"Product with id ({id}) didn't find in the database.", exception.Message);
+        }
+
         [Fact]
         public async Task Create_CreateProduct_Success()
         {
@@ -147,7 +187,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 CategoryId = "43f0db4e-08df-40d0-bb74-c8349f9f2e72",
             };
 
-            _mockRepo.Setup(x => x.AddAsync(product));           
+            _mockRepo.Setup(x => x.AddAsync(product));
             _mockUnitOfWork.Setup(x => x.CommitAsync());
             _mockMapper.Setup(x => x.Map<ProductDto>(product)).Returns(productDto);
 
@@ -182,7 +222,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Feature = new ProductFeatureDto { Color = "Black", Height = "12'", Weight = "15.3'", Width = "2.5 kg" }
             };
 
-            var product=_products.Where(x=> x.Id==new Guid(productUpdateDto.Id)).SingleOrDefault();
+            var product = _products.Where(x => x.Id == new Guid(productUpdateDto.Id)).SingleOrDefault();
 
             product.Name = productUpdateDto.Name;
             product.Stock = productUpdateDto.Stock;
@@ -193,7 +233,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             product.Feature = new ProductFeature
             {
                 Id = new Guid(productUpdateDto.Id),
-                Color=productUpdateDto.Feature.Color,
+                Color = productUpdateDto.Feature.Color,
                 Height = productUpdateDto.Feature.Height,
                 Width = productUpdateDto.Feature.Width,
                 Weight = productUpdateDto.Feature.Weight,
@@ -201,7 +241,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
 
             _mockMapper.Setup(x => x.Map<Product>(productUpdateDto)).Returns(product);
 
-            _mockRepo.Setup(x => x.AnyAsync(x=>x.Id== new Guid(productUpdateDto.Id))).ReturnsAsync(true);
+            _mockRepo.Setup(x => x.AnyAsync(x => x.Id == new Guid(productUpdateDto.Id))).ReturnsAsync(true);
             _mockRepo.Setup(x => x.Update(product));
             _mockUnitOfWork.Setup(x => x.CommitAsync());
             await _productService.UpdateAsync(productUpdateDto);
@@ -216,15 +256,59 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.Equal(_products.First().Description, productUpdateDto.Description);
         }
 
+        [Fact]
+        public async Task Update_IdNotFound_ReturnException()
+        {
+            var productUpdateDto = new ProductUpdateDto()
+            {
+                Id = "3f7ca3fc-e45b-4857-9950-2ff2a8e5977d",
+                Name = "Asus Zenbook V002",
+                Stock = 10,
+                Price = 35000,
+                Description = "Unit test description",
+                ImageFile = "asuszenbook.jpeg",
+                CategoryId = "43f0db4e-08df-40d0-bb74-c8349f9f2e74",
+                Feature = new ProductFeatureDto { Color = "Black", Height = "12'", Weight = "15.3'", Width = "2.5 kg" }
+            };
 
+            _mockRepo.Setup(x => x.AnyAsync(x => x.Id == new Guid(productUpdateDto.Id))).Throws(new NotFoundException($"Product with id ({productUpdateDto.Id}) didn't find in the database."));
 
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productService.UpdateAsync(productUpdateDto));
 
+            _mockRepo.Verify(x => x.AnyAsync(x => x.Id == new Guid(productUpdateDto.Id)), Times.Once);
 
+            Assert.IsType<NotFoundException>(exception);
+            Assert.Equal($"Product with id ({productUpdateDto.Id}) didn't find in the database.", exception.Message);
+        }
 
+        [Theory]
+        [InlineData("3f7ca3fc-e45b-4857-9950-2ff2a8e5977d")]
+        public async Task Remove_RemoveProduct_Success(string id)
+        {
+            var product = _products.First(x => x.Id == new Guid(id));
 
+            _mockRepo.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(product);
+            _mockRepo.Setup(x => x.Remove(product));
 
+            await _productService.RemoveAsync(id);
 
+            _mockRepo.Verify(x => x.GetByIdAsync(id), Times.Once);
+            _mockRepo.Verify(x => x.Remove(product), Times.Once);
+        }
 
+        [Theory]
+        [InlineData("401ca3fc-e45b-4857-9950-2ff2a8e5977d")] //FakeId
+        public async Task Remove_IdNotFound_ReturnException(string id)
+        {
+            _mockRepo.Setup(x => x.GetByIdAsync(id)).Throws(new NotFoundException($"Product with id ({id}) didn't find in the database."));
+
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productService.RemoveAsync(id));
+
+            _mockRepo.Verify(x => x.GetByIdAsync(id), Times.Once);
+
+            Assert.IsType<NotFoundException>(exception);
+            Assert.Equal($"Product with id ({id}) didn't find in the database.", exception.Message);
+        }
 
 
 
