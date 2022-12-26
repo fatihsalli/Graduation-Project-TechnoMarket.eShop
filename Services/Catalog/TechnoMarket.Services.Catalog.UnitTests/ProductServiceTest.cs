@@ -86,13 +86,9 @@ namespace TechnoMarket.Services.Catalog.UnitTests
 
             var result=await _productService.GetAllAsync();
 
-            var successResult=Assert.IsType<List<ProductWithCategoryDto>>(result);
-
-            //Assert.Equal(_mo, result);
-
-            var returnResponse=Assert.IsAssignableFrom<List<ProductWithCategoryDto>>(result);
-
-            Assert.Equal(1, returnResponse.Count);
+            Assert.IsAssignableFrom<List<ProductWithCategoryDto>>(result);
+            Assert.Equal(productWithCategoryDtos,result);
+            Assert.Single(result);
         }
 
 
