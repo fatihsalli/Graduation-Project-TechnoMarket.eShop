@@ -60,6 +60,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         [Fact]
         public async Task Get_GetAllProducts_Success()
         {
+            //Product Repository'i taklit ederek _products listesinin dönmesini sağladık.
             _mockRepo.Setup(x => x.GetProductsWithCategoryAndFeaturesAsync()).ReturnsAsync(_products);
 
             var productWithCategoryDtos = new List<ProductWithCategoryDto>()
@@ -77,15 +78,22 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 }
             };
 
+            //Mapper'ı taklit ederek List<ProductWithCategoryDto> oluşturduk
             _mockMapper.Setup(x => x.Map<List<ProductWithCategoryDto>>(_products)).Returns(productWithCategoryDtos);
 
             var result = await _productService.GetAllAsync();
 
+            //Metotların sadece 1 kez kullanılıp kullanılmadığını check ediyoruz.
             _mockRepo.Verify(x => x.GetProductsWithCategoryAndFeaturesAsync(), Times.Once);
             _mockMapper.Verify(x => x.Map<List<ProductWithCategoryDto>>(_products), Times.Once);
 
+            //Result tipini kontrol ediyoruz.
             Assert.IsAssignableFrom<List<ProductWithCategoryDto>>(result);
+
+            //Mapper ile gönderdiğimiz data ile resulttan gelen datayı check ediyoruz.
             Assert.Equal(productWithCategoryDtos, result);
+
+            //Bir tane ürün eklediğimiz için bir tane olup olmadığını kontrol ediyoruz. Birden fazla olması durumunda "Assert.Equal<int>(2, result.Count);" olarak kullanabiliriz.
             Assert.Single(result);
         }
 
@@ -93,8 +101,10 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         [InlineData("3f7ca3fc-e45b-4857-9950-2ff2a8e5977d")]
         public async Task GetById_GetProduct_Success(string id)
         {
+            //Kendi oluşturduğumuz listten ilgili id'yi bulduk.
             var product = _products.First(x => x.Id == new Guid(id));
 
+            //Product Repository'i taklit ederek geriye bu product'ı döndük.
             _mockRepo.Setup(x => x.GetSingleProductByIdWithCategoryAndFeaturesAsync(id)).ReturnsAsync(product);
 
             var productWithCategoryDtos = new ProductWithCategoryDto
@@ -109,13 +119,14 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Category = new CategoryDto { Id = "43f0db4e-08df-40d0-bb74-c8349f9f2e74", Name = "Notebook" }
             };
 
+            //Mapper'ı taklit ederek "ProductWithCategoryDto" oluşturduk.
             _mockMapper.Setup(x => x.Map<ProductWithCategoryDto>(product)).Returns(productWithCategoryDtos);
 
             var result = await _productService.GetByIdAsync(id);
 
             _mockRepo.Verify(x => x.GetSingleProductByIdWithCategoryAndFeaturesAsync(id), Times.Once);
             _mockMapper.Verify(x => x.Map<ProductWithCategoryDto>(product), Times.Once);
-
+            Assert.Equal(product.Id.ToString(), result.Id);
             Assert.IsAssignableFrom<ProductWithCategoryDto>(result);
             Assert.Equal(productWithCategoryDtos, result);
         }
@@ -129,7 +140,6 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productService.GetByIdAsync(id));
 
             _mockRepo.Verify(x => x.GetSingleProductByIdWithCategoryAndFeaturesAsync(id), Times.Once);
-
             Assert.IsType<NotFoundException>(exception);
             Assert.Equal($"Product with id ({id}) didn't find in the database.", exception.Message);
         }
@@ -196,7 +206,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             _mockRepo.Verify(x => x.AddAsync(product), Times.Once);
             _mockUnitOfWork.Verify(x => x.CommitAsync(), Times.Once);
             _mockMapper.Verify(x => x.Map<ProductDto>(product), Times.Once);
-
+            _mockMapper.Verify(x => x.Map<Product>(productCreateDto), Times.Once);
             Assert.IsAssignableFrom<ProductDto>(result);
             Assert.Equal(productDto, result);
             Assert.Equal(productCreateDto.Name, result.Name);
@@ -244,13 +254,13 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             _mockRepo.Setup(x => x.AnyAsync(x => x.Id == new Guid(productUpdateDto.Id))).ReturnsAsync(true);
             _mockRepo.Setup(x => x.Update(product));
             _mockUnitOfWork.Setup(x => x.CommitAsync());
+
             await _productService.UpdateAsync(productUpdateDto);
 
             _mockRepo.Verify(x => x.Update(product), Times.Once);
             _mockRepo.Verify(x => x.AnyAsync(x => x.Id == new Guid(productUpdateDto.Id)), Times.Once);
             _mockUnitOfWork.Verify(x => x.CommitAsync(), Times.Once);
             _mockMapper.Verify(x => x.Map<Product>(productUpdateDto));
-
             Assert.Equal(_products.First().Name, productUpdateDto.Name);
             Assert.Equal(_products.First().Price, productUpdateDto.Price);
             Assert.Equal(_products.First().Description, productUpdateDto.Description);
