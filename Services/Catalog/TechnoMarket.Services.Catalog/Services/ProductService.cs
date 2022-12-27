@@ -106,11 +106,11 @@ namespace TechnoMarket.Services.Catalog.Services
             #region Event Publisher
             //İsim değiştiğinde Order servisinde de değişmesi için event fırlattık. 
             #endregion
-            //await _publishEndPoint.Publish<ProductNameChangedEvent>(new ProductNameChangedEvent
-            //{
-            //    ProductId=productUpdate.Id.ToString(),
-            //    UpdatedName=productUpdate.Name,
-            //});
+            await _publishEndPoint.Publish<ProductNameChangedEvent>(new ProductNameChangedEvent
+            {
+                ProductId = productUpdate.Id.ToString(),
+                UpdatedName = productUpdate.Name,
+            });
         }
 
         public async Task RemoveAsync(string id)

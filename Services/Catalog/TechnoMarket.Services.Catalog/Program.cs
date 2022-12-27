@@ -30,7 +30,7 @@ try
     builder.Services.AddScoped(typeof(NotFoundFilter<>));
     builder.Services.AddScoped<NotFoundCategoryForProductFilter>();
 
-    //For Event with RabbitMQ
+    //Event fýrlatmak için => RabbitMQ ile
     builder.Services.AddMassTransit(x =>
     {
         //Dafault port:5672
