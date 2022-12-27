@@ -53,4 +53,11 @@ There is a couple of microservices which implemented e-commerce modules over **C
 * REST API principles, CRUD operations
 * Using **Custom Response, Middleware and Exceptions** with Shared Library
 
+#### API Gateway Ocelot Microservice which includes; 
+* Implement **API Gateways with Ocelot**
+* Sample microservices/containers to reroute through the API Gateways
+
+#### WebUI ShoppingApp Microservice
+* ASP.NET Core Web Application with Bootstrap 5 and Razor template
+* Call **Ocelot APIs with HttpClientFactory**
 
