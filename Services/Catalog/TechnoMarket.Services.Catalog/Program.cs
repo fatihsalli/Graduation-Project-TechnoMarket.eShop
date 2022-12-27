@@ -1,4 +1,5 @@
 using FluentValidation.AspNetCore;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
@@ -29,6 +30,19 @@ try
     builder.Services.AddScoped(typeof(NotFoundFilter<>));
     builder.Services.AddScoped<NotFoundCategoryForProductFilter>();
 
+    //For Event with RabbitMQ
+    builder.Services.AddMassTransit(x =>
+    {
+        //Dafault port:5672
+        x.UsingRabbitMq((context, cfg) =>
+        {
+            cfg.Host(builder.Configuration["RabbitMQUrl"], "/", host =>
+            {
+                host.Username("guest");
+                host.Password("guest");
+            });
+        });
+    });
 
     //Database
     builder.Services.AddDbContext<CatalogDbContext>(x =>

@@ -9,7 +9,7 @@ namespace TechnoMarket.Services.Catalog.Repositories.Interfaces
         IQueryable<T> Where(Expression<Func<T, bool>> expression);
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
         Task AddAsync(T entity);
-        void Update(T entity);
+        T Update(T entity);
         void Remove(T entity);
     }
 }

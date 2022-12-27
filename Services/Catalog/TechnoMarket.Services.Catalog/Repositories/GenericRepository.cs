@@ -42,10 +42,11 @@ namespace TechnoMarket.Services.Catalog.Repositories
             _dbSet.Remove(entity);
         }
 
-        public void Update(T entity)
+        public T Update(T entity)
         {
             //_context.Entry(entity).State= EntityState.Modified; //=>Alternatif 
-            _dbSet.Update(entity);
+            var result=_dbSet.Update(entity);
+            return result.Entity;
         }
 
         public IQueryable<T> Where(Expression<Func<T, bool>> expression)

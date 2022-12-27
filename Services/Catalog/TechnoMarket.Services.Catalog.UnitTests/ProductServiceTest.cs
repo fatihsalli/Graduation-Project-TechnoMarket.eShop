@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MassTransit;
 using Microsoft.Extensions.Logging;
 using Moq;
 using TechnoMarket.Services.Catalog.Dtos;
@@ -18,6 +19,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         private readonly Mock<ILogger<ProductService>> _mockLogger;
         private readonly Mock<IProductRepository> _mockRepo;
         private readonly Mock<IUnitOfWork> _mockUnitOfWork;
+        private readonly Mock<IPublishEndpoint> _mockPublisher;
         private readonly IProductService _productService;
         private List<Product> _products;
 
@@ -27,7 +29,8 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             _mockUnitOfWork = new Mock<IUnitOfWork>();
             _mockMapper = new Mock<IMapper>();
             _mockLogger = new Mock<ILogger<ProductService>>();
-            _productService = new ProductService(_mockMapper.Object, _mockRepo.Object, _mockUnitOfWork.Object, _mockLogger.Object);
+            _mockPublisher= new Mock<IPublishEndpoint>();
+            _productService = new ProductService(_mockMapper.Object, _mockRepo.Object, _mockUnitOfWork.Object, _mockLogger.Object,_mockPublisher.Object);
             _products = new List<Product>()
             {
                 new Product
@@ -254,7 +257,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             _mockMapper.Setup(x => x.Map<Product>(productUpdateDto)).Returns(product);
 
             _mockRepo.Setup(x => x.AnyAsync(x => x.Id == new Guid(productUpdateDto.Id))).ReturnsAsync(true);
-            _mockRepo.Setup(x => x.Update(product));
+            _mockRepo.Setup(x => x.Update(product)).Returns(product);
             _mockUnitOfWork.Setup(x => x.CommitAsync());
 
             await _productService.UpdateAsync(productUpdateDto);

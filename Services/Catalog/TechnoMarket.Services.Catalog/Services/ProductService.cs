@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MassTransit;
 using System.Linq.Expressions;
 using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Models;
@@ -6,6 +7,7 @@ using TechnoMarket.Services.Catalog.Repositories.Interfaces;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Services.Catalog.UnitOfWorks.Interfaces;
 using TechnoMarket.Shared.Exceptions;
+using TechnoMarket.Shared.Messages;
 
 namespace TechnoMarket.Services.Catalog.Services
 {
@@ -15,14 +17,17 @@ namespace TechnoMarket.Services.Catalog.Services
         private readonly IProductRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<ProductService> _logger;
+        //Event fırlatmak için
+        private readonly IPublishEndpoint _publishEndPoint;
 
 
-        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, ILogger<ProductService> logger)
+        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, ILogger<ProductService> logger,IPublishEndpoint publishEndpoint)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _publishEndPoint= publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         public async Task<List<ProductWithCategoryDto>> GetAllAsync()
@@ -88,8 +93,24 @@ namespace TechnoMarket.Services.Catalog.Services
             //Önemli!!! ProductFeature için id değerini clienttan almayıp null olarak bırakırsak EF Core state değerini Added olarak ayarlıyor o sebeple de ProductFeature update edilemiyor. (Parent üzerinden update etmek için) 
             #endregion
             productUpdate.Feature.Id = productUpdate.Id;
-            _repository.Update(productUpdate);
+            var result=_repository.Update(productUpdate);
+
+            if (result==null)
+            {
+                _logger.LogError("Product didn't update in the database.");
+                throw new Exception("Product didn't update in the database.");
+            }
+
             await _unitOfWork.CommitAsync();
+
+            #region Event Publisher
+            //İsim değiştiğinde Order servisinde de değişmesi için event fırlattık. 
+            #endregion
+            //await _publishEndPoint.Publish<ProductNameChangedEvent>(new ProductNameChangedEvent
+            //{
+            //    ProductId=productUpdate.Id.ToString(),
+            //    UpdatedName=productUpdate.Name,
+            //});
         }
 
         public async Task RemoveAsync(string id)
