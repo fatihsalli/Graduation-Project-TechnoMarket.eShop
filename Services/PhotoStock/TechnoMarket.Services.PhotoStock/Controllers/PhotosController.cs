@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Shared.Exceptions;
 
 namespace FreeCourse.Services.PhotoStock.Controllers
 {
@@ -33,7 +34,8 @@ namespace FreeCourse.Services.PhotoStock.Controllers
 
                 return CreateActionResult(CustomResponseDto<PhotoDto>.Success(200, photoDto));
             }
-            return CreateActionResult(CustomResponseDto<NoContentDto>.Fail(400, "Photo is empty!"));
+
+            throw new ClientSideException($"Photo is empty!");
         }
 
         [HttpDelete]
@@ -47,7 +49,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
             //Path var mı yok mu kontrol ediyoruz.
             if (!System.IO.File.Exists(path))
             {
-                return CreateActionResult(CustomResponseDto<NoContentDto>.Fail(404, "Photo is not found!"));
+                throw new NotFoundException($"Photo with url ({photoUrl}) didn't find in the database.");
             }
             //Var ise siliyoruz.
             System.IO.File.Delete(path);
