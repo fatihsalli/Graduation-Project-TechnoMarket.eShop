@@ -38,12 +38,13 @@ namespace TechnoMarket.Web.Controllers
 
             var customerVM = await _customerService.CreateOrder(checkoutInput);
 
-            var orderSuccess = await _basketService.CheckOutForAsyncCommunication(checkoutInput, customerVM.Id, user.Id);
+            #region Senkron Yol
+            //Senkron yol
+            //var order=await _orderService.CreateOrderAsync(checkoutInput, customerVM.Id, user.Id); 
+            #endregion
 
-            if (!orderSuccess)
-            {
-                return View();
-            }
+            //Asenkron yol
+            var orderSuccess = await _basketService.CheckOutForAsyncCommunication(checkoutInput, customerVM.Id, user.Id);
 
             await _basketService.DeleteAsycn(user.Id);
             return RedirectToAction(nameof(CheckoutHistory));

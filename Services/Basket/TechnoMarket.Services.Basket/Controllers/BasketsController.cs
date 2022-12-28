@@ -16,13 +16,11 @@ namespace TechnoMarket.Services.Basket.Controllers
     {
         private readonly IBasketService _basketService;
         private readonly ISendEndpointProvider _sendEndpointProvider;
-        private readonly IMapper _mapper;
 
-        public BasketsController(IBasketService basketService, ISendEndpointProvider sendEndpointProvider,IMapper mapper)
+        public BasketsController(IBasketService basketService, ISendEndpointProvider sendEndpointProvider)
         {
             _basketService = basketService;
             _sendEndpointProvider = sendEndpointProvider;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -55,14 +53,37 @@ namespace TechnoMarket.Services.Basket.Controllers
         [Route("[action]")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> CheckOut([FromBody] BasketCheckOutDto basketCheckOutDto)
         {
             //Kuyruk oluşturduk
-            var sendEndPoint =await _sendEndpointProvider.GetSendEndpoint(new Uri("gueue:create-order-service"));
+            var sendEndPoint =await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:create-order-service"));
 
-            var createOrderMessageCommand = _mapper.Map<CreateOrderMessageCommand>(basketCheckOutDto);
+            var createOrderMessageCommand = new CreateOrderMessageCommand()
+            {
+                CustomerId=basketCheckOutDto.CustomerId,
+                Status= basketCheckOutDto.Status,
+                TotalPrice=basketCheckOutDto.TotalPrice,
+                Address=new Shared.Messages.AddressDto
+                {
+                    AddressLine=basketCheckOutDto.Address.AddressLine,
+                    City = basketCheckOutDto.Address.City,
+                    Country = basketCheckOutDto.Address.Country,
+                    CityCode = basketCheckOutDto.Address.CityCode,
+                }
+            };
 
+            basketCheckOutDto.OrderItems.ForEach(x =>
+            {
+                createOrderMessageCommand.OrderItems.Add(new Shared.Messages.OrderItemDto
+                {
+                    Quantity = x.Quantity,
+                    Price = x.Price,
+                    ProductId = x.ProductId,
+                    ProductName = x.ProductName
+                });
+            });
+
+            //Mesajı gönderiyoruz. Order ayakta olmasa bile mesaj kuyrukta bekleyecek.
             await sendEndPoint.Send<CreateOrderMessageCommand>(createOrderMessageCommand);
 
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));

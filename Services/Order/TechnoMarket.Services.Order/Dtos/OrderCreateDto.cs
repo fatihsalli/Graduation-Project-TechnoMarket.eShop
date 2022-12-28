@@ -2,6 +2,10 @@
 {
     public class OrderCreateDto
     {
+        public OrderCreateDto()
+        {
+            OrderItems = new List<OrderItemDto>();
+        }
         public string CustomerId { get; set; }
         public decimal TotalPrice { get; set; }
         public string Status { get; set; }

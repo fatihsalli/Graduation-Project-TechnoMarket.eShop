@@ -40,9 +40,6 @@ try
     //builder.Services.AddMassTransitHostedService(); 
     #endregion
 
-    //AutoMapper
-    builder.Services.AddAutoMapper(typeof(Program));
-
     //Options Pattern
     builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection(nameof(RedisSettings)));
 

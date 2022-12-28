@@ -32,7 +32,7 @@ namespace TechnoMarket.Web.Services
         }
 
         //Asenkron olarak Basket.Api tarafınca Command olarak gönderildi. Bu metot senkron iletişim olarak bırakıldı.
-        public async Task<OrderVM> CreateOrder(CheckoutInput checkoutInput, string customerId, string userId)
+        public async Task<OrderVM> CreateOrderAsync(CheckoutInput checkoutInput, string customerId, string userId)
         {
             var basket = await _basketService.GetAsync(userId);
 

@@ -31,6 +31,7 @@ try
     builder.Services.AddMassTransit(x =>
     {
         x.AddConsumer<ProductNameChangedEventConsumer>();
+        x.AddConsumer<CreateOrderMessageCommandConsumer>();
 
         //Dafault port:5672
         x.UsingRabbitMq((context, cfg) =>
@@ -41,6 +42,12 @@ try
                 host.Password("guest");
             });
 
+            //Command i okumak için Basket.Api tarafýnda oluþturduðumuz kuyruðu dinliyoruz.
+            cfg.ReceiveEndpoint("create-order-service", e =>
+            {
+                e.ConfigureConsumer<CreateOrderMessageCommandConsumer>(context);
+            });
+
             //Eventi yakalamak için kuyruðu consumer tarafýnda oluþturuyoruz.
             cfg.ReceiveEndpoint("product-name-changed-event-order-service", e =>
             {
@@ -48,7 +55,6 @@ try
             });
         });
     });
-
 
     //Options Pattern
     builder.Services.Configure<OrderDatabaseSettings>(builder.Configuration.GetSection(nameof(OrderDatabaseSettings)));

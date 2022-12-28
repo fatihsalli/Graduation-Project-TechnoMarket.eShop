@@ -5,7 +5,7 @@ namespace TechnoMarket.Web.Services.Interfaces
     public interface IOrderService
     {
         Task<List<OrderVM>> GetAllOrdersAsync();
-        Task<OrderVM> CreateOrder(CheckoutInput checkoutInput, string customerId, string userId);
+        Task<OrderVM> CreateOrderAsync(CheckoutInput checkoutInput, string customerId, string userId);
 
     }
 }
