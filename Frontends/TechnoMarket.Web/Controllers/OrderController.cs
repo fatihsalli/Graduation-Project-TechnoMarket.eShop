@@ -46,7 +46,6 @@ namespace TechnoMarket.Web.Controllers
             }
 
             await _basketService.DeleteAsycn(user.Id);
-
             return RedirectToAction(nameof(CheckoutHistory));
         }
 

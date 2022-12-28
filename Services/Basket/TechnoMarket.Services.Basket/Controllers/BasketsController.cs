@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using MassTransit;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TechnoMarket.Services.Basket.Dtos;
 using TechnoMarket.Services.Basket.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Shared.Messages;
 
 namespace TechnoMarket.Services.Basket.Controllers
 {
@@ -12,9 +15,14 @@ namespace TechnoMarket.Services.Basket.Controllers
     public class BasketsController : CustomBaseController
     {
         private readonly IBasketService _basketService;
-        public BasketsController(IBasketService basketService)
+        private readonly ISendEndpointProvider _sendEndpointProvider;
+        private readonly IMapper _mapper;
+
+        public BasketsController(IBasketService basketService, ISendEndpointProvider sendEndpointProvider,IMapper mapper)
         {
             _basketService = basketService;
+            _sendEndpointProvider = sendEndpointProvider;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -50,13 +58,15 @@ namespace TechnoMarket.Services.Basket.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> CheckOut([FromBody] BasketCheckOutDto basketCheckOutDto)
         {
+            //Kuyruk oluşturduk
+            var sendEndPoint =await _sendEndpointProvider.GetSendEndpoint(new Uri("gueue:create-order-service"));
 
+            var createOrderMessageCommand = _mapper.Map<CreateOrderMessageCommand>(basketCheckOutDto);
+
+            await sendEndPoint.Send<CreateOrderMessageCommand>(createOrderMessageCommand);
 
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
-
-
-
 
     }
 }

@@ -136,7 +136,6 @@ namespace TechnoMarket.Web.Services
             var response = await _httpClient.PostAsJsonAsync<OrderCreateInput>("baskets/CheckOut", orderCreateInput);
 
             return response.IsSuccessStatusCode;
-
         }
 
 
