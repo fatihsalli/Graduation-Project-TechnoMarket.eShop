@@ -43,6 +43,19 @@ namespace TechnoMarket.Services.Customer.Services
             return _mapper.Map<CustomerDto>(customer);
         }
 
+        public async Task<CustomerDto> GetByEmailAsync(string email)
+        {
+            var customer = await _repository.Where(x=> x.Email==email).SingleOrDefaultAsync();
+
+            if (customer == null)
+            {
+                _logger.LogError($"Customer with email ({email}) didn't find in the database.");
+                throw new NotFoundException($"Customer with email ({email}) didn't find in the database.");
+            }
+
+            return _mapper.Map<CustomerDto>(customer);
+        }
+
         public async Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto)
         {
             var customer = _mapper.Map<Models.Customer>(customerCreateDto);

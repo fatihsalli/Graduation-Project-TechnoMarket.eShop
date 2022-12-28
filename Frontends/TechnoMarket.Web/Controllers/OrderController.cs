@@ -36,6 +36,14 @@ namespace TechnoMarket.Web.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
+            
+
+            if (true)
+            {
+
+            }
+
+
             var customerVM = await _customerService.CreateOrder(checkoutInput);
 
             #region Senkron Yol
