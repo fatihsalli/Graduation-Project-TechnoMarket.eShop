@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TechnoMarket.Shared.Messages
+﻿namespace TechnoMarket.Services.Basket.Dtos
 {
-    //Command Örneği
-    public class CreateOrderMessageCommand
+    public class BasketCheckOutDto
     {
         public string CustomerId { get; set; }
         public decimal TotalPrice { get; set; }
         public string Status { get; set; }
         public AddressDto Address { get; set; }
         public List<OrderItemDto> OrderItems { get; set; }
+
     }
 
     public class OrderItemDto
@@ -31,5 +25,4 @@ namespace TechnoMarket.Shared.Messages
         public string Country { get; set; }
         public int CityCode { get; set; }
     }
-
 }

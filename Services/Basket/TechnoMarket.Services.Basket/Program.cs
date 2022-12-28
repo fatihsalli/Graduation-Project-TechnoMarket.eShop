@@ -1,4 +1,5 @@
 using FluentValidation.AspNetCore;
+using MassTransit;
 using Microsoft.Extensions.Options;
 using NLog;
 using NLog.Web;
@@ -14,10 +15,31 @@ logger.Debug("init main");
 try
 {
     var builder = WebApplication.CreateBuilder(args);
-
+    
     // NLog: Setup NLog for Dependency injection
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
+
+    //MassTransit => RabbitMQ ile command göndermek için
+    builder.Services.AddMassTransit(x =>
+    {
+        // Default port :5672
+        x.UsingRabbitMq((context, config) =>
+        {
+            config.Host(builder.Configuration["RabbitMQUrl"], "/", host =>
+            {
+                //Default olarak username ve password guest olarak gelmektedir.
+                host.Username("guest");
+                host.Password("guest");
+            });
+        });
+    });
+
+    #region AddMassTransitHostedService() Gerek Kalmadý
+    //Buna gerek kalmadý son versiyon ile. StackOverFlow => https://stackoverflow.com/questions/70187422/addmasstransithostedservice-cannot-be-found
+    //builder.Services.AddMassTransitHostedService(); 
+    #endregion
+
 
     //Options Pattern
     builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection(nameof(RedisSettings)));

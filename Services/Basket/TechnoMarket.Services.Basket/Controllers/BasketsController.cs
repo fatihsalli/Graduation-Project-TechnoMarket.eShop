@@ -44,5 +44,19 @@ namespace TechnoMarket.Services.Basket.Controllers
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> CheckOut([FromBody] BasketCheckOutDto basketCheckOutDto)
+        {
+
+
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+        }
+
+
+
+
     }
 }
