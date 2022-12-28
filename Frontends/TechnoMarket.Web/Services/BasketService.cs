@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TechnoMarket.Shared.Dtos;
+using TechnoMarket.Web.Models;
 using TechnoMarket.Web.Models.Basket;
+using TechnoMarket.Web.Models.Order;
 using TechnoMarket.Web.Services.Interfaces;
 
 namespace TechnoMarket.Web.Services
@@ -99,6 +101,45 @@ namespace TechnoMarket.Web.Services
             var response = await _httpClient.DeleteAsync($"baskets?userId={userId}");
             return response.IsSuccessStatusCode;
         }
+
+        //Basket.Api microservisinde BasketController içerisinde "CheckOut" metodu ile asenkron iletişim olacak şekilde Command gönderildi. MassTransit framework u ile birlikte RabbitMQ kullanıldı.
+        public async Task<bool> CheckOutForAsyncCommunication(CheckoutInput checkoutInput, string customerId, string userId)
+        {
+            var basket = await GetAsync(userId);
+
+            var orderCreateInput = new OrderCreateInput()
+            {
+                CustomerId = customerId,
+                Address = new AddressVM()
+                {
+                    City = checkoutInput.City,
+                    AddressLine = checkoutInput.AddressLine,
+                    CityCode = checkoutInput.CityCode,
+                    Country = checkoutInput.Country,
+                },
+                Status = "Active",
+                TotalPrice = basket.TotalPrice
+            };
+
+            basket.BasketItems.ForEach(x =>
+            {
+                var orderItem = new OrderItemVM
+                {
+                    Price = x.Price,
+                    ProductId = x.ProductId,
+                    ProductName = x.ProductName,
+                    Quantity = x.Quantity
+                };
+                orderCreateInput.OrderItems.Add(orderItem);
+            });
+
+            var response = await _httpClient.PostAsJsonAsync<OrderCreateInput>("baskets/CheckOut", orderCreateInput);
+
+            return response.IsSuccessStatusCode;
+
+        }
+
+
 
     }
 }

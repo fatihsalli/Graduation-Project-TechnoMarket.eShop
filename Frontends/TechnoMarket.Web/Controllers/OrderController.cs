@@ -38,16 +38,21 @@ namespace TechnoMarket.Web.Controllers
 
             var customerVM = await _customerService.CreateOrder(checkoutInput);
 
-            var orderVM = await _orderService.CreateOrder(checkoutInput, customerVM.Id, user.Id);
+            var orderSuccess = await _basketService.CheckOutForAsyncCommunication(checkoutInput, customerVM.Id, user.Id);
+
+            if (!orderSuccess)
+            {
+                return View();
+            }
 
             await _basketService.DeleteAsycn(user.Id);
 
-            return RedirectToAction(nameof(CheckoutHistory), orderVM);
+            return RedirectToAction(nameof(CheckoutHistory));
         }
 
-        public IActionResult CheckoutHistory(OrderVM orderVM)
+        public IActionResult CheckoutHistory()
         {
-            return View(orderVM);
+            return View();
         }
 
     }
