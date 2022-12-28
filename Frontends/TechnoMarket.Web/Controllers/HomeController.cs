@@ -9,17 +9,21 @@ namespace TechnoMarket.Web.Controllers
     {
         private readonly ICatalogService _catalogService;
         private readonly IBasketService _basketService;
+        private readonly IOrderService _orderService;
+        private readonly ICustomerService _customerService;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public HomeController(ICatalogService catalogService, IBasketService basketService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ICustomerService customerService)
+        public HomeController(ICatalogService catalogService, IBasketService basketService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, IOrderService orderService, ICustomerService customerService)
         {
             _catalogService = catalogService;
             _basketService = basketService;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _orderService= orderService;
+            _customerService = customerService;
         }
 
         public async Task<IActionResult> Index()
@@ -122,8 +126,26 @@ namespace TechnoMarket.Web.Controllers
         public async Task<IActionResult> UserInfoPage()
         {
             var user = await _userManager.GetUserAsync(User);
+
+            var customer=await _customerService.GetCustomerByEmailAsync(user.Email);
+
+            ViewBag.User = null;
+
+            if (customer != null)
+            {
+                var orders = await _orderService.GetOrderByCustomerId(customer.Id);
+                ViewBag.Orders = orders;
+            }
+
             return View(user);
         }
+
+        public IActionResult ErrorPage()
+        {
+            return View();
+        }
+
+
 
     }
 }

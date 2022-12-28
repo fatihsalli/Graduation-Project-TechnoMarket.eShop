@@ -36,15 +36,12 @@ namespace TechnoMarket.Web.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            
+            var customerVM=await _customerService.GetCustomerByEmailAsync(user.Email);
 
-            if (true)
+            if (customerVM == null)
             {
-
+                customerVM = await _customerService.CreateOrder(checkoutInput);
             }
-
-
-            var customerVM = await _customerService.CreateOrder(checkoutInput);
 
             #region Senkron Yol
             //Senkron yol
@@ -53,6 +50,11 @@ namespace TechnoMarket.Web.Controllers
 
             //Asenkron yol
             var orderSuccess = await _basketService.CheckOutForAsyncCommunication(checkoutInput, customerVM.Id, user.Id);
+
+            if (!orderSuccess)
+            {
+                return RedirectToAction("ErrorPage", "Home");
+            }
 
             await _basketService.DeleteAsycn(user.Id);
             return RedirectToAction(nameof(CheckoutHistory));

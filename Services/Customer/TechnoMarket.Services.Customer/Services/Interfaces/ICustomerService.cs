@@ -7,6 +7,7 @@ namespace TechnoMarket.Services.Customer.Services.Interfaces
     {
         Task<List<CustomerDto>> GetAllAsync();
         Task<CustomerDto> GetByIdAsync(string id);
+        Task<CustomerDto> GetByEmailAsync(string email);
         Task<CustomerDto> AddAsync(CustomerCreateDto customerCreateDto);
         Task UpdateAsync(CustomerUpdateDto customerUpdateDto);
         Task RemoveAsync(string id);

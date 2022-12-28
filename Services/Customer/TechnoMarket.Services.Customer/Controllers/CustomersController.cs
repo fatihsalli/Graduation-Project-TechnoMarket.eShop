@@ -34,6 +34,15 @@ namespace TechnoMarket.Services.Customer.Controllers
             return CreateActionResult(CustomResponseDto<CustomerDto>.Success(200, customerDto));
         }
 
+        [HttpGet("[action]/{email}")]
+        [ProducesResponseType(typeof(CustomResponseDto<NoContentDto>), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CustomResponseDto<CustomerDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetCustomerByEmail(string email)
+        {
+            var customerDto = await _customerService.GetByEmailAsync(email);
+            return CreateActionResult(CustomResponseDto<CustomerDto>.Success(200, customerDto));
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(CustomResponseDto<CustomerDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody] CustomerCreateDto customerCreateDto)

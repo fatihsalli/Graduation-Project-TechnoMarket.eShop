@@ -33,6 +33,20 @@ namespace TechnoMarket.Web.Services
             return responseSuccess.Data;
         }
 
+        public async Task<CustomerVM> GetCustomerByEmailAsync(string email)
+        {
+            var response = await _httpClient.GetAsync($"customers/GetCustomerByEmail/{email}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                //Exception-loglama
+                return null;
+            }
+
+            var responseSuccess = await response.Content.ReadFromJsonAsync<CustomResponseDto<CustomerVM>>();
+            return responseSuccess.Data;
+        }
+
         public async Task<CustomerVM> CreateOrder(CheckoutInput checkoutInput)
         {
             var user = _userManager.Users.FirstOrDefault();

@@ -31,6 +31,21 @@ namespace TechnoMarket.Web.Services
             return responseSuccess.Data;
         }
 
+        public async Task<List<OrderVM>> GetOrderByCustomerId(string customerId)
+        {
+            var response = await _httpClient.GetAsync($"orders/GetByCustomerId/{customerId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                //Exception-loglama
+                return null;
+            }
+
+            var responseSuccess = await response.Content.ReadFromJsonAsync<CustomResponseDto<List<OrderVM>>>();
+            return responseSuccess.Data;
+        }
+
+
         //Asenkron olarak Basket.Api tarafınca Command olarak gönderildi. Bu metot senkron iletişim olarak bırakıldı.
         public async Task<OrderVM> CreateOrderAsync(CheckoutInput checkoutInput, string customerId, string userId)
         {
