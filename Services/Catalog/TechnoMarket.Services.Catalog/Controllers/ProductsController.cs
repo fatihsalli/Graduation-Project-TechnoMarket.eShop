@@ -17,7 +17,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
 
         public ProductsController(IProductService productService)
         {
-            _productService = productService;
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
         }
 
         [HttpGet]
