@@ -1,17 +1,27 @@
+using TechnoMarket.Shopping.Aggregator.Services;
+using TechnoMarket.Shopping.Aggregator.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
-//TODO: EÐÝTÝM 150.VÝDEODAYIZ
+//HttpClient => Catalog
+builder.Services.AddHttpClient<ICustomerService, CustomerService>(c =>
+                c.BaseAddress = new Uri(builder.Configuration["ApiSettings:CustomerUrl"]));
 
-// Add services to the container.
+//HttpClient => Order
+builder.Services.AddHttpClient<IOrderService, OrderService>(c =>
+                c.BaseAddress = new Uri(builder.Configuration["ApiSettings:OrderUrl"]));
+
+//HttpClient => Basket
+builder.Services.AddHttpClient<IBasketService, BasketService>(c =>
+                c.BaseAddress = new Uri(builder.Configuration["ApiSettings:BasketUrl"]));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

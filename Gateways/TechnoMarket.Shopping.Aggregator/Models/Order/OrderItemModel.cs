@@ -1,4 +1,4 @@
-﻿namespace TechnoMarket.Shopping.Aggregator.Models
+﻿namespace TechnoMarket.Shopping.Aggregator.Models.Order
 {
     public class OrderItemModel
     {

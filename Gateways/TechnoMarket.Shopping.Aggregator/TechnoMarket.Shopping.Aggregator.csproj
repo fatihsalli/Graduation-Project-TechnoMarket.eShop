@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\..\Shared\TechnoMarket.Shared\TechnoMarket.Shared.csproj" />
   </ItemGroup>
 
 </Project>
