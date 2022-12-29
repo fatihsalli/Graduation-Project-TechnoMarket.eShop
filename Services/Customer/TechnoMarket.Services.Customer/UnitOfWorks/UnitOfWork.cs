@@ -8,7 +8,7 @@ namespace TechnoMarket.Services.Customer.UnitOfWorks
         private readonly CustomerDbContext _context;
         public UnitOfWork(CustomerDbContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public void Commit()

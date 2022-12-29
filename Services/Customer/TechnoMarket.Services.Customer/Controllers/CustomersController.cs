@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TechnoMarket.Services.Customer.Dtos;
 using TechnoMarket.Services.Customer.Services.Interfaces;
@@ -14,7 +15,7 @@ namespace TechnoMarket.Services.Customer.Controllers
         private readonly ICustomerService _customerService;
         public CustomersController(ICustomerService customerService)
         {
-            _customerService = customerService;
+            _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
         }
 
         [HttpGet]
