@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+//TODO: EÐÝTÝM 150.VÝDEODAYIZ
+
 // Add services to the container.
 
 builder.Services.AddControllers();
