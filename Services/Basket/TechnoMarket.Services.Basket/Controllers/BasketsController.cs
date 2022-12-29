@@ -7,6 +7,7 @@ using TechnoMarket.Services.Basket.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Shared.Messages;
+using static StackExchange.Redis.Role;
 
 namespace TechnoMarket.Services.Basket.Controllers
 {
@@ -19,8 +20,8 @@ namespace TechnoMarket.Services.Basket.Controllers
 
         public BasketsController(IBasketService basketService, ISendEndpointProvider sendEndpointProvider)
         {
-            _basketService = basketService;
-            _sendEndpointProvider = sendEndpointProvider;
+            _basketService = basketService ?? throw new ArgumentNullException(nameof(basketService));
+            _sendEndpointProvider = sendEndpointProvider ?? throw new ArgumentNullException(nameof(sendEndpointProvider));
         }
 
         [HttpGet]
@@ -50,6 +51,11 @@ namespace TechnoMarket.Services.Basket.Controllers
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 
+        /// <summary>
+        /// MassTransit ile birlikte order oluşturulabilmesi için Command gönderiyoruz. Asenkron iletişim olması için yapılmıştır. Direkt olarak controller tarafında yazıldı.
+        /// </summary>
+        /// <param name="basketCheckOutDto"></param>
+        /// <returns></returns>
         [Route("[action]")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]

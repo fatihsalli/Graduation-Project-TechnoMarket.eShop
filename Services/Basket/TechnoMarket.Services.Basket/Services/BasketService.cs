@@ -11,8 +11,8 @@ namespace TechnoMarket.Services.Basket.Services
         private readonly ILogger<BasketService> _logger;
         public BasketService(RedisService redisService, ILogger<BasketService> logger)
         {
-            _redisService = redisService;
-            _logger = logger;
+            _redisService = redisService ?? throw new ArgumentNullException(nameof(redisService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task Delete(string userId)

@@ -9,12 +9,10 @@ namespace TechnoMarket.Services.Order.Consumers
     public class CreateOrderMessageCommandConsumer : IConsumer<CreateOrderMessageCommand>
     {
         private readonly IOrderService _orderService;
-        private readonly IMapper _mapper;
 
-        public CreateOrderMessageCommandConsumer(IOrderService orderService,IMapper mapper)
+        public CreateOrderMessageCommandConsumer(IOrderService orderService)
         {
             _orderService = orderService;
-            _mapper = mapper;
         }
 
         public async Task Consume(ConsumeContext<CreateOrderMessageCommand> context)
