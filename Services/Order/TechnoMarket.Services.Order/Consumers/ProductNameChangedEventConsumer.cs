@@ -2,9 +2,7 @@
 
 using MassTransit;
 using MongoDB.Driver;
-using TechnoMarket.Services.Order.Data;
 using TechnoMarket.Services.Order.Data.Interfaces;
-using TechnoMarket.Services.Order.Models;
 using TechnoMarket.Shared.Messages;
 
 namespace TechnoMarket.Services.Order.Consumers
@@ -26,7 +24,7 @@ namespace TechnoMarket.Services.Order.Consumers
             {
                 o.OrderItems.ForEach(od =>
                 {
-                    if (od.ProductId==new Guid(context.Message.ProductId))
+                    if (od.ProductId == new Guid(context.Message.ProductId))
                     {
                         od.ProductName = context.Message.UpdatedName;
                     }
@@ -36,7 +34,7 @@ namespace TechnoMarket.Services.Order.Consumers
             foreach (var item in orders)
             {
                 await _context.Orders.FindOneAndReplaceAsync(x => x.Id == item.Id, item);
-            }        
+            }
         }
     }
 }

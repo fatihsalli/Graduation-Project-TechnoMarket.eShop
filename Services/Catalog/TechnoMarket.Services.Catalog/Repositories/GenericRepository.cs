@@ -45,7 +45,7 @@ namespace TechnoMarket.Services.Catalog.Repositories
         public T Update(T entity)
         {
             //_context.Entry(entity).State= EntityState.Modified; //=>Alternatif 
-            var result=_dbSet.Update(entity);
+            var result = _dbSet.Update(entity);
             return result.Entity;
         }
 

@@ -21,13 +21,13 @@ namespace TechnoMarket.Services.Catalog.Services
         private readonly IPublishEndpoint _publishEndPoint;
 
 
-        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, ILogger<ProductService> logger,IPublishEndpoint publishEndpoint)
+        public ProductService(IMapper mapper, IProductRepository repository, IUnitOfWork unitOfWork, ILogger<ProductService> logger, IPublishEndpoint publishEndpoint)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _publishEndPoint= publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
+            _publishEndPoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         public async Task<List<ProductWithCategoryDto>> GetAllAsync()
@@ -93,9 +93,9 @@ namespace TechnoMarket.Services.Catalog.Services
             //Önemli!!! ProductFeature için id değerini clienttan almayıp null olarak bırakırsak EF Core state değerini Added olarak ayarlıyor o sebeple de ProductFeature update edilemiyor. (Parent üzerinden update etmek için) 
             #endregion
             productUpdate.Feature.Id = productUpdate.Id;
-            var result=_repository.Update(productUpdate);
+            var result = _repository.Update(productUpdate);
 
-            if (result==null)
+            if (result == null)
             {
                 _logger.LogError("Product didn't update in the database.");
                 throw new Exception("Product didn't update in the database.");

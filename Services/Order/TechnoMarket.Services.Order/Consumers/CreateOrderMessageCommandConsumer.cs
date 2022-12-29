@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MassTransit;
+﻿using MassTransit;
 using TechnoMarket.Services.Order.Dtos;
 using TechnoMarket.Services.Order.Services.Interfaces;
 using TechnoMarket.Shared.Messages;
@@ -19,13 +18,13 @@ namespace TechnoMarket.Services.Order.Consumers
         {
             var message = context.Message;
 
-            var orderCreateDto=new OrderCreateDto()
-            { 
-                CustomerId= message.CustomerId,
-                TotalPrice= message.TotalPrice,
-                Address=new Dtos.AddressDto() 
+            var orderCreateDto = new OrderCreateDto()
+            {
+                CustomerId = message.CustomerId,
+                TotalPrice = message.TotalPrice,
+                Address = new Dtos.AddressDto()
                 {
-                    AddressLine=message.Address.AddressLine,
+                    AddressLine = message.Address.AddressLine,
                     City = message.Address.City,
                     Country = message.Address.Country,
                     CityCode = message.Address.CityCode,

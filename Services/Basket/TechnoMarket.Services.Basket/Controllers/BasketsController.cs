@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TechnoMarket.Services.Basket.Dtos;
@@ -7,7 +6,6 @@ using TechnoMarket.Services.Basket.Services.Interfaces;
 using TechnoMarket.Shared.ControllerBases;
 using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Shared.Messages;
-using static StackExchange.Redis.Role;
 
 namespace TechnoMarket.Services.Basket.Controllers
 {
@@ -62,16 +60,16 @@ namespace TechnoMarket.Services.Basket.Controllers
         public async Task<IActionResult> CheckOut([FromBody] BasketCheckOutDto basketCheckOutDto)
         {
             //Kuyruk oluşturduk
-            var sendEndPoint =await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:create-order-service"));
+            var sendEndPoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:create-order-service"));
 
             var createOrderMessageCommand = new CreateOrderMessageCommand()
             {
-                CustomerId=basketCheckOutDto.CustomerId,
-                Status= basketCheckOutDto.Status,
-                TotalPrice=basketCheckOutDto.TotalPrice,
-                Address=new Shared.Messages.AddressDto
+                CustomerId = basketCheckOutDto.CustomerId,
+                Status = basketCheckOutDto.Status,
+                TotalPrice = basketCheckOutDto.TotalPrice,
+                Address = new Shared.Messages.AddressDto
                 {
-                    AddressLine=basketCheckOutDto.Address.AddressLine,
+                    AddressLine = basketCheckOutDto.Address.AddressLine,
                     City = basketCheckOutDto.Address.City,
                     Country = basketCheckOutDto.Address.Country,
                     CityCode = basketCheckOutDto.Address.CityCode,

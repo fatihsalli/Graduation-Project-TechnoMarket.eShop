@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using TechnoMarket.Services.Order.Consumers;
 using TechnoMarket.Services.Order.Dtos;
 using TechnoMarket.Services.Order.Models;
 

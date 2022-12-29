@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TechnoMarket.Shared.Messages
+﻿namespace TechnoMarket.Shared.Messages
 {
     //Command Örneği
     public class CreateOrderMessageCommand
     {
         public CreateOrderMessageCommand()
         {
-            OrderItems=new List<OrderItemDto>();
+            OrderItems = new List<OrderItemDto>();
         }
 
         public string CustomerId { get; set; }

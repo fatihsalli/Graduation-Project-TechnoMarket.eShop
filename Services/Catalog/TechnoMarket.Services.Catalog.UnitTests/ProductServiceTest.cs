@@ -29,8 +29,8 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             _mockUnitOfWork = new Mock<IUnitOfWork>();
             _mockMapper = new Mock<IMapper>();
             _mockLogger = new Mock<ILogger<ProductService>>();
-            _mockPublisher= new Mock<IPublishEndpoint>();
-            _productService = new ProductService(_mockMapper.Object, _mockRepo.Object, _mockUnitOfWork.Object, _mockLogger.Object,_mockPublisher.Object);
+            _mockPublisher = new Mock<IPublishEndpoint>();
+            _productService = new ProductService(_mockMapper.Object, _mockRepo.Object, _mockUnitOfWork.Object, _mockLogger.Object, _mockPublisher.Object);
             _products = new List<Product>()
             {
                 new Product

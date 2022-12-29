@@ -22,7 +22,7 @@ namespace TechnoMarket.Web.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _orderService= orderService;
+            _orderService = orderService;
             _customerService = customerService;
         }
 
@@ -127,7 +127,7 @@ namespace TechnoMarket.Web.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            var customer=await _customerService.GetCustomerByEmailAsync(user.Email);
+            var customer = await _customerService.GetCustomerByEmailAsync(user.Email);
 
             ViewBag.User = null;
 

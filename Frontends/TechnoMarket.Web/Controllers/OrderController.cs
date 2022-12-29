@@ -36,7 +36,7 @@ namespace TechnoMarket.Web.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            var customerVM=await _customerService.GetCustomerByEmailAsync(user.Email);
+            var customerVM = await _customerService.GetCustomerByEmailAsync(user.Email);
 
             if (customerVM == null)
             {

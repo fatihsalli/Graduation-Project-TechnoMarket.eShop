@@ -37,7 +37,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                     {
                         Id = "15f0db4e-08df-40d0-bb74-c8349f9f2e62",
                         Name = "Smart Phone"
-                    }                   
+                    }
                 },
                 new ProductWithCategoryDto()
                 {

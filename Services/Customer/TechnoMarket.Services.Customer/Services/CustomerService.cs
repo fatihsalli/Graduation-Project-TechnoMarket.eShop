@@ -45,7 +45,7 @@ namespace TechnoMarket.Services.Customer.Services
 
         public async Task<CustomerDto> GetByEmailAsync(string email)
         {
-            var customer = await _repository.Where(x=> x.Email==email).SingleOrDefaultAsync();
+            var customer = await _repository.Where(x => x.Email == email).SingleOrDefaultAsync();
 
             if (customer == null)
             {

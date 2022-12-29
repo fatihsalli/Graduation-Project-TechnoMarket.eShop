@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TechnoMarket.Services.Customer.Dtos;
 using TechnoMarket.Services.Customer.Services.Interfaces;

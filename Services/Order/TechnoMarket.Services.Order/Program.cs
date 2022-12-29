@@ -12,7 +12,6 @@ using TechnoMarket.Services.Order.Settings;
 using TechnoMarket.Services.Order.Settings.Interfaces;
 using TechnoMarket.Services.Order.Validations;
 using TechnoMarket.Shared.Extensions;
-using TechnoMarket.Shared.Messages;
 
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Debug("init main");
