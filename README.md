@@ -1,10 +1,10 @@
-## TechnoMarket.eShop
+# TechnoMarket.eShop
 
 
 ### BilgeAdam .Net Full Stack Course Graduation Project
 **Electronic products sales system made in a microservices architecture using .NET Core**
 
-There is a couple of microservices which implemented e-commerce modules over **Catalog, Basket, Customer** and **Order** microservices with **NoSQL (MongoDB, Redis)** and **Relational databases (PostgreSQL, Sql Server)** with communicating over **RabbitMQ Communication** and using **Ocelot API Gateway**.
+There is a couple of microservices which implemented e-commerce modules over **Catalog, Basket, Customer, Order** and **PhotoStock** microservices with **NoSQL (MongoDB, Redis)** and **Relational databases (PostgreSQL, Sql Server)** with communicating over **RabbitMQ Communication with MassTransit** and using **Ocelot API Gateway**. You can see the overall picture of implementations on e-commerce microservices project with using .net tools;
 
 ![alt text](https://i.ibb.co/cbbd2xT/project-architecture.jpg)
 
@@ -61,3 +61,7 @@ There is a couple of microservices which implemented e-commerce modules over **C
 * ASP.NET Core Web Application with Bootstrap 5 and Razor template
 * Call **Ocelot APIs with HttpClientFactory**
 
+#### Docker Compose establishment with all microservices on docker
+* Containerization of microservices
+* Containerization of databases
+* Override Environment variables
