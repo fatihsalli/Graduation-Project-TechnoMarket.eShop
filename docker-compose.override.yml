@@ -1,57 +1,52 @@
-version: '3.4'
+version: '3.8'
 
 services:
-  technomarket.services.order:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+  catalogdb:
+    container_name: catalogdb
+    restart: always
     ports:
-      - "80"
-
-  technomarket.services.customer:
+      - "1433:1433"
+    volumes:
+      - catalogdb_volume:/var/opt/mssql
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ACCEPT_EULA=Y 
+      - SA_PASSWORD=Password12* 
+  customerdb:
+    container_name: customerdb
+    restart: always
     ports:
-      - "80"
-
-
-  technomarket.services.catalog:
+      - "5432:5432"
+    volumes:
+      - customerdb_volume:/var/lib/postgresql/data
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - POSTGRES_USER=admin 
+      - POSTGRES_PASSWORD=Password12* 
+      - POSTGRES_DB=customerdb
+  orderdb:
+    container_name: orderdb
+    restart: always
     ports:
-      - "80"
-
-
-  technomarket.services.basket:
+      - "27017:27017"
+    volumes:
+      - orderdb_volume:/data/db 
+  basketdb:
+    container_name: basketdb
+    restart: always
+    ports:
+      - "6379:6379"
+  userdb:
+    container_name: userdb
+    restart: always
+    ports:
+      - "1444:1433"
+    volumes:
+      - userdb_volume:/var/opt/mssql
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ACCEPT_EULA=Y 
+      - SA_PASSWORD=Password12* 
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
     ports:
-      - "80"
-
-
-  technomarket.services.photostock:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "80"
-
-
-  technomarket.gateway:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "80"
-
-
-  technomarket.shopping.aggregator:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "80"
-
-
-  technomarket.web:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "80"
-
+      - "5672:5672"
+      - "15672:15672"
