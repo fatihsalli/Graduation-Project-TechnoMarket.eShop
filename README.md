@@ -56,6 +56,7 @@ There is a couple of microservices which implemented e-commerce modules over **C
 #### API Gateway Ocelot Microservice which includes; 
 * Implement **API Gateways with Ocelot**
 * Sample microservices/containers to reroute through the API Gateways
+* The Gateway aggregation pattern in Shopping.Aggregator
 
 #### WebUI ShoppingApp Microservice
 * ASP.NET Core Web Application with Bootstrap 5 and Razor template
