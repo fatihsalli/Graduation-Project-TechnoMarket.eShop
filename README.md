@@ -6,7 +6,7 @@
 
 There is a couple of microservices which implemented e-commerce modules over **Catalog, Basket, Customer, Order** and **PhotoStock** microservices with **NoSQL (MongoDB, Redis)** and **Relational databases (PostgreSQL, Sql Server)** with communicating over **RabbitMQ Communication with MassTransit** and using **Ocelot API Gateway**. You can see the overall picture of implementations on a e-commerce microservices project with using .net tools;
 
-![alt text](https://i.ibb.co/QjrPzT8/project-architecture.jpg)
+![alt text](https://i.ibb.co/Zh7pLyW/project-architecture.jpg)
 
 ### Whats Including In This Repository
 
