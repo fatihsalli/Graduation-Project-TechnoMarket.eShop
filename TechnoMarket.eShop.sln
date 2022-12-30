@@ -39,7 +39,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhotoStock", "PhotoStock", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechnoMarket.Services.PhotoStock", "Services\PhotoStock\TechnoMarket.Services.PhotoStock\TechnoMarket.Services.PhotoStock.csproj", "{655A9F28-6851-4B99-91E2-C042A6F99AE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechnoMarket.Shopping.Aggregator", "Gateways\TechnoMarket.Shopping.Aggregator\TechnoMarket.Shopping.Aggregator.csproj", "{4D8876DF-CB32-4DDB-9A5F-949F96D7C52E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechnoMarket.Shopping.Aggregator", "Gateways\TechnoMarket.Shopping.Aggregator\TechnoMarket.Shopping.Aggregator.csproj", "{4D8876DF-CB32-4DDB-9A5F-949F96D7C52E}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9893E027-B16F-4699-B6DE-A3261E6AA81E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{4D8876DF-CB32-4DDB-9A5F-949F96D7C52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D8876DF-CB32-4DDB-9A5F-949F96D7C52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D8876DF-CB32-4DDB-9A5F-949F96D7C52E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9893E027-B16F-4699-B6DE-A3261E6AA81E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9893E027-B16F-4699-B6DE-A3261E6AA81E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9893E027-B16F-4699-B6DE-A3261E6AA81E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9893E027-B16F-4699-B6DE-A3261E6AA81E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
