@@ -1,15 +1,22 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
-COPY Shared/TechnoMarket.Shared/*.csproj Shared/TechnoMarket.Shared/
-COPY Services/Catalog/TechnoMarket.Services.Catalog/*.csproj Services/Catalog/TechnoMarket.Services.Catalog/
-RUN dotnet restore Services/Catalog/TechnoMarket.Services.Catalog/*.csproj
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["Services/Catalog/TechnoMarket.Services.Catalog/TechnoMarket.Services.Catalog.csproj", "Services/Catalog/TechnoMarket.Services.Catalog/"]
+COPY ["Shared/TechnoMarket.Shared/TechnoMarket.Shared.csproj", "Shared/TechnoMarket.Shared/"]
+RUN dotnet restore "Services/Catalog/TechnoMarket.Services.Catalog/TechnoMarket.Services.Catalog.csproj"
 COPY . .
-RUN dotnet publish Services/Catalog/TechnoMarket.Services.Catalog/*.csproj -c Release -o out
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+WORKDIR "/src/Services/Catalog/TechnoMarket.Services.Catalog"
+RUN dotnet build "TechnoMarket.Services.Catalog.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "TechnoMarket.Services.Catalog.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
 WORKDIR /app
-COPY --from=build /app/out .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "TechnoMarket.Services.Catalog.dll"]
-
-
-

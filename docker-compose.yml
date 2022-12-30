@@ -18,8 +18,45 @@ services:
     build:
       context: .
       dockerfile: Services/Catalog/TechnoMarket.Services.Catalog/Dockerfile
+  order.api:
+    image: order_api_image
+    build:
+      context: .
+      dockerfile: Services/Order/TechnoMarket.Services.Order/Dockerfile
+  customer.api:
+    image: customer_api_image
+    build:
+      context: .
+      dockerfile: Services/Customer/TechnoMarket.Services.Customer/Dockerfile
+  basket.api:
+    image: basket_api_image
+    build:
+      context: .
+      dockerfile: Services/Basket/TechnoMarket.Services.Basket/Dockerfile
+  photostock.api:
+    image: photostock_api_image
+    build:
+      context: .
+      dockerfile: Services/PhotoStock/TechnoMarket.Services.PhotoStock/Dockerfile
+  gateway.api:
+    image: gateway_api_image
+    build:
+      context: .
+      dockerfile: Gateways/TechnoMarket.Gateway/Dockerfile
+  shopping_aggregator.api:
+    image: shopping_aggregator_api_image
+    build:
+      context: .
+      dockerfile: Gateways/TechnoMarket.Shopping.Aggregator/Dockerfile
+  aspnetcoremvc.web:
+    image: aspnetcoremvc_web_image
+    build:
+      context: .
+      dockerfile: Frontends/TechnoMarket.Web/Dockerfile
+
 volumes:
   catalogdb_volume:
   customerdb_volume:
   orderdb_volume:
   userdb_volume:
+

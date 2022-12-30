@@ -52,6 +52,7 @@ services:
       - "15672:15672"
   catalog.api:
     container_name: catalog.api
+    restart: on-failure
     depends_on:
       - catalogdb
       - rabbitmq
@@ -61,3 +62,84 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development     
       - RabbitMQUrl:rabbitmq
       - "ConnectionStrings:SqlServer=Server=catalogdb,1433;Database=catalogdb;TrustServerCertificate=True;User=sa; Password=Password12*;"
+  order.api:
+    container_name: order.api
+    restart: on-failure
+    depends_on:
+      - orderdb
+      - rabbitmq
+    ports:
+      - "5012:80"  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development     
+      - RabbitMQUrl:rabbitmq
+      - OrderDatabaseSettings:ConnectionString=mongodb://customerdb:27017
+  customer.api:
+    container_name: customer.api
+    restart: on-failure
+    depends_on:
+      - customerdb
+    ports:
+      - "5013:80"  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development     
+      - "ConnectionStrings:PostreSql=User ID=admin;Password=Password12*;Server=customerdb;Port=5432;Database=customerdb;Integrated Security=true;Pooling=true;"
+  basket.api:
+    container_name: basket.api
+    restart: on-failure
+    depends_on:
+      - basketdb
+      - rabbitmq
+    ports:
+      - "5014:80"  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development     
+      - RabbitMQUrl:rabbitmq
+      - RedisSettings:Port=6379
+      - RedisSettings:Host=basketdb
+  photostock.api:
+    container_name: photostock.api
+    restart: on-failure
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5015:80"
+  gateway.api:
+    container_name: gateway.api
+    restart: on-failure
+    depends_on:
+      - catalog.api
+      - order.api
+      - customer.api
+      - basket.api
+      - photostock.api
+    ports:
+      - "5000:80"  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development     
+  shopping_aggregator.api:
+    container_name: shopping_aggregator.api
+    restart: on-failure
+    depends_on:
+      - catalog.api
+      - order.api
+      - customer.api
+      - basket.api
+      - photostock.api
+    ports:
+      - "5001:80"  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development 
+      - ApiSettings:CatalogUrl=http://catalog.api
+      - ApiSettings:OrderUrl=http://order.api
+      - ApiSettings:CustomerUrl=http://customer.api
+      - ApiSettings:BasketUrl=http://basket.api
+  aspnetcoremvc.web:
+    container_name: aspnetcoremvc.web
+    restart: on-failure
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ServiceApiSettings:GatewayBaseUri=http://gateway.api
+      - ServiceApiSettings:PhotoStockUri=http://photostock.api
+    ports:
+      - "5010:80"
