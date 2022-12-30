@@ -53,13 +53,17 @@ There is a couple of microservices which implemented e-commerce modules over **C
 * REST API principles, CRUD operations
 * Using **Custom Response, Middleware and Exceptions** with Shared Library
 
-#### IdentityServer microservice which includes (It is not yet completed); 
+#### IdentityServer microservice which includes (It is not yet completed)
 * Using IdentityServer4  
 
 #### API Gateway Ocelot Microservice which includes; 
 * Implement **API Gateways with Ocelot**
 * Sample microservices/containers to reroute through the API Gateways
 * The Gateway aggregation pattern in Shopping.Aggregator
+
+#### Microservices Cross-Cutting Implementations
+* Implementing Centralized Distributed Logging with Elastic Stack (ELK); Elasticsearch, Logstash, Kibana and SeriLog for Microservices **(It is not yet completed)**
+* Implementing with Nlog for each Microservices
 
 #### WebUI ShoppingApp Microservice
 * ASP.NET Core Web Application with Bootstrap 5 and Razor template
