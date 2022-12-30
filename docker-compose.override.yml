@@ -50,3 +50,14 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+  catalog.api:
+    container_name: catalog.api
+    depends_on:
+      - catalogdb
+      - rabbitmq
+    ports:
+      - "5011:80"  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development     
+      - RabbitMQUrl:rabbitmq
+      - "ConnectionStrings:SqlServer=Server=catalogdb,1433;Database=catalogdb;TrustServerCertificate=True;User=sa; Password=Password12*;"
