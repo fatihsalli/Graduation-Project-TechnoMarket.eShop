@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -7,7 +8,7 @@
 namespace TechnoMarket.Services.Catalog.Migrations
 {
     /// <inheritdoc />
-    public partial class migV01 : Migration
+    public partial class V01 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -84,8 +85,8 @@ namespace TechnoMarket.Services.Catalog.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedAt", "Description", "ImageFile", "Name", "Price", "Stock", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { new Guid("46a02782-f572-4c86-860e-8f908fc105ce"), new Guid("a53c1fd9-2b60-405f-a73b-847c641214a1"), new DateTime(2022, 12, 14, 17, 42, 28, 322, DateTimeKind.Local).AddTicks(3918), "12th gen Intel® Core™ i9 processor,32 GB memory,1 TB SSD storage", "asuszenbook.jpeg", "Asus Zenbook", 40000m, 10, null },
-                    { new Guid("7723714d-be34-438a-9f9e-57463d94dd5b"), new Guid("c81bd97b-85ab-4cba-920a-73b5daab921f"), new DateTime(2022, 12, 14, 17, 42, 28, 322, DateTimeKind.Local).AddTicks(3935), "512 GB Capacity,6,7' display,A15 Bionic chip,Ceramic shield front, glass back and aluminium design", "appleiphone14.jpeg", "Iphone 14 Plus", 30000m, 50, null }
+                    { new Guid("46a02782-f572-4c86-860e-8f908fc105ce"), new Guid("a53c1fd9-2b60-405f-a73b-847c641214a1"), new DateTime(2022, 12, 31, 14, 42, 23, 414, DateTimeKind.Local).AddTicks(9649), "12th gen Intel® Core™ i9 processor,32 GB memory,1 TB SSD storage", "437dead8-dda3-4c46-85f6-9d0cd013629d.jpg", "Asus Zenbook", 1200m, 10, null },
+                    { new Guid("7723714d-be34-438a-9f9e-57463d94dd5b"), new Guid("c81bd97b-85ab-4cba-920a-73b5daab921f"), new DateTime(2022, 12, 31, 14, 42, 23, 414, DateTimeKind.Local).AddTicks(9665), "512 GB Capacity,6,7' display,A15 Bionic chip,Ceramic shield front, glass back and aluminium design", "582a7fed-b175-4642-956d-58d1b06aeed6.jpg", "Iphone 14 Plus", 800m, 50, null }
                 });
 
             migrationBuilder.InsertData(

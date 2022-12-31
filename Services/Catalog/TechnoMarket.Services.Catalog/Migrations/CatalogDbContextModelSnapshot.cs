@@ -101,22 +101,22 @@ namespace TechnoMarket.Services.Catalog.Migrations
                         {
                             Id = new Guid("46a02782-f572-4c86-860e-8f908fc105ce"),
                             CategoryId = new Guid("a53c1fd9-2b60-405f-a73b-847c641214a1"),
-                            CreatedAt = new DateTime(2022, 12, 14, 17, 42, 28, 322, DateTimeKind.Local).AddTicks(3918),
+                            CreatedAt = new DateTime(2022, 12, 31, 14, 42, 23, 414, DateTimeKind.Local).AddTicks(9649),
                             Description = "12th gen Intel® Core™ i9 processor,32 GB memory,1 TB SSD storage",
-                            ImageFile = "asuszenbook.jpeg",
+                            ImageFile = "437dead8-dda3-4c46-85f6-9d0cd013629d.jpg",
                             Name = "Asus Zenbook",
-                            Price = 40000m,
+                            Price = 1200m,
                             Stock = 10
                         },
                         new
                         {
                             Id = new Guid("7723714d-be34-438a-9f9e-57463d94dd5b"),
                             CategoryId = new Guid("c81bd97b-85ab-4cba-920a-73b5daab921f"),
-                            CreatedAt = new DateTime(2022, 12, 14, 17, 42, 28, 322, DateTimeKind.Local).AddTicks(3935),
+                            CreatedAt = new DateTime(2022, 12, 31, 14, 42, 23, 414, DateTimeKind.Local).AddTicks(9665),
                             Description = "512 GB Capacity,6,7' display,A15 Bionic chip,Ceramic shield front, glass back and aluminium design",
-                            ImageFile = "appleiphone14.jpeg",
+                            ImageFile = "582a7fed-b175-4642-956d-58d1b06aeed6.jpg",
                             Name = "Iphone 14 Plus",
-                            Price = 30000m,
+                            Price = 800m,
                             Stock = 50
                         });
                 });
