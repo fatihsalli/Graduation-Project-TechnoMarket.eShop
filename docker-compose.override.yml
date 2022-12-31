@@ -116,7 +116,7 @@ services:
     ports:
       - "5000:80"  
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development     
+      - ASPNETCORE_ENVIRONMENT=Production     
   shopping_aggregator.api:
     container_name: shopping_aggregator.api
     restart: on-failure
@@ -137,9 +137,13 @@ services:
   aspnetcoremvc.web:
     container_name: aspnetcoremvc.web
     restart: on-failure
+    depends_on:
+      - userdb
+      - gateway.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ServiceApiSettings:GatewayBaseUri=http://gateway.api
       - ServiceApiSettings:PhotoStockUri=http://photostock.api
+      - "ConnectionStrings:SqlServer=Server=userdb,1444;Database=userdb;TrustServerCertificate=True;User=sa; Password=Password12*;"
     ports:
       - "5010:80"
