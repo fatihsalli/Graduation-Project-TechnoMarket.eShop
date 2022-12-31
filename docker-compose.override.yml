@@ -60,7 +60,7 @@ services:
       - "5011:80"  
     environment:
       - ASPNETCORE_ENVIRONMENT=Development     
-      - RabbitMQUrl:rabbitmq
+      - RabbitMQUrl=rabbitmq
       - ConnectionStrings:SqlServer=Server=catalogdb,1433;Database=catalogdb;TrustServerCertificate=True;User=sa; Password=Password12*;
   order.api:
     container_name: order.api
@@ -72,7 +72,7 @@ services:
       - "5012:80"  
     environment:
       - ASPNETCORE_ENVIRONMENT=Development     
-      - RabbitMQUrl:rabbitmq
+      - RabbitMQUrl=rabbitmq
       - OrderDatabaseSettings:ConnectionString=mongodb://orderdb:27017
   customer.api:
     container_name: customer.api
@@ -94,7 +94,7 @@ services:
       - "5014:80"  
     environment:
       - ASPNETCORE_ENVIRONMENT=Development     
-      - RabbitMQUrl:rabbitmq
+      - RabbitMQUrl=rabbitmq
       - RedisSettings:Port=6379
       - RedisSettings:Host=basketdb
   photostock.api:
