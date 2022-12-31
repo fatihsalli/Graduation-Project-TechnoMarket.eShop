@@ -71,8 +71,8 @@ namespace TechnoMarket.Web.Controllers
 
             if (!result.Succeeded)
             {
-                //Loglama
-                throw new Exception("User can't create");
+                string message = "User couldn't create!";
+                RedirectToAction("ErrorPage", message);
             }
 
             if (!await _roleManager.RoleExistsAsync("admin"))
@@ -140,9 +140,9 @@ namespace TechnoMarket.Web.Controllers
             return View(user);
         }
 
-        public IActionResult ErrorPage()
+        public IActionResult ErrorPage(string message)
         {
-            return View();
+            return View(message);
         }
 
 

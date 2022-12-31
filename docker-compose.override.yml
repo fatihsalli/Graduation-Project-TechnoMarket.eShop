@@ -61,7 +61,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development     
       - RabbitMQUrl:rabbitmq
-      - "ConnectionStrings:SqlServer=Server=catalogdb,1433;Database=catalogdb;TrustServerCertificate=True;User=sa; Password=Password12*;"
+      - ConnectionStrings:SqlServer=Server=catalogdb,1433;Database=catalogdb;TrustServerCertificate=True;User=sa; Password=Password12*;
   order.api:
     container_name: order.api
     restart: on-failure
@@ -73,7 +73,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development     
       - RabbitMQUrl:rabbitmq
-      - OrderDatabaseSettings:ConnectionString=mongodb://customerdb:27017
+      - OrderDatabaseSettings:ConnectionString=mongodb://orderdb:27017
   customer.api:
     container_name: customer.api
     restart: on-failure
@@ -83,7 +83,7 @@ services:
       - "5013:80"  
     environment:
       - ASPNETCORE_ENVIRONMENT=Development     
-      - "ConnectionStrings:PostreSql=User ID=admin;Password=Password12*;Server=customerdb;Port=5432;Database=customerdb;Integrated Security=true;Pooling=true;"
+      - ConnectionStrings:PostreSql=User ID=admin;Password=Password12*;Server=customerdb;Port=5432;Database=customerdb;Integrated Security=true;Pooling=true;
   basket.api:
     container_name: basket.api
     restart: on-failure
@@ -104,10 +104,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5015:80"
-    volumes:
-      - type: bind
-        source: C:\Users\salli\OneDrive\Masaüstü\photos
-        target: /app/wwwroot/photos
   gateway.api:
     container_name: gateway.api
     restart: on-failure
@@ -144,10 +140,10 @@ services:
     depends_on:
       - userdb
       - gateway.api
+    ports:
+      - "5010:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ServiceApiSettings:GatewayBaseUri=http://gateway.api
       - ServiceApiSettings:PhotoStockUri=http://photostock.api
-      - "ConnectionStrings:SqlServer=Server=userdb,1444;Database=userdb;TrustServerCertificate=True;User=sa; Password=Password12*;"
-    ports:
-      - "5010:80"
+      - ConnectionStrings:SqlServer=Server=userdb,1433;Database=userdb;TrustServerCertificate=True;User=sa; Password=Password12*;

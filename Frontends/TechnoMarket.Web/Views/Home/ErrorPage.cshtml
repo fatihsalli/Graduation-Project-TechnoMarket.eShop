@@ -3,9 +3,10 @@
     ViewData["Title"] = "ErrorPage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model string
 
 <div class="alert alert-info">
-    <h3>Somethings went wrong!!!</h3>
+    <h3>Somethings (@Model) went wrong!!!</h3>
 </div>
 
 <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Home page</a>

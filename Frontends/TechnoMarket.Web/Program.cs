@@ -5,6 +5,7 @@ using System.Reflection;
 using TechnoMarket.Web.Data;
 using TechnoMarket.Web.Extensions;
 using TechnoMarket.Web.Models;
+using TechnoMarket.Web.Models.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
