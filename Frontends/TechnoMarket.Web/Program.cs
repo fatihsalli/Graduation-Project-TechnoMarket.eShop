@@ -48,6 +48,15 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+#region Otomatik Update-Database
+//Migrationlarý database'e otomatik yansýtmak ve data basmak için. Dikkat migration oluþturmuyor mevcut migration'ý database tarafýnda güncel deðilse güncelliyor. 
+#endregion
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<UserContext>();
+    context.Database.Migrate();
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
