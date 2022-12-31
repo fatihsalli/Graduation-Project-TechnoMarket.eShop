@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   catalogdb:
@@ -11,6 +11,7 @@ services:
     environment:
       - ACCEPT_EULA=Y 
       - SA_PASSWORD=Password12* 
+
   customerdb:
     container_name: customerdb
     restart: always
@@ -22,6 +23,7 @@ services:
       - POSTGRES_USER=admin 
       - POSTGRES_PASSWORD=Password12* 
       - POSTGRES_DB=customerdb
+
   orderdb:
     container_name: orderdb
     restart: always
@@ -29,11 +31,13 @@ services:
       - "27017:27017"
     volumes:
       - orderdb_volume:/data/db 
+
   basketdb:
     container_name: basketdb
     restart: always
     ports:
       - "6379:6379"
+
   userdb:
     container_name: userdb
     restart: always
@@ -44,12 +48,14 @@ services:
     environment:
       - ACCEPT_EULA=Y 
       - SA_PASSWORD=Password12* 
+
   rabbitmq:
     container_name: rabbitmq
     restart: always
     ports:
       - "5672:5672"
       - "15672:15672"
+
   catalog.api:
     container_name: catalog.api
     restart: on-failure
@@ -62,6 +68,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development     
       - RabbitMQUrl=rabbitmq
       - ConnectionStrings:SqlServer=Server=catalogdb,1433;Database=catalogdb;TrustServerCertificate=True;User=sa; Password=Password12*;
+
   order.api:
     container_name: order.api
     restart: on-failure
@@ -74,6 +81,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development     
       - RabbitMQUrl=rabbitmq
       - OrderDatabaseSettings:ConnectionString=mongodb://orderdb:27017
+
   customer.api:
     container_name: customer.api
     restart: on-failure
@@ -84,6 +92,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development     
       - ConnectionStrings:PostreSql=User ID=admin;Password=Password12*;Server=customerdb;Port=5432;Database=customerdb;Integrated Security=true;Pooling=true;
+
   basket.api:
     container_name: basket.api
     restart: on-failure
@@ -97,6 +106,7 @@ services:
       - RabbitMQUrl=rabbitmq
       - RedisSettings:Port=6379
       - RedisSettings:Host=basketdb
+
   photostock.api:
     container_name: photostock.api
     restart: on-failure
@@ -104,6 +114,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5015:80"
+
   gateway.api:
     container_name: gateway.api
     restart: on-failure
@@ -116,7 +127,8 @@ services:
     ports:
       - "5000:80"  
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production     
+      - ASPNETCORE_ENVIRONMENT=Production  
+      
   shopping_aggregator.api:
     container_name: shopping_aggregator.api
     restart: on-failure
@@ -134,12 +146,18 @@ services:
       - ApiSettings:OrderUrl=http://order.api
       - ApiSettings:CustomerUrl=http://customer.api
       - ApiSettings:BasketUrl=http://basket.api
+
   aspnetcoremvc.web:
     container_name: aspnetcoremvc.web
     restart: on-failure
     depends_on:
       - userdb
       - gateway.api
+      - catalog.api
+      - order.api
+      - customer.api
+      - basket.api
+      - photostock.api
     ports:
       - "5010:80"
     environment:
