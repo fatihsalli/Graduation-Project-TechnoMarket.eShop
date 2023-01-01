@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using TechnoMarket.Shared.Dtos;
+﻿using TechnoMarket.Shared.Dtos;
 
 namespace TechnoMarket.Shopping.Aggregator.Extensions
 {

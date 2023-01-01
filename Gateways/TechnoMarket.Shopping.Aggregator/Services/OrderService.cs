@@ -14,7 +14,7 @@ namespace TechnoMarket.Shopping.Aggregator.Services
 
         public async Task<OrderModel> CreateOrder(OrderCreateModel orderCreateModel)
         {
-            var response = await _httpClient.PostAsJsonAsync($"/api/orders",orderCreateModel);
+            var response = await _httpClient.PostAsJsonAsync($"/api/orders", orderCreateModel);
             return await response.ReadContentAs<OrderModel>();
         }
     }

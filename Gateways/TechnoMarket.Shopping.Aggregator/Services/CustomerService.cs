@@ -1,5 +1,4 @@
-﻿using System.Net.Http;
-using TechnoMarket.Shopping.Aggregator.Extensions;
+﻿using TechnoMarket.Shopping.Aggregator.Extensions;
 using TechnoMarket.Shopping.Aggregator.Models.Customer;
 using TechnoMarket.Shopping.Aggregator.Services.Interfaces;
 
@@ -15,7 +14,7 @@ namespace TechnoMarket.Shopping.Aggregator.Services
 
         public async Task<CustomerModel> AddAsync(CustomerCreateModel customerCreateModel)
         {
-            var response = await _httpClient.PostAsJsonAsync($"/api/customers",customerCreateModel);
+            var response = await _httpClient.PostAsJsonAsync($"/api/customers", customerCreateModel);
             return await response.ReadContentAs<CustomerModel>();
         }
 

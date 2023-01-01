@@ -1,7 +1,5 @@
-﻿using TechnoMarket.Shared.Dtos;
-using TechnoMarket.Shopping.Aggregator.Extensions;
+﻿using TechnoMarket.Shopping.Aggregator.Extensions;
 using TechnoMarket.Shopping.Aggregator.Models.Basket;
-using TechnoMarket.Shopping.Aggregator.Models.Customer;
 using TechnoMarket.Shopping.Aggregator.Services.Interfaces;
 
 namespace TechnoMarket.Shopping.Aggregator.Services
