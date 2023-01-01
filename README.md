@@ -2,9 +2,9 @@
 
 
 ### BilgeAdam .Net Full Stack Course Graduation Project
-**Electronic products sales system made in a microservices architecture using .NET Core**
+**Electronic products sales system made in a microservices architecture using .NET Core 6**
 
-There is a couple of microservices which implemented e-commerce modules over **Catalog, Basket, Customer, Order** and **PhotoStock** microservices with **NoSQL (MongoDB, Redis)** and **Relational databases (PostgreSQL, Sql Server)** with communicating over **RabbitMQ Communication with MassTransit** and using **Ocelot API Gateway**. You can see the overall picture of implementations on a e-commerce microservices project with using .net tools;
+There are five microservices which implemented e-commerce modules over **Catalog, Basket, Customer, Order** and **PhotoStock** microservices with **NoSQL (MongoDB, Redis)** and **Relational databases (PostgreSQL, Sql Server)** with communicating using **RabbitMQ-MassTransit** and **Ocelot API Gateway**. You can see the diagram of the project below;
 
 ![alt text](https://i.ibb.co/Zh7pLyW/project-architecture.jpg)
 
@@ -74,4 +74,22 @@ There is a couple of microservices which implemented e-commerce modules over **C
 * Containerization of databases
 * Override Environment variables
 
-![alt text](https://i.ibb.co/tc8wQmw/Ads-z.jpg)
+## Run The Project
+
+After the cloning this repository run below command at the root directory which include docker-compose.yml files;
+```csharp
+docker-compose up
+```
+You can launch microservices as below urls:
+* **Catalog API -> http://host.docker.internal:5011/swagger/index.html**
+* **Order API -> http://host.docker.internal:5012/swagger/index.html**
+* **Customer API -> http://host.docker.internal:5013/swagger/index.html**
+* **Basket API -> http://host.docker.internal:5014/swagger/index.html**
+* **PhotoStock API -> http://host.docker.internal:5020/swagger/index.html**
+* **Shopping.Aggregator -> http://host.docker.internal:5001/swagger/index.html**
+* **API Gateway -> http://host.docker.internal:5000**
+* **Rabbit Management Dashboard -> http://host.docker.internal:15672**   -- guest/guest
+* **Web UI -> http://host.docker.internal:5010**
+
+
+![alt text](https://i.ibb.co/bbpdtsP/Untitled-1.jpg)
