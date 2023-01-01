@@ -1,3 +1,5 @@
+using TechnoMarket.Shared.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +17,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//Custom middleware
+app.UseCustomException();
 
 //wwwroot oluþturduktan sonra bu klasörü dýþ dünyaya açmak için.
 app.UseStaticFiles();
