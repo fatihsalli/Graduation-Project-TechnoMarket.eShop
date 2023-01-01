@@ -68,7 +68,7 @@ namespace TechnoMarket.Web.Areas.Admin.Controllers
                 Stock = product.Stock,
                 Price = product.Price,
                 Description = product.Description,
-                ImageFile = product.ImageFile,
+                Picture = product.Picture,
                 CategoryId = product.Category.Id
             };
 

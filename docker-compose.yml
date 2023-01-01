@@ -48,6 +48,8 @@ services:
     build:
       context: .
       dockerfile: Gateways/TechnoMarket.Shopping.Aggregator/Dockerfile
+
+
   aspnetcoremvc.web:
     image: aspnetcoremvc_web_image
     build:
@@ -59,4 +61,5 @@ volumes:
   customerdb_volume:
   orderdb_volume:
   userdb_volume:
+
 

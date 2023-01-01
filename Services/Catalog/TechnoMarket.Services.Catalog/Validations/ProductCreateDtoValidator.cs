@@ -21,7 +21,7 @@ namespace TechnoMarket.Services.Catalog.Validations
             RuleFor(x => x.Description)
                 .MaximumLength(255).WithMessage("{PropertyName} must be less than 256 character");
 
-            RuleFor(x => x.ImageFile)
+            RuleFor(x => x.Picture)
                 .MaximumLength(255).WithMessage("{PropertyName} must be less than 256 character");
 
             RuleFor(x => x.CategoryId)

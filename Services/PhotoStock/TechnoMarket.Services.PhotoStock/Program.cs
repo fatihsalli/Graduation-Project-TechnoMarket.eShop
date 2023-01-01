@@ -19,6 +19,8 @@ if (app.Environment.IsDevelopment())
 //wwwroot oluþturduktan sonra bu klasörü dýþ dünyaya açmak için.
 app.UseStaticFiles();
 
+app.UseRouting();
+
 app.UseAuthorization();
 
 app.MapControllers();

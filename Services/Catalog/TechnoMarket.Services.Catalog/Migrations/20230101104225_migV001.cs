@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TechnoMarket.Services.Catalog.Migrations
 {
     /// <inheritdoc />
-    public partial class V01 : Migration
+    public partial class migV001 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +34,7 @@ namespace TechnoMarket.Services.Catalog.Migrations
                     Stock = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    ImageFile = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Picture = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: false)
@@ -82,11 +82,11 @@ namespace TechnoMarket.Services.Catalog.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "CategoryId", "CreatedAt", "Description", "ImageFile", "Name", "Price", "Stock", "UpdatedAt" },
+                columns: new[] { "Id", "CategoryId", "CreatedAt", "Description", "Name", "Picture", "Price", "Stock", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { new Guid("46a02782-f572-4c86-860e-8f908fc105ce"), new Guid("a53c1fd9-2b60-405f-a73b-847c641214a1"), new DateTime(2022, 12, 31, 14, 42, 23, 414, DateTimeKind.Local).AddTicks(9649), "12th gen Intel® Core™ i9 processor,32 GB memory,1 TB SSD storage", "437dead8-dda3-4c46-85f6-9d0cd013629d.jpg", "Asus Zenbook", 1200m, 10, null },
-                    { new Guid("7723714d-be34-438a-9f9e-57463d94dd5b"), new Guid("c81bd97b-85ab-4cba-920a-73b5daab921f"), new DateTime(2022, 12, 31, 14, 42, 23, 414, DateTimeKind.Local).AddTicks(9665), "512 GB Capacity,6,7' display,A15 Bionic chip,Ceramic shield front, glass back and aluminium design", "582a7fed-b175-4642-956d-58d1b06aeed6.jpg", "Iphone 14 Plus", 800m, 50, null }
+                    { new Guid("46a02782-f572-4c86-860e-8f908fc105ce"), new Guid("a53c1fd9-2b60-405f-a73b-847c641214a1"), new DateTime(2023, 1, 1, 13, 42, 25, 792, DateTimeKind.Local).AddTicks(5522), "12th gen Intel® Core™ i9 processor,32 GB memory,1 TB SSD storage", "Asus Zenbook", "437dead8-dda3-4c46-85f6-9d0cd013629d.jpg", 1200m, 10, null },
+                    { new Guid("7723714d-be34-438a-9f9e-57463d94dd5b"), new Guid("c81bd97b-85ab-4cba-920a-73b5daab921f"), new DateTime(2023, 1, 1, 13, 42, 25, 792, DateTimeKind.Local).AddTicks(5533), "512 GB Capacity,6,7' display,A15 Bionic chip,Ceramic shield front, glass back and aluminium design", "Iphone 14 Plus", "582a7fed-b175-4642-956d-58d1b06aeed6.jpg", 800m, 50, null }
                 });
 
             migrationBuilder.InsertData(

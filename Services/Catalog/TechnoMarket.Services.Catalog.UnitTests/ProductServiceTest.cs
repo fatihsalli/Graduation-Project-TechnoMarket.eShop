@@ -40,7 +40,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                     Stock = 10,
                     Price = 40000,
                     Description = "12th gen Intel® Core™ i9 processor,32 GB memory,1 TB SSD storage",
-                    ImageFile = "asuszenbook.jpeg",
+                    Picture = "asuszenbook.jpeg",
                     CreatedAt = DateTime.Now,
                     Feature=new ProductFeature
                     {
@@ -75,7 +75,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                     Stock = 10,
                     Price = 40000,
                     Description = "12th gen Intel® Core™ i9 processor,32 GB memory,1 TB SSD storage",
-                    ImageFile = "asuszenbook.jpeg",
+                    Picture = "asuszenbook.jpeg",
                     ProductFeature="Black 15.3' 12' 2.5 kg",
                     Category=new CategoryDto{Id="43f0db4e-08df-40d0-bb74-c8349f9f2e74",Name="Notebook"}
                 }
@@ -117,7 +117,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Stock = 10,
                 Price = 40000,
                 Description = "12th gen Intel® Core™ i9 processor,32 GB memory,1 TB SSD storage",
-                ImageFile = "asuszenbook.jpeg",
+                Picture = "asuszenbook.jpeg",
                 ProductFeature = "Black 15.3' 12' 2.5 kg",
                 Category = new CategoryDto { Id = "43f0db4e-08df-40d0-bb74-c8349f9f2e74", Name = "Notebook" }
             };
@@ -158,7 +158,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Stock = 10,
                 Price = 750.00M,
                 Description = "Last model smart phone",
-                ImageFile = "apple_iphone_14.jpeg",
+                Picture = "apple_iphone_14.jpeg",
                 CategoryId = "43f0db4e-08df-40d0-bb74-c8349f9f2e72",
                 Feature = new ProductFeatureDto { Color = "Black", Height = "5'", Weight = "4.5'", Width = "0.5 kg" }
             };
@@ -170,7 +170,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Stock = productCreateDto.Stock,
                 Price = productCreateDto.Price,
                 Description = productCreateDto.Description,
-                ImageFile = productCreateDto.ImageFile,
+                Picture = productCreateDto.Picture,
                 CreatedAt = DateTime.Now,
                 Feature = new ProductFeature
                 {
@@ -197,7 +197,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Stock = productCreateDto.Stock,
                 Price = productCreateDto.Price,
                 Description = productCreateDto.Description,
-                ImageFile = productCreateDto.ImageFile,
+                Picture = productCreateDto.Picture,
                 ProductFeature = "Black 5' 4.5' 0.5 kg",
                 CategoryId = "43f0db4e-08df-40d0-bb74-c8349f9f2e72",
             };
@@ -218,7 +218,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.Equal(productCreateDto.Stock, result.Stock);
             Assert.Equal(productCreateDto.Price, result.Price);
             Assert.Equal(productCreateDto.Description, result.Description);
-            Assert.Equal(productCreateDto.ImageFile, result.ImageFile);
+            Assert.Equal(productCreateDto.Picture, result.Picture);
             Assert.Equal(productCreateDto.CategoryId, result.CategoryId);
         }
 
@@ -232,7 +232,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Stock = 10,
                 Price = 35000,
                 Description = "Unit test description",
-                ImageFile = "asuszenbook.jpeg",
+                Picture = "asuszenbook.jpeg",
                 CategoryId = "43f0db4e-08df-40d0-bb74-c8349f9f2e74",
                 Feature = new ProductFeatureDto { Color = "Black", Height = "12'", Weight = "15.3'", Width = "2.5 kg" }
             };
@@ -243,7 +243,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             product.Stock = productUpdateDto.Stock;
             product.Price = productUpdateDto.Price;
             product.Description = productUpdateDto.Description;
-            product.ImageFile = productUpdateDto.ImageFile;
+            product.Picture = productUpdateDto.Picture;
             product.CategoryId = new Guid(productUpdateDto.CategoryId);
             product.Feature = new ProductFeature
             {
@@ -281,7 +281,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Stock = 10,
                 Price = 35000,
                 Description = "Unit test description",
-                ImageFile = "asuszenbook.jpeg",
+                Picture = "asuszenbook.jpeg",
                 CategoryId = "43f0db4e-08df-40d0-bb74-c8349f9f2e74",
                 Feature = new ProductFeatureDto { Color = "Black", Height = "12'", Weight = "15.3'", Width = "2.5 kg" }
             };

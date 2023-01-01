@@ -39,7 +39,7 @@ namespace TechnoMarket.Services.Catalog.Data.Configurations
                 .IsRequired()
                 .HasMaxLength(255);
 
-            builder.Property(c => c.ImageFile)
+            builder.Property(c => c.Picture)
                 .HasMaxLength(255);
 
             builder.Property(x => x.CategoryId)

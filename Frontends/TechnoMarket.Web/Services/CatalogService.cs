@@ -35,7 +35,7 @@ namespace TechnoMarket.Web.Services
             //Fotoğrafları Url olarak ekliyoruz. PhotoStockdan istek yapacak şekilde.
             responseSuccess.Data.ForEach(x =>
             {
-                x.StockPictureUrl = _photoHelper.GetPhotoStockUrl(x.ImageFile);
+                x.StockPictureUrl = _photoHelper.GetPhotoStockUrl(x.Picture);
             });
 
             return responseSuccess.Data;
@@ -62,7 +62,7 @@ namespace TechnoMarket.Web.Services
 
             if (resultPhotoService != null)
             {
-                productCreateInput.ImageFile = resultPhotoService.Url;
+                productCreateInput.Picture = resultPhotoService.Url;
             }
 
             var response = await _httpClient.PostAsJsonAsync<ProductCreateInput>("products", productCreateInput);
@@ -76,8 +76,8 @@ namespace TechnoMarket.Web.Services
             if (resultPhotoService != null)
             {
                 //eskisini silmek için
-                await _photoStockService.DeletePhoto(productUpdateInput.ImageFile);
-                productUpdateInput.ImageFile = resultPhotoService.Url;
+                await _photoStockService.DeletePhoto(productUpdateInput.Picture);
+                productUpdateInput.Picture = resultPhotoService.Url;
             }
 
             var response = await _httpClient.PutAsJsonAsync<ProductUpdateInput>("products", productUpdateInput);

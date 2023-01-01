@@ -31,7 +31,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                     Stock=10,
                     Price=950.00M,
                     Description="Super Retina HD display and A11 Bionic chip with 64-bit architecture",
-                    ImageFile="apple_iphone.jpeg",
+                    Picture="apple_iphone.jpeg",
                     ProductFeature="Color=black Height=5.65 inches Width=2.79 inches 0.6 kg",
                     Category=new CategoryDto
                     {
@@ -46,7 +46,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                     Stock=6,
                     Price=3500.00M,
                     Description="ZenBook Pro Duo 15 OLED lets you get things done in style: calmly, efficiently, and with zero fuss.",
-                    ImageFile="asus_zenbook.jpeg",
+                    Picture="asus_zenbook.jpeg",
                     ProductFeature="Color=black Height=9.81 inches Width=14.17 inches 2.34 kg",
                     Category=new CategoryDto
                     {
@@ -101,7 +101,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.Equal(productDto.Stock, returnProducts.Data.Stock);
             Assert.Equal(productDto.Price, returnProducts.Data.Price);
             Assert.Equal(productDto.Description, returnProducts.Data.Description);
-            Assert.Equal(productDto.ImageFile, returnProducts.Data.ImageFile);
+            Assert.Equal(productDto.Picture, returnProducts.Data.Picture);
             Assert.Equal(productDto.ProductFeature, returnProducts.Data.ProductFeature);
             Assert.Equal(productDto.Category, returnProducts.Data.Category);
         }
@@ -131,7 +131,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Stock = 10,
                 Price = 750.00M,
                 Description = "Last model smart phone",
-                ImageFile = "apple_iphone_14.jpeg",
+                Picture = "apple_iphone_14.jpeg",
                 CategoryId = "43f0db4e-08df-40d0-bb74-c8349f9f2e72",
                 Feature = new ProductFeatureDto { Color = "Black", Height = "5'", Weight = "4.5'", Width = "0.5 kg" }
             };
@@ -143,7 +143,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Stock = productCreateDto.Stock,
                 Price = productCreateDto.Price,
                 Description = productCreateDto.Description,
-                ImageFile = productCreateDto.ImageFile,
+                Picture = productCreateDto.Picture,
                 ProductFeature = "Black 5' 4.5' 0.5 kg",
                 CategoryId = "43f0db4e-08df-40d0-bb74-c8349f9f2e72",
             };
@@ -165,7 +165,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.Equal(productCreateDto.Stock, returnProducts.Data.Stock);
             Assert.Equal(productCreateDto.Price, returnProducts.Data.Price);
             Assert.Equal(productCreateDto.Description, returnProducts.Data.Description);
-            Assert.Equal(productCreateDto.ImageFile, returnProducts.Data.ImageFile);
+            Assert.Equal(productCreateDto.Picture, returnProducts.Data.Picture);
             Assert.Equal(productCreateDto.CategoryId, returnProducts.Data.CategoryId);
         }
 
@@ -179,7 +179,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Stock = 10,
                 Price = 35000,
                 Description = "Unit test description",
-                ImageFile = "asuszenbook.jpeg",
+                Picture = "asuszenbook.jpeg",
                 CategoryId = "43f0db4e-08df-40d0-bb74-c8349f9f2e74",
                 Feature = new ProductFeatureDto { Color = "Black", Height = "12'", Weight = "15.3'", Width = "2.5 kg" }
             };
@@ -206,7 +206,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 Stock = 10,
                 Price = 35000,
                 Description = "Unit test description",
-                ImageFile = "asuszenbook.jpeg",
+                Picture = "asuszenbook.jpeg",
                 CategoryId = "43f0db4e-08df-40d0-bb74-c8349f9f2e74",
                 Feature = new ProductFeatureDto { Color = "Black", Height = "12'", Weight = "15.3'", Width = "2.5 kg" }
             };

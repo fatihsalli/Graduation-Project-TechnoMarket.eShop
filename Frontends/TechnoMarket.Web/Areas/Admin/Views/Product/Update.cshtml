@@ -14,7 +14,7 @@
                 <form asp-controller="Product" asp-action="Update" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly"></div>
                     <input type="hidden" asp-for="Id" />
-                    <input type="hidden" asp-for="ImageFile" />
+                    <input type="hidden" asp-for="Picture" />
                     <div class="mb-3">
                         <label class="form-label" asp-for="CategoryId"></label>
                         <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.CategoryList">

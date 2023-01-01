@@ -12,8 +12,8 @@ using TechnoMarket.Services.Catalog.Data;
 namespace TechnoMarket.Services.Catalog.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20221231114223_V01")]
-    partial class V01
+    [Migration("20230101104225_migV001")]
+    partial class migV001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,14 +75,14 @@ namespace TechnoMarket.Services.Catalog.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("ImageFile")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Picture")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -104,10 +104,10 @@ namespace TechnoMarket.Services.Catalog.Migrations
                         {
                             Id = new Guid("46a02782-f572-4c86-860e-8f908fc105ce"),
                             CategoryId = new Guid("a53c1fd9-2b60-405f-a73b-847c641214a1"),
-                            CreatedAt = new DateTime(2022, 12, 31, 14, 42, 23, 414, DateTimeKind.Local).AddTicks(9649),
+                            CreatedAt = new DateTime(2023, 1, 1, 13, 42, 25, 792, DateTimeKind.Local).AddTicks(5522),
                             Description = "12th gen Intel® Core™ i9 processor,32 GB memory,1 TB SSD storage",
-                            ImageFile = "437dead8-dda3-4c46-85f6-9d0cd013629d.jpg",
                             Name = "Asus Zenbook",
+                            Picture = "437dead8-dda3-4c46-85f6-9d0cd013629d.jpg",
                             Price = 1200m,
                             Stock = 10
                         },
@@ -115,10 +115,10 @@ namespace TechnoMarket.Services.Catalog.Migrations
                         {
                             Id = new Guid("7723714d-be34-438a-9f9e-57463d94dd5b"),
                             CategoryId = new Guid("c81bd97b-85ab-4cba-920a-73b5daab921f"),
-                            CreatedAt = new DateTime(2022, 12, 31, 14, 42, 23, 414, DateTimeKind.Local).AddTicks(9665),
+                            CreatedAt = new DateTime(2023, 1, 1, 13, 42, 25, 792, DateTimeKind.Local).AddTicks(5533),
                             Description = "512 GB Capacity,6,7' display,A15 Bionic chip,Ceramic shield front, glass back and aluminium design",
-                            ImageFile = "582a7fed-b175-4642-956d-58d1b06aeed6.jpg",
                             Name = "Iphone 14 Plus",
+                            Picture = "582a7fed-b175-4642-956d-58d1b06aeed6.jpg",
                             Price = 800m,
                             Stock = 50
                         });
