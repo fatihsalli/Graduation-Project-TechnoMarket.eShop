@@ -8,7 +8,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5015"
+      "applicationUrl": "http://localhost:5020"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -20,6 +20,7 @@
     },
     "Docker": {
       "commandName": "Docker",
+      "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "publishAllPorts": true
     }
