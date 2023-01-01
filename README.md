@@ -8,12 +8,12 @@ There is a couple of microservices which implemented e-commerce modules over **C
 
 ![alt text](https://i.ibb.co/Zh7pLyW/project-architecture.jpg)
 
-### Whats Including In This Repository
+## Whats Including In This Repository
 
 #### Catalog microservice which includes; 
 * ASP.NET Core Web API application 
 * REST API principles, CRUD operations
-* Repository and Unit Of Work pattern Implementation
+* Repository and Unit Of Work Pattern Implementation
 * **Sql Server database** connection and containerization
 * Using **Entity Framework Core ORM**
 * Using **FluentValidation** and **AutoMapper**
@@ -59,7 +59,7 @@ There is a couple of microservices which implemented e-commerce modules over **C
 #### API Gateway Ocelot Microservice which includes; 
 * Implement **API Gateways with Ocelot**
 * Sample microservices/containers to reroute through the API Gateways
-* The Gateway aggregation pattern in Shopping.Aggregator
+* The Gateway aggregation pattern in **Shopping.Aggregator**
 
 #### Microservices Cross-Cutting Implementations
 * Implementing Centralized Distributed Logging with Elastic Stack (ELK); Elasticsearch, Logstash, Kibana and SeriLog for Microservices **(Not completed yet)**
