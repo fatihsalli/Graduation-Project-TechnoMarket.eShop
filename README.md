@@ -59,7 +59,7 @@ There is a couple of microservices which implemented e-commerce modules over **C
 #### API Gateway Ocelot Microservice which includes; 
 * Implement **API Gateways with Ocelot**
 * Sample microservices/containers to reroute through the API Gateways
-* The Gateway aggregation pattern in Shopping.Aggregator
+* The Gateway aggregation pattern in **Shopping.Aggregator**
 
 #### Microservices Cross-Cutting Implementations
 * Implementing Centralized Distributed Logging with Elastic Stack (ELK); Elasticsearch, Logstash, Kibana and SeriLog for Microservices **(Not completed yet)**
