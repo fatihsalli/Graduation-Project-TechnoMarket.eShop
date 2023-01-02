@@ -12,7 +12,7 @@ using TechnoMarket.Services.Catalog.Data;
 namespace TechnoMarket.Services.Catalog.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20230101104225_migV001")]
+    [Migration("20230102190349_migV001")]
     partial class migV001
     {
         /// <inheritdoc />
@@ -45,13 +45,18 @@ namespace TechnoMarket.Services.Catalog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a53c1fd9-2b60-405f-a73b-847c641214a1"),
+                            Id = new Guid("539fad2d-dca1-4a26-a41f-987db7847583"),
                             Name = "Notebook"
                         },
                         new
                         {
-                            Id = new Guid("c81bd97b-85ab-4cba-920a-73b5daab921f"),
+                            Id = new Guid("ccc4a6ab-8ba5-4198-92c4-bd89af052f05"),
                             Name = "Smart Phone"
+                        },
+                        new
+                        {
+                            Id = new Guid("f253dbfb-1b3d-45a0-90f7-463f7383e20c"),
+                            Name = "Home Equipment"
                         });
                 });
 
@@ -102,10 +107,10 @@ namespace TechnoMarket.Services.Catalog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("46a02782-f572-4c86-860e-8f908fc105ce"),
-                            CategoryId = new Guid("a53c1fd9-2b60-405f-a73b-847c641214a1"),
-                            CreatedAt = new DateTime(2023, 1, 1, 13, 42, 25, 792, DateTimeKind.Local).AddTicks(5522),
-                            Description = "12th gen Intel® Core™ i9 processor,32 GB memory,1 TB SSD storage",
+                            Id = new Guid("c44ee253-20d5-4e19-9055-d661b9be5703"),
+                            CategoryId = new Guid("539fad2d-dca1-4a26-a41f-987db7847583"),
+                            CreatedAt = new DateTime(2023, 1, 2, 22, 3, 49, 26, DateTimeKind.Local).AddTicks(8106),
+                            Description = "ASUS ZenBook 14 Ultra-Slim Laptop 14” FHD Display, AMD Ryzen 7 5800H CPU, Radeon Vega 7 Graphics, 16GB RAM, 1TB PCIe SSD, NumberPad, Windows 11 Pro, Pine Grey, UM425QA-EH74",
                             Name = "Asus Zenbook",
                             Picture = "437dead8-dda3-4c46-85f6-9d0cd013629d.jpg",
                             Price = 1200m,
@@ -113,14 +118,58 @@ namespace TechnoMarket.Services.Catalog.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7723714d-be34-438a-9f9e-57463d94dd5b"),
-                            CategoryId = new Guid("c81bd97b-85ab-4cba-920a-73b5daab921f"),
-                            CreatedAt = new DateTime(2023, 1, 1, 13, 42, 25, 792, DateTimeKind.Local).AddTicks(5533),
+                            Id = new Guid("1c32da1d-8b13-418b-bd78-5fe483bef59c"),
+                            CategoryId = new Guid("539fad2d-dca1-4a26-a41f-987db7847583"),
+                            CreatedAt = new DateTime(2023, 1, 2, 22, 3, 49, 26, DateTimeKind.Local).AddTicks(8118),
+                            Description = "Apple 2022 MacBook Pro Laptop with M2 chip: 13-inch Retina Display, 8GB RAM, 256GB ​​​​​​​SSD ​​​​​​​Storage, Touch Bar, Backlit Keyboard, FaceTime HD Camera. Works with iPhone and iPad; Space Gray",
+                            Name = "Macbook Pro",
+                            Picture = "d78aba71-fab4-499b-8dc6-ebf797a5c38e.jpg",
+                            Price = 1300m,
+                            Stock = 10
+                        },
+                        new
+                        {
+                            Id = new Guid("46ba7244-7d95-4274-bfba-ca374023d303"),
+                            CategoryId = new Guid("ccc4a6ab-8ba5-4198-92c4-bd89af052f05"),
+                            CreatedAt = new DateTime(2023, 1, 2, 22, 3, 49, 26, DateTimeKind.Local).AddTicks(8121),
                             Description = "512 GB Capacity,6,7' display,A15 Bionic chip,Ceramic shield front, glass back and aluminium design",
                             Name = "Iphone 14 Plus",
-                            Picture = "582a7fed-b175-4642-956d-58d1b06aeed6.jpg",
-                            Price = 800m,
+                            Picture = "b84407d0-c0f5-4ae5-9746-1bec572953b6.jpg",
+                            Price = 950m,
                             Stock = 50
+                        },
+                        new
+                        {
+                            Id = new Guid("d6a4d2c5-9087-4278-a161-f96a142eb606"),
+                            CategoryId = new Guid("ccc4a6ab-8ba5-4198-92c4-bd89af052f05"),
+                            CreatedAt = new DateTime(2023, 1, 2, 22, 3, 49, 26, DateTimeKind.Local).AddTicks(8123),
+                            Description = "SAMSUNG Galaxy S22 Cell Phone, Factory Unlocked Android Smartphone, 128GB, 8K Camera & Video, Night Mode, Brightest Display Screen, 50MP Photo Resolution, Long Battery Life, US Version, Green",
+                            Name = "Samsung Galaxy S22",
+                            Picture = "9849e8af-83bb-409b-9ef4-9a4535b26f09.jpg",
+                            Price = 750m,
+                            Stock = 12
+                        },
+                        new
+                        {
+                            Id = new Guid("a738ca5c-cf72-4faf-9f50-68037fb3f4d5"),
+                            CategoryId = new Guid("f253dbfb-1b3d-45a0-90f7-463f7383e20c"),
+                            CreatedAt = new DateTime(2023, 1, 2, 22, 3, 49, 26, DateTimeKind.Local).AddTicks(8125),
+                            Description = "Roborock S5 MAX Robot Vacuum and Mop, Self-Charging Robotic Vacuum Cleaner, Lidar Navigation, Selective Room Cleaning, No-mop Zones, 2000Pa Powerful Suction, 180min Runtime, Works with Alexa(White)",
+                            Name = "Roborock S5 Max",
+                            Picture = "97c97f97-d398-4962-8afa-d2c960d78e14.jpg",
+                            Price = 650m,
+                            Stock = 10
+                        },
+                        new
+                        {
+                            Id = new Guid("fcf628c8-44c0-40ed-b042-28367de2c0ad"),
+                            CategoryId = new Guid("f253dbfb-1b3d-45a0-90f7-463f7383e20c"),
+                            CreatedAt = new DateTime(2023, 1, 2, 22, 3, 49, 26, DateTimeKind.Local).AddTicks(8129),
+                            Description = "Dyson V15 Detect Absolute Cordless Vacuum Cleaner 60 Mins Run 2 Year",
+                            Name = "Dyson V15 Detect",
+                            Picture = "b44fd94f-12ff-4b4d-acdb-e0db37219bae.jpg",
+                            Price = 600m,
+                            Stock = 10
                         });
                 });
 
@@ -156,7 +205,7 @@ namespace TechnoMarket.Services.Catalog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("46a02782-f572-4c86-860e-8f908fc105ce"),
+                            Id = new Guid("c44ee253-20d5-4e19-9055-d661b9be5703"),
                             Color = "Black",
                             Height = "12'",
                             Weight = "2.5 kg",
@@ -164,11 +213,43 @@ namespace TechnoMarket.Services.Catalog.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7723714d-be34-438a-9f9e-57463d94dd5b"),
+                            Id = new Guid("1c32da1d-8b13-418b-bd78-5fe483bef59c"),
+                            Color = "White",
+                            Height = "14'",
+                            Weight = "1.8 kg",
+                            Width = "15.3'"
+                        },
+                        new
+                        {
+                            Id = new Guid("46ba7244-7d95-4274-bfba-ca374023d303"),
                             Color = "Purple",
                             Height = "6.33'",
                             Weight = "0.25 kg",
                             Width = "3.07'"
+                        },
+                        new
+                        {
+                            Id = new Guid("d6a4d2c5-9087-4278-a161-f96a142eb606"),
+                            Color = "Black",
+                            Height = "7.2'",
+                            Weight = "0.40 kg",
+                            Width = "3.6'"
+                        },
+                        new
+                        {
+                            Id = new Guid("a738ca5c-cf72-4faf-9f50-68037fb3f4d5"),
+                            Color = "White",
+                            Height = "2.2'",
+                            Weight = "2.9 kg",
+                            Width = "12.6'"
+                        },
+                        new
+                        {
+                            Id = new Guid("fcf628c8-44c0-40ed-b042-28367de2c0ad"),
+                            Color = "Silver",
+                            Height = "39.2'",
+                            Weight = "4.9 kg",
+                            Width = "6.6'"
                         });
                 });
 
