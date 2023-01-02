@@ -27,7 +27,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
                 using var stream = new FileStream(path, FileMode.Create);
                 //Photo yu kaydederken tarayıcı kapanır veya işlem sonlanırsa diye cancellation tokenı da veriyoruz. (İşlemi sonlandırması için)
                 await photo.CopyToAsync(stream, cancellationToken);
-                //İsteği yapana pathi dönüyoruz. //http://www.photostock.api.com/photos/imagesbackground.jpg
+                //İsteği yapana pathi dönüyoruz.
                 var returnPath = photo.FileName;
                 //var photoDto= new PhotoDto { Url= returnPath };
                 PhotoDto photoDto = new() { Url = returnPath };

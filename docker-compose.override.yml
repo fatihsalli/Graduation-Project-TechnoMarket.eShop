@@ -167,6 +167,5 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ServiceApiSettings:GatewayBaseUri=http://gateway.api
-      - ServiceApiSettings:PhotoStockUri=http://photostock.api
       - ConnectionStrings:SqlServer=Server=userdb,1433;Database=userdb;TrustServerCertificate=True;User=sa; Password=Password12*;
 
