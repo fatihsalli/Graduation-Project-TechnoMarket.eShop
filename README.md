@@ -95,6 +95,8 @@ You can launch microservices as below urls:
 * **Shopping.Aggregator -> http://host.docker.internal:5001/swagger/index.html**
 * **API Gateway -> http://host.docker.internal:5000**
 * **RabbitMQ Management Dashboard -> http://host.docker.internal:15672**   -- guest/guest
+* **Elasticsearch -> http://host.docker.internal:9200**
+* **Kibana -> http://host.docker.internal:5601**
 * **Web UI -> http://host.docker.internal:5010**
                                 	    
 ![mainscreen2](https://i.ibb.co/bbpdtsP/Untitled-1.jpg)
