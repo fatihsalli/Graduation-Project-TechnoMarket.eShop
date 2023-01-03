@@ -68,7 +68,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development     
       - RabbitMQUrl=rabbitmq
       - ConnectionStrings:SqlServer=Server=catalogdb,1433;Database=catalogdb;TrustServerCertificate=True;User=sa; Password=Password12*;
-      - ElasticConfiguration:Uri=http://elasticsearch
+      - ElasticConfiguration:Uri=http://elasticsearch:9200
 
   order.api:
     container_name: order.api
@@ -82,7 +82,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development     
       - RabbitMQUrl=rabbitmq
       - OrderDatabaseSettings:ConnectionString=mongodb://orderdb:27017
-      - ElasticConfiguration:Uri=http://elasticsearch
+      - ElasticConfiguration:Uri=http://elasticsearch:9200
 
   customer.api:
     container_name: customer.api
@@ -94,7 +94,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development     
       - ConnectionStrings:PostreSql=User ID=admin;Password=Password12*;Server=customerdb;Port=5432;Database=customerdb;Integrated Security=true;Pooling=true;
-      - ElasticConfiguration:Uri=http://elasticsearch
+      - ElasticConfiguration:Uri=http://elasticsearch:9200
 
   basket.api:
     container_name: basket.api
@@ -109,13 +109,13 @@ services:
       - RabbitMQUrl=rabbitmq
       - RedisSettings:Port=6379
       - RedisSettings:Host=basketdb
-      - ElasticConfiguration:Uri=http://elasticsearch
+      - ElasticConfiguration:Uri=http://elasticsearch:9200
 
   photostock.api:
     container_name: photostock.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ElasticConfiguration:Uri=http://elasticsearch
+      - ElasticConfiguration:Uri=http://elasticsearch:9200
     ports:
       - "5020:80"
     volumes:
@@ -136,7 +136,7 @@ services:
       - "5000:80"  
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ElasticConfiguration:Uri=http://elasticsearch
+      - ElasticConfiguration:Uri=http://elasticsearch:9200
       
   shopping_aggregator.api:
     container_name: shopping_aggregator.api
@@ -155,7 +155,7 @@ services:
       - ApiSettings:OrderUrl=http://order.api
       - ApiSettings:CustomerUrl=http://customer.api
       - ApiSettings:BasketUrl=http://basket.api
-      - ElasticConfiguration:Uri=http://elasticsearch
+      - ElasticConfiguration:Uri=http://elasticsearch:9200
 
   aspnetcoremvc.web:
     container_name: aspnetcoremvc.web
@@ -174,7 +174,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ServiceApiSettings:GatewayBaseUri=http://gateway.api
       - ConnectionStrings:SqlServer=Server=userdb,1433;Database=userdb;TrustServerCertificate=True;User=sa; Password=Password12*;
-      - ElasticConfiguration:Uri=http://elasticsearch
+      - ElasticConfiguration:Uri=http://elasticsearch:9200
 
   elasticsearch:
     container_name: elasticsearch
@@ -191,7 +191,7 @@ services:
   kibana:
     container_name: kibana
     environment:
-      - ELASTICSEARCH_URL=http://elasticsearch
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
     depends_on:
       - elasticsearch
     ports:
