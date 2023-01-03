@@ -84,7 +84,7 @@ There are five microservices which implemented e-commerce modules over **Catalog
 
 After the cloning this repository run below command at the root directory which include docker-compose.yml files;
 ```csharp
-docker-compose up
+docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 ```
 You can launch microservices as below urls:
 * **Catalog API -> http://host.docker.internal:5011/swagger/index.html**
