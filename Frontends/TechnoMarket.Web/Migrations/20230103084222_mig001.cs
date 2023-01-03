@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace TechnoMarket.Web.Migrations
 {
-    public partial class migV01 : Migration
+    public partial class mig001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -3,52 +3,63 @@ version: "3.8"
 services:
   catalogdb:
     image: mcr.microsoft.com/mssql/server:2019-latest
+
   customerdb:
     image: postgres
+
   orderdb:
     image: mongo
+
   basketdb:
     image: redis
+
   userdb:
     image: mcr.microsoft.com/mssql/server:2019-latest 
+
   rabbitmq:
     image: rabbitmq:3.11.5-management
+
   catalog.api:
     image: catalog_api_image
     build:
       context: .
       dockerfile: Services/Catalog/TechnoMarket.Services.Catalog/Dockerfile
+
   order.api:
     image: order_api_image
     build:
       context: .
       dockerfile: Services/Order/TechnoMarket.Services.Order/Dockerfile
+
   customer.api:
     image: customer_api_image
     build:
       context: .
       dockerfile: Services/Customer/TechnoMarket.Services.Customer/Dockerfile
+
   basket.api:
     image: basket_api_image
     build:
       context: .
       dockerfile: Services/Basket/TechnoMarket.Services.Basket/Dockerfile
+
   photostock.api:
     image: photostock_api_image
     build:
       context: .
       dockerfile: Services/PhotoStock/TechnoMarket.Services.PhotoStock/Dockerfile
+
   gateway.api:
     image: gateway_api_image
     build:
       context: .
       dockerfile: Gateways/TechnoMarket.Gateway/Dockerfile
+
   shopping_aggregator.api:
     image: shopping_aggregator_api_image
     build:
       context: .
       dockerfile: Gateways/TechnoMarket.Shopping.Aggregator/Dockerfile
-
 
   aspnetcoremvc.web:
     image: aspnetcoremvc_web_image
@@ -56,10 +67,15 @@ services:
       context: .
       dockerfile: Frontends/TechnoMarket.Web/Dockerfile
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.2
+
 volumes:
   catalogdb_volume:
   customerdb_volume:
   orderdb_volume:
   userdb_volume:
-
-
+  elasticsearch-data:

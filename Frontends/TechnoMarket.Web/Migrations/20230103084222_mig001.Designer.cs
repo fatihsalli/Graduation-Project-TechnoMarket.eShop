@@ -12,8 +12,8 @@ using TechnoMarket.Web.Data;
 namespace TechnoMarket.Web.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20221231075024_migV01")]
-    partial class migV01
+    [Migration("20230103084222_mig001")]
+    partial class mig001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
