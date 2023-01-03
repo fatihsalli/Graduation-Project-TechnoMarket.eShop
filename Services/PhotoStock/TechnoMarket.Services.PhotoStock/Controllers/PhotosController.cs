@@ -11,6 +11,12 @@ namespace FreeCourse.Services.PhotoStock.Controllers
     [ApiController]
     public class PhotosController : CustomBaseController
     {
+        private readonly ILogger<PhotosController> _logger;
+        public PhotosController(ILogger<PhotosController> logger)
+        {
+            _logger = logger;
+        }
+
         #region Neden CancellationToken Aldık?
         //Cancellation tokenı neden aldık? Buraya bir fotoğraf geldiğinde örneğin 20 sn sürüyor diyelim isteği gönderen işlem tamamlanmadan iptal ederse işlem devam etmesin sonlansın diye. Asenkron başlayan bir işlemi hata fırlatarak sonlandırabilirsiniz. Cancellation Token da hata fırlatarak işlemi sonlandırır. 
         #endregion
@@ -35,6 +41,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
                 return CreateActionResult(CustomResponseDto<PhotoDto>.Success(200, photoDto));
             }
 
+            _logger.LogError($"Photo is empty!");
             throw new ClientSideException($"Photo is empty!");
         }
 
@@ -49,6 +56,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
             //Path var mı yok mu kontrol ediyoruz.
             if (!System.IO.File.Exists(path))
             {
+                _logger.LogError($"Photo with url ({photoUrl}) didn't find in the database.");
                 throw new NotFoundException($"Photo with url ({photoUrl}) didn't find in the database.");
             }
             //Var ise siliyoruz.
