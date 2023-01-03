@@ -7,6 +7,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Gateways/TechnoMarket.Gateway/TechnoMarket.Gateway.csproj", "Gateways/TechnoMarket.Gateway/"]
+COPY ["Shared/TechnoMarket.Shared/TechnoMarket.Shared.csproj", "Shared/TechnoMarket.Shared/"]
 RUN dotnet restore "Gateways/TechnoMarket.Gateway/TechnoMarket.Gateway.csproj"
 COPY . .
 WORKDIR "/src/Gateways/TechnoMarket.Gateway"
