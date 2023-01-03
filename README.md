@@ -19,7 +19,6 @@ There are five microservices which implemented e-commerce modules over **Catalog
 * Using **FluentValidation** and **AutoMapper**
 * Using **Custom Response, Middleware and Exceptions** with Shared Library
 * Testing with **xUnitTest** for Services and Controllers
-* Logging with **nLog** for Services
 
 #### Customer microservice
 * ASP.NET Core Web API application 
@@ -29,7 +28,6 @@ There are five microservices which implemented e-commerce modules over **Catalog
 * Using **Entity Framework Core ORM**
 * Using **FluentValidation** and **AutoMapper**
 * Using **Custom Response, Middleware and Exceptions** with Shared Library
-* Logging with **nLog** for Services
 
 #### Order microservice
 * ASP.NET Core Web API application 
@@ -38,7 +36,6 @@ There are five microservices which implemented e-commerce modules over **Catalog
 * Using **MongoDB Driver**
 * Using **FluentValidation** and **AutoMapper**
 * Using **Custom Response, Middleware and Exceptions** with Shared Library
-* Logging with **nLog** for Services
 
 #### Basket microservice
 * ASP.NET Core Web API application 
@@ -46,7 +43,6 @@ There are five microservices which implemented e-commerce modules over **Catalog
 * **Redis database** connection and containerization
 * Using **FluentValidation**
 * Using **Custom Response, Middleware and Exceptions** with Shared Library
-* Logging with **nLog** for Services
 
 #### PhotoStock microservice
 * ASP.NET Core Web API application 
@@ -67,8 +63,7 @@ There are five microservices which implemented e-commerce modules over **Catalog
 * The Gateway aggregation pattern in **Shopping.Aggregator**
 
 #### Microservices Cross-Cutting Implementations
-* Implementing Centralized Distributed Logging with Elastic Stack (ELK); Elasticsearch, Logstash, Kibana and SeriLog for Microservices **(Not completed yet)**
-* Implementing Logging with Nlog for each Microservices
+* Implementing Centralized Distributed Logging with Elastic Stack (ELK); **Elasticsearch, Logstash, Kibana and SeriLog** for Microservices
 
 #### WebUI ShoppingApp Microservice
 * ASP.NET Core Web Application with Html, CSS and Bootstrap 5.2.3
