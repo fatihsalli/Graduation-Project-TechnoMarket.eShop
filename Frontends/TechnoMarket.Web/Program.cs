@@ -2,8 +2,6 @@ using FreeCourse.Web.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Serilog.Sinks.Elasticsearch;
-using System.Diagnostics;
 using System.Reflection;
 using TechnoMarket.Shared.CommonLogging;
 using TechnoMarket.Web.Data;
