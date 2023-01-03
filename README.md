@@ -53,17 +53,16 @@ There are five microservices which implemented e-commerce modules over **Catalog
 * Using IdentityServer4 (JWT)
 
 #### Asynchronous Communication of Microservices
-* Using **MassTransit** for abstraction over **RabbitMQ** Message-Broker system
-* Publishing Checkout command from Basket microservices and Subscribing this event from Order microservices
+* Using **MassTransit** for **RabbitMQ** Message-Broker system
+* Publishing Checkout command from Basket microservices and Subscribing this message from Order microservices
 * Publishing ProductUpdate event from Catalog microservices and Subscribing this event from Order microservices (Eventual Consistency)
 
 #### API Gateway Ocelot Microservice 
 * Implement **API Gateways with Ocelot**
-* Sample microservices/containers to reroute through the API Gateways
 * The Gateway aggregation pattern in **Shopping.Aggregator**
 
 #### Microservices Cross-Cutting Implementations
-* Implementing Centralized Distributed Logging with Elastic Stack (ELK); **Elasticsearch, Logstash, Kibana and SeriLog** for Microservices
+* Implementing Centralized Distributed Logging with **Elasticsearch, Logstash, Kibana and SeriLog** for Microservices
 
 #### WebUI ShoppingApp Microservice
 * ASP.NET Core Web Application with Html, CSS and Bootstrap 5.2.3
