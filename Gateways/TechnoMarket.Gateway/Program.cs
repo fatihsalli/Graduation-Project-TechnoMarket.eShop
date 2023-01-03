@@ -1,7 +1,12 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Serilog;
+using TechnoMarket.Shared.CommonLogging;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//=> Shared üzerinden ulaþarak gerekli düzenlemeleri yapýyoruz. Oldukça temiz bir yaklaþým.
+builder.Host.UseSerilog(SeriLogger.Configure);
 
 #region .Net6 Kullanýmý-Ocelot
 builder.Configuration.AddJsonFile($"configuration.{builder.Environment.EnvironmentName.ToLower()}.json").AddEnvironmentVariables();
