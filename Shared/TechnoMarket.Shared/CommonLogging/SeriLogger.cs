@@ -5,6 +5,7 @@ using Serilog.Sinks.Elasticsearch;
 
 namespace TechnoMarket.Shared.CommonLogging
 {
+    //Tek tek her servis için SeriLog paketi yükleyip program.cs içerisinde bu düzenlemeleri yapmakyerine extension metot oluşturarak burada yaptık. Burada yaptığımız ayarlamalar loglamanın nasıl oluşturulacağı ve elastic search ile ilgili Uri tanımladık.
     public static class SeriLogger
     {
         public static Action<HostBuilderContext, LoggerConfiguration> Configure =>
