@@ -8,12 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 //=> Shared üzerinden ulaþarak gerekli düzenlemeleri yapýyoruz. Oldukça temiz bir yaklaþým.
 builder.Host.UseSerilog(SeriLogger.Configure);
 
-#region .Net6 Kullanýmý-Ocelot
+//.Net6 Kullanýmý-Ocelot
 builder.Configuration.AddJsonFile($"configuration.{builder.Environment.EnvironmentName.ToLower()}.json").AddEnvironmentVariables();
 
 //Ocelot kütüphanesini ekledik.
 builder.Services.AddOcelot(builder.Configuration);
-#endregion
 
 #region .Net5 Kullanýmý-Ocelot
 //=> environment'a göre configuration dosyasýný verdik Ocelot için.
