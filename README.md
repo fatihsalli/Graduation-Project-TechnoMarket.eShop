@@ -43,6 +43,7 @@ There are five microservices which implemented e-commerce modules over **Catalog
 * **Redis database** connection and containerization
 * Using **FluentValidation**
 * Using **Custom Response, Middleware and Exceptions** with Shared Library
+* Publish Checkout Queue with using **MassTransit and RabbitMQ**
 
 #### PhotoStock microservice
 * ASP.NET Core Web API application 
