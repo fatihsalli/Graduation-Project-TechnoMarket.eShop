@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Repositories.Interfaces;

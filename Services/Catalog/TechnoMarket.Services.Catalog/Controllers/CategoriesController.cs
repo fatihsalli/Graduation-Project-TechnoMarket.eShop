@@ -22,7 +22,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
         [ProducesResponseType(typeof(CustomResponseDto<List<CategoryDto>>), (int)HttpStatusCode.OK)]
         public IActionResult GetAll()
         {
-            var categoryDtos =_categoryService.GetAll();
+            var categoryDtos = _categoryService.GetAll();
             return CreateActionResult(CustomResponseDto<List<CategoryDto>>.Success(200, categoryDtos));
         }
 

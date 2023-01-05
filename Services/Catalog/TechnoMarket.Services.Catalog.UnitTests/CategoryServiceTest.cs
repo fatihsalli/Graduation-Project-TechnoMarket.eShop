@@ -1,18 +1,12 @@
 ﻿using AutoMapper;
-using MassTransit;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Repositories.Interfaces;
-using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Services.Catalog.Services;
+using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Services.Catalog.UnitOfWorks.Interfaces;
-using TechnoMarket.Services.Catalog.Dtos;
 using Xunit;
 
 namespace TechnoMarket.Services.Catalog.UnitTests
@@ -22,7 +16,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         private readonly Mock<IMapper> _mockMapper;
         private readonly Mock<IGenericRepository<Category>> _mockRepo;
         private readonly Mock<IUnitOfWork> _mockUnitOfWork;
-        private readonly Mock<ILogger<CategoryService>> _mockLogger;        
+        private readonly Mock<ILogger<CategoryService>> _mockLogger;
         private readonly ICategoryService _categoryService;
         private List<Category> _categories;
 
@@ -32,7 +26,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             _mockUnitOfWork = new Mock<IUnitOfWork>();
             _mockMapper = new Mock<IMapper>();
             _mockLogger = new Mock<ILogger<CategoryService>>();
-            _categoryService = new CategoryService(_mockMapper.Object,_mockRepo.Object,_mockUnitOfWork.Object,_mockLogger.Object);
+            _categoryService = new CategoryService(_mockMapper.Object, _mockRepo.Object, _mockUnitOfWork.Object, _mockLogger.Object);
 
             _categories = new List<Category>()
             {
@@ -95,7 +89,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.Equal(categoryDtos, result);
 
             //Bir tane ürün eklediğimiz için bir tane olup olmadığını kontrol ediyoruz. Birden fazla olması durumunda "Assert.Equal<int>(2, result.Count);" olarak kullanabiliriz.
-            Assert.Equal<int>(3,result.Count);
+            Assert.Equal<int>(3, result.Count);
         }
 
 
