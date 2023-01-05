@@ -7,6 +7,7 @@ using TechnoMarket.Services.Catalog.Repositories.Interfaces;
 using TechnoMarket.Services.Catalog.Services;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Services.Catalog.UnitOfWorks.Interfaces;
+using TechnoMarket.Shared.Exceptions;
 using Xunit;
 
 namespace TechnoMarket.Services.Catalog.UnitTests
@@ -73,7 +74,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                 }
             };
 
-            //Mapper'ı taklit ederek List<ProductWithCategoryDto> oluşturduk
+            //Mapper'ı taklit ederek List<CategoryDto> oluşturduk
             _mockMapper.Setup(x => x.Map<List<CategoryDto>>(_categories)).Returns(categoryDtos);
 
             var result = _categoryService.GetAll();
@@ -92,12 +93,163 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.Equal<int>(3, result.Count);
         }
 
+        [Theory]
+        [InlineData("145fad2d-dca1-4a26-a41f-987db7847583")]
+        public async Task GetById_GetCategory_Success(string id)
+        {
+            //Kendi oluşturduğumuz listten ilgili id'yi bulduk.
+            var category = _categories.First(x => x.Id == new Guid(id));
 
+            //Category Repository'i taklit ederek geriye bu product'ı döndük.
+            _mockRepo.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(category);
 
+            var categoryDto = new CategoryDto
+            {
+                Id = category.Id.ToString(),
+                Name = category.Name,
+            };
 
+            //Mapper'ı taklit ederek "CategoryDto" oluşturduk.
+            _mockMapper.Setup(x => x.Map<CategoryDto>(category)).Returns(categoryDto);
 
+            var result = await _categoryService.GetByIdAsync(id);
 
+            _mockRepo.Verify(x => x.GetByIdAsync(id), Times.Once);
+            _mockMapper.Verify(x => x.Map<CategoryDto>(category), Times.Once);
+            Assert.Equal(category.Id.ToString(), result.Id);
+            Assert.IsAssignableFrom<CategoryDto>(result);
+            Assert.Equal(categoryDto, result);
+        }
 
+        [Theory]
+        [InlineData("401ca3fc-e45b-4857-9950-2ff2a8e5977d")] //FakeId
+        public async Task GetById_IdNotFound_ReturnException(string id)
+        {
+            Category category = null;
+
+            _mockRepo.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(category);
+
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _categoryService.GetByIdAsync(id));
+
+            _mockRepo.Verify(x => x.GetByIdAsync(id), Times.Once);
+            Assert.IsType<NotFoundException>(exception);
+            Assert.Equal($"Category with id ({id}) didn't find in the database.", exception.Message);
+        }
+
+        [Fact]
+        public async Task Create_CreateCategory_Success()
+        {
+            var categoryCreateDto = new CategoryCreateDto()
+            {
+                Name = "Smart Phone Accessories",                
+            };
+
+            var category = new Category()
+            {
+                //Id = new Guid("3f7ca3fc-e45b-4857-9950-2ff2a8e5977d"),
+                Name = categoryCreateDto.Name,
+            };
+
+            _mockMapper.Setup(x => x.Map<Category>(categoryCreateDto)).Returns(category);
+
+            var categoryDto = new CategoryDto()
+            {
+                Id = "3f7ca3fc-e45b-4857-9950-2ff2a8e5977d",
+                Name = categoryCreateDto.Name,
+            };
+
+            _mockRepo.Setup(x => x.AddAsync(category));
+            _mockUnitOfWork.Setup(x => x.CommitAsync());
+            _mockMapper.Setup(x => x.Map<CategoryDto>(category)).Returns(categoryDto);
+
+            var result = await _categoryService.AddAsync(categoryCreateDto);
+
+            _mockRepo.Verify(x => x.AddAsync(category), Times.Once);
+            _mockUnitOfWork.Verify(x => x.CommitAsync(), Times.Once);
+            _mockMapper.Verify(x => x.Map<CategoryDto>(category), Times.Once);
+            _mockMapper.Verify(x => x.Map<Category>(categoryCreateDto), Times.Once);
+            Assert.IsAssignableFrom<CategoryDto>(result);
+            Assert.Equal(categoryDto, result);
+            Assert.Equal(categoryCreateDto.Name, result.Name);
+        }
+
+        [Fact]
+        public async Task Update_UpdateCategory_Success()
+        {
+            var categoryUpdateDto = new CategoryUpdateDto()
+            {
+                Id = "145fad2d-dca1-4a26-a41f-987db7847583",
+                Name = "Slim Notebook"
+            };
+
+            var category = _categories.Where(x => x.Id == new Guid(categoryUpdateDto.Id)).SingleOrDefault();
+
+            category.Name = categoryUpdateDto.Name;
+
+            _mockMapper.Setup(x => x.Map<Category>(categoryUpdateDto)).Returns(category);
+
+            _mockRepo.Setup(x => x.AnyAsync(x => x.Id == new Guid(categoryUpdateDto.Id))).ReturnsAsync(true);
+            _mockRepo.Setup(x => x.Update(category)).Returns(category);
+            _mockUnitOfWork.Setup(x => x.CommitAsync());
+
+            await _categoryService.UpdateAsync(categoryUpdateDto);
+
+            _mockRepo.Verify(x => x.Update(category), Times.Once);
+            _mockRepo.Verify(x => x.AnyAsync(x => x.Id == new Guid(categoryUpdateDto.Id)), Times.Once);
+            _mockUnitOfWork.Verify(x => x.CommitAsync(), Times.Once);
+            _mockMapper.Verify(x => x.Map<Category>(categoryUpdateDto));
+            Assert.Equal(_categories.First().Name, categoryUpdateDto.Name);
+        }
+
+        [Fact]
+        public async Task Update_IdNotFound_ReturnException()
+        {
+            var categoryUpdateDto = new CategoryUpdateDto()
+            {
+                Id = "204fad2d-dca1-4a26-a41f-987db7847583",
+                Name = "Slim Notebook"
+            };
+
+            _mockRepo.Setup(x => x.AnyAsync(x => x.Id == new Guid(categoryUpdateDto.Id))).ReturnsAsync(false);
+
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _categoryService.UpdateAsync(categoryUpdateDto));
+
+            _mockRepo.Verify(x => x.AnyAsync(x => x.Id == new Guid(categoryUpdateDto.Id)), Times.Once);
+
+            Assert.IsType<NotFoundException>(exception);
+            Assert.Equal($"Category with id ({categoryUpdateDto.Id}) didn't find in the database.", exception.Message);
+        }
+
+        [Theory]
+        [InlineData("145fad2d-dca1-4a26-a41f-987db7847583")]
+        public async Task Remove_RemoveCategory_Success(string id)
+        {
+            var category = _categories.First(x => x.Id == new Guid(id));
+
+            _mockRepo.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(category);
+            _mockRepo.Setup(x => x.Remove(category));
+
+            await _categoryService.RemoveAsync(id);
+
+            _mockRepo.Verify(x => x.GetByIdAsync(id), Times.Once);
+            _mockRepo.Verify(x => x.Remove(category), Times.Once);
+        }
+
+        [Theory]
+        [InlineData("401ca3fc-e45b-4857-9950-2ff2a8e5977d")] //FakeId
+        public async Task Remove_IdNotFound_ReturnException(string id)
+        {
+            Category category = null;
+
+            _mockRepo.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(category);
+
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _categoryService.RemoveAsync(id));
+
+            _mockRepo.Verify(x => x.GetByIdAsync(id), Times.Once);
+
+            Assert.IsType<NotFoundException>(exception);
+            Assert.Equal($"Category with id ({id}) didn't find in the database.", exception.Message);
+        }
 
     }
 }

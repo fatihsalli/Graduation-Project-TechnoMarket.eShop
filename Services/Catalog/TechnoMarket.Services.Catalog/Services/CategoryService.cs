@@ -42,8 +42,6 @@ namespace TechnoMarket.Services.Catalog.Services
             return _mapper.Map<CategoryDto>(category);
         }
 
-
-
         public async Task<CategoryDto> AddAsync(CategoryCreateDto categoryCreateDto)
         {
             var category = _mapper.Map<Category>(categoryCreateDto);
