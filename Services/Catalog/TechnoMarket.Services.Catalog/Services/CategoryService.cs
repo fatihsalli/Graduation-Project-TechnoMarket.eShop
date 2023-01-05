@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TechnoMarket.Services.Catalog.Dtos;
 using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Repositories.Interfaces;
@@ -23,9 +24,9 @@ namespace TechnoMarket.Services.Catalog.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public List<CategoryDto> GetAll()
+        public async Task<List<CategoryDto>> GetAll()
         {
-            var categories = _repository.GetAll();
+            var categories = await _repository.GetAll().ToListAsync();
             return _mapper.Map<List<CategoryDto>>(categories);
         }
 
