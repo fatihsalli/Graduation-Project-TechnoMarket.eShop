@@ -6,7 +6,7 @@
 
 There are five microservices which implemented e-commerce modules over **Catalog, Basket, Customer, Order** and **PhotoStock** microservices with **NoSQL (MongoDB, Redis)** and **Relational databases (PostgreSQL, Sql Server)** with communicating using **RabbitMQ-MassTransit** and **Ocelot API Gateway**. You can see the diagram of the project below;
 
-![alt text](https://i.ibb.co/Zh7pLyW/project-architecture.jpg)
+![alt text](https://i.ibb.co/XVBh0D8/project-architecture.jpg)
 
 ## Whats Including In This Repository
 
@@ -43,6 +43,7 @@ There are five microservices which implemented e-commerce modules over **Catalog
 * **Redis database** connection and containerization
 * Using **FluentValidation**
 * Using **Custom Response, Middleware and Exceptions** with Shared Library
+* Publish Checkout Queue with using **MassTransit and RabbitMQ**
 
 #### PhotoStock microservice
 * ASP.NET Core Web API application 
@@ -53,17 +54,16 @@ There are five microservices which implemented e-commerce modules over **Catalog
 * Using IdentityServer4 (JWT)
 
 #### Asynchronous Communication of Microservices
-* Using **MassTransit** for abstraction over **RabbitMQ** Message-Broker system
-* Publishing Checkout command from Basket microservices and Subscribing this event from Order microservices
+* Using **MassTransit** for **RabbitMQ** Message-Broker system
+* Publishing Checkout command from Basket microservices and Subscribing this message from Order microservices
 * Publishing ProductUpdate event from Catalog microservices and Subscribing this event from Order microservices (Eventual Consistency)
 
 #### API Gateway Ocelot Microservice 
 * Implement **API Gateways with Ocelot**
-* Sample microservices/containers to reroute through the API Gateways
 * The Gateway aggregation pattern in **Shopping.Aggregator**
 
 #### Microservices Cross-Cutting Implementations
-* Implementing Centralized Distributed Logging with Elastic Stack (ELK); **Elasticsearch, Logstash, Kibana and SeriLog** for Microservices
+* Implementing Centralized Distributed Logging with **Elasticsearch, Logstash, Kibana and SeriLog** for Microservices
 
 #### WebUI ShoppingApp Microservice
 * ASP.NET Core Web Application with Html, CSS and Bootstrap 5.2.3
