@@ -4,7 +4,7 @@ namespace TechnoMarket.Services.Catalog.Services.Interfaces
 {
     public interface ICategoryService
     {
-        Task<List<CategoryDto>> GetAll();
+        List<CategoryDto> GetAll();
         Task<CategoryDto> GetByIdAsync(string id);
         Task<CategoryDto> AddAsync(CategoryCreateDto categoryCreateDto);
         Task UpdateAsync(CategoryUpdateDto categoryUpdateDto);

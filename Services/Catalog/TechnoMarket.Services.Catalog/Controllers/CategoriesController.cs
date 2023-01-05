@@ -20,9 +20,9 @@ namespace TechnoMarket.Services.Catalog.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(CustomResponseDto<List<CategoryDto>>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var categoryDtos =await _categoryService.GetAll();
+            var categoryDtos =_categoryService.GetAll();
             return CreateActionResult(CustomResponseDto<List<CategoryDto>>.Success(200, categoryDtos));
         }
 

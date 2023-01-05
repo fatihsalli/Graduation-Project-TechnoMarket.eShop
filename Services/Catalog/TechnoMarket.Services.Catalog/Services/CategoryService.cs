@@ -24,10 +24,10 @@ namespace TechnoMarket.Services.Catalog.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<List<CategoryDto>> GetAll()
+        public List<CategoryDto> GetAll()
         {
-            var categories = await _repository.GetAll().ToListAsync();
-            return _mapper.Map<List<CategoryDto>>(categories);
+            var categories = _repository.GetAll();
+            return _mapper.Map<List<CategoryDto>>(categories.ToList());
         }
 
         public async Task<CategoryDto> GetByIdAsync(string id)
