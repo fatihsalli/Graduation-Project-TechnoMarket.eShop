@@ -77,11 +77,15 @@ There are five microservices which implemented e-commerce modules over **Catalog
 
 ## Run The Project
 
-After the cloning this repository run below command at the root directory which include docker-compose.yml files;
+1. After the cloning this repository please change the value of **PhotoStock.Api:Volumes:source (docker-compose.override.yml file)** where you want to save photos.
+
+![alt text](https://i.ibb.co/rtHKzbp/Revision.jpg)
+
+2. Run below command at the root directory which include docker-compose.yml files;
 ```csharp
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 ```
-You can launch microservices as below urls:
+3. You can launch microservices as below urls:
 * **Catalog API -> http://host.docker.internal:5011/swagger/index.html**
 * **Order API -> http://host.docker.internal:5012/swagger/index.html**
 * **Customer API -> http://host.docker.internal:5013/swagger/index.html**
