@@ -85,7 +85,7 @@ There are five microservices which implemented e-commerce modules over **Catalog
 ```csharp
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 ```
-You can launch microservices as below urls:
+3. You can launch microservices as below urls:
 * **Catalog API -> http://host.docker.internal:5011/swagger/index.html**
 * **Order API -> http://host.docker.internal:5012/swagger/index.html**
 * **Customer API -> http://host.docker.internal:5013/swagger/index.html**
