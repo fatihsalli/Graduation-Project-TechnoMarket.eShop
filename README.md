@@ -77,7 +77,11 @@ There are five microservices which implemented e-commerce modules over **Catalog
 
 ## Run The Project
 
-After the cloning this repository run below command at the root directory which include docker-compose.yml files;
+After the cloning this repository please change the value of PhotoStock.Api:Volumes:source (docker-compose.override.yml file) where you want to save photos.
+
+![alt text](https://i.ibb.co/rtHKzbp/Revision.jpg)
+
+After this change run below command at the root directory which include docker-compose.yml files;
 ```csharp
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 ```
