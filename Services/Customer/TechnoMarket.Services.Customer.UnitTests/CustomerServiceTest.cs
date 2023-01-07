@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 using TechnoMarket.Services.Customer.Dtos;
@@ -7,6 +8,7 @@ using TechnoMarket.Services.Customer.Repositories.Interfaces;
 using TechnoMarket.Services.Customer.Services;
 using TechnoMarket.Services.Customer.Services.Interfaces;
 using TechnoMarket.Services.Customer.UnitOfWorks.Interfaces;
+using TechnoMarket.Services.Customer.UnitTests;
 using TechnoMarket.Shared.Exceptions;
 using Xunit;
 using CustomerEntity = TechnoMarket.Services.Customer.Models.Customer;
@@ -122,10 +124,10 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         {
             var customerCreateDto = new CustomerCreateDto()
             {
-                FirstName="Hasan",
-                LastName="Yerebakan",
-                Email="hasanyerebakan@gmail.com",
-                Address=new AddressDto
+                FirstName = "Hasan",
+                LastName = "Yerebakan",
+                Email = "hasanyerebakan@gmail.com",
+                Address = new AddressDto
                 {
                     AddressLine = "Merkez",
                     City = "Isparta",
