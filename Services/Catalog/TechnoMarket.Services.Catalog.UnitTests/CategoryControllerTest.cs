@@ -1,13 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechnoMarket.Services.Catalog.Controllers;
 using TechnoMarket.Services.Catalog.Dtos;
-using TechnoMarket.Services.Catalog.Models;
 using TechnoMarket.Services.Catalog.Services.Interfaces;
 using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Shared.Exceptions;

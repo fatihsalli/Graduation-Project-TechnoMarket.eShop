@@ -141,7 +141,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         {
             var categoryCreateDto = new CategoryCreateDto()
             {
-                Name = "Smart Phone Accessories",                
+                Name = "Smart Phone Accessories",
             };
 
             var category = new Category()
