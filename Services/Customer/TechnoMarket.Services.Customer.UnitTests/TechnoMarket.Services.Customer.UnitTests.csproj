@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TechnoMarket.Services.Customer\TechnoMarket.Services.Customer.csproj" />
+  </ItemGroup>
+
 </Project>
