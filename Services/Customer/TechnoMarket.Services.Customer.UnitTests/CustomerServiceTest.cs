@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 using TechnoMarket.Services.Customer.Dtos;
@@ -8,7 +7,6 @@ using TechnoMarket.Services.Customer.Repositories.Interfaces;
 using TechnoMarket.Services.Customer.Services;
 using TechnoMarket.Services.Customer.Services.Interfaces;
 using TechnoMarket.Services.Customer.UnitOfWorks.Interfaces;
-using TechnoMarket.Services.Customer.UnitTests;
 using TechnoMarket.Shared.Exceptions;
 using Xunit;
 using CustomerEntity = TechnoMarket.Services.Customer.Models.Customer;
@@ -65,7 +63,10 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                     }
                 }
             };
+
         }
+
+        //TODO: IQueryable ve Moq arasındaki sorun çözülecek. GetAll ve GetByEmail metotları için
 
         [Theory]
         [InlineData("6e0dce4f-0d8c-4499-9283-6e008605b551")]
@@ -260,36 +261,36 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.Equal($"Customer with id ({customerUpdateDto.Id}) didn't find in the database.", exception.Message);
         }
 
-        //[Theory]
-        //[InlineData("3f7ca3fc-e45b-4857-9950-2ff2a8e5977d")]
-        //public async Task Remove_RemoveProduct_Success(string id)
-        //{
-        //    var product = _products.First(x => x.Id == new Guid(id));
+        [Theory]
+        [InlineData("81cae6a5-3ca4-42fd-9027-bd3cce250f6b")]
+        public async Task Remove_RemoveCustomer_Success(string id)
+        {
+            var customer = _customers.First(x => x.Id == new Guid(id));
 
-        //    _mockRepo.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(product);
-        //    _mockRepo.Setup(x => x.Remove(product));
+            _mockRepo.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(customer);
+            _mockRepo.Setup(x => x.Remove(customer));
 
-        //    await _productService.RemoveAsync(id);
+            await _customerService.RemoveAsync(id);
 
-        //    _mockRepo.Verify(x => x.GetByIdAsync(id), Times.Once);
-        //    _mockRepo.Verify(x => x.Remove(product), Times.Once);
-        //}
+            _mockRepo.Verify(x => x.GetByIdAsync(id), Times.Once);
+            _mockRepo.Verify(x => x.Remove(customer), Times.Once);
+        }
 
-        //[Theory]
-        //[InlineData("401ca3fc-e45b-4857-9950-2ff2a8e5977d")] //FakeId
-        //public async Task Remove_IdNotFound_ReturnException(string id)
-        //{
-        //    Product product = null;
+        [Theory]
+        [InlineData("401ca3fc-e45b-4857-9950-2ff2a8e5977d")] //FakeId
+        public async Task Remove_IdNotFound_ReturnException(string id)
+        {
+            CustomerEntity customer = null;
 
-        //    _mockRepo.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(product);
+            _mockRepo.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(customer);
 
-        //    Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _productService.RemoveAsync(id));
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _customerService.RemoveAsync(id));
 
-        //    _mockRepo.Verify(x => x.GetByIdAsync(id), Times.Once);
+            _mockRepo.Verify(x => x.GetByIdAsync(id), Times.Once);
 
-        //    Assert.IsType<NotFoundException>(exception);
-        //    Assert.Equal($"Product with id ({id}) didn't find in the database.", exception.Message);
-        //}
+            Assert.IsType<NotFoundException>(exception);
+            Assert.Equal($"Customer with id ({id}) didn't find in the database.", exception.Message);
+        }
     }
 }
 
