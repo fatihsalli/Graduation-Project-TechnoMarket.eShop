@@ -28,7 +28,7 @@ namespace TechnoMarket.Services.Catalog.Controllers
             return CreateActionResult(CustomResponseDto<List<ProductWithCategoryDto>>.Success(200, productDtos));
         }
 
-        //Service kısmında global exception fırlatıyoruz. Filter sayesinde action içerise girmeden geri dönecektir.
+        //Service kısmında global exception fırlatıyoruz. Filter sayesinde action içeriye girmeden geri dönecektir.
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
         //Name olarak neden belirtmemiz gerekir CreatedAtRoute action metotunu kullandığımızda Name ile belirtmemiz gerekir. Action ismini doğru şekilde yazsak bile Name ile göstermek gerekmektedir.
         [HttpGet("{id:length(36)}", Name = "GetProduct")]
