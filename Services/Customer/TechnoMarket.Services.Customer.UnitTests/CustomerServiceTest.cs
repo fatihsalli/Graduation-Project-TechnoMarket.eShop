@@ -66,8 +66,6 @@ namespace TechnoMarket.Services.Catalog.UnitTests
 
         }
 
-        //TODO: IQueryable ve Moq arasındaki sorun çözülecek. GetAll ve GetByEmail metotları için
-
         [Theory]
         [InlineData("6e0dce4f-0d8c-4499-9283-6e008605b551")]
         public async Task GetById_GetCustomer_Success(string id)
