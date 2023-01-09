@@ -2,7 +2,6 @@
 using Moq;
 using TechnoMarket.Services.Order.Controllers;
 using TechnoMarket.Services.Order.Dtos;
-using TechnoMarket.Services.Order.Models;
 using TechnoMarket.Services.Order.Services.Interfaces;
 using TechnoMarket.Shared.Dtos;
 using TechnoMarket.Shared.Exceptions;
@@ -329,7 +328,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                     }
                 }
             };
-            _mockOrderService.Setup(x => x.UpdateAsync(orderUpdateDto)).Throws(new NotFoundException($"Order with id({ orderUpdateDto.Id }) didn't find in the database."));
+            _mockOrderService.Setup(x => x.UpdateAsync(orderUpdateDto)).Throws(new NotFoundException($"Order with id({orderUpdateDto.Id}) didn't find in the database."));
 
             Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _ordersController.Update(orderUpdateDto));
 
@@ -339,6 +338,82 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.IsType<NotFoundException>(exception);
 
             Assert.Equal($"Order with id({orderUpdateDto.Id}) didn't find in the database.", exception.Message);
+        }
+
+        [Fact]
+        public async Task ChangeStatus_ActionExecute_ReturnSuccessResult()
+        {
+            var orderStatusUpdateDto = new OrderStatusUpdateDto()
+            {
+                Id = "2de578aa-d36d-41c3-8061-2dc64a8f765a",
+                Status = "Passive"
+            };
+
+            //CustomerService'i taklit ettik.
+            _mockOrderService.Setup(x => x.ChangeStatusAsync(orderStatusUpdateDto));
+
+            var result = await _ordersController.ChangeStatus(orderStatusUpdateDto);
+
+            var createActionResult = Assert.IsType<ObjectResult>(result);
+
+            Assert.Equal(204, createActionResult.StatusCode);
+
+            _mockOrderService.Verify(x => x.ChangeStatusAsync(orderStatusUpdateDto), Times.Once);
+        }
+
+        [Fact]
+        public async Task ChangeStatus_IdIsNotEqualOrder_ReturnSuccessResult()
+        {
+            var orderStatusUpdateDto = new OrderStatusUpdateDto()
+            {
+                Id = "2de578aa-d36d-41c3-8061-2dc64a8f765a",
+                Status = "Passive"
+            };
+
+            //CustomerService'i taklit ettik.
+            _mockOrderService.Setup(x => x.ChangeStatusAsync(orderStatusUpdateDto)).Throws(new NotFoundException($"Order with id({orderStatusUpdateDto.Id}) didn't find in the database."));
+
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _ordersController.ChangeStatus(orderStatusUpdateDto));
+
+            //Metotun çalışıp çalışmadığını test etmek için
+            _mockOrderService.Verify(x => x.ChangeStatusAsync(orderStatusUpdateDto), Times.Once);
+
+            Assert.IsType<NotFoundException>(exception);
+
+            Assert.Equal($"Order with id({orderStatusUpdateDto.Id}) didn't find in the database.", exception.Message);
+        }
+
+        [Theory]
+        [InlineData("2de578aa-d36d-41c3-8061-2dc64a8f765a")]
+        public async Task Delete_ActionExecute_ReturnSuccessResult(string id)
+        {
+            var orderDto = _orders.First(x => x.Id == id);
+
+            _mockOrderService.Setup(x => x.DeleteAsync(id));
+
+            var result = await _ordersController.Delete(id);
+
+            var createActionResult = Assert.IsType<ObjectResult>(result);
+
+            Assert.Equal(204, createActionResult.StatusCode);
+
+            _mockOrderService.Verify(x => x.DeleteAsync(id), Times.Once);
+        }
+
+        [Theory]
+        [InlineData("470ef3fc-e45b-4857-9950-2ff2a8e4213z")] //Invalid Id
+        public async Task Delete_IdNotFound_ReturnNotFoundException(string id)
+        {
+            _mockOrderService.Setup(x => x.DeleteAsync(id)).Throws(new NotFoundException($"Order with id ({id}) didn't find in the database."));
+
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _ordersController.Delete(id));
+
+            //Metotun çalışıp çalışmadığını test etmek için
+            _mockOrderService.Verify(x => x.DeleteAsync(id), Times.Once);
+
+            Assert.IsType<NotFoundException>(exception);
+
+            Assert.Equal($"Order with id ({id}) didn't find in the database.", exception.Message);
         }
 
     }
