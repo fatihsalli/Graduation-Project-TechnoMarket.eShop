@@ -56,7 +56,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
                     CustomerId="3fa578aa-d36d-41c3-8061-2dc64a8f787c",
                     TotalPrice=1600,
                     Status="Active",
-                    FullAddress = "Merkez Turkey Isparta 34",
+                    FullAddress = "Merkez Turkey Isparta 32",
                     OrderItems=new List<OrderItemDto>
                     {
                         new OrderItemDto
@@ -74,253 +74,169 @@ namespace TechnoMarket.Services.Catalog.UnitTests
         [Fact]
         public async Task GetAll_ActionExecute_ReturnSuccessResult()
         {
-            _mockCustomerService.Setup(x => x.GetAllAsync()).ReturnsAsync(_customers);
+            _mockOrderService.Setup(x => x.GetAllAsync()).ReturnsAsync(_orders);
 
-            var result = await _customersController.GetAll();
+            var result = await _ordersController.GetAll();
 
             var createActionResult = Assert.IsType<ObjectResult>(result);
 
             Assert.Equal(200, createActionResult.StatusCode);
 
-            var returnProducts = Assert.IsAssignableFrom<CustomResponseDto<List<CustomerDto>>>(createActionResult.Value);
+            var returnOrders = Assert.IsAssignableFrom<CustomResponseDto<List<OrderDto>>>(createActionResult.Value);
 
-            Assert.Equal<int>(2, returnProducts.Data.Count);
+            Assert.Equal<int>(2, returnOrders.Data.Count);
 
             //Metotların sadece 1 kez kullanılıp kullanılmadığını check ediyoruz.
-            _mockCustomerService.Verify(x => x.GetAllAsync(), Times.Once);
+            _mockOrderService.Verify(x => x.GetAllAsync(), Times.Once);
         }
 
         [Theory]
-        [InlineData("81cae6a5-3ca4-42fd-9027-bd3cce250f6b")]
-        [InlineData("6e0dce4f-0d8c-4499-9283-6e008605b551")]
+        [InlineData("2de578aa-d36d-41c3-8061-2dc64a8f765a")]
+        [InlineData("3ad578aa-d36d-41c3-8061-2dc64a8f754f")]
         public async Task GetById_ActionExecute_ReturnSuccessResult(string id)
         {
-            var customerDto = _customers.First(x => x.Id == id);
+            var orderDto = _orders.First(x => x.Id == id);
 
-            //CustomerService'i taklit ettik.
-            _mockCustomerService.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(customerDto);
+            //OrderService'i taklit ettik.
+            _mockOrderService.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(orderDto);
 
-            var result = await _customersController.GetById(id);
+            var result = await _ordersController.GetById(id);
 
             var createActionResult = Assert.IsType<ObjectResult>(result);
 
             Assert.Equal(200, createActionResult.StatusCode);
 
-            var returnCustomer = Assert.IsAssignableFrom<CustomResponseDto<CustomerDto>>(createActionResult.Value);
+            var returnOrder = Assert.IsAssignableFrom<CustomResponseDto<OrderDto>>(createActionResult.Value);
 
             //Metotların sadece 1 kez kullanılıp kullanılmadığını check ediyoruz.
-            _mockCustomerService.Verify(x => x.GetByIdAsync(id), Times.Once);
-            Assert.Equal(id, returnCustomer.Data.Id);
-            Assert.Equal(customerDto.FirstName, returnCustomer.Data.FirstName);
-            Assert.Equal(customerDto.LastName, returnCustomer.Data.LastName);
-            Assert.Equal(customerDto.Email, returnCustomer.Data.Email);
-            Assert.Equal(customerDto.Address, returnCustomer.Data.Address);
+            _mockOrderService.Verify(x => x.GetByIdAsync(id), Times.Once);
+            Assert.Equal(id, returnOrder.Data.Id);
+            Assert.Equal(orderDto.CustomerId, returnOrder.Data.CustomerId);
+            Assert.Equal(orderDto.TotalPrice, returnOrder.Data.TotalPrice);
+            Assert.Equal(orderDto.Status, returnOrder.Data.Status);
+            Assert.Equal(orderDto.OrderItems, returnOrder.Data.OrderItems);
         }
 
         [Theory]
         [InlineData("470ef3fc-e45b-4857-9950-2ff2a8e4213z")] //Invalid Id
         public async Task GetById_IdNotFound_ReturnNotFoundException(string id)
         {
-            _mockCustomerService.Setup(x => x.GetByIdAsync(id)).Throws(new NotFoundException($"Customer with id ({id}) didn't find in the database."));
+            _mockOrderService.Setup(x => x.GetByIdAsync(id)).Throws(new NotFoundException($"Order with id ({id}) didn't find in the database."));
 
-            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _customersController.GetById(id));
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _ordersController.GetById(id));
 
             //Metotun çalışıp çalışmadığını test etmek için
-            _mockCustomerService.Verify(x => x.GetByIdAsync(id), Times.Once);
+            _mockOrderService.Verify(x => x.GetByIdAsync(id), Times.Once);
 
             Assert.IsType<NotFoundException>(exception);
 
-            Assert.Equal($"Customer with id ({id}) didn't find in the database.", exception.Message);
+            Assert.Equal($"Order with id ({id}) didn't find in the database.", exception.Message);
         }
 
         [Theory]
-        [InlineData("sallifatih@hotmail.com")]
-        [InlineData("kazim_onaran@hotmail.com")]
-        public async Task GetByEmail_ActionExecute_ReturnSuccessResult(string email)
+        [InlineData("3fa578aa-d36d-41c3-8061-2dc64a8f787c")]
+        public async Task GetByCustomerId_ActionExecute_ReturnSuccessResult(string customerId)
         {
-            var customerDto = _customers.First(x => x.Email == email);
+            var orderDto = _orders.FindAll(x => x.CustomerId == customerId);
 
-            //CustomerService'i taklit ettik.
-            _mockCustomerService.Setup(x => x.GetByEmailAsync(email)).ReturnsAsync(customerDto);
+            //OrderService'i taklit ettik.
+            _mockOrderService.Setup(x => x.GetByCustomerIdAsync(customerId)).ReturnsAsync(orderDto);
 
-            var result = await _customersController.GetCustomerByEmail(email);
+            var result = await _ordersController.GetByCustomerId(customerId);
 
             var createActionResult = Assert.IsType<ObjectResult>(result);
 
             Assert.Equal(200, createActionResult.StatusCode);
 
-            var returnCustomer = Assert.IsAssignableFrom<CustomResponseDto<CustomerDto>>(createActionResult.Value);
+            var returnOrder = Assert.IsAssignableFrom<CustomResponseDto<List<OrderDto>>>(createActionResult.Value);
 
             //Metotların sadece 1 kez kullanılıp kullanılmadığını check ediyoruz.
-            _mockCustomerService.Verify(x => x.GetByEmailAsync(email), Times.Once);
-            Assert.Equal(customerDto.Id, returnCustomer.Data.Id);
-            Assert.Equal(customerDto.FirstName, returnCustomer.Data.FirstName);
-            Assert.Equal(customerDto.LastName, returnCustomer.Data.LastName);
-            Assert.Equal(email, returnCustomer.Data.Email);
-            Assert.Equal(customerDto.Address, returnCustomer.Data.Address);
+            _mockOrderService.Verify(x => x.GetByCustomerIdAsync(customerId), Times.Once);
+
+            Assert.Equal<int>(orderDto.Count, returnOrder.Data.Count);
         }
 
         [Theory]
-        [InlineData("kerem_onaran_92@gmail.com")] //Invalid Email
-        public async Task GetByEmail_IdNotFound_ReturnNotFoundException(string email)
+        [InlineData("470ef3fc-e45b-4857-9950-2ff2a8e4213z")] //Invalid Id
+        public async Task GetByCustomerId_CustomerIdNotFound_ReturnNotFoundException(string customerId)
         {
-            _mockCustomerService.Setup(x => x.GetByEmailAsync(email)).Throws(new NotFoundException($"Customer with email ({email}) didn't find in the database."));
+            _mockOrderService.Setup(x => x.GetByCustomerIdAsync(customerId)).Throws(new NotFoundException($"Order with customerId ({customerId}) didn't find in the database."));
 
-            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _customersController.GetCustomerByEmail(email));
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _ordersController.GetByCustomerId(customerId));
 
             //Metotun çalışıp çalışmadığını test etmek için
-            _mockCustomerService.Verify(x => x.GetByEmailAsync(email), Times.Once);
+            _mockOrderService.Verify(x => x.GetByCustomerIdAsync(customerId), Times.Once);
 
             Assert.IsType<NotFoundException>(exception);
 
-            Assert.Equal($"Customer with email ({email}) didn't find in the database.", exception.Message);
+            Assert.Equal($"Order with customerId ({customerId}) didn't find in the database.", exception.Message);
         }
 
         [Fact]
         public async Task Create_ActionExecute_ReturnSuccessResult()
         {
-            var customerCreateDto = new CustomerCreateDto()
+            var orderCreateDto = new OrderCreateDto()
             {
-                FirstName = "Hasan",
-                LastName = "Yerebakan",
-                Email = "hasanyerebakan@gmail.com",
+                CustomerId = "4va578aa-d36d-41c3-8061-2dc64a8f787z",
+                TotalPrice = 2400,
+                Status = "Active",
                 Address = new AddressDto
                 {
                     AddressLine = "Merkez",
                     City = "Isparta",
                     Country = "Türkiye",
                     CityCode = 32
-                }
-            };
-
-            var customerDto = new CustomerDto()
-            {
-                Id = "3f7ca3fc-e45b-4857-9950-2ff2a8e5977d",
-                FirstName = "Hasan",
-                LastName = "Yerebakan",
-                Email = "hasanyerebakan@gmail.com",
-                Address = new AddressDto
+                },
+                OrderItems = new List<OrderItemDto>
                 {
-                    AddressLine = "Merkez",
-                    City = "Isparta",
-                    Country = "Türkiye",
-                    CityCode = 32
+                    new OrderItemDto
+                    {
+                         ProductId="7723714D-BE34-438A-9F9E-57463D94DD5B",
+                         Price=800,
+                         ProductName="Iphone 14 Plus",
+                         Quantity=3
+                    }
                 }
             };
 
-            _mockCustomerService.Setup(x => x.AddAsync(customerCreateDto)).ReturnsAsync(customerDto);
+            var orderDto = new OrderDto()
+            {
+                Id = "6zd578aa-d36d-41c3-8061-2dc64a8f754g",
+                CustomerId = "4va578aa-d36d-41c3-8061-2dc64a8f787z",
+                TotalPrice = 2400,
+                Status = "Active",
+                FullAddress = "Merkez Turkey Isparta 32",
+                OrderItems = new List<OrderItemDto>
+                {
+                    new OrderItemDto
+                    {
+                         ProductId="7723714D-BE34-438A-9F9E-57463D94DD5B",
+                         Price=800,
+                         ProductName="Iphone 14 Plus",
+                         Quantity=3
+                    }
+                }
 
-            var result = await _customersController.Create(customerCreateDto);
+            };
+
+            _mockOrderService.Setup(x => x.CreateAsync(orderCreateDto)).ReturnsAsync(orderDto);
+
+            var result = await _ordersController.Create(orderCreateDto);
 
             var createActionResult = Assert.IsType<ObjectResult>(result);
 
             Assert.Equal(201, createActionResult.StatusCode);
 
-            var returnCustomer = Assert.IsAssignableFrom<CustomResponseDto<CustomerDto>>(createActionResult.Value);
+            var returnOrder = Assert.IsAssignableFrom<CustomResponseDto<OrderDto>>(createActionResult.Value);
 
             //Metotun çalışıp çalışmadığını test etmek için
-            _mockCustomerService.Verify(x => x.AddAsync(customerCreateDto), Times.Once);
+            _mockOrderService.Verify(x => x.CreateAsync(orderCreateDto), Times.Once);
 
-            Assert.Equal(customerCreateDto.FirstName, returnCustomer.Data.FirstName);
-            Assert.Equal(customerCreateDto.LastName, returnCustomer.Data.LastName);
-            Assert.Equal(customerCreateDto.Email, returnCustomer.Data.Email);
-            Assert.Equal(customerCreateDto.Address.AddressLine, returnCustomer.Data.Address.AddressLine);
-            Assert.Equal(customerCreateDto.Address.City, returnCustomer.Data.Address.City);
-            Assert.Equal(customerCreateDto.Address.Country, returnCustomer.Data.Address.Country);
-            Assert.Equal(customerCreateDto.Address.CityCode, returnCustomer.Data.Address.CityCode);
+            Assert.Equal(orderCreateDto.CustomerId, returnOrder.Data.CustomerId);
+            Assert.Equal(orderCreateDto.TotalPrice, returnOrder.Data.TotalPrice);
+            Assert.Equal(orderCreateDto.Status, returnOrder.Data.Status);
+            Assert.Equal(orderCreateDto.OrderItems.Count, returnOrder.Data.OrderItems.Count);
         }
 
-        [Fact]
-        public async Task Update_ActionExecute_ReturnSuccessResult()
-        {
-            var customerUpdateDto = new CustomerUpdateDto()
-            {
-                Id = "81cae6a5-3ca4-42fd-9027-bd3cce250f6b",
-                FirstName = "Kerem", //Değişen
-                LastName = "Öztürk", //Değişen
-                Email = "sallifatih@hotmail.com",
-                Address = new AddressDto
-                {
-                    AddressLine = "Kadıköy",
-                    City = "İstanbul",
-                    Country = "Türkiye",
-                    CityCode = 34
-                }
-            };
-
-            //CustomerService'i taklit ettik.
-            _mockCustomerService.Setup(x => x.UpdateAsync(customerUpdateDto));
-
-            var result = await _customersController.Update(customerUpdateDto);
-
-            var createActionResult = Assert.IsType<ObjectResult>(result);
-
-            Assert.Equal(204, createActionResult.StatusCode);
-
-            _mockCustomerService.Verify(x => x.UpdateAsync(customerUpdateDto), Times.Once);
-        }
-
-        [Fact]
-        public async Task Update_IdIsNotEqualProduct_ReturnNotFoundException()
-        {
-            var customerUpdateDto = new CustomerUpdateDto()
-            {
-                Id = "65cae6a5-3ca4-42fd-9027-bd3cce250f6a",
-                FirstName = "Kerem", //Değişen
-                LastName = "Öztürk", //Değişen
-                Email = "sallifatih@hotmail.com",
-                Address = new AddressDto
-                {
-                    AddressLine = "Kadıköy",
-                    City = "İstanbul",
-                    Country = "Türkiye",
-                    CityCode = 34
-                }
-            };
-
-            _mockCustomerService.Setup(x => x.UpdateAsync(customerUpdateDto)).Throws(new NotFoundException($"Customer ({customerUpdateDto.Id}) not found!"));
-
-            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _customersController.Update(customerUpdateDto));
-
-            //Metotun çalışıp çalışmadığını test etmek için
-            _mockCustomerService.Verify(x => x.UpdateAsync(customerUpdateDto), Times.Once);
-
-            Assert.IsType<NotFoundException>(exception);
-            Assert.Equal($"Customer ({customerUpdateDto.Id}) not found!", exception.Message);
-        }
-
-
-        [Theory]
-        [InlineData("81cae6a5-3ca4-42fd-9027-bd3cce250f6b")]
-        public async Task Delete_ActionExecute_ReturnSuccessResult(string id)
-        {
-            var customerDto = _customers.First(x => x.Id == id);
-
-            _mockCustomerService.Setup(x => x.RemoveAsync(id));
-
-            var result = await _customersController.Delete(id);
-
-            var createActionResult = Assert.IsType<ObjectResult>(result);
-
-            Assert.Equal(204, createActionResult.StatusCode);
-
-            _mockCustomerService.Verify(x => x.RemoveAsync(id), Times.Once);
-        }
-
-        [Theory]
-        [InlineData("470ef3fc-e45b-4857-9950-2ff2a8e4213z")] //Invalid Id
-        public async Task Delete_IdNotFound_ReturnNotFoundException(string id)
-        {
-            _mockCustomerService.Setup(x => x.RemoveAsync(id)).Throws(new NotFoundException($"Customer with id ({id}) didn't find in the database."));
-
-            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _customersController.Delete(id));
-
-            //Metotun çalışıp çalışmadığını test etmek için
-            _mockCustomerService.Verify(x => x.RemoveAsync(id), Times.Once);
-
-            Assert.IsType<NotFoundException>(exception);
-
-            Assert.Equal($"Customer with id ({id}) didn't find in the database.", exception.Message);
-        }
     }
 }
