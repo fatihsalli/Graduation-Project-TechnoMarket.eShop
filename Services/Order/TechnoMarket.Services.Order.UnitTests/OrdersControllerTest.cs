@@ -238,5 +238,108 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             Assert.Equal(orderCreateDto.OrderItems.Count, returnOrder.Data.OrderItems.Count);
         }
 
+        [Fact]
+        public async Task Update_ActionExecute_ReturnSuccessResult()
+        {
+            var orderUpdateDto = new OrderUpdateDto()
+            {
+                Id = "3ad578aa-d36d-41c3-8061-2dc64a8f754f",
+                CustomerId = "3fa578aa-d36d-41c3-8061-2dc64a8f787c",
+                TotalPrice = 2400, //Fiyat arttı => Update
+                Status = "Active",
+                Address = new AddressDto
+                {
+                    AddressLine = "Merkez",
+                    City = "Isparta",
+                    Country = "Türkiye",
+                    CityCode = 32
+                },
+                OrderItems = new List<OrderItemDto>
+                {
+                    new OrderItemDto
+                    {
+                        ProductId="7723714D-BE34-438A-9F9E-57463D94DD5B",
+                        Price=800,
+                        ProductName="Iphone 14 Plus",
+                        Quantity=3
+                    }
+                }
+            };
+
+            var orderDto = new OrderDto()
+            {
+                Id = "3ad578aa-d36d-41c3-8061-2dc64a8f754f",
+                CustomerId = "3fa578aa-d36d-41c3-8061-2dc64a8f787c",
+                TotalPrice = 2400, //Fiyat arttı => Update
+                Status = "Active",
+                FullAddress = "Merkez Turkey Isparta 32",
+                OrderItems = new List<OrderItemDto>
+                    {
+                        new OrderItemDto
+                        {
+                            ProductId="7723714D-BE34-438A-9F9E-57463D94DD5B",
+                            Price=800,
+                            ProductName="Iphone 14 Plus",
+                            Quantity=3
+                        }
+                    }
+            };
+
+
+            //CustomerService'i taklit ettik.
+            _mockOrderService.Setup(x => x.UpdateAsync(orderUpdateDto)).ReturnsAsync(orderDto);
+
+            var result = await _ordersController.Update(orderUpdateDto);
+
+            var createActionResult = Assert.IsType<ObjectResult>(result);
+
+            Assert.Equal(200, createActionResult.StatusCode);
+
+            var returnOrder = Assert.IsAssignableFrom<CustomResponseDto<OrderDto>>(createActionResult.Value);
+
+            _mockOrderService.Verify(x => x.UpdateAsync(orderUpdateDto), Times.Once);
+
+            Assert.Equal(orderUpdateDto.TotalPrice, returnOrder.Data.TotalPrice);
+        }
+
+        [Fact]
+        public async Task Update_IdIsNotEqualOrder_ReturnNotFoundException()
+        {
+            var orderUpdateDto = new OrderUpdateDto()
+            {
+                Id = "5af578aa-d36d-41c3-8061-2dc64a8f754f", //Invalid Id
+                CustomerId = "3fa578aa-d36d-41c3-8061-2dc64a8f787c",
+                TotalPrice = 2400, //Fiyat arttı => Update
+                Status = "Active",
+                Address = new AddressDto
+                {
+                    AddressLine = "Merkez",
+                    City = "Isparta",
+                    Country = "Türkiye",
+                    CityCode = 32
+                },
+                OrderItems = new List<OrderItemDto>
+                {
+                    new OrderItemDto
+                    {
+                        ProductId="7723714D-BE34-438A-9F9E-57463D94DD5B",
+                        Price=800,
+                        ProductName="Iphone 14 Plus",
+                        Quantity=3
+                    }
+                }
+            };
+            _mockOrderService.Setup(x => x.UpdateAsync(orderUpdateDto)).Throws(new NotFoundException($"Order with id({ orderUpdateDto.Id }) didn't find in the database."));
+
+            Exception exception = await Assert.ThrowsAsync<NotFoundException>(() => _ordersController.Update(orderUpdateDto));
+
+            //Metotun çalışıp çalışmadığını test etmek için
+            _mockOrderService.Verify(x => x.UpdateAsync(orderUpdateDto), Times.Once);
+
+            Assert.IsType<NotFoundException>(exception);
+
+            Assert.Equal($"Order with id({orderUpdateDto.Id}) didn't find in the database.", exception.Message);
+        }
+
     }
 }
