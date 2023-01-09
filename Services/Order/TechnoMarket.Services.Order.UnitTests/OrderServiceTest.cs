@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using MongoDB.Driver;
 using Moq;
 using TechnoMarket.Services.Order.Data.Interfaces;
 using TechnoMarket.Services.Order.Models;
 using TechnoMarket.Services.Order.Services;
 using TechnoMarket.Services.Order.Services.Interfaces;
-using TechnoMarket.Shared.Exceptions;
-using Xunit;
 using OrderEntity = TechnoMarket.Services.Order.Models.Order;
 
 namespace TechnoMarket.Services.Catalog.UnitTests
@@ -26,7 +23,7 @@ namespace TechnoMarket.Services.Catalog.UnitTests
             _mockLogger = new Mock<ILogger<OrderService>>();
             _mockContext = new Mock<IOrderContext>();
 
-            _orderService = new OrderService(_mockContext.Object,_mockMapper.Object,_mockLogger.Object);
+            _orderService = new OrderService(_mockContext.Object, _mockMapper.Object, _mockLogger.Object);
 
             _orders = new List<OrderEntity>()
             {
