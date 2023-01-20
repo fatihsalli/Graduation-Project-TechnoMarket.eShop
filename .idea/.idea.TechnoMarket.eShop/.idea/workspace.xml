@@ -19,8 +19,8 @@
     <projectFile profileName="TechnoMarket.Services.PhotoStock">Services/PhotoStock/TechnoMarket.Services.PhotoStock/TechnoMarket.Services.PhotoStock.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ffe66b8-9ea3-481e-81a9-b06a04eea7dd" name="Changes" comment="gitignore">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="0ffe66b8-9ea3-481e-81a9-b06a04eea7dd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TechnoMarket.eShop/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TechnoMarket.eShop/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,7 +307,8 @@
       <option name="presentableId" value="Default" />
       <updated>1674154694750</updated>
       <workItem from="1674154698971" duration="801000" />
-      <workItem from="1674155700363" duration="682000" />
+      <workItem from="1674155700363" duration="899000" />
+      <workItem from="1674195670253" duration="983000" />
     </task>
     <task id="LOCAL-00001" summary="change">
       <created>1674155268793</created>
@@ -330,7 +331,21 @@
       <option name="project" value="LOCAL" />
       <updated>1674156286805</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary=".">
+      <created>1674156402907</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1674156402907</updated>
+    </task>
+    <task id="LOCAL-00005" summary=".">
+      <created>1674156546553</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1674156546553</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,9 +356,9 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="change" />
-    <MESSAGE value="." />
     <MESSAGE value="gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="gitignore" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
