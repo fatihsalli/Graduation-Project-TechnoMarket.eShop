@@ -18,7 +18,7 @@ using TechnoMarket.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//=> Shared üzerinden ulaşarak gerekli d�zenlemeleri yap�yoruz. Olduk�a temiz bir yakla��m.
+//=> Shared üzerinden ulaşarak gerekli düzenlemeleri yap�yoruz. Olduk�a temiz bir yakla��m.
 builder.Host.UseSerilog(SeriLogger.Configure);
 
 //NotFoundFilter => Generic oldu�u i�in bu �ekilde belirtik.
