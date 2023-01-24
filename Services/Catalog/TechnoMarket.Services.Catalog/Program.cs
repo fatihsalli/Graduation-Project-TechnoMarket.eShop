@@ -18,14 +18,14 @@ using TechnoMarket.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//=> Shared üzerinden ulaþarak gerekli düzenlemeleri yapýyoruz. Oldukça temiz bir yaklaþým.
+//=> Shared Ã¼zerinden ulaÅŸarak gerekli dï¿½zenlemeleri yapï¿½yoruz. Oldukï¿½a temiz bir yaklaï¿½ï¿½m.
 builder.Host.UseSerilog(SeriLogger.Configure);
 
-//NotFoundFilter => Generic olduðu için bu þekilde belirtik.
+//NotFoundFilter => Generic olduï¿½u iï¿½in bu ï¿½ekilde belirtik.
 builder.Services.AddScoped(typeof(NotFoundFilter<>));
 builder.Services.AddScoped<NotFoundCategoryForProductFilter>();
 
-//Event fýrlatmak için => RabbitMQ ile
+//Event fï¿½rlatmak iï¿½in => RabbitMQ ile
 builder.Services.AddMassTransit(x =>
 {
     //Dafault port:5672
@@ -62,12 +62,12 @@ builder.Services.AddControllers();
 //Fluent Validation ekledik.
 builder.Services.AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductCreateDtoValidator>());
 
-//Shared Library üzerinden dönen response model yerine kendi modelimizi döndük.
+//Shared Library ï¿½zerinden dï¿½nen response model yerine kendi modelimizi dï¿½ndï¿½k.
 builder.Services.UseCustomValidationResponseModel();
 
-#region Fluent Validation Response Model - Shared Library'e Taþýndý
-//Shared Library üzerinden yaptýk
-//FluentValidation ile dönen response'u pasif hale getirip kendi response modelimizi döndük.
+#region Fluent Validation Response Model - Shared Library'e Taï¿½ï¿½ndï¿½
+//Shared Library ï¿½zerinden yaptï¿½k
+//FluentValidation ile dï¿½nen response'u pasif hale getirip kendi response modelimizi dï¿½ndï¿½k.
 //builder.Services.Configure<ApiBehaviorOptions>(opt =>
 //{
 //    opt.SuppressModelStateInvalidFilter = true;
@@ -80,7 +80,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 #region Otomatik Update-Database
-//Migrationlarý database'e otomatik yansýtmak ve data basmak için. Dikkat migration oluþturmuyor mevcut migration'ý database tarafýnda güncel deðilse güncelliyor. 
+//Migrationlarï¿½ database'e otomatik yansï¿½tmak ve data basmak iï¿½in. Dikkat migration oluï¿½turmuyor mevcut migration'ï¿½ database tarafï¿½nda gï¿½ncel deï¿½ilse gï¿½ncelliyor. 
 #endregion
 using (var scope = app.Services.CreateScope())
 {
